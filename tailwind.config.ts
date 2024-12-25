@@ -14,6 +14,9 @@ export default {
 		},
 		fontFamily: {
 			offside: ["var(--font-offside)", "sans-serif"],
+			notable: ["var(--font-notable)", "sans-serif"],
+			rubik: ["var(--font-rubik_dirt)", "sans-serif"],
+			bahiana: ["var(--font-bahiana)", "sans-serif"],
 			bungee: ["var(--font-bungee)", "sans-serif"],
 			mina: ["var(--font-mina)", "serif"],
 			roboto: ["var(--font-roboto-sans)", "sans-serif"],

@@ -18,8 +18,7 @@
 
 html, body {
   min-height:100%;
-  
-
+  scroll-snap-type: y mandatory;
 }
 body {
   font-family: var(--font-roboto-sans);
@@ -27,20 +26,16 @@ body {
   overflow:auto
 }
 
-.font-offside {
-  font-family: var(--font-offside);
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+      display: none;
+  }
+ /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
 }
-
-#apply_big {
-  background-color: #BE00FF;
-  width: 150px;
-  height: 40px;
-  margin: 25px;
-  border-radius: 500px;
-  font-size:20px;
-  font-weight: bold;
-  z-index: 10;
-  position: relative;
 }
 
 @layer base {

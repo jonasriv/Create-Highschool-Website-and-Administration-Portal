@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Roboto, Roboto_Mono, Bungee_Hairline, Mina, Offside, Koulen } from "next/font/google";
+import { Geist, Geist_Mono, Roboto, Roboto_Mono, Bungee_Hairline, Mina, Offside, Notable, Rubik_Dirt, Bahiana } from "next/font/google";
 import "./globals.css";
 
 const bungee = Bungee_Hairline({
@@ -8,14 +8,26 @@ const bungee = Bungee_Hairline({
   weight: "400",
 });
 
-const koulen = Koulen({
-  variable: "--font-koulenjura",
+const rubik = Rubik_Dirt({
+  variable: "--font-rubik_dirt",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+const bahiana = Bahiana({
+  variable: "--font-bahiana",
   subsets: ["latin"],
   weight: "400",
 });
 
 const offside = Offside({
   variable: "--font-offside",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+const notable = Notable({
+  variable: "--font-notable",
   subsets: ["latin"],
   weight: "400",
 });
@@ -51,7 +63,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`bg-black ${robotoMono.variable} ${robotoSans.variable} ${bungee.variable} ${exo2.variable} ${koulen.variable} antialiased`}
+        className={`bg-black ${robotoMono.variable} ${robotoSans.variable} ${bungee.variable} ${exo2.variable} ${rubik.variable} ${notable.variable} ${bahiana.variable} antialiased`}
       >
         {children}
       </body>
