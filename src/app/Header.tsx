@@ -16,7 +16,9 @@ const Header = () => {
 
     return (
     <header>
-        <div className='flex fixed flex-row gap-1 opacity-90 justify-center items-center w-screen max-w-screen bg-gradient-to-r from-black via-transparent to-black h-24 lg:h-36 p-4 z-50'>
+        <div 
+            className='flex fixed flex-row gap-1 opacity-60 justify-center items-center w-screen max-w-screen bg-gradient-to-r from-black via-black to-black h-24 lg:h-36 p-4 z-50'
+           >
             <div className="flex justify-between items-center max-w-screen-lg w-screen h-full">
                 <div>
                     <Image 
@@ -30,7 +32,7 @@ const Header = () => {
                 </div>
             </div>
         </div>
-        <div className="absolute top-24 z-50">
+        <div className="absolute top-24 md:top-36 z-50">
             <Navbar isOpen={isOpen}/>
         </div>
     </header>

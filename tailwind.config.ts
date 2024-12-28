@@ -9,6 +9,17 @@ export default {
   ],
   theme: {
   	extend: {
+		height: {
+			'screen-minus-36': 'calc(100vh - 36px)',
+			'screen-minus-24': 'calc(100vh - 24px)',
+			'half-screen': 'calc(100vh / 2)',
+			'three-quarter-screen': 'calc(100vh * 0.75)',
+			'80-percent-screen': 'calc(100vh * 0.8)',
+			'85-percent-screen': 'calc(100vh * 0.85)',
+			'30-percent-screen': 'calc(100vh * 0.30)',
+			'35-percent-screen': 'calc(100vh * 0.35)',
+			'40-percent-screen': 'calc(100vh * 0.40)',
+		},
 		backgroundImage: {
 			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
 		},

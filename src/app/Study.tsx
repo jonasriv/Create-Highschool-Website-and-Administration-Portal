@@ -30,27 +30,21 @@ const Study = () => {
         <div 
         id="front"
         className="flex flex-col justify-center items-center w-full h-screen"
-        style={{
-            backgroundImage: `url(${Dancebackground.src})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            //filter: 'brightness(80%)',
-        }}
+
     >
         <div 
             className="bg-black/80 w-screen text-redpink flex flex-col justify-start h-screen box-border ... items-center"
         >
-            <h1 className="font-bungee font-black uppercase text-6xl text-center text-pinky  pt-36">
+            <h1 className="font-bungee font-black uppercase text-4xl md:text-6xl text-center text-pinky  pt-36">
                 Musikk, dans og drama
             </h1>
-            <div className="w-full max-w-screen-lg relative flex flex-col justify-center items-start h-auto px-2">
-                <h2 className="text-slate-300 text-4xl font-mina pb-10 leading-snug">
-                    På CREATE kan du velge mellom musikk, dans og drama. I tillegg har vi vårt eget fag - kulturentreprenørskap - og jobber med vanlige fag, slik at du får generell studiekompetanse. Søknadsfristen er 1. mars!
+            <div className="w-screen flex flex-col justify-center items-start h-auto px-2">
+                <h2 className="text-slate-300 text-2xl md:text-4xl font-mina pb-10 leading-snug">
+                    
                 </h2>
                 <div id="subject_tabs" className="w-full flex flex-col justify-center items-center">
-                    <Tabs defaultValue="music_tab" className="w-full max-w-screen-lg pb-10">
-                        <TabsList className="bg-slate-800 rounded-2xl mt-4 flex flex-row items-center justify-around h-22 opacity-80">
+                    <Tabs defaultValue="music_tab" className="pb-10">
+                        <TabsList className="bg-slate-800 rounded-2xl mt-4 flex flex-col md:flex-row items-center justify-around h-22 opacity-80">
                             <TabsTrigger value="music_tab" className="text-2xl text- uppercase">Create Musikk</TabsTrigger>
                             <TabsTrigger value="dance_tab" className="text-2xl text- uppercase">Create Dans</TabsTrigger>
                             <TabsTrigger value="drama_tab" className="text-2xl text- uppercase">Create Drama</TabsTrigger>
