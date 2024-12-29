@@ -22,7 +22,7 @@ import { ChevronRight } from "lucide-react";
 
 const Study: React.FC = () => {    
 
-    const [scrollPosition, setScrollPosition] = useState(0);
+    const scrollPositionRef = useRef(0);
     const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -34,7 +34,7 @@ const Study: React.FC = () => {
                 const windowWidth = scrollContainerRef.current.clientWidth;  // Visible width of the container
                 // Beregn prosentandel som er scrollet horisontalt
                 const scrollPercentage = (scrollLeft / (containerWidth - windowWidth)) * 100;
-                setScrollPosition(scrollPercentage);
+                scrollPositionRef.current = (scrollPercentage);
             }
         };
 
