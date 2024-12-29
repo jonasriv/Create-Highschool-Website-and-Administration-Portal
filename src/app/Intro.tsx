@@ -1,6 +1,6 @@
 'use client'
 import React, { useRef, useState, useEffect } from 'react';
-import { ChevronRight, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import Create1 from '../../public/images/foto/create1.png';
 import Create2 from '../../public/images/foto/create2.png';
