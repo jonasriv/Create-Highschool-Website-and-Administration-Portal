@@ -1,10 +1,6 @@
 'use client'
 import React, { useRef, useState, useEffect } from 'react';
-import Image from "next/image";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import FieldBackground from '../../public/images/field-background.jpg';
-import Background2 from '../../public/images/gpt-background2.webp';
-import { ChevronRight, ChevronLeft, ChevronDown, ChevronUp, SquareChevronRight, SquareChevronLeft, SquareChevronDown, Columns4 } from "lucide-react";
+import { ChevronRight, ChevronLeft, ChevronDown } from "lucide-react";
 
 import Create1 from '../../public/images/foto/create1.png';
 import Create2 from '../../public/images/foto/create2.png';

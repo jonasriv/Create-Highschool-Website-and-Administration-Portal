@@ -1,10 +1,8 @@
 'use client'
 import dynamic from "next/dynamic";
-import React, { useRef } from 'react';
 import BackgroundImage2 from '../../public/images/gpt-background2.webp';
 const Front = dynamic(() => import("./Front"));
 const Study = dynamic(() => import("./Study"));
-const Apply = dynamic(() => import("./Apply"));
 const Header = dynamic(() => import("./Header"));
 const Intro = dynamic(() => import("./Intro"));
 

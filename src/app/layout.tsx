@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Roboto, Roboto_Mono, Bungee_Hairline, Mina, Offside, Notable, Rubik_Dirt, Bahiana } from "next/font/google";
+import { Roboto, Roboto_Mono, Bungee_Hairline, Mina, Notable, Rubik_Dirt, Bahiana } from "next/font/google";
 import "./globals.css";
 
 const bungee = Bungee_Hairline({
@@ -16,12 +16,6 @@ const rubik = Rubik_Dirt({
 
 const bahiana = Bahiana({
   variable: "--font-bahiana",
-  subsets: ["latin"],
-  weight: "400",
-});
-
-const offside = Offside({
-  variable: "--font-offside",
   subsets: ["latin"],
   weight: "400",
 });

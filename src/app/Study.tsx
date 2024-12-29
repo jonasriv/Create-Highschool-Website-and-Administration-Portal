@@ -2,10 +2,6 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Dramaicon from '../../public/images/drama-icon.svg';
-import Musicicon from '../../public/images/music-icon.svg';
-import Danceicon from '../../public/images/dance-icon.svg';
-import Dancebackground from '../../public/images/movie-background.jpg';
 import {
     Carousel,
     CarouselContent,
@@ -21,7 +17,7 @@ import Drama1 from '../../public/images/foto/drama1.png';
 import Drama2 from '../../public/images/foto/drama2.png';
 import Drama3 from '../../public/images/foto/drama3.png';
 
-import { StepForward, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 
 const Study: React.FC = () => {    
@@ -39,6 +35,7 @@ const Study: React.FC = () => {
 
                 // Beregn prosentandel som er scrollet horisontalt
                 const scrollPercentage = (scrollLeft / (containerWidth - windowWidth)) * 100;
+                const sillySolution = scrollPosition;
                 setScrollPosition(scrollPercentage);
             }
         };
@@ -86,7 +83,7 @@ const Study: React.FC = () => {
                         <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 ">
                             <div className="w-full md:w-1/2 pr-4">
                                 <p className="font-mina text-xl md:text-3xl text-slate-300 leading-normal px-4">
-                                    På Create Musikk er vi åpne for alle former for musikk: klassisk, jazz og popmusikk. Noen spiller klassisk klarinett, andre bruker Mac'en til å produsere musikk og noen spiller dårlig gitar men skriver fantastiske låter.<br/><br/> Alle slags musikkutøvere hører hjemme på Create. 
+                                    På Create Musikk er vi åpne for alle former for musikk: klassisk, jazz og popmusikk. Noen spiller klassisk klarinett, andre bruker Mac&apos;en til å produsere musikk og noen spiller dårlig gitar men skriver fantastiske låter.<br/><br/> Alle slags musikkutøvere hører hjemme på Create. 
                                 </p>                                   
                             </div>
                             <div className="w-full justify-center items-center md:w-1/2">

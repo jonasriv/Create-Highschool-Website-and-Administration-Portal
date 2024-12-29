@@ -1,7 +1,6 @@
 'use client'
 import React from "react";
-import { Instagram, Facebook, Mail, Info, Music4, CircleArrowRight, Phone } from 'lucide-react'
-import { Button } from "@/components/ui/button";
+import { Instagram, Facebook, Mail, CircleArrowRight, Phone } from 'lucide-react'
 
 interface NavbarProps {
     isOpen: boolean;

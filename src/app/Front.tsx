@@ -1,23 +1,11 @@
 'use client'
 import React from "react";
 import Image from 'next/image';
-import BackgroundImage from '../../public/images/background_no_logo.jpg'
-import BackgroundImage2 from '../../public/images/gpt-background2.webp'
 import Logo from  '../../public/images/logo-header.svg'
 import { ChevronDown } from 'lucide-react';
 
-interface ChildComponentProps {
-    onScrollClick: () => void;
-  }
-
 const Front = () => {
     
-    const handleScrollToDiv = () => {
-        const element = document.getElementById('target-div');
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });  // Ruller til elementet med en jevn animasjon
-        }
-      };
     return (
         <div 
             id="front"
