@@ -32,10 +32,8 @@ const Study: React.FC = () => {
                 const scrollLeft = scrollContainerRef.current.scrollLeft;  // Track horizontal scroll position
                 const containerWidth = scrollContainerRef.current.scrollWidth;  // Total container width
                 const windowWidth = scrollContainerRef.current.clientWidth;  // Visible width of the container
-
                 // Beregn prosentandel som er scrollet horisontalt
                 const scrollPercentage = (scrollLeft / (containerWidth - windowWidth)) * 100;
-                const sillySolution = scrollPosition;
                 setScrollPosition(scrollPercentage);
             }
         };
