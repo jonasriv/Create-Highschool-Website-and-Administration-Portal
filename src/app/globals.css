@@ -36,6 +36,16 @@ body {
       -ms-overflow-style: none;  /* IE and Edge */
       scrollbar-width: none;  /* Firefox */
   }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Skjul scrollbar på alle nettlesere */
+.no-scrollbar {
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
 }
 
 .slick-prev:before,

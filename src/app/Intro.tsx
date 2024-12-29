@@ -46,7 +46,7 @@ const Intro: React.FC = () => {
                 <div className="">
 
                     <h1 className="font-bahiana uppercase text-4xl lg:text-5xl tracking-widest text-center text-white font-black">
-                        Musikk, dans og drama
+                        Elev på Create
                     </h1>
 
                     {/*scroll-indikator*/}
