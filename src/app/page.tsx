@@ -20,17 +20,17 @@ const Home = () => {
     }}  
     >
       <Header />
-      <main className="bg-black/65 h-screen w-screen snap-y snap-mandatory overflow-x-hidden no-scrollbar pt-12 md:pt-20">  
+      <main className="bg-black/65 h-screen w-screen snap-y snap-mandatory overflow-x-hidden no-scrollbar pt-20 md:pt-24">  
 
           <div id="front" className="snap-start h-screen flex items-center justify-center">
             <Front />
           </div>
           
-          <div id="intro" className="snap-start h-screen flex items-center justify-center  backdrop-blur-lg ">
+          <div id="intro" className="snap-start h-screen flex items-center justify-center backdrop-blur-lg ">
             <Intro />
           </div>
 
-          <div id="study" className="snap-start h-screen flex items-center justify-center  backdrop-blur-lg ">
+          <div id="study" className="snap-start h-screen flex items-center justify-center backdrop-blur-lg ">
             <Study />
           </div>          
         

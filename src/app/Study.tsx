@@ -73,7 +73,7 @@ const Study: React.FC = () => {
                                 <TabsTrigger value="drama_tab" className="text-md md:text-2xl uppercase"><span className="hidden md:block">Create&nbsp;</span> Drama</TabsTrigger>
                             </TabsList> 
 
-                        <TabsContent value="music_tab" className="md:rounded-2xl w-full h-65-percent-screen overflow-hidden">
+                        <TabsContent value="music_tab" className="md:rounded-2xl w-full h-75-percent-screen overflow-hidden no-scrollbar">
                             <div className="flex flex-col md:flex-row md:justify-between items-start md:pt-4">
                                 <div className="w-full md:w-1/2 pr-4">
                                     <p className="font-mina text-xl md:text-3xl text-slate-300 leading-normal px-4">
@@ -84,13 +84,13 @@ const Study: React.FC = () => {
                                     <Carousel autoplay={true} opts={{ loop: true }} className="md:max-w-lg flex justify-self-center place-items-end relative overflow-auto rounded-lg md:rounded-2xl h-30-percent-screen">
                                         <CarouselContent className="">
                                             <CarouselItem className="flex justify-center">
-                                                    <Image src={Music1} alt="" className="h-[16rem] md:h-30-percent-screen object-cover object-top"></Image>
+                                                    <Image src={Music1} alt="" className="h-[16rem] w-full md:h-30-percent-screen object-cover object-top"></Image>
                                             </CarouselItem>
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Music2} alt="" className="h-[16rem] md:h-30-percent-screen object-cover object-top"></Image>
+                                                <Image src={Music2} alt="" className="h-[16rem] w-full md:h-30-percent-screen object-cover object-top"></Image>
                                             </CarouselItem>
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Music3} alt="" className="h-[16rem] md:h-30-percent-screen object-cover object-top"></Image>
+                                                <Image src={Music3} alt="" className="h-[16rem] w-full md:h-30-percent-screen object-cover object-top"></Image>
                                             </CarouselItem>                            
                                         </CarouselContent>
                                     </Carousel>
@@ -98,14 +98,14 @@ const Study: React.FC = () => {
                             </div>
                         </TabsContent>    
 
-                        <TabsContent value="dance_tab" className="md:rounded-2xl w-full h-65-percent-screen overflow-hidden">
+                        <TabsContent value="dance_tab" className="md:rounded-2xl w-full h-75-percent-screen overflow-hidden">
                             <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 ">
                                 <div className="w-full md:w-1/2 pr-4">
                                     <p className="font-mina text-xl md:text-3xl text-slate-300 leading-normal px-4">
                                     På Create Dans er vi åpne for alle former for dans. Noen liker klassisk ballett, andre hip hop, og noen elsker musikaler. <br/><br/>Alle typer dansere hører hjemme på Create.
                                     </p>                                   
                                 </div>
-                                <div className="w-full justify-center items-center md:w-1/2">
+                                <div className="w-full justify-center items-center md:w-1/2 md:pr-4">
                                     <Carousel autoplay={true} opts={{ loop: true }} className="md:max-w-lg flex justify-self-center place-items-end mb-4 relative overflow-auto md:rounded-2xl h-30-percent-screen">
                                         <CarouselContent className="">
                                             <CarouselItem className="flex justify-center opacity-100">
@@ -121,14 +121,14 @@ const Study: React.FC = () => {
                             </div>
                         </TabsContent>  
                         
-                        <TabsContent value="drama_tab" className="md:rounded-2xl w-full h-65-percent-screen overflow-hidden">
+                        <TabsContent value="drama_tab" className="md:rounded-2xl w-full h-75-percent-screen overflow-hidden">
                             <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 ">
                                 <div className="w-full md:w-1/2 pr-4">
                                     <p className="font-mina text-xl md:text-3xl text-slate-300 leading-normal px-4">
                                     På Create Drama arbeider vi både med scenisk teater og film. I tillegg samarbeider vi med elevene på musikk og dans innen musikal. <br/><br/> Både innen teater og film arbeider vi med hele spekteret av en produksjon. Tekst og manus, scenografi, regi og lyddesign, og ikke minst rollen som skuespiller — enten det er på scenen eller foran kamera. 
                                     </p>                                   
                                 </div>
-                                <div className="w-full justify-center items-center md:w-1/2">
+                                <div className="w-full justify-center items-center md:w-1/2 md:pr-4">
                                     <Carousel autoplay={true} opts={{ loop: true }} className="md:max-w-lg flex justify-self-center place-items-end mb-4 relative overflow-auto md:rounded-2xl h-30-percent-screen">
                                         <CarouselContent className="">
                                             <CarouselItem className="flex justify-center opacity-100">

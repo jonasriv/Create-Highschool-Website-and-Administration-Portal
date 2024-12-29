@@ -55,7 +55,7 @@ const Intro: React.FC = () => {
                                 className="h-full bg-pinky w-10"
                                 style={{ width: `${scrollPosition < 6 ? scrollPosition + 6 : scrollPosition}%` }}
                             >
-                                <div className="flex justify-start items-end relative top-3 ">
+                                <div className="flex justify-end items-end relative top-3 ">
                                     <ArrowRight size="18"/>
                                 </div>
                         </div>
@@ -79,9 +79,6 @@ const Intro: React.FC = () => {
                                         //filter: 'brightness(80%)',
                                     }}  
                                     >
-                                        <div className="w-full flex items-start justify-end h-full opacity-60 pr-2"> 
-                                                <ChevronRight size="96" strokeWidth={1.0} color="white"/>
-                                        </div>       
                                 </div>
                               
                             </div>

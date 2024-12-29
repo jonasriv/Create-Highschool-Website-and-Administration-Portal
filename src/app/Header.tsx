@@ -32,7 +32,7 @@ const Header = () => {
                 </div>
             </div>
         </div>
-        <div className="absolute top-24 md:top-36 z-50">
+        <div className="absolute top-20 md:top-24 z-50">
             <Navbar isOpen={isOpen}/>
         </div>
     </header>
