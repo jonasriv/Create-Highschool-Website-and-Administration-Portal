@@ -41,16 +41,11 @@ const Intro: React.FC = () => {
     }, []);
 
     return (
-        <div id="front" className="flex flex-col justify-start items-center w-screen h-screen">
-
-   
-
+        <div id="front" className="flex flex-col justify-start items-center w-screen h-screen pt-36">
             <div className="w-full text-white flex flex-col justify-start items-center box-border ...  no-scrollbar  relative">
-
-                <div className="h-12-percent-screen md:h-10-percent-screen w-full"></div>
                 <div className="">
 
-                    <h1 className="font-bahiana uppercase text-5xl md:text-5xl lg:text-7xl tracking-widest text-center text-white font-black">
+                    <h1 className="font-bahiana uppercase text-4xl lg:text-5xl tracking-widest text-center text-white font-black">
                         Musikk, dans og drama
                     </h1>
 
@@ -66,16 +61,16 @@ const Intro: React.FC = () => {
                         
                         <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-start items-center gap-12">
                             <div className="flex flex-col w-screen md:w-full">
-                                <p className="text-2xl md:text-3xl lg:text-4xl px-2 lg:px-0 pb-10">
-                                    På CREATE kan du velge fordypning i <span className="font-black">musikk</span>, <span className="font-black">dans</span> eller <span className="font-black">drama</span>. I tillegg har vi vårt eget fag <span className="font-black">kulturentreprenørskap</span>, og jobber med vanlige fag, slik at du får generell studiekompetanse. 
+                                <p className="text-xl md:text-2xl lg:text-3xl px-2 lg:px-0 pb-10">
+                                    På CREATE kan du velge fordypning i <b>musikk</b>, <b>dans</b> eller <b>drama</b>. I tillegg har vi vårt eget fag <b>kulturentreprenørskap</b>, og jobber med vanlige fag, slik at du får generell studiekompetanse. 
                                 </p>   
                                 
                                 <div 
-                                    className="w-full h-96 md:h-50-percent-screen md:rounded-xl"
+                                    className="w-full h-30-percent-screen md:h-50-percent-screen md:rounded-xl"
                                     style={{
                                         backgroundImage: `url(${Create2.src})`,
                                         backgroundSize: 'cover',
-                                        backgroundPosition: 'center',
+                                        backgroundPosition: 'top',
                                         backgroundRepeat: 'no-repeat',
                                         //filter: 'brightness(80%)',
                                     }}  
@@ -90,15 +85,15 @@ const Intro: React.FC = () => {
 
                         <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-start items-center gap-12">
                             <div className="flex flex-col w-full">
-                                <p className="text-2xl md:text-3xl lg:text-4xl px-2 lg:px-0 pb-10">
+                                <p className="text-xl md:text-2xl lg:text-3xl px-2 lg:px-0 pb-10">
                                 Velger du musikk, dans og drama må du like å arbeide med vanlige skolefag. I tillegg bør du ha en sterk interesse for det fagområdet du velger.           
                                 </p>    
                                 <div 
-                                    className="w-full h-96 md:h-50-percent-screen md:rounded-xl"
+                                    className="w-full h-30-percent-screen md:h-50-percent-screen md:rounded-xl"
                                     style={{
                                         backgroundImage: `url(${Create3.src})`,
                                         backgroundSize: 'cover',
-                                        backgroundPosition: 'center',
+                                        backgroundPosition: 'top',
                                         backgroundRepeat: 'no-repeat',
                                         //filter: 'brightness(80%)',
                                     }}  
@@ -113,15 +108,15 @@ const Intro: React.FC = () => {
 
                         <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-start items-center gap-12">
                             <div className="flex flex-col w-full">
-                                <p className="text-2xl md:text-3xl lg:text-4xl px-2 lg:px-0 pb-10">
+                                <p className="text-xl md:text-2xl lg:text-3xl px-2 lg:px-0 pb-10">
                                 Innenfor <span className="font-black">musikk</span> bør du beherske minst ett instrument, som gjerne kan være sang eller musikkproduksjon. <span className="font-black">Dans</span> er for deg som er interessert i dans og musikaler. Og velger du <span className="font-black">drama</span> er det naturlig at du er interessert i teater og/eller film.       
                                 </p>    
                                 <div 
-                                    className="w-full h-96 md:h-50-percent-screen md:rounded-xl"
+                                    className="w-full h-30-percent-screen md:h-50-percent-screen md:rounded-xl"
                                     style={{
                                         backgroundImage: `url(${Create4.src})`,
                                         backgroundSize: 'cover',
-                                        backgroundPosition: 'center',
+                                        backgroundPosition: 'top',
                                         backgroundRepeat: 'no-repeat',
                                         //filter: 'brightness(80%)',
                                     }}  
@@ -136,15 +131,15 @@ const Intro: React.FC = () => {
 
                         <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-start items-center gap-12">
                             <div className="flex flex-col w-full">
-                                <p className="text-2xl md:text-3xl lg:text-4xl px-2 lg:px-0 pb-10">
+                                <p className="text-xl md:text-2xl lg:text-3xl px-2 lg:px-0 pb-10">
                                 Programfagene har kompetansemål med fokus på både <span className="font-black">samarbeid</span> og utvikling av <span className="font-black">praktiske ferdigheter</span>. <br/><br/>Det blir ofte intense arbeidsperioder fram mot visninger, spilleprøver, konserter og forestillinger. 
                                 </p>    
                                 <div 
-                                    className="w-full h-96 md:h-50-percent-screen md:rounded-xl"
+                                    className="w-full h-30-percent-screen md:h-50-percent-screen md:rounded-xl"
                                     style={{
                                         backgroundImage: `url(${Create1.src})`,
                                         backgroundSize: 'cover',
-                                        backgroundPosition: 'center',
+                                        backgroundPosition: 'top',
                                         backgroundRepeat: 'no-repeat',
                                         //filter: 'brightness(80%)',
                                     }}  

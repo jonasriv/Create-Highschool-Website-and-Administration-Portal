@@ -27,6 +27,7 @@ export default {
 			'15-percent-screen': 'calc(100vh * 0.15)',
 			'12-percent-screen': 'calc(100vh * 0.12)',
 			'60-percent-screen': 'calc(100vh * 0.60)',
+			'65-percent-screen': 'calc(100vh * 0.65)',
 			'75-percent-screen': 'calc(100vh * 0.75)',
 		},
 		backgroundImage: {
