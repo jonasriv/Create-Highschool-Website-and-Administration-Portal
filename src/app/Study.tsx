@@ -81,16 +81,16 @@ const Study: React.FC = () => {
                                     </p>                                   
                                 </div>
                                 <div className="w-full justify-center items-center md:w-1/2 md:pr-4">
-                                    <Carousel autoplay={true} opts={{ loop: true }} className="md:max-w-lg flex justify-self-center place-items-end relative overflow-auto md:rounded-2xl h-30-percent-screen">
+                                    <Carousel autoplay={true} opts={{ loop: true }} className="md:max-w-lg flex justify-self-center place-items-end relative overflow-auto rounded-lg md:rounded-2xl h-30-percent-screen">
                                         <CarouselContent className="">
                                             <CarouselItem className="flex justify-center">
-                                                    <Image src={Music1} alt="" className="h-[16rem] md:h-[32rem] object-cover object-top"></Image>
+                                                    <Image src={Music1} alt="" className="h-[16rem] md:h-30-percent-screen object-cover object-top"></Image>
                                             </CarouselItem>
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Music2} alt="" className="h-[16rem] md:h-[32rem] w-auto object-cover object-top"></Image>
+                                                <Image src={Music2} alt="" className="h-[16rem] md:h-30-percent-screen object-cover object-top"></Image>
                                             </CarouselItem>
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Music3} alt="" className="h-[16rem] md:h-[32rem] w-auto object-cover object-top"></Image>
+                                                <Image src={Music3} alt="" className="h-[16rem] md:h-30-percent-screen object-cover object-top"></Image>
                                             </CarouselItem>                            
                                         </CarouselContent>
                                     </Carousel>

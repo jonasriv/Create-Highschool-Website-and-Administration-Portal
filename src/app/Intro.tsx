@@ -1,6 +1,6 @@
 'use client'
 import React, { useRef, useState, useEffect } from 'react';
-import { ChevronRight, ChevronLeft, ChevronDown, ArrowRight } from "lucide-react";
+import { ChevronRight, ArrowRight } from "lucide-react";
 
 import Create1 from '../../public/images/foto/create1.png';
 import Create2 from '../../public/images/foto/create2.png';
@@ -102,10 +102,7 @@ const Intro: React.FC = () => {
                                         //filter: 'brightness(80%)',
                                     }}  
                                     >
-                                        <div className="w-full flex items-start justify-between h-full opacity-60 pt-2"> 
-                                                <ChevronLeft size="96" strokeWidth={1.0} color="white"/>
-                                                <ChevronRight size="96" strokeWidth={1.0} color="white"/>
-                                        </div>       
+     
                                 </div>
                             </div>
                         </div>
@@ -125,10 +122,7 @@ const Intro: React.FC = () => {
                                         //filter: 'brightness(80%)',
                                     }}  
                                     >
-                                        <div className="w-full flex items-start justify-between h-full opacity-80 pt-2"> 
-                                                <ChevronLeft size="96" strokeWidth={1.0} color="white"/>
-                                                <ChevronRight size="96" strokeWidth={1.0} color="white"/>
-                                        </div>       
+      
                                 </div>                                     
                             </div>
                         </div>
@@ -148,12 +142,7 @@ const Intro: React.FC = () => {
                                         //filter: 'brightness(80%)',
                                     }}  
                                     >
-                                        <div className="w-full flex flex-col justify-between h-full opacity-60"> 
-                                                <ChevronLeft size="96" strokeWidth={1.0} color="white"/>  
-                                                <div className="flex items-center justify-center w-full ">
-                                                    <ChevronDown size="96" strokeWidth={2.0} color="white"/>
-                                                </div>
-                                        </div>       
+      
                                 </div>   
                             </div>
                         </div>      
