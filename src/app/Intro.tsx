@@ -1,6 +1,6 @@
 'use client'
 import React, { useRef, useState, useEffect } from 'react';
-import { ChevronRight, ChevronLeft, ChevronDown } from "lucide-react";
+import { ChevronRight, ChevronLeft, ChevronDown, ArrowRight } from "lucide-react";
 
 import Create1 from '../../public/images/foto/create1.png';
 import Create2 from '../../public/images/foto/create2.png';
@@ -51,13 +51,17 @@ const Intro: React.FC = () => {
 
                     {/*scroll-indikator*/}
                     <div className="w-full h-2 bg-slate-400 mt-4 md:mb-6">
-                    <div 
-                            className="h-full bg-pinky w-10"
-                            style={{ width: `${scrollPosition}%` }}
-                        />
+                        <div 
+                                className="h-full bg-pinky w-10"
+                                style={{ width: `${scrollPosition < 6 ? scrollPosition + 6 : scrollPosition}%` }}
+                            >
+                                <div className="flex justify-start items-end relative top-3 ">
+                                    <ArrowRight size="18"/>
+                                </div>
+                        </div>
                     </div>
 
-                    <div ref={scrollContainerRef} className="flex flex-row max-w-screen-lg w-screen snap-x snap-mandatory no-scrollbar overflow-x-scroll overflow-y-scroll scroll-smooth h-75-percent-screen pt-8 lg:pt-0">
+                    <div ref={scrollContainerRef} className="flex flex-row max-w-screen-lg w-screen snap-x snap-mandatory no-scrollbar overflow-x-scroll overflow-y-scroll scroll-smooth h-75-percent-screen py-10">
                         
                         <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-start items-center gap-12">
                             <div className="flex flex-col w-screen md:w-full">

@@ -9,11 +9,11 @@ const Front = () => {
     return (
         <div 
             id="front"
-            className="flex flex-col justify-center items-center w-screen max-w-screen h-screen pt-36"
+            className="flex flex-col justify-center items-center w-screen max-w-screen h-screen"
 
         >
             
-            <div className="w-screen h-screen uppercase gap-12 flex flex-col justify-center items-center max-w-screen">
+            <div className="w-screen h-screen uppercase gap-10 flex flex-col justify-center items-center max-w-screen">
                 <Image alt="image" src={Logo} className="w-36 md:w-72"></Image>
                 <div className="flex flex-col md:hidden md:flex-row width-screen px-8 tracking-widest font-bahiana text-4xl md:text-4xl  font-black">
                     <h1 className="text-center leading-loose">
