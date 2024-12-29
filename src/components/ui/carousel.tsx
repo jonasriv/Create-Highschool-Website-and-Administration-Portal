@@ -9,10 +9,10 @@ const Carousel = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & {
     opts?: Parameters<typeof useEmblaCarousel>[0];
-    setApi?: (api: ReturnType<typeof useEmblaCarousel>[0]) => void;
+    setApi?: (api: ReturnType<typeof useEmblaCarousel>[1] | undefined) => void;
     autoplay?: boolean; // Ny prop for å aktivere autoplay
   }
->(({ opts, setApi, autoplay = false, className, children, ...props }) => {
+>(({ opts, setApi, autoplay = false, className, children, ...props }, ref) => {
   const plugins = React.useMemo(
     () => (autoplay ? [Autoplay()] : []), // Legg til autoplay hvis aktivert
     [autoplay]
@@ -21,7 +21,7 @@ const Carousel = React.forwardRef<
   const [carouselRef, api] = useEmblaCarousel(opts, plugins);
 
   React.useEffect(() => {
-    if (setApi) {
+    if (setApi && api) {
       setApi(api);
     }
   }, [api, setApi]);
