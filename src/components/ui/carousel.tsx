@@ -27,7 +27,21 @@ const Carousel = React.forwardRef<
   }, [api, setApi]);
 
   return (
-    <div ref={carouselRef} className={cn("relative", className)} {...props}>
+    <div
+    ref={(node) => {
+      carouselRef(node);  // Koble til EmblaRef
+
+      // Sjekk om ref er en funksjon
+      if (typeof ref === "function") {
+        ref(node);  // Kall ref-funksjonen
+      } else if (ref && "current" in ref) {
+        // Hvis ref er et MutableRefObject, sett current
+        ref.current = node;
+      }
+    }}
+    className={cn("relative", className)}
+    {...props}
+  >
       {children}
     </div>
   );
