@@ -1,3 +1,5 @@
+'use client';
+import { useEffect, useRef, useState } from 'react';
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Dramaicon from '../../public/images/drama-icon.svg';
@@ -8,8 +10,6 @@ import {
     Carousel,
     CarouselContent,
     CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
   } from "@/components/ui/carousel";
 import Music1 from '../../public/images/foto/music1.png';
 import Music2 from '../../public/images/foto/music2.png';
@@ -21,48 +21,79 @@ import Drama1 from '../../public/images/foto/drama1.png';
 import Drama2 from '../../public/images/foto/drama2.png';
 import Drama3 from '../../public/images/foto/drama3.png';
 
-import { StepForward } from "lucide-react";
+import { StepForward, ChevronRight } from "lucide-react";
 
 
-const Study = () => {    
+const Study: React.FC = () => {    
+
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (scrollContainerRef.current) {
+                // Beregn hvor langt til venstre vi har scrollet, som en prosentandel
+                const scrollLeft = scrollContainerRef.current.scrollLeft;  // Track horizontal scroll position
+                const containerWidth = scrollContainerRef.current.scrollWidth;  // Total container width
+                const windowWidth = scrollContainerRef.current.clientWidth;  // Visible width of the container
+
+                // Beregn prosentandel som er scrollet horisontalt
+                const scrollPercentage = (scrollLeft / (containerWidth - windowWidth)) * 100;
+                setScrollPosition(scrollPercentage);
+            }
+        };
+
+        const scrollContainer = scrollContainerRef.current;
+        if (scrollContainer) {
+            // Legg til event listener for scroll på containeren
+            scrollContainer.addEventListener('scroll', handleScroll);
+        }
+
+        // Fjern event listener ved unmount
+        return () => {
+            if (scrollContainer) {
+                scrollContainer.removeEventListener('scroll', handleScroll);
+            }
+        };
+    }, []);
 
     return (
         <div 
         id="front"
-        className="flex flex-col justify-center items-center w-full h-screen"
+        className="flex flex-col justify-center items-center w-screen h-screen"
 
     >
-        <div 
-            className="bg-black/80 w-screen text-redpink flex flex-col justify-start h-screen box-border ... items-center"
-        >
-            <h1 className="font-bungee font-black uppercase text-4xl md:text-6xl text-center text-pinky  pt-36">
-                Musikk, dans og drama
-            </h1>
-            <div className="w-screen flex flex-col justify-center items-start h-auto px-2">
-                <h2 className="text-slate-300 text-2xl md:text-4xl font-mina pb-10 leading-snug">
-                    
-                </h2>
-                <div id="subject_tabs" className="w-full flex flex-col justify-center items-center">
+            <div className="w-full text-white flex flex-col justify-start items-center box-border ...  no-scrollbar  relative">
+
+            <div className="h-12-percent-screen md:h-10-percent-screen w-full"></div>
+
+            <div className="flex flex-col  md:bg-black/50 rounded-xl md:p-12 max-w-screen-lg">
+                <h1 className="font-bahiana uppercase text-5xl md:text-5xl lg:text-7xl tracking-widest text-center text-white font-black">
+                    Programfag
+                </h1>
+                <div id="subject_tabs" className="w-full flex flex-row">
                     <Tabs defaultValue="music_tab" className="pb-10">
-                        <TabsList className="bg-slate-800 rounded-2xl mt-4 flex flex-col md:flex-row items-center justify-around h-22 opacity-80">
-                            <TabsTrigger value="music_tab" className="text-2xl text- uppercase">Create Musikk</TabsTrigger>
-                            <TabsTrigger value="dance_tab" className="text-2xl text- uppercase">Create Dans</TabsTrigger>
-                            <TabsTrigger value="drama_tab" className="text-2xl text- uppercase">Create Drama</TabsTrigger>
+                        <TabsList className="md:rounded-2xl mt-4 flex flex-row items-center justify-around h-22 gap-0 md:gap-8">
+                            <TabsTrigger value="music_tab" className="text-md md:text-2xl uppercase"><span className="hidden md:block">Create&nbsp;</span>Musikk</TabsTrigger>
+                            <ChevronRight/>
+                            <TabsTrigger value="dance_tab" className="text-md md:text-2xl uppercase"><span className="hidden md:block">Create&nbsp;</span>Dans</TabsTrigger>
+                            <ChevronRight/>
+                            <TabsTrigger value="drama_tab" className="text-md md:text-2xl uppercase"><span className="hidden md:block">Create&nbsp;</span> Drama</TabsTrigger>
                         </TabsList> 
 
-                    <TabsContent value="music_tab" className="bg-black/50 p-10 rounded-2xl">
-                        <h1 className="font-mina font-black text-slate-300 uppercase text-center text-5xl pb-8">Create Musikk</h1>
-                        <div className="flex justify-between items-start mb-4">
-                            <div className="w-1/2 pr-4">
-                                <p className="font-mina text-3xl text-slate-300 leading-normal">
+                    <TabsContent value="music_tab" className="rounded-2xl">
+                        <h1 className="hidden md:block font-mina font-black text-slate-300 uppercase text-center text-2xl md:text-5xl pb-8">Create Musikk</h1>
+                        <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 ">
+                            <div className="w-full md:w-1/2 pr-4">
+                                <p className="font-mina text-xl md:text-3xl text-slate-300 leading-normal px-4">
                                     På Create Musikk er vi åpne for alle former for musikk: klassisk, jazz og popmusikk. Noen spiller klassisk klarinett, andre bruker Mac'en til å produsere musikk og noen spiller dårlig gitar men skriver fantastiske låter.<br/><br/> Alle slags musikkutøvere hører hjemme på Create. 
                                 </p>                                   
                             </div>
-                            <div className="w-1/2">
-                                <Carousel className="max-w-lg flex justify-self-center place-items-end mb-4 relative overflow-auto rounded-2xl">
-                                    <CarouselContent className="h-auto w-auto ">
+                            <div className="w-full justify-center items-center md:w-1/2">
+                                <Carousel autoplay={true} opts={{ loop: true }} className="md:max-w-lg flex justify-self-center place-items-end mb-4 relative overflow-auto md:rounded-2xl h-30-percent-screen">
+                                    <CarouselContent className="">
                                         <CarouselItem className="flex justify-center opacity-100">
-                                                <Image src={Music1} alt="" className="h-[32rem] w-auto object-cover opacity-100"></Image>
+                                                <Image src={Music1} alt="" className="md:h-[32rem]  object-cover object-top opacity-100"></Image>
                                         </CarouselItem>
                                         <CarouselItem className="flex justify-center">
                                             <Image src={Music2} alt="" className="h-[32rem] w-auto object-cover"></Image>
@@ -71,66 +102,54 @@ const Study = () => {
                                             <Image src={Music3} alt="" className="h-[32rem] w-auto object-cover"></Image>
                                         </CarouselItem>                            
                                     </CarouselContent>
-                                    <CarouselPrevious />
-                                    <CarouselNext />
                                 </Carousel>
                             </div>
                         </div>
-                        
                     </TabsContent>    
 
-                    <TabsContent value="dance_tab">
-                        <h1 className="font-mina font-black text-slate-300 text-center uppercase text-5xl pb-8">Create Dans</h1>
-                        <div className="flex justify-between items-start mb-4">
-                            <div className="w-1/2 pr-4">
-                                <p className="font-mina text-3xl text-slate-300 leading-normal">
+                    <TabsContent value="dance_tab" className="rounded-2xl w-full">
+                        <h1 className="hidden md:block font-mina font-black text-slate-300 uppercase text-center text-2xl md:text-5xl pb-8">Create Dans</h1>
+                        <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 ">
+                            <div className="w-full md:w-1/2 pr-4">
+                                <p className="font-mina text-xl md:text-3xl text-slate-300 leading-normal px-4">
                                 På Create Dans er vi åpne for alle former for dans. Noen liker klassisk ballett, andre hip hop, og noen elsker musikaler. <br/><br/>Alle typer dansere hører hjemme på Create.
                                 </p>                                   
                             </div>
-                            <div className="w-1/2">
-                                <Carousel className="max-w-lg flex justify-self-center place-items-end mb-4 relative overflow-auto rounded-2xl">
-                                    <CarouselContent className="h-auto w-auto ">
-                                        <CarouselItem className="flex justify-center">
-                                            <Image src={Dance1} alt="" className="h-[32rem] w-auto object-cover"></Image>
+                            <div className="w-full justify-center items-center md:w-1/2">
+                                <Carousel autoplay={true} opts={{ loop: true }} className="md:max-w-lg flex justify-self-center place-items-end mb-4 relative overflow-auto md:rounded-2xl h-30-percent-screen">
+                                    <CarouselContent className="">
+                                        <CarouselItem className="flex justify-center opacity-100">
+                                                <Image src={Dance1} alt="" className="md:h-[32rem]  object-cover object-top opacity-100"></Image>
                                         </CarouselItem>
                                         <CarouselItem className="flex justify-center">
                                             <Image src={Dance2} alt="" className="h-[32rem] w-auto object-cover"></Image>
                                         </CarouselItem>
-                                        <CarouselItem className="flex justify-center">
                                             <Image src={Dance3} alt="" className="h-[32rem] w-auto object-cover"></Image>
-                                        </CarouselItem>                            
                                     </CarouselContent>
-                                    <CarouselPrevious />
-                                    <CarouselNext />
                                 </Carousel>
                             </div>
                         </div>
-                        
                     </TabsContent>  
-
-                    <TabsContent value="drama_tab">
-                        <h1 className="font-mina font-black text-slate-300 uppercase text-center text-5xl pb-8">Create Drama</h1>
-                        <div className="flex justify-between items-start mb-4">
-                            <div className="w-1/2 pr-4">
-                                <p className="font-mina text-3xl text-slate-300 leading-normal">
-                                    På Create Drama arbeider vi både med scenisk teater og film. I tillegg samarbeider vi med elevene på musikk og dans innen musikal. <br/><br/> Både innen teater og film arbeider vi med hele spekteret av en produksjon. Tekst og manus, scenografi, regi og lyddesign, og ikke minst rollen som skuespiller — enten det er på scenen eller foran kamera. 
+                    
+                    <TabsContent value="drama_tab" className="rounded-2xl w-full">
+                        <h1 className="hidden md:block font-mina font-black text-slate-300 uppercase text-center text-2xl md:text-5xl pb-8">Create Dans</h1>
+                        <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 ">
+                            <div className="w-full md:w-1/2 pr-4">
+                                <p className="font-mina text-xl md:text-3xl text-slate-300 leading-normal px-4">
+                                På Create Drama arbeider vi både med scenisk teater og film. I tillegg samarbeider vi med elevene på musikk og dans innen musikal. <br/><br/> Både innen teater og film arbeider vi med hele spekteret av en produksjon. Tekst og manus, scenografi, regi og lyddesign, og ikke minst rollen som skuespiller — enten det er på scenen eller foran kamera. 
                                 </p>                                   
                             </div>
-                            <div className="w-1/2">
-                                <Carousel className="max-w-lg max-h-[32rem] flex justify-self-center place-items-end mb-4 relative overflow-auto rounded-2xl">
-                                    <CarouselContent className="h-auto w-auto ">
-                                        <CarouselItem className="flex justify-center">
-                                            <Image src={Drama1} alt="" className="h-[32rem] w-auto object-cover"></Image>
+                            <div className="w-full justify-center items-center md:w-1/2">
+                                <Carousel autoplay={true} opts={{ loop: true }} className="md:max-w-lg flex justify-self-center place-items-end mb-4 relative overflow-auto md:rounded-2xl h-30-percent-screen">
+                                    <CarouselContent className="">
+                                        <CarouselItem className="flex justify-center opacity-100">
+                                                <Image src={Drama1} alt="" className="md:h-[32rem]  object-cover object-top opacity-100"></Image>
                                         </CarouselItem>
                                         <CarouselItem className="flex justify-center">
                                             <Image src={Drama2} alt="" className="h-[32rem] w-auto object-cover"></Image>
                                         </CarouselItem>
-                                        <CarouselItem className="flex justify-center">
                                             <Image src={Drama3} alt="" className="h-[32rem] w-auto object-cover"></Image>
-                                        </CarouselItem>                            
                                     </CarouselContent>
-                                    <CarouselPrevious />
-                                    <CarouselNext />
                                 </Carousel>
                             </div>
                         </div>

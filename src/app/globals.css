@@ -35,9 +35,64 @@ body {
   .no-scrollbar {
       -ms-overflow-style: none;  /* IE and Edge */
       scrollbar-width: none;  /* Firefox */
-}
+  }
 }
 
+.slick-prev:before,
+.slick-next:before {
+  color: white;
+}
+
+.slick-dots {
+  bottom: -25px; /* juster posisjonen etter behov */
+}
+
+.slick-dots li button:before {
+  color: gray;
+}
+
+.slick-dots li.slick-active button:before {
+  color: white;
+}
+
+.slick-slider {
+  touch-action: pan-y;
+  -ms-touch-action: pan-y;
+}
+
+.custom-dots li button:before {
+  content: ''; /* Fjern standard innhold */
+  display: block;
+  width: 16px; /* Juster størrelse */
+  height: 16px;
+  border: 2px solid white; /* Gjør prikkene hule med hvit kant */
+  border-radius: 50%; /* Gjør dem runde */
+  background-color: transparent; /* Fjern svart prikk */
+  margin: 0 auto; /* Sentrer prikkene */
+  color: transparent; /* Sørg for at 'color' ikke påvirker noe */
+}
+
+/* Stil for aktive prikker */
+.custom-dots li.slick-active button:before {
+  content: ''; /* Fjern standard innhold */
+  background-color: white; /* Fyll aktive prikk */  
+}
+
+.slick-prev, .slick-next {
+  font-size: 24px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5); /* Halvtransparent bakgrunn */
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.slick-prev {
+  left: -30px; /* Juster plasseringen for venstre pil */
+}
+
+.slick-next {
+  right: -30px; /* Juster plasseringen for høyre pil */
+}
 @layer base {
   :root {
     --background: 0 0% 100%;

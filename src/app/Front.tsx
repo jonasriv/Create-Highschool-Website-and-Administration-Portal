@@ -39,6 +39,7 @@ const Front = () => {
                         Lillehammer kreative videregående skole
                     </h1>
                 </div>
+                <h1 className="font-mina font-black text-xl md:text-3xl">Søknadsfrist 1. mars!</h1>
                 <button className="bg-pinky w-52 md:w-72 h-20 flex justify-center items-center md:h-auto text-2xl md:text-5xl p-10 rounded-3xl font-black uppercase text-slate-200 border-2 border-transparent hover:border-white hover:text-white">Søk nå</button>
                 <div>
                     <ChevronDown className="size-40"/>
