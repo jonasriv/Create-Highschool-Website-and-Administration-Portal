@@ -17,7 +17,7 @@ import Drama1 from '../../public/images/foto/drama1.png';
 import Drama2 from '../../public/images/foto/drama2.png';
 import Drama3 from '../../public/images/foto/drama3.png';
 
-import { ChevronRight } from "lucide-react";
+import { Star } from "lucide-react";
 
 
 const Study: React.FC = () => {    
@@ -64,13 +64,11 @@ const Study: React.FC = () => {
                         Programfagene
                     </h1>
                     <div id="subject_tabs" className="w-full flex flex-row pb-12 md:pb-14 lg:pb-16">
-                        <Tabs defaultValue="music_tab" className="">
-                            <TabsList className="md:rounded-2xl mt-4 flex flex-row items-center justify-around h-22 gap-0 md:gap-8">
-                                <TabsTrigger value="music_tab" className="text-md md:text-2xl uppercase"><span className="hidden md:block">Create&nbsp;</span>Musikk</TabsTrigger>
-                                <ChevronRight/>
-                                <TabsTrigger value="dance_tab" className="text-md md:text-2xl uppercase"><span className="hidden md:block">Create&nbsp;</span>Dans</TabsTrigger>
-                                <ChevronRight/>
-                                <TabsTrigger value="drama_tab" className="text-md md:text-2xl uppercase"><span className="hidden md:block">Create&nbsp;</span> Drama</TabsTrigger>
+                        <Tabs defaultValue="music_tab">
+                            <TabsList className="w-full rounded-none mt-4 md:mt-0 flex flex-row items-center justify-around h-22 gap-0 md:gap-8 bg-fuchsia-950 md:mb-12">
+                                <TabsTrigger value="music_tab" className="opacity-100 p-2 md:p-4 animate-flash-border1 text-md md:text-2xl uppercase"><span className="hidden md:block">Create&nbsp;</span>Musikk&nbsp;<Star size="12"/></TabsTrigger>
+                                <TabsTrigger value="dance_tab" className="opacity-100 p-2 md:p-4 animate-flash-border2 text-md md:text-2xl uppercase"><span className="hidden md:block">Create&nbsp;</span>Dans&nbsp;<Star size="12"/></TabsTrigger>
+                                <TabsTrigger value="drama_tab" className="opacity-100 p-2 md:p-4 animate-flash-border3 text-md md:text-2xl uppercase"><span className="hidden md:block">Create&nbsp;</span> Drama&nbsp;<Star size="12"/></TabsTrigger>
                             </TabsList> 
 
                         <TabsContent value="music_tab" className="md:rounded-2xl w-full h-75-percent-screen overflow-hidden no-scrollbar">

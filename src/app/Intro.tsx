@@ -1,6 +1,6 @@
 'use client'
 import React, { useRef, useState, useEffect } from 'react';
-import { ArrowRight } from "lucide-react";
+import { ChevronsRight, ChevronsLeft, ChevronsDown } from "lucide-react";
 
 import Create1 from '../../public/images/foto/create1.png';
 import Create2 from '../../public/images/foto/create2.png';
@@ -41,7 +41,7 @@ const Intro: React.FC = () => {
     }, []);
 
     return (
-        <div id="front" className="flex flex-col justify-start items-center w-screen h-screen pt-36">
+        <div className="flex flex-col justify-start items-center w-screen h-screen pt-24 md:pt-36">
             <div className="w-full text-white flex flex-col justify-start items-center box-border ...  no-scrollbar  relative">
                 <div className="">
 
@@ -50,14 +50,16 @@ const Intro: React.FC = () => {
                     </h1>
 
                     {/*scroll-indikator*/}
-                    <div className="w-full h-2 bg-slate-400 mt-4 md:mb-6">
-                        <div 
-                                className="h-full bg-pinky w-10"
-                                style={{ width: `${scrollPosition < 6 ? scrollPosition + 6 : scrollPosition}%` }}
-                            >
-                                <div className="flex justify-end items-end relative top-3 ">
-                                    <ArrowRight size="18"/>
-                                </div>
+                    <div className="w-full h-2 bg-slate-400 mt-4 md:mb-6 relative">
+                        <div
+                            className="h-full bg-pinky relative"
+                            style={{
+                            width: `${scrollPosition < 4 ? scrollPosition + 4 : scrollPosition}%`,
+                            }}
+                        >
+                            <div
+                            className=""
+                            ></div>
                         </div>
                     </div>
 
@@ -65,10 +67,14 @@ const Intro: React.FC = () => {
                         
                         <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-start items-center gap-12">
                             <div className="flex flex-col w-screen md:w-full">
-                                <p className="text-xl md:text-2xl lg:text-3xl px-2 lg:px-0 pb-10">
+                                <p className="text-xl md:text-2xl lg:text-3xl px-2 lg:px-0">
                                     På CREATE kan du velge fordypning i <b>musikk</b>, <b>dans</b> eller <b>drama</b>. I tillegg har vi vårt eget fag <b>kulturentreprenørskap</b>, og jobber med vanlige fag, slik at du får generell studiekompetanse. 
                                 </p>   
-                                
+                                <div className="flex justify-end items-center">
+                                        <div className="bg-black/60 opacity-40 rounded-xl p-2 m-2">
+                                            <ChevronsRight size="42"/>
+                                        </div>
+                                    </div>
                                 <div 
                                     className="w-full h-30-percent-screen md:h-50-percent-screen md:rounded-xl"
                                     style={{
@@ -78,7 +84,12 @@ const Intro: React.FC = () => {
                                         backgroundRepeat: 'no-repeat',
                                         //filter: 'brightness(80%)',
                                     }}  
-                                    >
+                                >
+                                    <div className="flex justify-center items-end h-full">
+                                        <div className="bg-black/40 opacity-60 rounded-xl m-2 p-2">
+                                            <ChevronsDown size="36"/>   
+                                        </div>
+                                    </div>
                                 </div>
                               
                             </div>
@@ -86,9 +97,19 @@ const Intro: React.FC = () => {
 
                         <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-start items-center gap-12">
                             <div className="flex flex-col w-full">
-                                <p className="text-xl md:text-2xl lg:text-3xl px-2 lg:px-0 pb-10">
+                                <p className="text-xl md:text-2xl lg:text-3xl px-2 lg:px-0">
                                 Velger du musikk, dans og drama må du like å arbeide med vanlige skolefag. I tillegg bør du ha en sterk interesse for det fagområdet du velger.           
                                 </p>    
+                                <div className="flex justify-center items-center">
+                                        <div className="flex w-full justify-between">
+                                            <div className="rounded-xl p-2 m-2 bg-black/60 opacity-40 ">
+                                                <ChevronsLeft size="36"/>
+                                            </div>
+                                            <div className="rounded-xl p-2 m-2 bg-black/60 opacity-40  ">
+                                                <ChevronsRight size="36"/>
+                                            </div>
+                                        </div>
+                                    </div>                                
                                 <div 
                                     className="w-full h-30-percent-screen md:h-50-percent-screen md:rounded-xl"
                                     style={{
@@ -98,17 +119,31 @@ const Intro: React.FC = () => {
                                         backgroundRepeat: 'no-repeat',
                                         //filter: 'brightness(80%)',
                                     }}  
-                                    >
-     
+                                >
+                                     <div className="flex justify-center items-end h-full">
+                                        <div className="bg-black/40 opacity-60 rounded-xl m-2 p-2">
+                                            <ChevronsDown size="36"/>   
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-start items-center gap-12">
                             <div className="flex flex-col w-full">
-                                <p className="text-xl md:text-2xl lg:text-3xl px-2 lg:px-0 pb-10">
+                                <p className="text-xl md:text-2xl lg:text-3xl px-2 lg:px-0">
                                 Innenfor <span className="font-black">musikk</span> bør du beherske minst ett instrument, som gjerne kan være sang eller musikkproduksjon. <span className="font-black">Dans</span> er for deg som er interessert i dans og musikaler. Og velger du <span className="font-black">drama</span> er det naturlig at du er interessert i teater og/eller film.       
                                 </p>    
+                                <div className="flex justify-center items-center">
+                                        <div className="flex w-full justify-between">
+                                            <div className="rounded-xl p-2 m-2 bg-black/40 opacity-60 ">
+                                                <ChevronsLeft size="36"/>
+                                            </div>
+                                            <div className="rounded-xl p-2 m-2 bg-black/40 opacity-60  ">
+                                                <ChevronsRight size="36"/>
+                                            </div>
+                                        </div>
+                                    </div>                                
                                 <div 
                                     className="w-full h-30-percent-screen md:h-50-percent-screen md:rounded-xl"
                                     style={{
@@ -118,17 +153,26 @@ const Intro: React.FC = () => {
                                         backgroundRepeat: 'no-repeat',
                                         //filter: 'brightness(80%)',
                                     }}  
-                                    >
-      
+                                >
+                                    <div className="flex justify-center items-end h-full">
+                                        <div className="bg-black/40 opacity-60 rounded-xl m-2 p-2">
+                                            <ChevronsDown size="36"/>   
+                                        </div>
+                                    </div>
                                 </div>                                     
                             </div>
                         </div>
 
                         <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-start items-center gap-12">
                             <div className="flex flex-col w-full">
-                                <p className="text-xl md:text-2xl lg:text-3xl px-2 lg:px-0 pb-10">
-                                Programfagene har kompetansemål med fokus på både <span className="font-black">samarbeid</span> og utvikling av <span className="font-black">praktiske ferdigheter</span>. <br/><br/>Det blir ofte intense arbeidsperioder fram mot visninger, spilleprøver, konserter og forestillinger. 
+                                <p className="text-xl md:text-2xl lg:text-3xl px-2 lg:px-0">
+                                Programfagene har kompetansemål med fokus på både <b>samarbeid</b> og utvikling av <b>praktiske ferdigheter</b>. Det blir ofte intense arbeidsperioder fram mot visninger, spilleprøver, konserter og forestillinger. 
                                 </p>    
+                                <div className="flex justify-start items-center">
+                                        <div className="bg-black/40 opacity-60 rounded-xl p-2 m-2">
+                                            <ChevronsLeft size="36"/>
+                                        </div>
+                                    </div>      
                                 <div 
                                     className="w-full h-30-percent-screen md:h-50-percent-screen md:rounded-xl"
                                     style={{
@@ -138,12 +182,15 @@ const Intro: React.FC = () => {
                                         backgroundRepeat: 'no-repeat',
                                         //filter: 'brightness(80%)',
                                     }}  
-                                    >
-      
+                                >
+                                    <div className="flex justify-center items-end h-full">
+                                        <div className="bg-black/40 opacity-60 rounded-xl m-2 p-2">
+                                            <ChevronsDown size="36"/>   
+                                        </div>
+                                    </div>
                                 </div>   
                             </div>
-                        </div>      
-                                                                                           
+                        </div> 
                     </div>
                 </div>
             </div>

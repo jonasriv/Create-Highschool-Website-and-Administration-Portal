@@ -9,7 +9,7 @@ const Intro = dynamic(() => import("./Intro"));
 const Home = () => {
     
   return (
-    <div id="start"
+    <div 
       className="flex flex-col h-screen w-screen bg-white/40"
       style={{
         backgroundImage: `url(${BackgroundImage2.src})`,

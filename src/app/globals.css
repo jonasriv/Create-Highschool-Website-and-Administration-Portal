@@ -41,11 +41,11 @@ body {
     display: none;
 }
 
-/* Skjul scrollbar på alle nettlesere */
-.no-scrollbar {
-    scrollbar-width: none;  /* Firefox */
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
-}
+  /* Skjul scrollbar på alle nettlesere */
+  .no-scrollbar {
+      scrollbar-width: none;  /* Firefox */
+      -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  }
 }
 
 .slick-prev:before,
@@ -166,4 +166,22 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@keyframes floating-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.navbar {
+  background: linear-gradient(90deg, #ff9a9e, #fad0c4, #fbc2eb, #ff9a9e);
+  background-size: 200% 200%; /* Bakgrunn som er større enn containeren */
+  animation: floating-gradient 10s ease infinite; /* Langsom og jevn animasjon */
 }

@@ -9,6 +9,9 @@ export default {
   ],
   theme: {
   	extend: {
+		backgroundSize: {
+			'200%': '200% 200%',
+		},
 		height: {
 			'screen-minus-36': 'calc(100vh - 36px)',
 			'screen-minus-24': 'calc(100vh - 24px)',
@@ -33,6 +36,26 @@ export default {
 		backgroundImage: {
 			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
 		},
+		animation: {
+			'flash-border1': 'flash-border1 5s infinite',
+			'flash-border2': 'flash-border2 5s infinite',
+			'flash-border3': 'flash-border3 5s infinite',
+		},		
+		keyframes: {
+			'flash-border1': {
+				'0%, 30%': { color: 'white' },
+				'35%, 100%': { color: 'lightGrey'},
+			},
+			'flash-border2': {
+				'0%, 30%': { color: 'lightGrey' },
+				'35%, 70%': { color: 'white'},
+				'75%, 100%': { color: 'lightGrey' },
+			},
+			'flash-border3': {
+				'0%, 70%': { color: 'lightGrey' },
+				'75%, 100%': { color: 'white'},
+			},
+		},				
 		fontFamily: {
 			offside: ["var(--font-offside)", "sans-serif"],
 			notable: ["var(--font-notable)", "sans-serif"],

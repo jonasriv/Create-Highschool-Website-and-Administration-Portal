@@ -23,7 +23,7 @@ const Header = () => {
     return (
     <header>
         <div 
-            className='flex fixed flex-row gap-1 opacity-60 justify-center items-center w-screen max-w-screen bg-gradient-to-r from-black via-black to-black h-20 md:h-24 p-4 z-50'
+            className='flex fixed flex-row gap-1 justify-center items-center w-screen max-w-screen bg-black/60 h-20 md:h-24 p-4 z-50 backdrop-blur-lg'
            >
             <div className="flex justify-between items-center max-w-screen-lg w-screen h-full">
                 <div className="cursor-pointer">
