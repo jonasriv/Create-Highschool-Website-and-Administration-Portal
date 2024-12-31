@@ -4,7 +4,7 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import BackgroundImage2 from '../../../public/images/gpt-background2.webp';
 import Link from 'next/link';
-const Header = dynamic(() => import("./../Header"));
+const Header = dynamic(() => import("./HeaderSoknad"));
 
 
 const Soknad = () => {
