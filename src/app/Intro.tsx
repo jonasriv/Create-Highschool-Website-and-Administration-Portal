@@ -76,7 +76,7 @@ const Intro: React.FC = () => {
                                         </div>
                                     </div>
                                 <div 
-                                    className="w-full h-30-percent-screen md:h-50-percent-screen md:rounded-xl"
+                                    className="w-full h-30-percent-screen md:h-50-percent-screen rounded-xl"
                                     style={{
                                         backgroundImage: `url(${Create2.src})`,
                                         backgroundSize: 'cover',
