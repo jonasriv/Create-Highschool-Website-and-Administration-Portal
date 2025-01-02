@@ -67,7 +67,7 @@ const Intro: React.FC = () => {
                         
                         <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-start items-center gap-12">
                             <div className="flex flex-col w-screen md:w-full">
-                                <p className="text-xl md:text-2xl lg:text-3xl px-2 lg:px-0">
+                                <p className="text-lg md:text-2xl lg:text-3xl px-2 lg:px-0">
                                     På CREATE kan du velge fordypning i <b>musikk</b>, <b>dans</b> eller <b>drama</b>. I tillegg har vi vårt eget fag <b>kulturentreprenørskap</b>, og jobber med vanlige fag, slik at du får generell studiekompetanse. 
                                 </p>   
                                 <div className="flex justify-end items-center">
@@ -97,7 +97,7 @@ const Intro: React.FC = () => {
 
                         <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-start items-center gap-12">
                             <div className="flex flex-col w-full">
-                                <p className="text-xl md:text-2xl lg:text-3xl px-2 lg:px-0">
+                                <p className="text-lg md:text-2xl lg:text-3xl px-2 lg:px-0">
                                 Velger du musikk, dans og drama må du like å arbeide med vanlige skolefag. I tillegg bør du ha en sterk interesse for det fagområdet du velger.           
                                 </p>    
                                 <div className="flex justify-center items-center">
@@ -131,7 +131,7 @@ const Intro: React.FC = () => {
 
                         <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-start items-center gap-12">
                             <div className="flex flex-col w-full">
-                                <p className="text-xl md:text-2xl lg:text-3xl px-2 lg:px-0">
+                                <p className="text-lg md:text-2xl lg:text-3xl px-2 lg:px-0">
                                 Innenfor <span className="font-black">musikk</span> bør du beherske minst ett instrument, som gjerne kan være sang eller musikkproduksjon. <span className="font-black">Dans</span> er for deg som er interessert i dans og musikaler. Og velger du <span className="font-black">drama</span> er det naturlig at du er interessert i teater og/eller film.       
                                 </p>    
                                 <div className="flex justify-center items-center">
@@ -165,7 +165,7 @@ const Intro: React.FC = () => {
 
                         <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-start items-center gap-12">
                             <div className="flex flex-col w-full">
-                                <p className="text-xl md:text-2xl lg:text-3xl px-2 lg:px-0">
+                                <p className="text-lg md:text-2xl lg:text-3xl px-2 lg:px-0">
                                 Programfagene har kompetansemål med fokus på både <b>samarbeid</b> og utvikling av <b>praktiske ferdigheter</b>. Det blir ofte intense arbeidsperioder fram mot visninger, spilleprøver, konserter og forestillinger. 
                                 </p>    
                                 <div className="flex justify-start items-center">

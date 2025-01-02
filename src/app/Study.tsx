@@ -74,7 +74,7 @@ const Study: React.FC = () => {
                         <TabsContent value="music_tab" className="md:rounded-2xl w-full h-75-percent-screen overflow-hidden no-scrollbar">
                             <div className="flex flex-col md:flex-row md:justify-between items-start md:pt-4">
                                 <div className="w-full md:w-1/2 pr-4">
-                                    <p className="font-mina text-xl md:text-3xl text-slate-300 leading-normal px-4">
+                                    <p className="font-mina text-lg md:text-3xl text-slate-300 leading-normal px-4">
                                         På Create Musikk er vi åpne for alle former for musikk: klassisk, jazz og popmusikk. Noen spiller klassisk klarinett, andre bruker Mac&apos;en til å produsere musikk og noen spiller dårlig gitar men skriver fantastiske låter.<br/><br/> Alle slags musikkutøvere hører hjemme på Create. 
                                     </p>                                   
                                 </div>
@@ -99,7 +99,7 @@ const Study: React.FC = () => {
                         <TabsContent value="dance_tab" className="md:rounded-2xl w-full h-75-percent-screen overflow-hidden">
                             <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 ">
                                 <div className="w-full md:w-1/2 pr-4">
-                                    <p className="font-mina text-xl md:text-3xl text-slate-300 leading-normal px-4">
+                                    <p className="font-mina text-lg md:text-3xl text-slate-300 leading-normal px-4">
                                     På Create Dans er vi åpne for alle former for dans. Noen liker klassisk ballett, andre hip hop, og noen elsker musikaler. <br/><br/>Alle typer dansere hører hjemme på Create.
                                     </p>                                   
                                 </div>
@@ -122,7 +122,7 @@ const Study: React.FC = () => {
                         <TabsContent value="drama_tab" className="md:rounded-2xl w-full h-75-percent-screen overflow-hidden">
                             <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 ">
                                 <div className="w-full md:w-1/2 pr-4">
-                                    <p className="font-mina text-xl md:text-3xl text-slate-300 leading-normal px-4">
+                                    <p className="font-mina text-lg md:text-3xl text-slate-300 leading-normal px-4">
                                     På Create Drama arbeider vi både med scenisk teater og film og musikal. <br/><br/> Både innen teater og film arbeider vi med hele spekteret av en produksjon. Tekst og manus, scenografi, regi og lyddesign, og ikke minst rollen som skuespiller. 
                                     </p>                                   
                                 </div>

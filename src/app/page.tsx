@@ -5,6 +5,7 @@ const Front = dynamic(() => import("./Front"));
 const Study = dynamic(() => import("./Study"));
 const Header = dynamic(() => import("./Header"));
 const Intro = dynamic(() => import("./Intro"));
+const Admission = dynamic(() => import("./Admission"));
 
 const Home = () => {
     
@@ -20,7 +21,7 @@ const Home = () => {
     }}  
     >
       <Header />
-      <main className="bg-black/65 h-screen w-screen snap-y snap-mandatory overflow-x-hidden no-scrollbar pt-22 md:pt-28">  
+      <main className="bg-black/65 h-screen w-screen snap-y snap-mandatory overflow-x-hidden no-scrollbar mt-22 md:pt-28">  
 
           <div id="front" className="snap-start h-screen flex items-center justify-center">
             <Front />
@@ -32,7 +33,11 @@ const Home = () => {
 
           <div id="study" className="snap-start h-screen flex items-center justify-center backdrop-blur-lg ">
             <Study />
-          </div>          
+          </div>             
+
+          <div id="admission" className="snap-start flex h-screen items-start justify-center backdrop-blur-lg pt-24">
+            <Admission />
+          </div>                       
         
       </main>
       
