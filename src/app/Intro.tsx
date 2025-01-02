@@ -63,15 +63,15 @@ const Intro: React.FC = () => {
                         </div>
                     </div>
 
-                    <div ref={scrollContainerRef} className="flex flex-row max-w-screen-lg w-screen snap-x snap-mandatory no-scrollbar overflow-x-scroll overflow-y-scroll scroll-smooth h-75-percent-screen py-10">
+                    <div ref={scrollContainerRef} className="flex flex-row md:max-width-screen-md lg:max-w-screen-lg w-screen snap-x snap-mandatory no-scrollbar overflow-x-scroll overflow-y-scroll scroll-smooth h-75-percent-screen py-10">
                         
                         <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-start items-center gap-12">
-                            <div className="flex flex-col w-screen md:w-full">
-                                <p className="text-lg md:text-2xl lg:text-3xl px-2 lg:px-0">
+                            <div className="flex flex-col w-screen px-2 md:w-full">
+                                <p className="text-lg md:text-2xl lg:text-3xl lg:px-0">
                                     På CREATE kan du velge fordypning i <b>musikk</b>, <b>dans</b> eller <b>drama</b>. I tillegg har vi vårt eget fag <b>kulturentreprenørskap</b>, og jobber med vanlige fag, slik at du får generell studiekompetanse. 
                                 </p>   
                                 <div className="flex justify-end items-center">
-                                        <div className="bg-black/60 opacity-40 rounded-xl p-2 m-2">
+                                        <div className="bg-black/60 opacity-40 rounded-xl p-2 my-2">
                                             <ChevronsRight size="42"/>
                                         </div>
                                     </div>
@@ -96,22 +96,22 @@ const Intro: React.FC = () => {
                         </div>
 
                         <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-start items-center gap-12">
-                            <div className="flex flex-col w-full">
-                                <p className="text-lg md:text-2xl lg:text-3xl px-2 lg:px-0">
+                            <div className="flex flex-col w-full px-2">
+                                <p className="text-lg md:text-2xl lg:text-3xl lg:px-0">
                                 Velger du musikk, dans og drama må du like å arbeide med vanlige skolefag. I tillegg bør du ha en sterk interesse for det fagområdet du velger.           
                                 </p>    
-                                <div className="flex justify-center items-center">
-                                        <div className="flex w-full justify-between">
-                                            <div className="rounded-xl p-2 m-2 bg-black/60 opacity-40 ">
+                                <div className="flex items-center">
+                                        <div className="flex w-full justify-between my-2">
+                                            <div className="rounded-xl p-2  bg-black/60 opacity-40 ">
                                                 <ChevronsLeft size="36"/>
                                             </div>
-                                            <div className="rounded-xl p-2 m-2 bg-black/60 opacity-40  ">
+                                            <div className="rounded-xl p-2  bg-black/60 opacity-40  ">
                                                 <ChevronsRight size="36"/>
                                             </div>
                                         </div>
                                     </div>                                
                                 <div 
-                                    className="w-full h-30-percent-screen md:h-50-percent-screen md:rounded-xl"
+                                    className="w-full h-30-percent-screen md:h-50-percent-screen rounded-xl"
                                     style={{
                                         backgroundImage: `url(${Create3.src})`,
                                         backgroundSize: 'cover',
@@ -130,22 +130,22 @@ const Intro: React.FC = () => {
                         </div>
 
                         <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-start items-center gap-12">
-                            <div className="flex flex-col w-full">
-                                <p className="text-lg md:text-2xl lg:text-3xl px-2 lg:px-0">
+                            <div className="flex flex-col w-full px-2">
+                                <p className="text-lg md:text-2xl lg:text-3xl  lg:px-0">
                                 Innenfor <span className="font-black">musikk</span> bør du beherske minst ett instrument, som gjerne kan være sang eller musikkproduksjon. <span className="font-black">Dans</span> er for deg som er interessert i dans og musikaler. Og velger du <span className="font-black">drama</span> er det naturlig at du er interessert i teater og/eller film.       
                                 </p>    
                                 <div className="flex justify-center items-center">
-                                        <div className="flex w-full justify-between">
-                                            <div className="rounded-xl p-2 m-2 bg-black/40 opacity-60 ">
+                                        <div className="flex w-full  justify-between">
+                                            <div className="rounded-xl p-2 my-2 bg-black/40 opacity-60 ">
                                                 <ChevronsLeft size="36"/>
                                             </div>
-                                            <div className="rounded-xl p-2 m-2 bg-black/40 opacity-60  ">
+                                            <div className="rounded-xl p-2 my-2 bg-black/40 opacity-60  ">
                                                 <ChevronsRight size="36"/>
                                             </div>
                                         </div>
                                     </div>                                
                                 <div 
-                                    className="w-full h-30-percent-screen md:h-50-percent-screen md:rounded-xl"
+                                    className="w-full h-30-percent-screen md:h-50-percent-screen rounded-xl"
                                     style={{
                                         backgroundImage: `url(${Create4.src})`,
                                         backgroundSize: 'cover',
@@ -164,17 +164,17 @@ const Intro: React.FC = () => {
                         </div>
 
                         <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-start items-center gap-12">
-                            <div className="flex flex-col w-full">
-                                <p className="text-lg md:text-2xl lg:text-3xl px-2 lg:px-0">
+                            <div className="flex flex-col w-full px-2">
+                                <p className="text-lg md:text-2xl lg:text-3xl lg:px-0">
                                 Programfagene har kompetansemål med fokus på både <b>samarbeid</b> og utvikling av <b>praktiske ferdigheter</b>. Det blir ofte intense arbeidsperioder fram mot visninger, spilleprøver, konserter og forestillinger. 
                                 </p>    
                                 <div className="flex justify-start items-center">
-                                        <div className="bg-black/40 opacity-60 rounded-xl p-2 m-2">
+                                        <div className="bg-black/40 opacity-60 rounded-xl p-2 my-2">
                                             <ChevronsLeft size="36"/>
                                         </div>
                                     </div>      
                                 <div 
-                                    className="w-full h-30-percent-screen md:h-50-percent-screen md:rounded-xl"
+                                    className="w-full h-30-percent-screen md:h-50-percent-screen rounded-xl"
                                     style={{
                                         backgroundImage: `url(${Create1.src})`,
                                         backgroundSize: 'cover',
