@@ -10,7 +10,7 @@ const Admission = () => {
 
     >
             <div className="w-full text-white flex flex-col justify-start items-center box-border ... h-full">
-                <div className="flex flex-col md:bg-black/50 md:rounded-xl max-w-screen-lg overflow-hidden md:mt-8">
+                <div className="flex flex-col md:bg-black/50 md:rounded-xl max-w-screen-lg overflow-hidden md:mt-8 min-h-[80%] md:mx-2">
                     <h1 className="font-bahiana uppercase text-4xl md:text-5xl lg:text-6xl tracking-widest text-center text-white font-black">
                         Opptak og info
                     </h1>
@@ -25,7 +25,7 @@ const Admission = () => {
                             <TabsContent value="admission_tab" className="md:rounded-2xl w-full h-auto overflow-y-scroll">
                                 <div className="flex flex-col md:flex-row md:justify-between items-start md:pt-4">
                                     <div className="w-full pr-4">
-                                        <p className="font-mina text-lg md:text-2xl lg:text-3xl text-slate-300 leading-normal px-4">
+                                        <p className="font-mina text-lg md:text-2xl lg:text-3xl text-slate-300 leading-normal px-4 pb-12">
                                         Create tar imot søkere fra hele landet. I 2024 tar vi hovedsaklig inn elever til vg1. Det er også mulig å søke på vg2 og vg3, der vi vil ta inn elever etter ledig kapasitet. Det går fint å søke på flere forskjellige skoler. Du bestemmer selv hvilken skole du vil gå på etter at du har fått tilbud om skoleplass. Opptaket starter 15. mars. Det koster 22.500 kr per skoleår å gå på CREATE.
                                         </p>                                   
                                     </div>
@@ -35,7 +35,7 @@ const Admission = () => {
                             <TabsContent value="future_tab" className="md:rounded-2xl w-full h-full overflow-y-scroll pb-12">
                                 <div className="flex flex-col md:flex-row md:justify-between items-start md:pt-4">
                                     <div className="w-full pr-4">
-                                        <p className="font-mina text-lg md:text-2xl lg:text-3xl text-slate-300 leading-normal px-4">
+                                        <p className="font-mina text-lg md:text-2xl lg:text-3xl text-slate-300 leading-normal px-4 pb-12">
                                         Etter tre år på musikk- dans-, eller drama kan du søke deg videre til alle studier som krever generell studiekompetanse. MDD er derfor ikke bare for deg som ønsker å videreutdanne deg innen musikk, dans eller drama, eller ønsker en profesjonell karriere innen disse bransjene. Mange velger andre studier på høgskole eller universitet. <br/><br/>Uansett har elevene som har gått MDD akkurat de samme rettighetene og mulighetene som alle andre elever som velger et studieforberedende utdanningsprogram. Dermed har du full frihet til å velge de aller fleste studier. Enkelte studier, som f.eks. lege, tannlege, veterinær, ingeniør krever spesiell studiekompetanse. Dette betyr at elever ved MDD må ta opp noen få fag for å være kvalifisert for disse studiene.
                                         </p>                                   
                                     </div>
@@ -45,7 +45,7 @@ const Admission = () => {
                             <TabsContent value="about_tab" className="md:rounded-2xl w-full h-full overflow-y-scroll pb-12">
                                 <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 ">
                                     <div className="w-full pr-4">
-                                        <p className="font-mina text-lg md:text-2xl lg:text-3xl text-slate-300 leading-normal px-4">
+                                        <p className="font-mina text-lg md:text-2xl lg:text-3xl text-slate-300 leading-normal px-4 pb-12">
                                             Vi skapte Create fordi vi tror på kombinasjonen av kreativitet og læring. Vi ønsker at flere ungdommer i større grad skal få mulighet til å bruke sine skapende evner på skolen — både for å utvikle sine kreative talenter, og for å bli et helere menneske. Vi tror at kreativitet og trivsel har en positiv innvirkning på arbeidet med andre fag, dette underbygges av stadig mer forskning.
                                             <br /><br />
                                             Create tilbyr musikk, dans og drama. Vi dykker inn i historien om musikken, dansen og teaterets utvikling. I tillegg ønsker vi å fordype oss i dagens ungdomskultur. Derfor åpner vi for arbeid med låtskriving og musikkproduksjon, musikaler og filmproduksjon. Create vil samarbeide om kompetanseutveksling med LIMPI og Den norske filmskolen.
