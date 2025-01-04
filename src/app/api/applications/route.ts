@@ -67,7 +67,7 @@ export async function POST(req: Request) {
       priority3,
       filename: fileUrl, // Lagre S3-URL i databasen
     });
-
+    
     // Returner en vellykket respons
     return NextResponse.json(
       {

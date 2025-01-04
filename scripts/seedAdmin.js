@@ -1,0 +1,46 @@
+
+import Admin from "../src/models/admin.js";
+import bcrypt from "bcrypt";
+import mongoose from "mongoose";
+
+const MONGODB_URI = "mongodb+srv://create-bruker:create-passord@cluster0.si5gg.mongodb.net/create-admin?retryWrites=true&w=majority"
+
+if (!MONGODB_URI) {
+  throw new Error("Please define the MONGODB_URI environment variable in .env.local");
+}
+
+/* Global cache for mongoose connection */
+let cached = global.mongoose;
+
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
+async function dbConnect() {
+  if (cached.conn) {
+    return cached.conn;
+  }
+
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+    };
+
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+      return mongoose;
+    });
+  }
+  cached.conn = await cached.promise;
+  return cached.conn;
+}
+
+
+async function seedAdmin() {
+    await dbConnect();
+    const hashedPassword = await bcrypt.hash("create-passord", 10);
+
+    await Admin.create({ username: "admin", password: hashedPassword });
+    console.log("Admin user created!");
+}
+
+seedAdmin().catch((error) => console.error(error));
