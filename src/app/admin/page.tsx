@@ -13,24 +13,38 @@ export default function AdminPage() {
 
 
     const handleLogin = async () => {
+        setError(null);
+        
 
-        setError(null); 
+        if (!username || !password) {
+            setError("Both username and password are required.");
+            return;
+        }
+    
+        if (password.length < 8) {
+            setError("Password must be at least 8 characters.");
+            return;
+        }
+                
         try {
             const response = await fetch("/api/admin", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, password }),
+                body: JSON.stringify({ username, password }), // Pass på at vi sender passordet
             });
-            console.log(response);
+            
+            console.log("Response:", response);
+            
             if (!response.ok) {
                 throw new Error("Login failed");
             }
-
+    
             const data = await response.json();
+            console.log("Received data:", data); // Logg responsen fra backend
             setToken(data.token);
-        } catch (err: unknown) {
+        } catch (err: unknown) {
             if (err instanceof Error) {
-                console.error("Error logging in");
+                console.error("Error logging in:", err);
                 setError(err.message);
             } else {
                 console.error("An unknown error occurred");
@@ -38,6 +52,7 @@ export default function AdminPage() {
             }
         }
     };
+    
 
 
 
