@@ -37,7 +37,7 @@ async function dbConnect() {
 
 async function seedAdmin() {
     await dbConnect();
-    const hashedPassword = await bcrypt.hash("create-passord", 10);
+    const hashedPassword = await bcrypt.hash("", 10);
 
     await Admin.create({ username: "admin", password: hashedPassword });
     console.log("Admin user created!");

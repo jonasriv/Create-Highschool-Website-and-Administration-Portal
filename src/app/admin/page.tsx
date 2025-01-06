@@ -1,19 +1,21 @@
 "use client";
 
-import {useState } from "react";
+import { useState } from "react";
+import GetApplications from "./GetApplications";
+import GetContent from "./GetContent";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function AdminPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [token, setToken] = useState<string | null>(null);
-    const [applications, setApplications] = useState<any[]>([]);
     const [error, setError] = useState<string | null>(null);
 
+
     const handleLogin = async () => {
+
         setError(null); 
         try {
-
-            
             const response = await fetch("/api/admin", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -31,64 +33,57 @@ export default function AdminPage() {
         }
     };
 
-    const fetchApplications = async () => {
-        if (!token) return;
 
-        setError(null);
-        try {
-            const response = await fetch("/api/applications", {
-                method: "GET", 
-                headers: { Authorization: `Bearer ${token}` },
-            });
-
-            if (!response.ok) {
-                throw new Error("Failed to fetch applications");
-            }
-
-            const data = await response.json();
-            setApplications(data.applications);
-        } catch (err: any) {
-            setError(err.message);
-        }
-    };
 
     return (
-        <div>
-            <h1>Admin Panel</h1>
+        <div className="flex flex-col w-screen h-screen box-border bg-fuchsia-950 justify-start items-center ">
+            <h1 className="font-black font-mina">Create VGS Admin Panel</h1>
             {!token ? (
-                <div className="flex flex-col gap-12 w-96">
+                <div className="flex flex-col gap-12 w-full md:max-w-screen-lg items-center bg-black/60 p-12 rounded-2xl">
                     {error && <p style={{color:"red" }}>{error}</p>}
                     <input  
                         type="text"
                         placeholder="Username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        className="text-black"
+                        className="text-black text-2xl p-2 rounded-lg w-96"
                     />
                     <input  
                         type="password"
                         placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="text-black"
+                        className="text-black text-2xl p-2 rounded-lg w-96"
                     />                    
-                    <button className="p-4 m-4 rounded-xl border-2 border-purple-500" onClick={handleLogin}>Login</button>
+                    <button className="p-4 rounded-xl text-2xl border-2 border-purple-500 w-96" onClick={handleLogin}>Login</button>
                 </div>
             ) : (
-                <div>
-                    <button className="p-4 m-4 rounded-xl border-2 border-purple-500" onClick={fetchApplications}>Fetch applications</button>
-                    {applications.length > 0 ? (
-                        <ul>
-                            {applications.map((app) => (
-                                <li key={app._id}>
-                                    {app.name} - {app.email}
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p>No applications found</p>
-                    )}
-                </div>
+                <div id="subject_tabs" className="w-full h-auto flex flex-row pb-12 lg:pb-16 bg-black/60">
+                <Tabs defaultValue="default_tab" className="w-full h-full">
+                    <TabsList className="min-w-full rounded-none flex flex-row items-center justify-between h-22 gap-0  bg-fuchsia-950 p-4 mb-4">
+                        <TabsTrigger value="default_tab" className="opacity-100 p-2 md:p-4 animate-flash-border1 text-md md:text-2xl uppercase">Admin</TabsTrigger>
+                        <TabsTrigger value="content_tab" className="opacity-100 p-2 md:p-4 animate-flash-border2 text-md md:text-2xl uppercase">Web-innhold</TabsTrigger>
+                        <TabsTrigger value="applications_tab" className="opacity-100 p-2 md:p-4 animate-flash-border3 text-md md:text-2xl uppercase">Søknader</TabsTrigger>
+                    </TabsList> 
+
+                    <TabsContent value="default_tab" className="w-full h-auto min-h-screen">
+                        <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 p-4">
+                                    Default tab
+                        </div>
+                    </TabsContent>  
+                    <TabsContent value="content_tab" className="w-full h-auto min-h-screen">
+                        <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 p-4">
+                            <GetContent token={token}/>
+                        </div>
+                    </TabsContent>              
+                    <TabsContent value="applications_tab" className="w-full h-auto min-h-screen">
+                        <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 p-4">
+                            <GetApplications token={token}/>
+                        </div>
+                    </TabsContent>                             
+                </Tabs>    
+
+            </div>
             )}
         </div>
     );

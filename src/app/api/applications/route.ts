@@ -84,3 +84,23 @@ export async function POST(req: Request) {
     );
   }
 }
+
+export async function GET(req: Request) {
+  try {
+    // Koble til databasen
+    await dbConnect();
+
+    // Hent alle søknadene
+    const applications = await Application.find({});
+
+    // Returner søknadene som en JSON-respons
+    return NextResponse.json({ applications });
+  } catch (error) {
+    console.error("Error:", error);
+    return NextResponse.json(
+      { error: "Kunne ikke hente søknadene." },
+      { status: 500 }
+    );
+  }
+}
+

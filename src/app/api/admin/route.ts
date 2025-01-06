@@ -4,7 +4,7 @@ import Admin from "@/models/admin";
 import Application from "@/models/application";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
-
+import mongoose from "mongoose";
 const JWT_SECRET = process.env.JWT_SECRET || "defaultsecret";
 
 export async function POST(req: Request) {
@@ -19,7 +19,7 @@ export async function POST(req: Request) {
   }
 
   const token = jwt.sign({ id: admin._id, username: admin.username }, JWT_SECRET, {
-    expiresIn: "1h",
+    expiresIn: "2h",
   });
 
   return NextResponse.json({ token });
