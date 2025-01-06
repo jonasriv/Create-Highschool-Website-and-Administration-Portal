@@ -4,8 +4,19 @@ interface GetApplicationsProps {
     token: string;
 }
 
+interface Application {
+    _id: string;
+    name: string;
+    email: string;
+    phone: string;
+    priority1: string;
+    priority2: string;
+    priority3: string;
+    filename: string;
+    createdAt: string;
+}
 const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
-    const [applications, setApplications] = useState<any[]>([]);
+    const [applications, setApplications] = useState<Application[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [pressedButton, setPressedButton] = useState(false);
     
@@ -27,8 +38,8 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
             const data = await response.json();
             console.log("Fetched applications:", data);
             setApplications(data.applications || []);
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err) {
+            setError((err as Error).message);
         }
     };
 

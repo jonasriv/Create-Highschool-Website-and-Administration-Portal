@@ -54,17 +54,15 @@ const Study: React.FC = () => {
 
     return (
         <div 
-        id="front"
         className="flex flex-col justify-center items-center w-screen h-screen"
-
-    >
-            <div className="w-full text-white flex flex-col justify-start items-center box-border ...  no-scrollbar sm:px-2">
-                <div className="flex flex-col md:bg-black/50 md:rounded-xl max-w-screen-lg h-75-percent-screen">
-                    <h1 className="font-bahiana uppercase text-4xl md:text-5xl lg:text-6xl tracking-widest text-center text-white font-black sm:py-2">
+        >
+            <div className="w-screen lg:w-[1024px] text-white flex flex-col justify-start items-center box-border ...  no-scrollbar sm:px-2">
+                <div className="flex flex-col md:bg-black/50 md:rounded-xl h-70-percent-screen lg:h-80-percent-screen w-full">
+                    <h1 className="font-bahiana uppercase text-4xl md:text-5xl lg:text-6xl tracking-widest text-center text-white font-black mt-0 lg:mt-4">
                         Programfagene
                     </h1>
                     <div id="subject_tabs" className="w-full flex flex-row pb-12 lg:pb-16">
-                        <Tabs defaultValue="music_tab">
+                        <Tabs defaultValue="music_tab" className="w-full">
                             <TabsList className="w-full rounded-none mt-4 md:mt-0 flex flex-row items-center justify-around h-22 gap-0 md:gap-8 bg-fuchsia-950 md:mb-12">
                                 <TabsTrigger value="music_tab" className="opacity-100 p-2 md:p-4 animate-flash-border1 text-md md:text-2xl uppercase"><span className="hidden md:block">Create&nbsp;</span>Musikk&nbsp;<Star size="12"/></TabsTrigger>
                                 <TabsTrigger value="dance_tab" className="opacity-100 p-2 md:p-4 animate-flash-border2 text-md md:text-2xl uppercase"><span className="hidden md:block">Create&nbsp;</span>Dans&nbsp;<Star size="12"/></TabsTrigger>
@@ -72,23 +70,23 @@ const Study: React.FC = () => {
                             </TabsList> 
 
                         <TabsContent value="music_tab" className="md:rounded-2xl w-full h-75-percent-screen overflow-hidden">
-                            <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 ">
-                                <div className="w-full md:w-1/2 pr-4">
-                                    <div className="font-mina text-lg md:text-3xl text-slate-300 leading-normal px-4">
+                            <div className="flex flex-col  md:justify-between items-start mb-4 ">
+                                <div className="w-full">
+                                    <div className="font-mina text-lg md:text-3xl text-slate-300 leading-normal px-2">
                                         <GetTextContent contentKey="program_musikk" />
                                     </div>                                   
                                 </div>
-                                <div className="w-full justify-center items-center md:w-1/2 md:pr-4">
-                                    <Carousel autoplay={true} opts={{ loop: true }} className="md:max-w-lg flex justify-self-center place-items-end mb-4 relative overflow-auto h-30-percent-screen md:h-40-percent-screen no-scrollbar rounded-lg object-cover object-top">
+                                <div className="w-full justify-center items-center lg:px-4 mt-4">
+                                    <Carousel autoplay={true} opts={{ loop: true }} className="w-full flex justify-self-center place-items-end mb-4 relative overflow-hidden no-scrollbar md:rounded-lg object-contain object-top ">
                                         <CarouselContent className="">
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Music1} alt="" className="rounded-lg h-[24rem] md:h-[46rem] w-full object-cover object-top "></Image>
+                                                <Image src={Music1} alt="" className="md:rounded-lg h-[24rem] md:h-[46rem] w-full object-contain object-top "></Image>
                                             </CarouselItem>
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Music2} alt="" className="rounded-lg h-[24rem] md:h-[46rem] w-full object-cover object-top"></Image>
+                                                <Image src={Music2} alt="" className="md:rounded-lg h-[24rem] md:h-[46rem] w-full object-contain object-top"></Image>
                                             </CarouselItem>
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Music3} alt="" className="rounded-lg h-[24rem] md:h-[46rem] w-full object-cover object-top"></Image>
+                                                <Image src={Music3} alt="" className="md:rounded-lg h-[24rem] md:h-[46rem] w-full object-cover object-top"></Image>
                                             </CarouselItem>                            
                                         </CarouselContent>
                                     </Carousel>
@@ -97,51 +95,54 @@ const Study: React.FC = () => {
                         </TabsContent>    
 
                         <TabsContent value="dance_tab" className="md:rounded-2xl w-full h-75-percent-screen overflow-hidden">
-                            <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 ">
-                                <div className="w-full md:w-1/2 pr-4">
-                                    <div className="font-mina text-lg md:text-3xl text-slate-300 leading-normal px-4">
+                            <div className="flex flex-col  md:justify-between items-start mb-4 ">
+                                <div className="w-full">
+                                    <div className="font-mina text-lg md:text-3xl text-slate-300 leading-normal px-2">
                                         <GetTextContent contentKey="program_dans" />
                                     </div>                                   
                                 </div>
-                                <div className="w-full justify-center items-center md:w-1/2 md:pr-4">
-                                    <Carousel autoplay={true} opts={{ loop: true }} className="md:max-w-lg flex justify-self-center place-items-end mb-4 relative overflow-auto h-30-percent-screen no-scrollbar rounded-lg">
+                                <div className="w-full justify-center items-center lg:px-4 mt-4">
+                                    <Carousel autoplay={true} opts={{ loop: true }} className="w-full flex justify-self-center place-items-end mb-4 relative overflow-hidden no-scrollbar md:rounded-lg object-cover object-top">
                                         <CarouselContent className="">
-                                            <CarouselItem className="flex justify-center opacity-100">
-                                                <Image src={Dance1} alt="" className="rounded-lg h-[16rem] md:h-[32rem] w-full object-cover object-top"></Image>
+                                            <CarouselItem className="flex justify-center">
+                                                <Image src={Dance1} alt="" className="md:rounded-lg h-[24rem] md:h-[46rem] w-full object-contain object-top "></Image>
                                             </CarouselItem>
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Dance2} alt="" className="rounded-lg h-[16rem] md:h-[32rem] w-full object-cover object-top"></Image>
+                                                <Image src={Dance2} alt="" className="md:rounded-lg h-[24rem] md:h-[46rem] w-full object-contain object-top"></Image>
                                             </CarouselItem>
-                                                <Image src={Dance3} alt="" className="rounded-lg h-[16rem] md:h-[32rem] w-full object-cover object-top"></Image>
+                                            <CarouselItem className="flex justify-center">
+                                                <Image src={Dance3} alt="" className="md:rounded-lg h-[24rem] md:h-[46rem] w-full object-contain object-top"></Image>
+                                            </CarouselItem>                            
                                         </CarouselContent>
                                     </Carousel>
                                 </div>
                             </div>
-                        </TabsContent>  
-                        
+                        </TabsContent>    
+
                         <TabsContent value="drama_tab" className="md:rounded-2xl w-full h-75-percent-screen overflow-hidden">
-                            <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 ">
-                                <div className="w-full md:w-1/2 pr-4">
-                                    <div className="font-mina text-lg md:text-3xl text-slate-300 leading-normal px-4">
+                            <div className="flex flex-col  md:justify-between items-start mb-4 ">
+                                <div className="w-full">
+                                    <div className="font-mina text-lg md:text-3xl text-slate-300 leading-normal px-2">
                                         <GetTextContent contentKey="program_drama" />
                                     </div>                                   
                                 </div>
-                                <div className="w-full justify-center items-center md:w-1/2 md:pr-4">
-                                    <Carousel autoplay={true} opts={{ loop: true }} className="md:max-w-lg flex justify-self-center place-items-end mb-4 relative overflow-auto h-30-percent-screen no-scrollbar rounded-lg">
+                                <div className="w-full justify-center items-center lg:px-4 mt-4">
+                                    <Carousel autoplay={true} opts={{ loop: true }} className="w-full flex justify-self-center place-items-end mb-4 relative overflow-hidden no-scrollbar md:rounded-lg object-cover object-top">
                                         <CarouselContent className="">
-                                            <CarouselItem className="flex justify-center opacity-100">
-                                                <Image src={Drama1} alt="" className="rounded-lg h-[16rem] md:h-[32rem] w-full object-cover object-top"></Image>
+                                            <CarouselItem className="flex justify-center">
+                                                <Image src={Drama1} alt="" className="md:rounded-lg h-[24rem] md:h-[46rem] w-full object-contain object-top "></Image>
                                             </CarouselItem>
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Drama2} alt="" className="rounded-lg h-[16rem] md:h-[32rem] w-full object-cover object-top"></Image>
+                                                <Image src={Drama2} alt="" className="md:rounded-lg h-[24rem] md:h-[46rem] w-full object-contain object-top"></Image>
                                             </CarouselItem>
-                                                <Image src={Drama3} alt="" className="rounded-lg h-[16rem] md:h-[32rem] w-full object-cover object-top"></Image>
+                                            <CarouselItem className="flex justify-center">
+                                                <Image src={Drama3} alt="" className="md:rounded-lg h-[24rem] md:h-[46rem] w-full object-contain object-top"></Image>
+                                            </CarouselItem>                            
                                         </CarouselContent>
                                     </Carousel>
                                 </div>
                             </div>
-                            
-                        </TabsContent>  
+                        </TabsContent>                             
 
                     </Tabs>
                     </div>

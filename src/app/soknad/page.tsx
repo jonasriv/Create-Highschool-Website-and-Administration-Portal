@@ -38,22 +38,6 @@ const Soknad = () => {
         resume: '',
     })
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setFormData((prev => ({ ...prev, [name]: value })));
-    };
-
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const target = e.target as HTMLInputElement;
-        const file = target.files?.[0]; // Sjekker om files finnes og henter første element
-        if (file) {
-          setFormData((prev) => ({
-            ...prev,
-            resume: file,
-          }));
-        }
-      };
-
     const validateForm = () => {
         const newErrors = {
             fullName: formData.fullName ? '' : 'Fullt navn er påkrevd',

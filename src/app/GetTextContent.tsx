@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import useSWR from "swr";
 import DOMPurify from "dompurify";
 
 interface ContentItem {
@@ -15,78 +15,60 @@ interface ContentItem {
     opptak?: string;
     hva_blir_jeg?: string;
     om_create?: string;
+    createdAt?: Date;
 }
 
 interface GetTextContentProps {
     contentKey: keyof ContentItem; // Keyen fra ContentItem som vi skal hente fra objektet
 }
 
-const GetTextContent = ({ contentKey }: GetTextContentProps) => {  
-    const [content, setContent] = useState<ContentItem | null>(null); // Endre til å være en enkelt ContentItem, ikke array
-    const [error, setError] = useState<string | null>(null);
-    
-    useEffect(() => {
-        const fetchContent = async () => {
-            setError(null);
-            try {
-                const response = await fetch("/api/content", {
-                    method: "GET",
-                });
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-                if (!response.ok) {
-                    throw new Error("Failed to fetch content");
-                }
-
-                const data = await response.json();
-
-                const sortedContent = (data.content || []).sort(
-                    (a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-                );
-
-                if (sortedContent.length > 0) {
-                    setContent(sortedContent[0]); // Lagre det nyeste objektet i content
-                } else {
-                    setContent({
-                        _id: "new-content",
-                        frontpage_title: "",
-                        frontpage_soknadsfrist: "",
-                        elev_1: "",
-                        elev_2: "",
-                        elev_3: "",
-                        elev_4: "",
-                        program_musikk: "",
-                        program_dans: "",
-                        program_drama: "",
-                        opptak: "",
-                        hva_blir_jeg: "",
-                        om_create: "",
-                    });
-                }
-            } catch (err: any) {
-                setError(err.message);
-            }
-        };
-
-        fetchContent();
-    }, []);
+const GetTextContent = ({ contentKey }: GetTextContentProps) => {
+    // Bruk SWR for å håndtere datalasting og caching
+    const { data, error } = useSWR<{ content: ContentItem[] }>("/api/content", fetcher);
 
     if (error) {
-        return <div>Error: {error}</div>;
+        return <div>Error: {error.message}</div>;
     }
 
-    if (!content) {
+    if (!data) {
         return <div>Loading...</div>;
     }
 
-    // Hent spesifikt innhold basert på contentKey
-    const contentValue = content[contentKey] || "No content available"; // Bruk contentKey for å hente riktig verdi
+    const sortedContent = (data.content || []).sort(
+        (a: ContentItem, b: ContentItem) =>
+            new Date(b.createdAt || "").getTime() - new Date(a.createdAt || "").getTime()
+    );
+
+    const content = sortedContent[0] || {
+        _id: "new-content",
+        frontpage_title: "",
+        frontpage_soknadsfrist: "",
+        elev_1: "",
+        elev_2: "",
+        elev_3: "",
+        elev_4: "",
+        program_musikk: "",
+        program_dans: "",
+        program_drama: "",
+        opptak: "",
+        hva_blir_jeg: "",
+        om_create: "",
+    };
+
+    const contentValue =
+        typeof content[contentKey] === "string" ? content[contentKey] : "No content available";
 
     const sanitizedHTML = DOMPurify.sanitize(contentValue as string);
-    return <span dangerouslySetInnerHTML={{
-        __html: sanitizedHTML // Bruk sanert HTML
 
-    }}>
-    </span>;
+    return (
+        <span
+            dangerouslySetInnerHTML={{
+                __html: sanitizedHTML, // Bruk sanert HTML
+            }}
+        ></span>
+    );
 };
 
 export default GetTextContent;

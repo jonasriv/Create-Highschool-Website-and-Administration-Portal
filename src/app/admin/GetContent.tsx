@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 interface GetContentProps {
     token: string;
@@ -18,16 +18,17 @@ interface ContentItem {
         opptak?: string;
         hva_blir_jeg?: string;
         om_create?: string;
+        createdAt: string;
     }
 
 const GetContent: React.FC<GetContentProps> = ({ token }) => {
     
     const [content, setContent] = useState<ContentItem[]>([]);
     const [error, setError] = useState<string | null>(null);
-    const [pressedButton, setPressedButton] = useState(false);
+    const pressedButton = useRef(false);
     
     const fetchContent = async () => {
-        setPressedButton(true);
+        pressedButton.current = true;
         if (!token) return;
 
         setError(null);
@@ -44,7 +45,7 @@ const GetContent: React.FC<GetContentProps> = ({ token }) => {
             const data = await response.json();
 
             const sortedContent = (data.content || []).sort(
-                (a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+                (a: ContentItem, b: ContentItem) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
             );
 
             if (sortedContent.length > 0) {
@@ -70,13 +71,18 @@ const GetContent: React.FC<GetContentProps> = ({ token }) => {
                         opptak: "",
                         hva_blir_jeg: "",
                         om_create: "",
+                        createdAt: "",
                     },
                 ]);
             }
             
 
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err) {
+            if (err instanceof Error) {
+                setError((err as Error).message);
+            } else {
+                setError("An unknown error occurred");
+            }
         }
     };
 
@@ -98,7 +104,7 @@ const GetContent: React.FC<GetContentProps> = ({ token }) => {
 
             const formData = new FormData();
 
-            content.forEach((item, index) => {
+            content.forEach((item) => {
                 Object.entries(item).forEach(([key, value]) => {
                     if (value) {
                         formData.append(key, value.toString());
@@ -121,11 +127,16 @@ const GetContent: React.FC<GetContentProps> = ({ token }) => {
 
             const data = await response.json();
             console.log("Content saved successfully:", data);
-        } catch (err: any) {
-            console.error("Error saving content:", err.message);
-            setError(err.message);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                console.error("Error saving content:", err.message);
+                setError(err.message);
+            } else {
+                console.log("An unknown error occuurred");
+                setError("An unknown error occurred");
+            }    
         }
-    }
+    };
 
     
     return (
@@ -139,7 +150,7 @@ const GetContent: React.FC<GetContentProps> = ({ token }) => {
             </button>
             {error && <p className="text-red-500 mt-4">{error}</p>}
             {content.length > 0 ? (
-                <form key="formA" className="table-auto w-full mt-8 text-xl p-4 bg-slate-800 rounded-xl"
+                <form key='formA' className="table-auto w-full mt-8 text-xl p-4 bg-slate-800 rounded-xl"
                     onSubmit={(e) => {
                         e.preventDefault();
                         saveContent();
@@ -148,62 +159,62 @@ const GetContent: React.FC<GetContentProps> = ({ token }) => {
                     
                     {content.map((content, index) => (
                         <div key={content._id} className="flex flex-col mb-4 w-full items-start">
-                            <h2>"Forside tittel":</h2>
+                            <h2>Forside tittel:</h2>
                             <input 
                                 onChange={(e) => handleInputChange(index, "frontpage_title", e.target.value)} 
                                 className="border px-4 py-2 w-11/12 mb-8 text-black bg-slate-100" 
                                 value={content.frontpage_title || ""}></input>
-                            <h2>"Forside info om frist":</h2>
+                            <h2>Forside info om frist:</h2>
                             <textarea 
                                 onChange={(e) => handleInputChange(index, "frontpage_soknadsfrist", e.target.value)} 
                                 className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
                                 value={content.frontpage_soknadsfrist || ""}></textarea>
-                            <h2>"Elev på Create 1":</h2>
+                            <h2>Elev på Create 1:</h2>
                             <textarea 
                                 onChange={(e) => handleInputChange(index, "elev_1", e.target.value)} 
                                 className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
                                 value={content.elev_1 || ""}></textarea>
-                            <h2>"Elev på Create 2":</h2>
+                            <h2>Elev på Create 2:</h2>
                             <textarea 
                                 onChange={(e) => handleInputChange(index, "elev_2", e.target.value)} 
                                 className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
                                 value={content.elev_2 || ""}></textarea>
-                            <h2>"Elev på Create 3":</h2>
+                            <h2>Elev på Create 3:</h2>
                             <textarea 
                                 onChange={(e) => handleInputChange(index, "elev_3", e.target.value)} 
                                 className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
                                 value={content.elev_3 || ""}></textarea>
-                            <h2>"Elev på Create 4":</h2>
+                            <h2>Elev på Create 4:</h2>
                             <textarea 
                                 onChange={(e) => handleInputChange(index, "elev_4", e.target.value)} 
                                 className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
                                 value={content.elev_4 || ""}></textarea>
-                            <h2>"Programfag musikk":</h2>
+                            <h2>Programfag musikk:</h2>
                             <textarea 
                                 onChange={(e) => handleInputChange(index, "program_musikk", e.target.value)} 
                                 className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
                                 value={content.program_musikk || ""}></textarea>
-                            <h2>"Programfag dans":</h2>
+                            <h2>Programfag dans:</h2>
                             <textarea 
                                 onChange={(e) => handleInputChange(index, "program_dans", e.target.value)} 
                                 className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
                                 value={content.program_dans || ""}></textarea>
-                            <h2>"Programfag drama":</h2><textarea 
+                            <h2>Programfag drama:</h2><textarea 
 
                                 onChange={(e) => handleInputChange(index, "program_drama", e.target.value)} 
                                 className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
                                 value={content.program_drama || ""}></textarea>
-                            <h2>"Opptak":</h2>
+                            <h2>Opptak:</h2>
                             <textarea 
                                 onChange={(e) => handleInputChange(index, "opptak", e.target.value)} 
                                 className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
                                 value={content.opptak || ""}></textarea>
-                            <h2>"Hva blir jeg?":</h2>
+                            <h2>Hva blir jeg?:</h2>
                             <textarea 
                                 onChange={(e) => handleInputChange(index, "hva_blir_jeg", e.target.value)} 
                                 className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
                                 value={content.hva_blir_jeg || ""}></textarea>
-                            <h2>"Om create":</h2>
+                            <h2>Om create:</h2>
                             <textarea 
                                 onChange={(e) => handleInputChange(index, "om_create", e.target.value)} 
                                 className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 

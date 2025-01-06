@@ -4,13 +4,12 @@ import Admin from "@/models/admin";
 import Application from "@/models/application";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
-import mongoose from "mongoose";
 const JWT_SECRET = process.env.JWT_SECRET || "defaultsecret";
 
 export async function POST(req: Request) {
   await dbConnect();
 
-  const { username, password } = await req.json();
+  const username = await req.json();
 
   const admin = await Admin.findOne({ username });
  

@@ -1,6 +1,7 @@
 // app/api/db/route.js
 import dbConnect from "@/lib/mongoose";
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 export async function GET(req) {
   try {
     await dbConnect(); // Koble til databasen

@@ -28,8 +28,14 @@ export default function AdminPage() {
 
             const data = await response.json();
             setToken(data.token);
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                console.error("Error logging in");
+                setError(err.message);
+            } else {
+                console.error("An unknown error occurred");
+                setError("An unknown error occurred");
+            }
         }
     };
 
