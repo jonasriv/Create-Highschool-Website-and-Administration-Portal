@@ -40,6 +40,7 @@ export default {
 			'flash-border1': 'flash-border1 5s infinite',
 			'flash-border2': 'flash-border2 5s infinite',
 			'flash-border3': 'flash-border3 5s infinite',
+			'spin-fast': 'spin 1s linear infinite',
 		},		
 		keyframes: {
 			'flash-border1': {
@@ -54,6 +55,11 @@ export default {
 			'flash-border3': {
 				'0%, 70%': { color: 'lightGrey' },
 				'75%, 100%': { color: 'white'},
+			},
+			'spin': {
+				'0%': { transform: 'rotate(0deg)' },
+				'100%': { transform: 'rotate(360deg)' },
+	  
 			},
 		},				
 		fontFamily: {

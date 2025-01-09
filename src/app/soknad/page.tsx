@@ -1,14 +1,15 @@
 
 'use client'
-import { useState } from "react";
+import React, { useState, useRef } from "react";
+import Tesseract from 'tesseract.js';
+import * as pdfjsLib from 'pdfjs-dist';
+import mammoth from 'mammoth';
 import dynamic from "next/dynamic";
 import BackgroundImage2 from '../../../public/images/gpt-background2.webp';
 import Link from 'next/link';
 const Header = dynamic(() => import("./HeaderSoknad"));
 
-
 const Soknad = () => {
-
     type FormData = {
         fullName: string;
         email: string;
@@ -38,6 +39,9 @@ const Soknad = () => {
         resume: '',
     })
 
+    const [loading, setLoading] = useState(false);  // Legg til loading state
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+
     const validateForm = () => {
         const newErrors = {
             fullName: formData.fullName ? '' : 'Fullt navn er påkrevd',
@@ -49,20 +53,28 @@ const Soknad = () => {
             resume: formData.resume ? '' : 'Du må laste opp en karakterutskrift',
         };
         setErrors(newErrors);
-
         return Object.values(newErrors).every((error) => !error);
     }
-
+    
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
+        
+        if (formData.priority1 === formData.priority2 || formData.priority1 === formData.priority3 || formData.priority3 === formData.priority2) {
+          alert("Du må velge tre forskjellige prioriteringer!")
+        }
+        
         if (!formData.resume) {
-            alert('Please upload your resume!');
+            alert('Du må laste opp et karakterkort!');
             return;
           }
 
         if(validateForm()) {
+            setLoading(true);
             try {
+                //kjør ocr: 
+                const ocrText = await processOCR(formData.resume);
+                
+                
                 // Opprett FormData-objekt for å håndtere filopplasting:
                 const formDataToSend = new FormData();
                 formDataToSend.append('name', formData.fullName); 
@@ -72,8 +84,9 @@ const Soknad = () => {
                 formDataToSend.append('priority2', formData.priority2); 
                 formDataToSend.append('priority3', formData.priority3); 
                 formDataToSend.append('resume', formData.resume as File); 
+                formDataToSend.append('ocrText', ocrText); 
 
-                //Send Post-forespørsel til API: 
+                //Post-forespørsel til API: 
                 const response = await fetch('api/applications', {
                     method: 'POST', 
                     body: formDataToSend,
@@ -96,13 +109,114 @@ const Soknad = () => {
                     resume: null,
                 });
 
+            // Clear the file input field
+            if (fileInputRef.current) {
+              fileInputRef.current.value = '';  // Reset the file input
+            }
                 alert('Søknaden ble sendt inn!');
+                setLoading(false);
+                window.location.href = '/';
             } catch (error) {
                 console.error('Error:', error);
                 alert('Kunne ikke sende inn søknaden. Prøv igjen senere');
+            } finally {
+                setLoading(false);
             }
         }
     };
+
+    //funksjon for ocr:  
+    pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
+
+    
+    const processOCR = (file: File) => {
+      return new Promise<string>((resolve, reject) => {
+        const fileExtension = file.name.split('.').pop()?.toLowerCase();
+        const documentTypes = ['pdf', 'doc', 'docx'];
+    
+        // Hvis filen er en PDF, konverter den til bilder
+        if (fileExtension === 'pdf') {
+          const reader = new FileReader();
+          reader.onload = async (e) => {
+            try {
+              const pdfData = new Uint8Array(e.target?.result as ArrayBuffer);
+              const pdfDoc = await pdfjsLib.getDocument(pdfData).promise;
+              let text = '';
+    
+              // Loop gjennom PDF-sidene, og konverter hver til et bilde
+              for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+                const page = await pdfDoc.getPage(pageNum);
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                const viewport = page.getViewport({ scale: 3 });
+    
+                // Sett størrelsen på canvas til å matche PDF-siden
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                if (context) {
+                    await page.render({ canvasContext: context, viewport }).promise;
+                } else {
+                    console.error('Failed to get 2D context');
+                }
+                // Kjør OCR på bildet (canvas)
+                const result = await Tesseract.recognize(
+                  canvas.toDataURL(),
+                  'nor',
+                  {
+                    logger: (m) => console.log(m),
+                  }
+                );
+    
+                text += result.data.text.trim();
+              }
+    
+              resolve(text || 'document');
+            } catch (error) {
+              reject(error);
+            }
+          };
+          reader.readAsArrayBuffer(file);
+          return; // Tidlig retur slik at ingen annen OCR kjøres på filen
+        }
+    
+        // Hvis filen er en DOCX, les innholdet med Mammoth.js
+        if (fileExtension === 'docx') {
+          const reader = new FileReader();
+          reader.onload = async (e) => {
+            try {
+              const arrayBuffer = e.target?.result as ArrayBuffer;
+              const result = await mammoth.extractRawText({ arrayBuffer });
+              resolve(result.value.trim() || 'document');
+            } catch (error) {
+              reject(error);
+            }
+          };
+          reader.readAsArrayBuffer(file);
+          return; // Tidlig retur slik at ingen OCR kjøres på DOCX
+        }
+    
+        // Hvis filen er et annet dokument (pdf, docx), returner "document"
+        if (documentTypes.includes(fileExtension || '')) {
+          resolve('document');
+          return; // Tidlig retur slik at ingen OCR kjøres på andre dokumenter
+        }
+    
+        // Ellers, kjør OCR på bildet
+        Tesseract.recognize(
+          file,
+          'nor+eng',
+          {
+            logger: (m) => console.log(m),
+          }
+        ).then(({ data: { text } }) => {
+          resolve(text.trim());
+        }).catch((error) => {
+          reject(error);
+        });
+      });
+    };
+    
+    
 
     return (
         <div 
@@ -115,6 +229,13 @@ const Soknad = () => {
           //filter: 'brightness(80%)',
       }}  >
             <Header/>
+            {loading && (
+              <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 z-50">
+                <div className="w-24 h-24 border-b-8 border-t-8 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div>
+              </div>
+
+
+            )}
             <div className="w-full h-20 md:h-24 mt-4"></div>
             <div className="max-w-screen-lg mb-8 w-11/12 mx-auto p-6 bg-slate-600 rounded-lg shadow-lg md:24 flex flex-col">
             <div className="">
@@ -234,6 +355,7 @@ const Soknad = () => {
                 <h1 className="font-mina text-3xl">Last opp karakterkort * :</h1>
                 <label htmlFor="resume" className="block text-sm md:text-lg font-semibold"></label>
                 <input
+                ref={fileInputRef}
                 type="file"
                 id="resume"
                 accept=".pdf,.doc,.docx,.jpeg,.png,.jpg,.webp,.tiff,.bmp,.gif"
