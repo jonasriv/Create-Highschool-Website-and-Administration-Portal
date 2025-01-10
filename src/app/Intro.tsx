@@ -41,7 +41,7 @@ const Intro: React.FC = () => {
     }, []);
 
     return (
-        <div className="flex flex-col justify-start items-center w-screen h-screen pt-20">
+        <div className="flex flex-col justify-start items-center w-screen h-screen pt-20 overflow-y-scroll">
             <div className=" w-full h-[1000px] text-white flex flex-col justify-start items-center box-border ...  no-scrollbar relative overflow-hidden">
                     <h1 className="w-auto font-mina text-2xl lg:text-3xl lg:mt-4 tracking-widest text-center text-white font-black p-2 z-50">
                         Elev på Create
@@ -61,7 +61,7 @@ const Intro: React.FC = () => {
                         </div>
                     </div>
 
-                    <div ref={scrollContainerRef} className="lg:max-w-screen-lg flex flex-col justify-start items-center w-screen snap-y snap-proximity no-scrollbar overflow-y-scroll scroll-smooth h-full gap-4">
+                    <div ref={scrollContainerRef} className="lg:max-w-screen-lg flex flex-col justify-start items-center w-screen snap-y snap-proximity no-scrollbar overflow-y-scroll scroll-smooth h-full gap-16">
                     <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-[800px]">
                             <div className="flex flex-col w-screen lg:w-full justify-end items-center lg:h-full md:rounded-t-xl">
                                 
