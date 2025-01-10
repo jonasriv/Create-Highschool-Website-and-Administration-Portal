@@ -63,21 +63,21 @@ const Study: React.FC = () => {
                     </h1>
                     <div id="subject_tabs" className="w-full">
                         <Tabs defaultValue="music_tab" className="w-full flex-col justify-start items-start">
-                            <TabsList className="w-full flex flex-row items-center justify-between h-22 gap-4 bg-black/60 md:mb-4 rounded-none lg:rounded-xl lg:mb-8">
+                            <TabsList className="w-full flex flex-row items-center justify-between h-22 gap-4 md:mb-4 rounded-none lg:rounded-xl lg:mb-8">
                                 <TabsTrigger value="music_tab" className="opacity-100 p-2 lg:p-4 animate-flash-border1 text-md md:text-2xl uppercase"><span className="hidden md:block">Create&nbsp;</span>Musikk&nbsp;<Star size="12"/></TabsTrigger>
                                 <TabsTrigger value="dance_tab" className="opacity-100 p-2 lg:p-4 animate-flash-border2 text-md md:text-2xl uppercase"><span className="hidden md:block">Create&nbsp;</span>Dans&nbsp;<Star size="12"/></TabsTrigger>
                                 <TabsTrigger value="drama_tab" className="opacity-100 p-2 lg:p-4 animate-flash-border3 text-md md:text-2xl uppercase"><span className="hidden md:block">Create&nbsp;</span> Drama&nbsp;<Star size="12"/></TabsTrigger>
                             </TabsList> 
 
-                        <TabsContent value="music_tab" className="lg:rounded-2xl w-full h-75-percent-screen overflow-hidden">
+                        <TabsContent value="music_tab" className="lg:rounded-2xl w-full h-[800px] overflow-hidden">
                             <div className="flex flex-col  md:justify-between items-start mb-4 ">
                                 <div className="w-full">
                                     <div className="font-mina text-lg md:text-3xl text-slate-300 leading-normal px-2">
                                         <GetTextContent contentKey="program_musikk" />
                                     </div>                                   
                                 </div>
-                                <div className="w-full justify-center items-center lg:px-4 mt-4">
-                                <Carousel autoplay={true} opts={{ loop: true }} className="w-full flex justify-self-center place-items-end mb-4 relative overflow-hidden no-scrollbar lg:rounded-lg object-cover object-top">
+                                <div className="w-full justify-start items-center mt-4">
+                                <Carousel autoplay={true} opts={{ loop: true }} className="w-full flex justify-self-center mb-4 relative overflow-hidden no-scrollbar lg:rounded-lg object-cover object-top">
                                         <CarouselContent className="">
                                             <CarouselItem className="flex justify-center">
                                                 <Image src={Music1} alt="" className="lg:rounded-lg h-[24rem] md:h-[46rem] w-full object-cover object-center"></Image>
@@ -94,7 +94,7 @@ const Study: React.FC = () => {
                             </div>
                         </TabsContent>    
 
-                        <TabsContent value="dance_tab" className="lg:rounded-2xl w-full h-75-percent-screen overflow-hidden">
+                        <TabsContent value="dance_tab" className="lg:rounded-2xl w-full h-[800px] overflow-hidden">
                             <div className="flex flex-col  md:justify-between items-start mb-4 ">
                                 <div className="w-full">
                                     <div className="font-mina text-lg md:text-3xl text-slate-300 leading-normal px-2">
@@ -119,7 +119,7 @@ const Study: React.FC = () => {
                             </div>
                         </TabsContent>    
 
-                        <TabsContent value="drama_tab" className="lg:rounded-2xl w-full h-75-percent-screen overflow-hidden">
+                        <TabsContent value="drama_tab" className="lg:rounded-2xl w-full h-[800px] overflow-hidden">
                             <div className="flex flex-col  md:justify-between items-start mb-4 ">
                                 <div className="w-full">
                                     <div className="font-mina text-lg md:text-3xl text-slate-300 leading-normal px-2">
