@@ -16,12 +16,12 @@ const Front = () => {
             
             <div className="w-screen h-screen uppercase gap-8 flex flex-col justify-between items-center max-w-screen pt-32">
                 <Image alt="image" src={Logo} className="w-36 md:w-72"></Image>
-                <div className="md:flex flex-col width-screen px-8 tracking-widest font-mina text-sm font-black">
-                    <h1 className="text-center leading-loose text-sm">
+                <div className="md:flex flex-col width-screen px-8 tracking-widest font-mina text-lg font-black">
+                    <h1 className="text-center leading-loose text-lg">
                         <GetTextContent contentKey="frontpage_title"/>
                     </h1>
                 </div>
-                <h1 className="font-mina font-black text-sm">
+                <h1 className="font-mina font-black text-lg">
                     <GetTextContent contentKey="frontpage_soknadsfrist"/>
                 </h1>
                 <Link href="/soknad">
