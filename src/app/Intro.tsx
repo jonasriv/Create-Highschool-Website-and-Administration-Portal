@@ -42,7 +42,7 @@ const Intro: React.FC = () => {
 
     return (
         <div className="flex flex-col justify-start items-center w-screen h-screen pt-20 ">
-            <div className=" w-full h-[1000px] lg:h[900] text-white flex flex-col justify-start items-center box-border ...  no-scrollbar relative">
+            <div className=" w-full h-[1000px] lg:h[880] text-white flex flex-col justify-start items-center box-border ...  no-scrollbar relative">
                     <h1 className="md:bg-black/20 lg:bg-transparent font-bahiana uppercase text-4xl lg:text-5xl tracking-widest text-center text-white font-black md:p-4 rounded-xl z-50 mt-4 ">
                         Elev på Create
                     </h1>
