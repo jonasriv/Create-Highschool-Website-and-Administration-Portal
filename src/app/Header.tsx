@@ -19,7 +19,6 @@ const Header = () => {
         }
     };
 
-
     return (
         <header>
             <div 

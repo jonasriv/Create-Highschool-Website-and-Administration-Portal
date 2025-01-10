@@ -2,13 +2,13 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { ChevronsDown } from "lucide-react";
 import GetTextContent from './GetTextContent';
-import Create1 from '../../public/images/foto/create1.png';
-import Create2 from '../../public/images/foto/create2.png';
-import Create3 from '../../public/images/foto/create3.png';
-import Create4 from '../../public/images/foto/create4.png';
 
 const Intro: React.FC = () => {
-    
+    const Create1 = 'https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507028/IMG_9715-1_h6bj7f.jpg';
+    const Create2 = 'https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507020/IMG_0104_3_oxqa1u.jpg';
+    const Create3 = 'https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507024/IMG_8533-1_cuqh4v.jpg';
+    const Create4 = 'https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507023/IMG_7018-1_uqzmsn.jpg';
+
     const [scrollPosition, setScrollPosition] = useState(0);
     const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
@@ -41,9 +41,9 @@ const Intro: React.FC = () => {
     }, []);
 
     return (
-        <div className="flex flex-col justify-start items-center w-screen h-screen pt-20 ">
-            <div className=" w-full h-[1000px] lg:h[880] text-white flex flex-col justify-start items-center box-border ...  no-scrollbar relative">
-                    <h1 className="md:bg-black/20 lg:bg-transparent font-bahiana uppercase text-4xl lg:text-5xl tracking-widest text-center text-white font-black md:p-4 rounded-xl z-50 mt-4 ">
+        <div className="flex flex-col justify-start items-center w-screen h-screen pt-20">
+            <div className=" w-full h-[1000px] lg:h[800] text-white flex flex-col justify-start items-center box-border ...  no-scrollbar relative">
+                    <h1 className="bg-black/20 w-full lg:w-auto font-mina text-2xl lg:text-5xl tracking-widest text-center text-white font-black p-2 mt-0 z-50">
                         Elev på Create
                     </h1>
 
@@ -61,14 +61,14 @@ const Intro: React.FC = () => {
                         </div>
                     </div>
 
-                    <div ref={scrollContainerRef} className="absolute lg:top-32 lg:max-w-screen-lg flex flex-col justify-start items-center w-screen lg:max-width-screen-md snap-y snap-mandatory no-scrollbar overflow-y-scroll scroll-smooth h-full lg:gap-4 ">
-                    <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-full min-h-full">
+                    <div ref={scrollContainerRef} className="absolute lg:top-32 lg:max-w-screen-lg flex flex-col justify-start items-center w-screen lg:max-width-screen-md snap-y snap-proximity no-scrollbar overflow-y-scroll scroll-smooth h-full gap-4">
+                    <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-[800px]">
                             <div className="flex flex-col w-screen md:w-full justify-end items-center md:h-full md:rounded-t-xl">
                                 
                                 <div 
                                     className="w-full min-h-[450px] md:min-h-[800px] lg:rounded-xl flex flex-col justify-end items-center h-full"
                                     style={{
-                                        backgroundImage: `url(${Create2.src})`,
+                                        backgroundImage: `url(${Create3})`,
                                         backgroundSize: 'cover',
                                         backgroundPosition: 'top',
                                         backgroundRepeat: 'no-repeat',
@@ -92,13 +92,13 @@ const Intro: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-full min-h-full">
+                        <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-[800px]">
                             <div className="flex flex-col w-screen md:w-full justify-end items-center md:h-full md:rounded-t-xl">
                                 
                                 <div 
                                     className="w-full min-h-[450px] md:min-h-[800px] lg:rounded-xl flex flex-col justify-end items-center h-full"
                                     style={{
-                                        backgroundImage: `url(${Create3.src})`,
+                                        backgroundImage: `url(${Create1})`,
                                         backgroundSize: 'cover',
                                         backgroundPosition: 'top',
                                         backgroundRepeat: 'no-repeat',
@@ -122,13 +122,13 @@ const Intro: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-full min-h-full">
+                        <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-[800px]">
                             <div className="flex flex-col w-screen md:w-full justify-end items-center md:h-full md:rounded-t-xl">
                                 
                                 <div 
                                     className="w-full min-h-[450px] md:min-h-[800px] lg:rounded-xl flex flex-col justify-end items-center h-full"
                                     style={{
-                                        backgroundImage: `url(${Create4.src})`,
+                                        backgroundImage: `url(${Create2})`,
                                         backgroundSize: 'cover',
                                         backgroundPosition: 'top',
                                         backgroundRepeat: 'no-repeat',
@@ -152,13 +152,13 @@ const Intro: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-full min-h-full">
+                        <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-[800px] mb-24">
                             <div className="flex flex-col w-screen md:w-full justify-end items-center md:h-full md:rounded-t-xl">
                                 
                                 <div 
                                     className="w-full min-h-[450px] md:min-h-[800px] lg:rounded-xl flex flex-col justify-end items-center h-full"
                                     style={{
-                                        backgroundImage: `url(${Create1.src})`,
+                                        backgroundImage: `url(${Create4})`,
                                         backgroundSize: 'cover',
                                         backgroundPosition: 'top',
                                         backgroundRepeat: 'no-repeat',

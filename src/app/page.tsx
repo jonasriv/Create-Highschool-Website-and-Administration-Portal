@@ -8,12 +8,12 @@ const Intro = dynamic(() => import("./Intro"));
 const Admission = dynamic(() => import("./Admission"));
 
 const Home = () => {
-    
+  const externalBackground = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506363/background_no_logo_yhjwra.jpg";
   return (
     <div 
       className="flex flex-col h-screen w-screen bg-white/40"
       style={{
-        backgroundImage: `url(${BackgroundImage2.src})`,
+        backgroundImage: `url(${externalBackground})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -21,13 +21,13 @@ const Home = () => {
     }}  
     >
       <Header />
-      <main className="bg-black/65 h-screen w-screen snap-y snap-mandatory overflow-x-hidden no-scrollbar mt-22 md:pt-28">  
+      <main className="bg-black/65 h-screen w-screen snap-y snap-proximity overflow-x-hidden no-scrollbar mt-22 md:pt-28">  
 
           <div id="front" className="snap-start h-screen flex items-center justify-center">
             <Front />
           </div>
           
-          <div id="intro" className="snap-start h-screen flex items-center justify-center backdrop-blur-lg ">
+          <div id="intro" className="snap-start h-screen flex items-center justify-center backdrop-blur-lg">
             <Intro />
           </div>
 

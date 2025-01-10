@@ -33,7 +33,7 @@ const GetTextContent = ({ contentKey }: GetTextContentProps) => {
     }
 
     if (!data) {
-        return <div>...</div>;
+        return <div></div>;
     }
 
     const sortedContent = (data.content || []).sort(
