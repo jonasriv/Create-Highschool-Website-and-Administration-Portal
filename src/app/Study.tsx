@@ -57,8 +57,8 @@ const Study: React.FC = () => {
         className="flex flex-col justify-center items-center w-screen h-screen mt-0 pt-36 md:pt-16 lg:pt-0"
         >
             <div className="w-screen lg:w-[1024px] text-white flex flex-col justify-start items-center box-border ...  no-scrollbar mt-0 pt-0">
-                <div className="flex flex-col lg:rounded-xl md:h-full lg:h-75-percent-screen w-full mt-0">
-                    <h1 className="font-bahiana uppercase text-4xl md:text-5xl lg:text-6xl tracking-widest text-center text-white font-black mb-4 mt-4">
+                <div className="flex flex-col lg:rounded-xl md:h-full lg:h-70-percent-screen w-full mt-0">
+                    <h1 className="font-bahiana uppercase text-4xl md:text-5xl lg:text-6xl tracking-widest text-center text-white font-black mb-4 mt-4 lg:m4-0">
                         Programfagene
                     </h1>
                     <div id="subject_tabs" className="w-full">
