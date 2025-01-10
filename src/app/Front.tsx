@@ -17,12 +17,12 @@ const Front = () => {
             <div className="w-screen h-screen uppercase gap-8 flex flex-col justify-between items-center max-w-screen pt-32">
                 <Image alt="image" src={Logo} className="w-36 md:w-72"></Image>
                 <div className="md:flex flex-col width-screen px-8 tracking-widest font-mina text-sm font-black">
-                    <h1 className="text-center leading-loose">
+                    <h1 className="text-center leading-loose text-sm">
                         <GetTextContent contentKey="frontpage_title"/>
                     </h1>
                 </div>
-                <h1 className="font-mina font-black text-xl">
-                <GetTextContent contentKey="frontpage_soknadsfrist"/>
+                <h1 className="font-mina font-black text-sm">
+                    <GetTextContent contentKey="frontpage_soknadsfrist"/>
                 </h1>
                 <Link href="/soknad">
                     <button className="bg-pinky w-42 h-14 flex justify-center items-center text-2xl py-4 px-8 rounded-3xl font-black uppercase text-slate-200 border-2 border-transparent hover:border-white hover:text-white">Søk nå</button>
