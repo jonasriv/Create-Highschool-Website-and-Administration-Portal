@@ -9,7 +9,6 @@ const ApplicationSchema = new mongoose.Schema({
   priority2: { type: String, required: true },
   priority3: { type: String, required: true },
   filename: { type: String, required: true },
-  ocrText: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
 });
 

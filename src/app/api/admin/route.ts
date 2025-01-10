@@ -4,9 +4,37 @@ import Application from "@/models/application";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
+import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+
+// Konfigurer S3-klienten
+const s3 = new S3Client({
+  region: process.env.AWS_REGION,
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+  },
+});
 
 const JWT_SECRET = process.env.JWT_SECRET || "defaultsecret";
 
+// Funksjon for å generere presigned URL for nedlasting
+const generatePresignedUrl = async (bucketName: string, fileKey: string): Promise<string> => {
+  try {
+    const command = new GetObjectCommand({
+      Bucket: bucketName,
+      Key: fileKey,
+    });
+
+    const presignedUrl = await getSignedUrl(s3, command, { expiresIn: 3600 }); // 1 time
+    return presignedUrl;
+  } catch (error) {
+    console.error("Error generating presigned URL", error);
+    throw new Error("Unable to generate presigned URL");
+  }
+};
+
+// POST: Autentisering
 export async function POST(req: Request) {
   await dbConnect();
 
@@ -46,10 +74,12 @@ export async function POST(req: Request) {
   }
 }
 
+// GET: Hente applikasjoner og generere presigned URL for filnedlasting
+// Hent applikasjoner og generere presigned URL for filnedlasting
 export async function GET(req: Request) {
   const token = req.headers.get("authorization")?.split(" ")[1];
   if (!token) {
-    return NextResponse.json({ error: "Unauthorized "}, { status: 401 });
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
@@ -57,10 +87,34 @@ export async function GET(req: Request) {
     console.log("Decoded token:", decoded);
     await dbConnect();
 
+    // Hent applikasjoner
     const applications = await Application.find({});
     console.log("Applications found:", applications);
 
-    return NextResponse.json({ applications });
+    // Generer presigned URL for hver applikasjon
+    const applicationsWithUrls = await Promise.all(applications.map(async (app) => {
+      const filename = app.filename; // Hent filnavn fra applikasjonen
+      let presignedUrl = null;
+
+      if (filename) {
+        // Generer presigned URL basert på filename
+        try {
+          presignedUrl = await generatePresignedUrl(process.env.AWS_S3_BUCKET_NAME!, filename);
+        } catch (error) {
+          console.error("Error generating presigned URL:", error);
+        }
+      }
+      console.log(presignedUrl)
+      return {
+        ...app.toObject(),
+        s3FileUrl: presignedUrl, // Legg til presigned URL i applikasjonen
+      };
+    }));
+
+    // Returnere applikasjonene med presigned URL
+    return NextResponse.json({
+      applications: applicationsWithUrls,
+    });
   } catch (error) {
     console.error("Error:", error);
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

@@ -1,10 +1,7 @@
 
 'use client'
 import React, { useState, useRef } from "react";
-import Tesseract from 'tesseract.js';
-import * as pdfjsLib from 'pdfjs-dist';
-import mammoth from 'mammoth';
-import dynamic from "next/dynamic";
+import dynamic from 'next/dynamic';
 import BackgroundImage2 from '../../../public/images/gpt-background2.webp';
 import Link from 'next/link';
 const Header = dynamic(() => import("./HeaderSoknad"));
@@ -71,9 +68,6 @@ const Soknad = () => {
         if(validateForm()) {
             setLoading(true);
             try {
-                //kjør ocr: 
-                const ocrText = await processOCR(formData.resume);
-                
                 
                 // Opprett FormData-objekt for å håndtere filopplasting:
                 const formDataToSend = new FormData();
@@ -84,7 +78,6 @@ const Soknad = () => {
                 formDataToSend.append('priority2', formData.priority2); 
                 formDataToSend.append('priority3', formData.priority3); 
                 formDataToSend.append('resume', formData.resume as File); 
-                formDataToSend.append('ocrText', ocrText); 
 
                 //Post-forespørsel til API: 
                 const response = await fetch('api/applications', {
@@ -124,101 +117,8 @@ const Soknad = () => {
             }
         }
     };
-
-    //funksjon for ocr:  
-    pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
-
     
-    const processOCR = (file: File) => {
-      return new Promise<string>((resolve, reject) => {
-        const fileExtension = file.name.split('.').pop()?.toLowerCase();
-        const documentTypes = ['pdf', 'doc', 'docx'];
-    
-        // Hvis filen er en PDF, konverter den til bilder
-        if (fileExtension === 'pdf') {
-          const reader = new FileReader();
-          reader.onload = async (e) => {
-            try {
-              const pdfData = new Uint8Array(e.target?.result as ArrayBuffer);
-              const pdfDoc = await pdfjsLib.getDocument(pdfData).promise;
-              let text = '';
-    
-              // Loop gjennom PDF-sidene, og konverter hver til et bilde
-              for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
-                const page = await pdfDoc.getPage(pageNum);
-                const canvas = document.createElement('canvas');
-                const context = canvas.getContext('2d');
-                const viewport = page.getViewport({ scale: 3 });
-    
-                // Sett størrelsen på canvas til å matche PDF-siden
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-                if (context) {
-                    await page.render({ canvasContext: context, viewport }).promise;
-                } else {
-                    console.error('Failed to get 2D context');
-                }
-                // Kjør OCR på bildet (canvas)
-                const result = await Tesseract.recognize(
-                  canvas.toDataURL(),
-                  'nor',
-                  {
-                    logger: (m) => console.log(m),
-                  }
-                );
-    
-                text += result.data.text.trim();
-              }
-    
-              resolve(text || 'document');
-            } catch (error) {
-              reject(error);
-            }
-          };
-          reader.readAsArrayBuffer(file);
-          return; // Tidlig retur slik at ingen annen OCR kjøres på filen
-        }
-    
-        // Hvis filen er en DOCX, les innholdet med Mammoth.js
-        if (fileExtension === 'docx') {
-          const reader = new FileReader();
-          reader.onload = async (e) => {
-            try {
-              const arrayBuffer = e.target?.result as ArrayBuffer;
-              const result = await mammoth.extractRawText({ arrayBuffer });
-              resolve(result.value.trim() || 'document');
-            } catch (error) {
-              reject(error);
-            }
-          };
-          reader.readAsArrayBuffer(file);
-          return; // Tidlig retur slik at ingen OCR kjøres på DOCX
-        }
-    
-        // Hvis filen er et annet dokument (pdf, docx), returner "document"
-        if (documentTypes.includes(fileExtension || '')) {
-          resolve('document');
-          return; // Tidlig retur slik at ingen OCR kjøres på andre dokumenter
-        }
-    
-        // Ellers, kjør OCR på bildet
-        Tesseract.recognize(
-          file,
-          'nor+eng',
-          {
-            logger: (m) => console.log(m),
-          }
-        ).then(({ data: { text } }) => {
-          resolve(text.trim());
-        }).catch((error) => {
-          reject(error);
-        });
-      });
-    };
-    
-    
-
-    return (
+      return (
         <div 
         className="flex flex-col h-auto min-h-screen w-screen bg-white/40 "
         style={{

@@ -25,7 +25,6 @@ export async function POST(req: Request) {
     const priority2 = formData.get("priority2") as string;
     const priority3 = formData.get("priority3") as string;
     const file = formData.get("resume") as File;
-    const ocrText = formData.get("ocrText") as string;
 
     if (!file) {
       return NextResponse.json(
@@ -68,7 +67,6 @@ export async function POST(req: Request) {
       priority2,
       priority3,
       filename: fileUrl, // Lagre S3-URL i databasen
-      ocrText,
     });
     
     // Returner en vellykket respons

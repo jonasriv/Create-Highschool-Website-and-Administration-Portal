@@ -1,6 +1,6 @@
 'use client'
 import React, { useRef, useState, useEffect } from 'react';
-import { ChevronsRight, ChevronsDown } from "lucide-react";
+import { ChevronsDown } from "lucide-react";
 import GetTextContent from './GetTextContent';
 import Create1 from '../../public/images/foto/create1.png';
 import Create2 from '../../public/images/foto/create2.png';
@@ -41,16 +41,14 @@ const Intro: React.FC = () => {
     }, []);
 
     return (
-        <div className="flex flex-col justify-start items-center w-screen h-screen pt-24 md:pt-36">
-            <div className="w-full text-white flex flex-col justify-start items-center box-border ...  no-scrollbar  relative">
-                <div className="">
-
-                    <h1 className="font-bahiana uppercase text-4xl lg:text-5xl tracking-widest text-center text-white font-black pt-2 lg:pt-0">
+        <div className="flex flex-col justify-start items-center w-screen h-screen pt-20 ">
+            <div className=" w-full h-[1000px] lg:h-[1200px] text-white flex flex-col justify-start items-center box-border ...  no-scrollbar relative">
+                    <h1 className="md:bg-black/20 lg:bg-transparent font-bahiana uppercase text-4xl lg:text-5xl tracking-widest text-center text-white font-black md:p-4 rounded-xl z-50 mt-4 ">
                         Elev på Create
                     </h1>
 
                     {/*scroll-indikator*/}
-                    <div className="w-full h-2 bg-slate-400 mt-4 md:mb-6 relative">
+                    <div className="w-full h-2 bg-slate-400 relative hidden">
                         <div
                             className="h-full bg-pinky relative"
                             style={{
@@ -63,13 +61,12 @@ const Intro: React.FC = () => {
                         </div>
                     </div>
 
-                    <div ref={scrollContainerRef} className="flex flex-row md:max-width-screen-md lg:max-w-screen-lg w-screen snap-x snap-mandatory no-scrollbar overflow-x-scroll overflow-y-scroll scroll-smooth h-75-percent-screen py-10">
-                        
-                        <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-full">
-                            <div className="flex flex-col w-screen md:w-full justify-end items-end md:h-full md:rounded-t-xl">
+                    <div ref={scrollContainerRef} className="absolute lg:top-32 lg:max-w-screen-lg flex flex-col justify-start items-center w-screen lg:max-width-screen-md snap-y snap-mandatory no-scrollbar overflow-y-scroll scroll-smooth h-full lg:gap-4 ">
+                    <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-full min-h-full">
+                            <div className="flex flex-col w-screen md:w-full justify-end items-center md:h-full md:rounded-t-xl">
                                 
                                 <div 
-                                    className="w-full min-h-[450px] md:min-h-[800px] md:rounded-xl flex flex-col justify-end items-center h-full"
+                                    className="w-full min-h-[450px] md:min-h-[800px] lg:rounded-xl flex flex-col justify-end items-center h-full"
                                     style={{
                                         backgroundImage: `url(${Create2.src})`,
                                         backgroundSize: 'cover',
@@ -78,16 +75,16 @@ const Intro: React.FC = () => {
                                         //filter: 'brightness(80%)',
                                     }}  
                                 >
-                                    <div className="text-md md:text-2xl lg:text-4xl bg-black/70 py-4 w-full flex justify-center items-end md:rounded-b-xl">
+                                    <div className="text-md md:text-2xl lg:text-4xl bg-black/70 py-4 w-full flex justify-center items-end lg:rounded-b-xl">
                                         <div className="mx-2 md:m-4">
                                             <GetTextContent contentKey="elev_1" />   
                                         </div>
                                         <div className="flex justify-center items-center ">
-                                            <div className="opacity-80 md:hidden rounded-xl">
-                                                <ChevronsRight size="56"/>
+                                            <div className="opacity-80 md:hidden ">
+                                                <ChevronsDown size="56"/>
                                             </div>
-                                            <div className="hidden md:block opacity-80 rounded-xl">
-                                                <ChevronsRight size="96"/>
+                                            <div className="hidden md:block opacity-80 ">
+                                                <ChevronsDown size="96"/>
                                             </div>
                                         </div>                                         
                                     </div>   
@@ -95,11 +92,11 @@ const Intro: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-full">
-                            <div className="flex flex-col w-screen md:w-full justify-end items-end md:h-full md:rounded-t-xl">
+                        <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-full min-h-full">
+                            <div className="flex flex-col w-screen md:w-full justify-end items-center md:h-full md:rounded-t-xl">
                                 
                                 <div 
-                                    className="w-full min-h-[450px] md:min-h-[800px] md:rounded-xl flex flex-col justify-end items-center h-full"
+                                    className="w-full min-h-[450px] md:min-h-[800px] lg:rounded-xl flex flex-col justify-end items-center h-full"
                                     style={{
                                         backgroundImage: `url(${Create3.src})`,
                                         backgroundSize: 'cover',
@@ -108,16 +105,16 @@ const Intro: React.FC = () => {
                                         //filter: 'brightness(80%)',
                                     }}  
                                 >
-                                    <div className="text-md md:text-2xl lg:text-4xl bg-black/70 py-4 w-full flex justify-center items-end md:rounded-b-xl">
+                                    <div className="text-md md:text-2xl lg:text-4xl bg-black/70 py-4 w-full flex justify-center items-end lg:rounded-b-xl">
                                         <div className="mx-2 md:m-4">
                                             <GetTextContent contentKey="elev_2" />   
                                         </div>
                                         <div className="flex justify-center items-center ">
-                                            <div className="opacity-80 md:hidden rounded-xl">
-                                                <ChevronsRight size="56"/>
+                                            <div className="opacity-80 md:hidden ">
+                                                <ChevronsDown size="56"/>
                                             </div>
-                                            <div className="hidden md:block opacity-80 rounded-xl">
-                                                <ChevronsRight size="96"/>
+                                            <div className="hidden md:block opacity-80 ">
+                                                <ChevronsDown size="96"/>
                                             </div>
                                         </div>                                         
                                     </div>   
@@ -125,11 +122,11 @@ const Intro: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-full">
-                            <div className="flex flex-col w-screen md:w-full justify-end items-end md:h-full md:rounded-t-xl">
+                        <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-full min-h-full">
+                            <div className="flex flex-col w-screen md:w-full justify-end items-center md:h-full md:rounded-t-xl">
                                 
                                 <div 
-                                    className="w-full min-h-[450px] md:min-h-[800px] md:rounded-xl flex flex-col justify-end items-center h-full"
+                                    className="w-full min-h-[450px] md:min-h-[800px] lg:rounded-xl flex flex-col justify-end items-center h-full"
                                     style={{
                                         backgroundImage: `url(${Create4.src})`,
                                         backgroundSize: 'cover',
@@ -138,16 +135,16 @@ const Intro: React.FC = () => {
                                         //filter: 'brightness(80%)',
                                     }}  
                                 >
-                                    <div className="text-md md:text-2xl lg:text-4xl bg-black/70 py-4 w-full flex justify-center items-end md:rounded-b-xl">
+                                    <div className="text-md md:text-2xl lg:text-4xl bg-black/70 py-4 w-full flex justify-center items-end lg:rounded-b-xl">
                                         <div className="mx-2 md:m-4">
                                             <GetTextContent contentKey="elev_3" />   
                                         </div>
                                         <div className="flex justify-center items-center ">
-                                            <div className="opacity-80 md:hidden rounded-xl">
-                                                <ChevronsRight size="56"/>
+                                            <div className="opacity-80 md:hidden">
+                                                <ChevronsDown size="56"/>
                                             </div>
-                                            <div className="hidden md:block opacity-80 rounded-xl">
-                                                <ChevronsRight size="96"/>
+                                            <div className="hidden md:block opacity-80">
+                                                <ChevronsDown size="96"/>
                                             </div>
                                         </div>                                         
                                     </div>   
@@ -155,11 +152,11 @@ const Intro: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-full">
-                            <div className="flex flex-col w-screen md:w-full justify-end items-end md:h-full md:rounded-t-xl">
+                        <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-full min-h-full">
+                            <div className="flex flex-col w-screen md:w-full justify-end items-center md:h-full md:rounded-t-xl">
                                 
                                 <div 
-                                    className="w-full min-h-[450px] md:min-h-[800px] md:rounded-xl flex flex-col justify-end items-center h-full"
+                                    className="w-full min-h-[450px] md:min-h-[800px] lg:rounded-xl flex flex-col justify-end items-center h-full"
                                     style={{
                                         backgroundImage: `url(${Create1.src})`,
                                         backgroundSize: 'cover',
@@ -168,25 +165,25 @@ const Intro: React.FC = () => {
                                         //filter: 'brightness(80%)',
                                     }}  
                                 >
-                                    <div className="text-md md:text-2xl lg:text-4xl bg-black/70 py-4 w-full flex justify-center items-end md:rounded-b-xl">
+                                    <div className="text-md md:text-2xl lg:text-4xl bg-black/70 py-4 w-full flex justify-center items-end lg:rounded-b-xl">
                                         <div className="mx-2 md:m-4">
                                             <GetTextContent contentKey="elev_4" />   
                                         </div>
                                         <div className="flex justify-center items-center ">
-                                            <div className="opacity-80 md:hidden rounded-xl">
+                                            <div className="opacity-80 md:hidden">
                                                 <ChevronsDown size="56"/>
                                             </div>
-                                            <div className="hidden md:block opacity-80 rounded-xl">
+                                            <div className="hidden md:block opacity-80">
                                                 <ChevronsDown size="96"/>
                                             </div>
                                         </div>                                         
                                     </div>   
-                                </div>                                                       
+                                </div>
                             </div>
                         </div>
 
                     </div>
-                </div>
+
             </div>
         </div>
     )
