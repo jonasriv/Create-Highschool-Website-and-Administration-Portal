@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 const ApplicationSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },
+  emailParent: { type: String, required: true },
   phone: { type: String, required: true },
   priority1: { type: String, required: true },
   priority2: { type: String, required: true },

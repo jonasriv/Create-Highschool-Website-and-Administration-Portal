@@ -2,14 +2,15 @@
 'use client'
 import React, { useState, useRef } from "react";
 import dynamic from 'next/dynamic';
-import BackgroundImage2 from '../../../public/images/gpt-background2.webp';
 import Link from 'next/link';
 const Header = dynamic(() => import("./HeaderSoknad"));
 
 const Soknad = () => {
+    const externalBackground = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506363/background_no_logo_yhjwra.jpg";
     type FormData = {
         fullName: string;
         email: string;
+        emailParent: string;
         phone: string;
         priority1: string;
         priority2: string;
@@ -19,6 +20,7 @@ const Soknad = () => {
     const [ formData, setFormData ] = useState<FormData>({
         fullName: '',
         email: '',
+        emailParent: '',
         phone: '',
         priority1: '',
         priority2: '',
@@ -29,6 +31,7 @@ const Soknad = () => {
     const [ errors, setErrors ] = useState({
         fullName: '',
         email: '',
+        emailParent: '',
         phone: '',
         priority1: '',
         priority2: '',
@@ -43,6 +46,7 @@ const Soknad = () => {
         const newErrors = {
             fullName: formData.fullName ? '' : 'Fullt navn er påkrevd',
             email: formData.email ? '' : 'E-post er påkrevd',
+            emailParent: formData.emailParent ? '' : 'E-post til foresatt er påkrevd',
             phone: formData.phone ? '' : 'Telefonnummer er påkrevd',
             priority1: formData.priority1 ? '' : 'Du må velge en førsteprioritet',
             priority2: formData.priority2 ? '' : 'Du må velge en andreprioritet',
@@ -73,6 +77,7 @@ const Soknad = () => {
                 const formDataToSend = new FormData();
                 formDataToSend.append('name', formData.fullName); 
                 formDataToSend.append('email', formData.email); 
+                formDataToSend.append('emailParent', formData.emailParent); 
                 formDataToSend.append('phone', formData.phone); 
                 formDataToSend.append('priority1', formData.priority1); 
                 formDataToSend.append('priority2', formData.priority2); 
@@ -95,6 +100,7 @@ const Soknad = () => {
                 setFormData({
                     fullName: '',
                     email: '',
+                    emailParent: '',
                     phone: '',
                     priority1: '',
                     priority2: '',
@@ -122,7 +128,7 @@ const Soknad = () => {
         <div 
         className="flex flex-col h-auto min-h-screen w-screen bg-white/40 "
         style={{
-          backgroundImage: `url(${BackgroundImage2.src})`,
+          backgroundImage: `url(${externalBackground})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
@@ -178,6 +184,21 @@ const Soknad = () => {
                 />
                 {errors.email && <p className="text-red-500 text-sm md:text-lg">{errors.email}</p>}
             </div>
+
+            {/* E-post foresatt*/}
+            <div>
+                <label htmlFor="emailParent" className="block text-sm md:text-lg font-semibold">E-post</label>
+                <input
+                type="email"
+                placeholder="Foresattes e-postadresse"
+                id="emailParent"
+                name="emailParent"
+                value={formData.emailParent}
+                onChange={(e) => setFormData({ ...formData, emailParent: e.target.value})}
+                className="w-full p-2 border border-gray-300 rounded-md text-slate-700"
+                />
+                {errors.emailParent && <p className="text-red-500 text-sm md:text-lg">{errors.emailParent}</p>}
+            </div>                
     
             {/* Telefonnummer */}
             <div>
@@ -252,7 +273,10 @@ const Soknad = () => {
     
             {/* CV opplasting */}
             <div>
-                <h1 className="font-mina text-3xl">Last opp karakterkort * :</h1>
+                <h1 className="font-mina text-2xl">
+                    <b>Opplasting av karakterkort:</b>
+                    &nbsp;Pass på at du legger ved et <b>tydelig og rent bilde</b> av din karakterutskrift. Det må vise navn, skole og alle karakterene. Bruk gjerne skjermbilde fra <a className="underlines text-red-400 hover:underline font-black" href="https://elev.visma.no/lillehammer" target="_blank">visma</a> eller en annen digital portal. Velg fil under*. 
+                </h1>
                 <label htmlFor="resume" className="block text-sm md:text-lg font-semibold"></label>
                 <input
                 ref={fileInputRef}

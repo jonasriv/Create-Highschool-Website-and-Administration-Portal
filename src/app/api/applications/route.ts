@@ -20,6 +20,7 @@ export async function POST(req: Request) {
     const formData = await req.formData();
     const name = formData.get("name") as string;
     const email = formData.get("email") as string;
+    const emailParent = formData.get("emailParent") as string;
     const phone = formData.get("phone") as string;
     const priority1 = formData.get("priority1") as string;
     const priority2 = formData.get("priority2") as string;
@@ -62,6 +63,7 @@ export async function POST(req: Request) {
     const newApplication = await Application.create({
       name,
       email,
+      emailParent,
       phone,
       priority1,
       priority2,

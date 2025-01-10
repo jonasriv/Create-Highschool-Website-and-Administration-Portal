@@ -7,14 +7,14 @@ const Admission = () => {
         <div 
         className="flex flex-col justify-center items-center w-screen h-full overflow-y-clip"
         >
-            <div className="w-full md:w-11/12 text-white flex flex-col justify-start items-center box-border ... h-full">
-                <div className="flex flex-col md:bg-black/50 md:rounded-xl w-full overflow-hidden md:mt-8 min-h-[80%] md:mx-2">
-                    <h1 className="font-mina text-2xl md:text-5xl lg:text-6xl tracking-widest text-center text-white font-black">
+            <div className="w-full max-w-screen-lg text-white flex flex-col justify-start items-center box-border ... h-full">
+                <div className="flex flex-col lg:bg-black/50 lg:rounded-xl w-full overflow-hidden md:mt-8 min-h-[80%] md:mx-2">
+                    <h1 className="font-mina text-2xl md:text-5xl lg:text-6xl tracking-widest text-center text-white font-black md:py-8">
                         Opptak og info
                     </h1>
                     <div id="subject_tabs" className="w-full flex flex-row pb-12 md:pb-14 lg:pb-16 overflow-y-hidden">
                         <Tabs defaultValue="admission_tab" className="w-full">
-                            <TabsList className="w-full rounded-none mt-4 md:mt-0 flex flex-row items-center justify-around h-22 gap-0 md:gap-8 bg-fuchsia-950 md:mb-12">
+                            <TabsList className="w-full rounded-none mt-4 md:mt-0 flex flex-row items-center justify-around h-22 gap-0 md:gap-8 bg-black/60 md:mb-12">
                                 <TabsTrigger value="admission_tab" className="opacity-100 p-2 md:p-4 animate-flash-border2 text-md md:text-2xl">Opptak</TabsTrigger>                                
                                 <TabsTrigger value="future_tab" className="opacity-100 p-2 md:p-4 animate-flash-border1 text-md md:text-2xl">Hva blir jeg?</TabsTrigger>
                                 <TabsTrigger value="about_tab" className="opacity-100 p-2 md:p-4 animate-flash-border2 text-md md:text-2xl">Om Create</TabsTrigger>
