@@ -1,6 +1,5 @@
 'use client'
 import dynamic from "next/dynamic";
-import BackgroundImage2 from '../../public/images/gpt-background2.webp';
 const Front = dynamic(() => import("./Front"));
 const Study = dynamic(() => import("./Study"));
 const Header = dynamic(() => import("./Header"));
