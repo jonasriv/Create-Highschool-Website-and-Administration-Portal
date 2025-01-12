@@ -12,56 +12,14 @@ const Intro: React.FC = () => {
     const [scrollPosition, setScrollPosition] = useState(0);
     const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if (scrollContainerRef.current) {
-                // Beregn hvor langt til venstre vi har scrollet, som en prosentandel
-                const scrollLeft = scrollContainerRef.current.scrollLeft;  // Track horizontal scroll position
-                const containerWidth = scrollContainerRef.current.scrollWidth;  // Total container width
-                const windowWidth = scrollContainerRef.current.clientWidth;  // Visible width of the container
-
-                // Beregn prosentandel som er scrollet horisontalt
-                const scrollPercentage = (scrollLeft / (containerWidth - windowWidth)) * 100;
-                setScrollPosition(scrollPercentage);
-            }
-        };
-
-        const scrollContainer = scrollContainerRef.current;
-        if (scrollContainer) {
-            // Legg til event listener for scroll på containeren
-            scrollContainer.addEventListener('scroll', handleScroll);
-        }
-
-        // Fjern event listener ved unmount
-        return () => {
-            if (scrollContainer) {
-                scrollContainer.removeEventListener('scroll', handleScroll);
-            }
-        };
-    }, []);
-
     return (
-        <div className="flex flex-col justify-start items-center w-screen h-screen pt-20 overflow-y-scroll">
+        <div className="flex flex-col justify-start items-center w-screen h-screen pt-20 ">
             <div className=" w-full h-[1000px] text-white flex flex-col justify-start items-center box-border ...  no-scrollbar relative overflow-hidden">
                     <h1 className="w-auto font-mina text-2xl lg:text-3xl lg:mt-4 tracking-widest text-center text-white font-black p-2 z-50">
                         Elev på Create
                     </h1>
 
-                    {/*scroll-indikator*/}
-                    <div className="w-full h-2 bg-slate-400 relative hidden">
-                        <div
-                            className="h-full bg-pinky relative"
-                            style={{
-                            width: `${scrollPosition < 4 ? scrollPosition + 4 : scrollPosition}%`,
-                            }}
-                        >
-                            <div
-                            className=""
-                            ></div>
-                        </div>
-                    </div>
-
-                    <div ref={scrollContainerRef} className="lg:max-w-screen-lg flex flex-col justify-start items-center w-screen snap-y snap-proximity no-scrollbar overflow-y-scroll scroll-smooth h-full gap-16">
+                    <div className="lg:max-w-screen-lg flex flex-col justify-start items-center w-screen snap-y snap-proximity no-scrollbar overflow-y-scroll scroll-smooth h-full gap-16">
                     <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-[800px]">
                             <div className="flex flex-col w-screen lg:w-full justify-end items-center lg:h-full md:rounded-t-xl">
                                 
@@ -152,7 +110,7 @@ const Intro: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-[800px] mb-24 mt-10">
+                        <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-[800px] mb-12 mt-10">
                             <div className="flex flex-col w-screen md:w-full justify-end items-center md:h-full md:rounded-t-xl">
                                 
                                 <div 

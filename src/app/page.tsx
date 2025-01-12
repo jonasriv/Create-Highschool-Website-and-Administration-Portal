@@ -30,7 +30,7 @@ const Home = () => {
             <Intro />
           </div>
 
-          <div id="study" className="snap-start h-screen flex items-center justify-center backdrop-blur-lg ">
+          <div id="study" className="snap-start h-screen flex items-center justify-center backdrop-blur-lg">
             <Study />
           </div>             
 
