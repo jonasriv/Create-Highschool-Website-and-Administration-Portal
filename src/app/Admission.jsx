@@ -13,7 +13,7 @@ const Admission = () => {
                     <h1 className="font-mina text-2xl md:text-5xl lg:text-6xl tracking-widest text-center text-white font-black md:py-8">
                         Opptak og info
                     </h1>
-                    <div id="subject_tabs" className="w-full flex flex-row pb-12 md:pb-14 lg:pb-16 overflow-y-hidden">
+                    <div id="subject_tabs" className="w-full flex flex-row pb-12 md:pb-14 lg:pb-16">
                         <Tabs defaultValue="admission_tab" className="w-full">
                             <TabsList className="w-full rounded-none mt-4 md:mt-0 flex flex-row items-center justify-around h-22 gap-0 md:gap-8 bg-black/60 md:mb-12">
                                 <TabsTrigger value="admission_tab" className="opacity-100 p-2 md:p-4 animate-flash-border2 text-md md:text-2xl">Opptak</TabsTrigger>                                
