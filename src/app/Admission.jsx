@@ -6,7 +6,7 @@ const Admission = () => {
     const hipImage = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506363/card-background_theyxe.png";
     return (
         <div 
-        className="flex flex-col justify-center items-center w-screen h-full overflow-y-scroll"
+        className="flex flex-col justify-center items-center w-screen h-full overflow-y-scroll border-b-2 border-pinky"
         >
             <div className="w-full max-w-screen-lg text-white flex flex-col justify-start items-center box-border ... h-full">
                 <div className="flex flex-col lg:bg-black/50 lg:rounded-xl w-full overflow-hidden md:mt-8 min-h-[80%] md:mx-2">

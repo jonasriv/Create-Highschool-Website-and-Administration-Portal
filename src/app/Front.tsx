@@ -26,9 +26,14 @@ const Front = () => {
                 <Link href="/soknad">
                     <button className="bg-pinky w-42 h-14 flex justify-center items-center text-2xl py-4 px-8 rounded-3xl font-black uppercase text-slate-200 border-2 border-transparent hover:border-white hover:text-white">Søk nå</button>
                 </Link>
-                <div className="pb-8">
-                    <ChevronsDown size="44"/>
-                </div>
+                <div className="flex justify-center items-center pb-16">
+                    <div className="opacity-40 py-4 md:hidden">
+                        <ChevronsDown size="44"/>
+                    </div>
+                    <div className="hidden md:block opacity-40 py-4">
+                        <ChevronsDown size="56"/>
+                    </div>
+                </div>   
             </div>
         </div>
     )

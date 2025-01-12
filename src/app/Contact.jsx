@@ -9,7 +9,7 @@ const Contact = () => {
         <div className="flex w-screen h-full flex-col justify-end items-center">
             <div className="flex flex-col justify-between items-center md:items-start w-full max-w-screen-lg h-full gap-12">
                 <h1 className="text-3xl font-mina font-black">Kontakt</h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full w-full ">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full w-full px-4">
                 <div className="bg-black/40 mx-4 md:mx-0 rounded-xl p-8 font-mina">
                     <h1 className="text-pinky text-center">
                         Kontakt oss:
