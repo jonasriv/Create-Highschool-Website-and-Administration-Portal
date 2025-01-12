@@ -135,6 +135,8 @@ export async function POST(req: Request) {
       // Håndter Textract-feil uten å avbryte hele prosessen
     }
 
+    const behandlet: number = 0;
+    
     // Koble til databasen
     await dbConnect();
 
@@ -149,6 +151,7 @@ export async function POST(req: Request) {
       priority3,
       filename: fileUrl, // Lagre S3-URL i databasen
       textractAnalysis,  // Lagre Textract-resultatet (kan være null hvis analysen feiler)
+      behandlet,  //setter status til ubehandlet
     });
     
     // Returner en vellykket respons

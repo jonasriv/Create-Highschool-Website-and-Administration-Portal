@@ -75,14 +75,14 @@ const Study: React.FC = () => {
                                 <TabsTrigger value="drama_tab" className="opacity-100 p-2 lg:p-4 animate-flash-border3 text-md md:text-2xl "><span className="hidden md:block">Create&nbsp;</span> Drama&nbsp;<Star size="12"/></TabsTrigger>
                             </TabsList> 
                         <TabsContent value="music_tab" className="lg:rounded-2xl w-full h-[800px] overflow-hidden">
-                            <div className="flex flex-col  lg:justify-between items-start mb-4 ">
+                            <div className="flex flex-col lg:justify-between items-start mb-4 lg:bg-black/60 lg:p-4 lg:rounded-xl">
                                 <div className="w-full">
                                     <div className="font-mina text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal px-2">
                                         <GetTextContent contentKey="program_musikk" />
                                     </div>                                   
                                 </div>
-                                <div className="w-full justify-start items-center mt-4">
-                                <Carousel autoplay={true} opts={{ loop: true }} className="w-full flex justify-start place-items-end mb-4 overflow-hidden no-scrollbar object-cover object-top">
+                                <div className="flex w-full justify-start items-center mt-4">
+                                <Carousel autoplay={true} opts={{ loop: true }} className="w-full flex justify-center items-center mb-4 overflow-hidden no-scrollbar object-cover object-top">
                                         <CarouselContent className="">
                                             <CarouselItem className="flex justify-center">
                                                 <img src={Music0} alt="" className="h-[24rem] md:h-[32rem] w-full object-contain object-top"></img>
@@ -106,7 +106,7 @@ const Study: React.FC = () => {
                         </TabsContent>    
 
                         <TabsContent value="dance_tab" className="lg:rounded-2xl w-full h-[800px] overflow-hidden">
-                            <div className="flex flex-col lg:justify-between items-start mb-4 ">
+                            <div className="flex flex-col lg:justify-between items-start mb-4 lg:bg-black/60 lg:p-4 lg:rounded-xl">
                                 <div className="w-full">
                                     <div className="font-mina text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal px-2">
                                         <GetTextContent contentKey="program_dans" />
@@ -137,7 +137,7 @@ const Study: React.FC = () => {
                         </TabsContent>    
 
                         <TabsContent value="drama_tab" className="lg:rounded-2xl w-full h-[800px] overflow-hidden">
-                            <div className="flex flex-col  lg:justify-between items-start mb-4 ">
+                            <div className="flex flex-col  lg:justify-between items-start mb-4 lg:bg-black/60 lg:p-4 lg:rounded-xl">
                                 <div className="w-full">
                                     <div className="font-mina text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal px-2">
                                         <GetTextContent contentKey="program_drama" />

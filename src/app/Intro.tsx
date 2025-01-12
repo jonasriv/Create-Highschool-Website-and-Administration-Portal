@@ -75,7 +75,7 @@ const Intro: React.FC = () => {
                                         //filter: 'brightness(80%)',
                                     }}  
                                 >
-                                    <div className="text-md md:text-2xl lg:text-4xl bg-black/70 py-4 w-full flex justify-center items-end lg:rounded-b-xl">
+                                    <div className="text-md md:text-2xl lg:text-3xl bg-black/70 py-4 w-full flex justify-center items-end lg:rounded-b-xl">
                                         <div className="mx-2 md:m-4">
                                             <GetTextContent contentKey="elev_1" />   
                                         </div>
@@ -105,7 +105,7 @@ const Intro: React.FC = () => {
                                         //filter: 'brightness(80%)',
                                     }}  
                                 >
-                                    <div className="text-md md:text-2xl lg:text-4xl bg-black/70 py-4 w-full flex justify-center items-end lg:rounded-b-xl">
+                                    <div className="text-md md:text-2xl lg:text-3xl bg-black/70 py-4 w-full flex justify-center items-end lg:rounded-b-xl">
                                         <div className="mx-2 md:m-4">
                                             <GetTextContent contentKey="elev_2" />   
                                         </div>
@@ -135,7 +135,7 @@ const Intro: React.FC = () => {
                                         //filter: 'brightness(80%)',
                                     }}  
                                 >
-                                    <div className="text-md md:text-2xl lg:text-4xl bg-black/70 py-4 w-full flex justify-center items-end lg:rounded-b-xl">
+                                    <div className="text-md md:text-2xl lg:text-3xl bg-black/70 py-4 w-full flex justify-center items-end lg:rounded-b-xl">
                                         <div className="mx-2 md:m-4">
                                             <GetTextContent contentKey="elev_3" />   
                                         </div>
@@ -165,7 +165,7 @@ const Intro: React.FC = () => {
                                         //filter: 'brightness(80%)',
                                     }}  
                                 >
-                                    <div className="text-md md:text-2xl lg:text-4xl bg-black/70 py-4 w-full flex justify-center items-end lg:rounded-b-xl">
+                                    <div className="text-md md:text-2xl lg:text-3xl bg-black/70 py-4 w-full flex justify-center items-end lg:rounded-b-xl">
                                         <div className="mx-2 md:m-4">
                                             <GetTextContent contentKey="elev_4" />   
                                         </div>

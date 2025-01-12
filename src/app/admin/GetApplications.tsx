@@ -21,6 +21,7 @@ interface Application {
     karaktersett?: Array<number>,
     gjennomsnitt?: number,
     antallKarakterer?: number,
+    behandlet?: number,
 }
 
 const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
@@ -51,7 +52,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                 ...app, 
                 s3FileUrl: app.s3FileUrl || null,
             }));
-
+            
             // Iterer gjennom hver applikasjon og prosesser Textract-resultatet
             applications.forEach((app: Application) => {
                 if (app.textractAnalysis) {
@@ -115,7 +116,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                         <span>Hent søknader</span>
                     )}
                 </button>
-                
+                <h1>Antall søknader: {applications.length}</h1>
                 {pressedButton && 
                     <button className="justify-center items-center p-4 flex flex-row rounded-xl text-2xl  w-96 bg-fuchsia-500 cursor-pointer hover:bg-pinky" onClick={() => {
                         const wb = utils.table_to_book(tbl.current);
@@ -137,8 +138,9 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
             </div>
             {error && <p className="text-red-500 mt-4">{error}</p>}
             {applications.length > 0 ? (
+                
                 <table ref={tbl} className="table-auto w-full mt-8 text-lg p-4 bg-slate-800 rounded-xl max-w-screen-md">
-                    <thead>
+                    <thead className="bg-slate-600">
                         <tr className="bg-slate-400-100">
                             <th className="border px-4 py-2">Navn</th>
                             <th className="border px-4 py-2">Søkt dato <span className="text-sm">(YYYY-MM-DD)</span></th>
@@ -151,6 +153,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                             <th className="border px-4 py-2">Gjennomsnitt</th>
                             <th className="border px-4 py-2">Antall karakterer</th>
                             <th className="border px-4 py-2">Karaktersett</th>
+                            <th className="border px-4 py-2">Behandlet?</th>
 
                         </tr>
                     </thead>
@@ -176,6 +179,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                 <td className="border px-4 py-2">{app.gjennomsnitt?.toString().substring(0, 7)}</td>
                                 <td className="border px-4 py-2">{app.antallKarakterer}</td>
                                 <td className="border px-4 py-2 break-words">{app.karaktersett}</td>
+                                <td className="border px-4 py-2 break-words">{app.behandlet}</td>
                                 
                             </tr>
                         ))}
