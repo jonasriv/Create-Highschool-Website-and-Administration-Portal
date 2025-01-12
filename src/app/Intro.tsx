@@ -19,7 +19,7 @@ const Intro: React.FC = () => {
                         Elev på Create
                     </h1>
 
-                    <div className="lg:max-w-screen-lg flex flex-col justify-start items-center w-screen snap-y snap-mandatory snap-smooth no-scrollbar overflow-y-scroll h-full gap-16">
+                    <div className="lg:max-w-screen-lg flex flex-col justify-start items-center w-screen snap-y snap-proximity snap-smooth no-scrollbar overflow-y-scroll h-full gap-16">
                     <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-[800px]">
                             <div className="flex flex-col w-screen lg:w-full justify-end items-center lg:h-full md:rounded-t-xl">
                                 
