@@ -35,7 +35,7 @@ const Home = () => {
             <Study />
           </div>             
 
-          <div id="admission" className="snap-start flex h-screen items-start justify-center backdrop-blur-lg pt-24">
+          <div id="admission" className="snap-start flex h-auto items-start justify-center backdrop-blur-lg pt-24">
             <Admission />
           </div>         
 
