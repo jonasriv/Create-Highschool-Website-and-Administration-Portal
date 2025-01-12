@@ -7,11 +7,11 @@ const Contact = () => {
     
     return (
         <div className="flex w-screen h-full flex-col justify-end items-center">
-            <div className="flex flex-col justify-between items-start w-full max-w-screen-lg h-full gap-12">
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full w-full pt-12">
-                <div className="md:bg-black/40 rounded-xl p-8 font-mina">
-                    <h1 className="text-pinky">
+            <div className="flex flex-col justify-between items-center md:items-start w-full max-w-screen-lg h-full gap-12">
+                <h1 className="text-3xl font-mina font-black">Kontakt</h1>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full w-full ">
+                <div className="bg-black/40 mx-4 md:mx-0 rounded-xl p-8 font-mina">
+                    <h1 className="text-pinky text-center">
                         Kontakt oss:
                     </h1>
                     <div className="font-mina text-xl">
@@ -28,8 +28,8 @@ const Contact = () => {
                     </div>
                 </div>
                 
-                <div className="md:bg-black/40 rounded-xl p-8 gap-4">
-                    <h1 className="text-pinky">
+                <div className="bg-black/40 mx-4 md:mx-0 rounded-xl p-8 font-mina">
+                    <h1 className="text-pinky text-center">
                         Følg oss:
                     </h1>
                     <div className="font-mina text-xl flex flex-row w-full">
@@ -50,8 +50,8 @@ const Contact = () => {
                     </div>
             
                 </div>
-                <div className="md:bg-black/40 rounded-xl p-8">
-                    <h1 className="text-pinky">
+                <div className="bg-black/40 mx-4 md:mx-0 rounded-xl p-8 font-mina">
+                    <h1 className="text-pinky text-center">
                         Besøk oss:
                     </h1>
                     <p className="font-mina text-xl">
@@ -64,8 +64,8 @@ const Contact = () => {
                         2615 Lillehammer
                     </p>
                 </div>
-                <div className="md:bg-black/40 rounded-xl p-8">
-                    <h1 className="text-pinky">
+                <div className="bg-black/40 mx-4 md:mx-0 rounded-xl p-8 font-mina mb-8">
+                    <h1 className="text-pinky text-center">
                         Les mer:
                     </h1>
                     <a target="_blank" href="/publicfiles/ordensreglement.pdf">

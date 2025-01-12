@@ -10,7 +10,7 @@ const Footer = () => {
         <div 
             className='w-screen bg-black/60 h-24 lg:h-44 z-50 backdrop-blur-lg flex justify-center'
         >
-            <div className="flex h-full flex-col justify-center items-center w-full max-w-screen-lg gap-6 font-mina">
+            <div className="flex h-full flex-col justify-center items-center w-full max-w-screen-lg gap-6 font-mina normal-case">
                 <div>
                     <p className="font-mina text-md">
                         &copy; Create {Year}

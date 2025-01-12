@@ -31,7 +31,7 @@ const Navbar: React.FC<NavbarProps> = ({isOpen, onClose }) => {
                     <Link href="/soknad" className="flex flex-row items-center lg:items-start justify-between py-4 px-2 lg:text-2xl  lg:rounded-3xl lg:mx-4 lg:p-2 lg:ring-[2px] ring-transparent hover:text-pinky">
                         <li className="flex flex-row justify-between items-center lg:items-start w-full"><span>Søk på Create</span><CircleArrowRight  size={42} className="pr-2 lg:hidden"/></li>
                     </Link>
-                    <li className="flex lg:flex-col items-center py-4 px-2 justify-between lg:justify-center gap-4 lg:text-2xl  lg:rounded-3xl lg:mx-4 lg:p-2 lg:ring-[2px] ring-transparent hover:text-pinky">Kontakt oss:
+                    <li onClick={() => { scrollToSection("contact"); onClose();}} className="flex lg:flex-col items-center py-4 px-2 justify-between lg:justify-center gap-4 lg:text-2xl  lg:rounded-3xl lg:mx-4 lg:p-2 lg:ring-[2px] ring-transparent hover:text-pinky">Kontakt oss:
                         <div className="flex flex-row justify-start gap-4 items-center pr-4">
                             <a href="https://www.instagram.com/createvgs/" target="_blank" className="hover:bg-pinky rounded-xl p-2">
                                 <Instagram color="white" size={22} />
