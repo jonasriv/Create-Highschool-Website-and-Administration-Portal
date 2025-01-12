@@ -5,6 +5,7 @@ const Study = dynamic(() => import("./Study"));
 const Header = dynamic(() => import("./Header"));
 const Intro = dynamic(() => import("./Intro"));
 const Admission = dynamic(() => import("./Admission"));
+const Contact = dynamic(() => import("./Contact"));
 
 const Home = () => {
   const externalBackground = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506363/background_no_logo_yhjwra.jpg";
@@ -36,6 +37,10 @@ const Home = () => {
 
           <div id="admission" className="snap-start flex h-screen items-start justify-center backdrop-blur-lg pt-24">
             <Admission />
+          </div>         
+
+          <div id="contact" className="snap-start flex lg:h-screen items-start justify-center backdrop-blur-lg pt-24">
+            <Contact />
           </div>                       
         
       </main>

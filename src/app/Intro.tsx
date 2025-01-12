@@ -108,7 +108,7 @@ const Intro: React.FC = () => {
                                 <ChevronsDown size="96"/>
                             </div>
                         </div>   
-                        <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center ">
+                        <div className="font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center ">
                             <div className="flex flex-col w-screen lg:w-full justify-start items-center h-full md:rounded-t-xl">
                                 
                                 <div 

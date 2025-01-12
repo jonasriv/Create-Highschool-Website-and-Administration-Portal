@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import GetTextContent from "./GetTextContent";
 import Link from "next/link";
 const Admission = () => {
+    const hipImage = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506363/card-background_theyxe.png";
     return (
         <div 
         className="flex flex-col justify-center items-center w-screen h-full overflow-y-clip"
@@ -23,13 +24,15 @@ const Admission = () => {
                             <TabsContent value="admission_tab" className="md:rounded-2xl w-full h-auto overflow-y-scroll">
                                 <div className="flex flex-col md:flex-row md:justify-between items-start md:pt-4">
                                     <div className="w-full pr-4">
-                                        <div className="font-mina text-lg md:text-2xl text-slate-300 leading-normal px-4 pb-12">
+                                        <div className="font-mina text-lg md:text-2xl text-slate-300 leading-normal px-6 pb-12 flex flex-col justifty-center items-center">
                                             <GetTextContent contentKey="opptak" />
+                                            <img src={hipImage} alt="" className="flex relative left-auto right-auto rounded-xl"></img>     
                                             <div className="w-full flex items-center justify-center pt-8">
                                                 <Link href="/soknad">
                                                 <button className="bg-pinky w-36 h-14 flex justify-center items-center text-xl px-4 rounded-3xl font-black uppercase text-slate-200 border-2 border-transparent hover:border-white hover:text-white">Søk nå</button>
                                                 </Link>
-                                            </div>                                                 
+                                            </div>    
+                                                                                    
                                         </div>                                   
                                     </div>
                                 </div>
@@ -38,7 +41,7 @@ const Admission = () => {
                             <TabsContent value="future_tab" className="md:rounded-2xl w-full h-full overflow-y-scroll pb-12">
                                 <div className="flex flex-col md:flex-row md:justify-between items-start md:pt-4">
                                     <div className="w-full pr-4">
-                                        <div className="font-mina text-lg md:text-2xl text-slate-300 leading-normal px-4 pb-12">
+                                        <div className="font-mina text-lg md:text-2xl text-slate-300 leading-normal px-6 pb-12">
                                             <GetTextContent contentKey="hva_blir_jeg" />
                                             <div className="w-full flex items-center justify-center pt-8">
                                                 <Link href="/soknad">
@@ -53,7 +56,7 @@ const Admission = () => {
                             <TabsContent value="about_tab" className="md:rounded-2xl w-full h-full overflow-y-scroll pb-12">
                                 <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 ">
                                     <div className="w-full pr-4">
-                                        <div className="font-mina text-lg md:text-2xl text-slate-300 leading-normal px-4 pb-12">
+                                        <div className="font-mina text-lg md:text-2xl text-slate-300 leading-normal px-6 pb-12">
                                             <GetTextContent contentKey="om_create" />
                                             <div className="w-full flex items-center justify-center pt-8">
                                                 <Link href="/soknad">

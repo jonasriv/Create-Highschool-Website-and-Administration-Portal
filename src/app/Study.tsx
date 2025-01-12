@@ -1,5 +1,4 @@
 'use client';
-import { useEffect, useRef } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
     Carousel,
@@ -27,36 +26,6 @@ const Study: React.FC = () => {
     const Drama2 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507023/IMG_2491-2_b8upxb.jpg";
     const Drama3 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507020/IMG_0328-1_nfaps6.jpg";
 
-    const scrollPositionRef = useRef(0);
-    const scrollContainerRef = useRef<HTMLDivElement | null>(null);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            if (scrollContainerRef.current) {
-                // Beregn hvor langt til venstre vi har scrollet, som en prosentandel
-                const scrollLeft = scrollContainerRef.current.scrollLeft;  // Track horizontal scroll position
-                const containerWidth = scrollContainerRef.current.scrollWidth;  // Total container width
-                const windowWidth = scrollContainerRef.current.clientWidth;  // Visible width of the container
-                // Beregn prosentandel som er scrollet horisontalt
-                const scrollPercentage = (scrollLeft / (containerWidth - windowWidth)) * 100;
-                scrollPositionRef.current = (scrollPercentage);
-            }
-        };
-
-        const scrollContainer = scrollContainerRef.current;
-        if (scrollContainer) {
-            // Legg til event listener for scroll på containeren
-            scrollContainer.addEventListener('scroll', handleScroll);
-        }
-
-        // Fjern event listener ved unmount
-        return () => {
-            if (scrollContainer) {
-                scrollContainer.removeEventListener('scroll', handleScroll);
-            }
-        };
-    }, []);
-
     return (
         <div 
         className="flex flex-col justify-center items-center w-screen h-screen mt-0"
@@ -70,7 +39,7 @@ const Study: React.FC = () => {
                     <div id="subject_tabs" className="w-full">
                         <Tabs defaultValue="music_tab" className="w-full flex-col justify-start items-start">
                             <TabsList className="w-full flex flex-row items-center justify-between h-22 gap-4 md:mb-4 rounded-none lg:rounded-xl lg:mb-8">
-                                <TabsTrigger value="music_tab" className="opacity-100 p-2 lg:p-4 animate-flash-border1 text-md md:text-2xl "><span className="hidden md:block">Create&nbsp;</span>Musikk&nbsp;<Star size="12"/></TabsTrigger>
+                                <TabsTrigger value="music_tab" className="opacity-100 p-2 lg:p-4 animate-flash-border1 text-md md:text-2xl"><span className="hidden md:block">Create&nbsp;</span>Musikk&nbsp;<Star size="12"/></TabsTrigger>
                                 <TabsTrigger value="dance_tab" className="opacity-100 p-2 lg:p-4 animate-flash-border2 text-md md:text-2xl "><span className="hidden md:block">Create&nbsp;</span>Dans&nbsp;<Star size="12"/></TabsTrigger>
                                 <TabsTrigger value="drama_tab" className="opacity-100 p-2 lg:p-4 animate-flash-border3 text-md md:text-2xl "><span className="hidden md:block">Create&nbsp;</span> Drama&nbsp;<Star size="12"/></TabsTrigger>
                             </TabsList> 
@@ -85,19 +54,19 @@ const Study: React.FC = () => {
                                 <Carousel autoplay={true} opts={{ loop: true }} className="w-full flex justify-center items-center mb-4 overflow-hidden no-scrollbar object-cover object-top">
                                         <CarouselContent className="">
                                             <CarouselItem className="flex justify-center">
-                                                <img src={Music0} alt="" className="h-[24rem] md:h-[32rem] w-full object-contain object-top"></img>
+                                                <img src={Music0} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
                                             </CarouselItem>
                                             <CarouselItem className="flex justify-center">
-                                                <img src={Music1} alt="" className="h-[24rem] md:h-[32rem] w-full object-contain object-top"></img>
+                                                <img src={Music1} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
                                             </CarouselItem>                                            
                                             <CarouselItem className="flex justify-center">
-                                                <img src={Music2} alt="" className="h-[24rem] md:h-[32rem] w-full object-contain object-top"></img>
+                                                <img src={Music2} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
                                             </CarouselItem>
                                             <CarouselItem className="flex justify-center">
-                                                <img src={Music3} alt="" className="h-[24rem] md:h-[32rem] w-full object-contain object-top"></img>
+                                                <img src={Music3} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
                                             </CarouselItem>     
                                             <CarouselItem className="flex justify-center">
-                                                <img src={Music4} alt="" className="h-[24rem] md:h-[32rem] w-full object-contain object-top"></img>
+                                                <img src={Music4} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
                                             </CarouselItem>                                                                        
                                         </CarouselContent>
                                     </Carousel>
@@ -116,19 +85,19 @@ const Study: React.FC = () => {
                                     <Carousel autoplay={true} opts={{ loop: true }} className="w-full flex justify-start place-items-end mb-4 overflow-hidden no-scrollbar object-cover object-top">
                                         <CarouselContent className="">
                                             <CarouselItem className="flex justify-center">
-                                                <img src={Dance0} alt="" className="h-[24rem] md:h-[32rem] w-full object-contain object-top"></img>
+                                                <img src={Dance0} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
                                             </CarouselItem>
                                             <CarouselItem className="flex justify-center">
-                                                <img src={Dance1} alt="" className="h-[24rem] md:h-[32rem] w-full object-contain object-top"></img>
+                                                <img src={Dance1} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
                                             </CarouselItem>                                            
                                             <CarouselItem className="flex justify-center">
-                                                <img src={Dance2} alt="" className="h-[24rem] md:h-[32rem] w-full object-contain object-top"></img>
+                                                <img src={Dance2} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
                                             </CarouselItem>
                                             <CarouselItem className="flex justify-center">
-                                                <img src={Dance3} alt="" className="h-[24rem] md:h-[32rem] w-full object-contain object-top"></img>
+                                                <img src={Dance3} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
                                             </CarouselItem>      
                                             <CarouselItem className="flex justify-center">
-                                                <img src={Dance4} alt="" className="h-[24rem] md:h-[32rem] w-full object-contain object-top"></img>
+                                                <img src={Dance4} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
                                             </CarouselItem>                                                                        
                                         </CarouselContent>
                                     </Carousel>
@@ -147,16 +116,16 @@ const Study: React.FC = () => {
                                 <Carousel autoplay={true} opts={{ loop: true }} className="w-full flex justify-start place-items-end mb-4 overflow-hidden no-scrollbar object-cover object-top">
                                         <CarouselContent className="">
                                             <CarouselItem className="flex justify-center">
-                                                <img src={Drama0} alt="" className="h-[24rem] md:h-[32rem] w-full object-contain object-top"></img>
+                                                <img src={Drama0} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
                                             </CarouselItem>
                                             <CarouselItem className="flex justify-center">
-                                                <img src={Drama1} alt="" className="h-[24rem] md:h-[32rem] w-full object-contain object-top"></img>
+                                                <img src={Drama1} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
                                             </CarouselItem>                                            
                                             <CarouselItem className="flex justify-center">
-                                                <img src={Drama2} alt="" className="h-[24rem] md:h-[32rem] w-full object-contain object-top"></img>
+                                                <img src={Drama2} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
                                             </CarouselItem>
                                             <CarouselItem className="flex justify-center">
-                                                <img src={Drama3} alt="" className="h-[24rem] md:h-[32rem] w-full object-contain object-top"></img>
+                                                <img src={Drama3} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
                                             </CarouselItem>                            
                                         </CarouselContent>
                                     </Carousel>
