@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Logo from  '../../public/images/logo-header.svg'
 import { ChevronsDown } from 'lucide-react';
 import Link from 'next/link';
-import GetTextContent from "./GetTextContent";
 const Front = () => {
     
     return (

@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { ChevronsDown } from "lucide-react";
 import GetTextContent from './GetTextContent';
 
@@ -8,9 +8,6 @@ const Intro: React.FC = () => {
     const Create2 = 'https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507020/IMG_0104_3_oxqa1u.jpg';
     const Create3 = 'https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507024/IMG_8533-1_cuqh4v.jpg';
     const Create4 = 'https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507023/IMG_7018-1_uqzmsn.jpg';
-
-    const [scrollPosition, setScrollPosition] = useState(0);
-    const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
     return (
         <div className="flex flex-col justify-start items-center w-screen pt-20 border-b-2 border-t-2 border-pinky">
