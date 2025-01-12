@@ -13,15 +13,15 @@ const Intro: React.FC = () => {
     const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
     return (
-        <div className="flex flex-col justify-start items-center w-screen h-full pt-20 border-b-2 border-t-2 border-pinky">
-            <div className=" w-full h-auto text-white flex flex-col justify-start items-center box-border ...  no-scrollbar relative overflow-hidden">
+        <div className="flex flex-col justify-start items-center w-screen pt-20 border-b-2 border-t-2 border-pinky">
+            <div className="w-full h-auto text-white flex flex-col justify-start items-center box-border ...  no-scrollbar relative overflow-hidden">
                     <h1 className="w-auto font-mina text-2xl lg:text-3xl lg:mt-4 tracking-widest text-center text-white font-black p-2 z-50">
                         Elev på Create
                     </h1>
 
-                    <div className="lg:max-w-screen-lg flex flex-col justify-start items-center w-screen snap-y snap-proximity snap-smooth no-scrollbar overflow-y-scroll h-full gap-16">
-                    <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-[800px]">
-                            <div className="flex flex-col w-screen lg:w-full justify-end items-center lg:h-full md:rounded-t-xl">
+                    <div className="lg:max-w-screen-lg flex flex-col justify-around items-center w-screen snap-y snap-proximity snap-smooth no-scrollbar overflow-y-scroll gap-6">
+                    <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center ">
+                            <div className="flex flex-col w-screen lg:w-full justify-start items-center h-full md:rounded-t-xl">
                                 
                                 <div 
                                     className="w-full min-h-[450px] md:min-h-[800px] lg:rounded-xl flex flex-col justify-end items-center h-full"
@@ -36,22 +36,22 @@ const Intro: React.FC = () => {
                                     <div className="text-md md:text-2xl lg:text-3xl bg-black/70 py-4 w-full flex justify-center items-end lg:rounded-b-xl">
                                         <div className="mx-2 md:m-4">
                                             <GetTextContent contentKey="elev_1" />   
-                                        </div>
-                                        <div className="flex justify-center items-center ">
-                                            <div className="opacity-80 md:hidden ">
-                                                <ChevronsDown size="56"/>
-                                            </div>
-                                            <div className="hidden md:block opacity-80 ">
-                                                <ChevronsDown size="96"/>
-                                            </div>
-                                        </div>                                         
+                                        </div>                                       
                                     </div>   
                                 </div>
                             </div>
+                            <div className="flex justify-center items-center ">
+                            <div className="opacity-40 pt-4 md:hidden ">
+                                <ChevronsDown size="56"/>
+                            </div>
+                            <div className="hidden md:block opacity-40 pt-4 ">
+                                <ChevronsDown size="96"/>
+                            </div>
+                        </div>                                
                         </div>
 
-                        <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-[800px]">
-                            <div className="flex flex-col w-screen md:w-full justify-end items-center md:h-full md:rounded-t-xl">
+                        <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center">
+                            <div className="flex flex-col w-screen lg:w-full justify-start items-center h-full md:rounded-t-xl">
                                 
                                 <div 
                                     className="w-full min-h-[450px] md:min-h-[800px] lg:rounded-xl flex flex-col justify-end items-center h-full"
@@ -67,21 +67,23 @@ const Intro: React.FC = () => {
                                         <div className="mx-2 md:m-4">
                                             <GetTextContent contentKey="elev_2" />   
                                         </div>
-                                        <div className="flex justify-center items-center ">
-                                            <div className="opacity-80 md:hidden ">
-                                                <ChevronsDown size="56"/>
-                                            </div>
-                                            <div className="hidden md:block opacity-80 ">
-                                                <ChevronsDown size="96"/>
-                                            </div>
-                                        </div>                                         
+                                       
                                     </div>   
                                 </div>
                             </div>
+                            <div className="flex justify-center items-center ">
+                            <div className="opacity-40 pt-4 md:hidden ">
+                                <ChevronsDown size="56"/>
+                            </div>
+                            <div className="hidden md:block opacity-40 pt-4 ">
+                                <ChevronsDown size="96"/>
+                            </div>
+                        </div>                             
                         </div>
-
-                        <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-[800px]">
-                            <div className="flex flex-col w-screen md:w-full justify-end items-center md:h-full md:rounded-t-xl">
+ 
+                  
+                        <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center ">
+                            <div className="flex flex-col w-screen lg:w-full justify-start items-center h-full md:rounded-t-xl">
                                 
                                 <div 
                                     className="w-full min-h-[450px] md:min-h-[800px] lg:rounded-xl flex flex-col justify-end items-center h-full"
@@ -96,22 +98,21 @@ const Intro: React.FC = () => {
                                     <div className="text-md md:text-2xl lg:text-3xl bg-black/70 py-4 w-full flex justify-center items-end lg:rounded-b-xl">
                                         <div className="mx-2 md:m-4">
                                             <GetTextContent contentKey="elev_3" />   
-                                        </div>
-                                        <div className="flex justify-center items-center ">
-                                            <div className="opacity-80 md:hidden">
-                                                <ChevronsDown size="56"/>
-                                            </div>
-                                            <div className="hidden md:block opacity-80">
-                                                <ChevronsDown size="96"/>
-                                            </div>
-                                        </div>                                         
+                                        </div>                                      
                                     </div>   
                                 </div>
                             </div>
                         </div>
-
-                        <div className="snap-start snap-none font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-[800px] mb-12 mt-10 overflow-y-visible">
-                            <div className="flex flex-col w-screen md:w-full justify-end items-center md:h-full md:rounded-t-xl">
+                        <div className="flex justify-center items-center ">
+                            <div className="opacity-40 pt-4 md:hidden">
+                                <ChevronsDown size="56"/>
+                            </div>
+                            <div className="hidden md:block opacity-40 pt-4">
+                                <ChevronsDown size="96"/>
+                            </div>
+                        </div>   
+                        <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center ">
+                            <div className="flex flex-col w-screen lg:w-full justify-start items-center h-full md:rounded-t-xl">
                                 
                                 <div 
                                     className="w-full min-h-[450px] md:min-h-[800px] lg:rounded-xl flex flex-col justify-end items-center h-full"
@@ -126,20 +127,19 @@ const Intro: React.FC = () => {
                                     <div className="text-md md:text-2xl lg:text-3xl bg-black/70 py-4 w-full flex justify-center items-end lg:rounded-b-xl">
                                         <div className="mx-2 md:m-4">
                                             <GetTextContent contentKey="elev_4" />   
-                                        </div>
-                                        <div className="flex justify-center items-center ">
-                                            <div className="opacity-80 md:hidden">
-                                                <ChevronsDown size="56"/>
-                                            </div>
-                                            <div className="hidden md:block opacity-80">
-                                                <ChevronsDown size="96"/>
-                                            </div>
-                                        </div>                                         
+                                        </div>                                     
                                     </div>   
                                 </div>
                             </div>
                         </div>
-
+                        <div className="flex justify-center items-center ">
+                            <div className="opacity-40 pt-4 md:hidden">
+                                <ChevronsDown size="56"/>
+                            </div>
+                            <div className="hidden md:block opacity-40 pt-4">
+                                <ChevronsDown size="96"/>
+                            </div>
+                        </div>                            
                     </div>
 
             </div>

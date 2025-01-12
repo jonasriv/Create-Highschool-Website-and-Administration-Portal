@@ -26,7 +26,7 @@ const Home = () => {
             <Front />
           </div>
           
-          <div id="intro" className="snap-start h-screen flex items-center justify-center backdrop-blur-lg">
+          <div id="intro" className="snap-start h-auto flex items-center justify-center backdrop-blur-lg">
             <Intro />
           </div>
 
