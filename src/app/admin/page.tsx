@@ -80,28 +80,25 @@ export default function AdminPage() {
                 </div>
             ) : (
                 <div id="subject_tabs" className="w-full h-auto flex flex-row pb-12 lg:pb-16 bg-black/60">
-                <Tabs defaultValue="default_tab" className="w-full h-full">
+                <Tabs defaultValue="applications_tab" className="w-full h-full">
+                    
                     <TabsList className="min-w-full rounded-none flex flex-row items-center justify-between h-22 gap-0  bg-fuchsia-950 p-4 mb-4">
-                        <TabsTrigger value="default_tab" className="opacity-100 p-2 md:p-4 animate-flash-border1 text-md md:text-2xl uppercase">Admin</TabsTrigger>
-                        <TabsTrigger value="content_tab" className="opacity-100 p-2 md:p-4 animate-flash-border2 text-md md:text-2xl uppercase">Web-innhold</TabsTrigger>
                         <TabsTrigger value="applications_tab" className="opacity-100 p-2 md:p-4 animate-flash-border3 text-md md:text-2xl uppercase">Søknader</TabsTrigger>
+                        <TabsTrigger value="content_tab" className="opacity-100 p-2 md:p-4 animate-flash-border2 text-md md:text-2xl uppercase">Web-innhold</TabsTrigger>
                     </TabsList> 
-
-                    <TabsContent value="default_tab" className="w-full h-auto min-h-screen">
-                        <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 p-4">
-                                    Default tab
-                        </div>
-                    </TabsContent>  
-                    <TabsContent value="content_tab" className="w-full h-auto min-h-screen">
-                        <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 p-4">
-                            <GetContent token={token}/>
-                        </div>
-                    </TabsContent>              
+           
                     <TabsContent value="applications_tab" className="w-full h-auto min-h-screen">
                         <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 p-4">
                             <GetApplications token={token}/>
                         </div>
                     </TabsContent>                             
+
+                    <TabsContent value="content_tab" className="w-full h-auto min-h-screen">
+                        <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 p-4">
+                            <GetContent token={token}/>
+                        </div>
+                    </TabsContent>   
+
                 </Tabs>    
 
             </div>

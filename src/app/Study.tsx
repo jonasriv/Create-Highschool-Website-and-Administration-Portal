@@ -16,6 +16,7 @@ const Study: React.FC = () => {
     const Music1 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507022/IMG_3025-2_vrqnhx.jpg";
     const Music2 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507021/IMG_1739-1_mnwwrh.jpg";
     const Music3 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736508598/choir_bvha8m.jpg";
+    const Music4 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736522031/storband_bztt4g.png";
     const Dance0 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506364/dance-background_vv5xbm.jpg";
     const Dance1 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507025/IMG_8432-1_exnjf5.jpg";
     const Dance2 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507028/IMG_8823-2_hhyell.jpg";
@@ -94,7 +95,10 @@ const Study: React.FC = () => {
                                             </CarouselItem>
                                             <CarouselItem className="flex justify-center">
                                                 <img src={Music3} alt="" className="h-[24rem] md:h-[32rem] w-full object-contain object-top"></img>
-                                            </CarouselItem>                            
+                                            </CarouselItem>     
+                                            <CarouselItem className="flex justify-center">
+                                                <img src={Music4} alt="" className="h-[24rem] md:h-[32rem] w-full object-contain object-top"></img>
+                                            </CarouselItem>                                                                        
                                         </CarouselContent>
                                     </Carousel>
                                 </div>

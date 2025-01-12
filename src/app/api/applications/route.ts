@@ -1,8 +1,69 @@
 import dbConnect from "@/lib/mongoose";
 import Application from "@/models/application";
 import { NextResponse } from "next/server";
-import { S3Client } from "@aws-sdk/client-s3";
+import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { Upload } from "@aws-sdk/lib-storage";
+import { TextractClient, StartDocumentTextDetectionCommand, GetDocumentTextDetectionCommand } from "@aws-sdk/client-textract";
+
+
+const textract = new TextractClient({
+  region: process.env.AWS_REGION,
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+  },
+});
+
+async function analyzeDocument(bucketName: string, fileKey: string) {
+  try {
+    const startCommand = new StartDocumentTextDetectionCommand({
+      DocumentLocation: {
+        S3Object: {
+          Bucket: bucketName,
+          Name: fileKey,
+        },
+      },
+    });
+
+    const startResponse = await textract.send(startCommand);
+    const jobId = startResponse.JobId;
+
+    if (!jobId) {
+      throw new Error("Kunne ikke starte Textract-jobb.");
+    }
+
+    // Vent på at Textract-jobben fullføres
+    let jobStatus = "IN_PROGRESS";
+    let textractResponse = undefined;
+
+    while (jobStatus === "IN_PROGRESS") {
+      await new Promise((resolve) => setTimeout(resolve, 5000)); // Vent 5 sekunder
+
+      const getCommand = new GetDocumentTextDetectionCommand({
+        JobId: jobId,
+      });
+
+      textractResponse = await textract.send(getCommand);
+      jobStatus = textractResponse.JobStatus!;
+    }
+
+    if (!textractResponse || jobStatus !== "SUCCEEDED") {
+      throw new Error(`Textract-jobb mislyktes eller returnerte ingen data.`);
+    }
+
+    // Filtrer blokker for å hente kun tekstlinjer
+    const textLines = textractResponse.Blocks?.filter((block) => block.BlockType === "LINE")
+                                               .map((block) => block.Text);
+
+    // Hvis du bare vil ha tekstlinjene og ikke metadataene
+    return textLines || [];
+  } catch (error) {
+    console.error("Feil ved Textract-analyse:", error);
+    throw new Error("Kunne ikke analysere dokumentet.");
+  }
+}
+
 
 // Konfigurer S3-klienten
 const s3 = new S3Client({
@@ -12,6 +73,15 @@ const s3 = new S3Client({
       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
   },
 });
+
+const generatePresignedUrl = async (bucketName: string, fileKey: string): Promise<string> => {
+  const command = new GetObjectCommand({
+    Bucket: bucketName,
+    Key: fileKey,
+  });
+
+  return getSignedUrl(s3, command, { expiresIn: 3600 }); // 1 time
+};
 
 export async function POST(req: Request) {
     
@@ -53,9 +123,18 @@ export async function POST(req: Request) {
     const uploadResult = await upload.done();
     console.log("Fil lastet opp til S3:", uploadResult);
 
-    const fileUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${filename}`;
+    const fileUrl = filename;
 
-    
+    // Kjør Textract-analyse
+    let textractAnalysis: string | null = null;
+    try {
+      const textractData = await analyzeDocument(process.env.AWS_BUCKET_NAME!, filename);
+      textractAnalysis = JSON.stringify(textractData); // Konverter til JSON-streng for lagring
+    } catch (error) {
+      console.error("Feil ved Textract-analyse:", error);
+      // Håndter Textract-feil uten å avbryte hele prosessen
+    }
+
     // Koble til databasen
     await dbConnect();
 
@@ -69,6 +148,7 @@ export async function POST(req: Request) {
       priority2,
       priority3,
       filename: fileUrl, // Lagre S3-URL i databasen
+      textractAnalysis,  // Lagre Textract-resultatet (kan være null hvis analysen feiler)
     });
     
     // Returner en vellykket respons
@@ -88,22 +168,40 @@ export async function POST(req: Request) {
   }
 }
 
+// GET: Hent søknader og generer presigned URL-er
 export async function GET() {
   try {
-    // Koble til databasen
     await dbConnect();
 
-    // Hent alle søknadene
     const applications = await Application.find({});
+    const applicationsWithUrls = await Promise.all(
+      applications.map(async (app) => {
+        const filename = app.filename;
+        let presignedUrl = null;
 
-    // Returner søknadene som en JSON-respons
-    return NextResponse.json({ applications });
+        if (filename) {
+          try {
+            // Sørg for at filnavnet er gyldig før du prøver å generere en presigned URL
+            const fileNameWithoutPath = filename.split("/").pop();
+            if (fileNameWithoutPath) {
+              presignedUrl = await generatePresignedUrl(process.env.AWS_BUCKET_NAME!, fileNameWithoutPath);
+            } else {
+              console.error("Ugyldig filbane for søknaden:", filename);
+            }
+          } catch (error) {
+            console.error("Feil ved generering av presigned URL:", error);
+          }
+        } else {
+          console.error("Filnavn mangler for applikasjonen:", app);
+        }
+
+        return { ...app.toObject(), s3FileUrl: presignedUrl };
+      })
+    );
+
+    return NextResponse.json({ applications: applicationsWithUrls });
   } catch (error) {
     console.error("Error:", error);
-    return NextResponse.json(
-      { error: "Kunne ikke hente søknadene." },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Kunne ikke hente søknadene." }, { status: 500 });
   }
 }
-

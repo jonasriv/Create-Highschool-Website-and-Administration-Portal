@@ -21,7 +21,7 @@ const Front = () => {
                         <GetTextContent contentKey="frontpage_title"/>
                     </h1>
                 </div>
-                <h1 className="font-mina font-black text-lg">
+                <h1 className="font-mina font-black text-xl">
                     <GetTextContent contentKey="frontpage_soknadsfrist"/>
                 </h1>
                 <Link href="/soknad">

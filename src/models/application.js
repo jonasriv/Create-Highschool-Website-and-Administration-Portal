@@ -10,6 +10,10 @@ const ApplicationSchema = new mongoose.Schema({
   priority2: { type: String, required: true },
   priority3: { type: String, required: true },
   filename: { type: String, required: true },
+  textractAnalysis: {
+    type: String,
+    required: false,
+  },
   createdAt: { type: Date, default: Date.now },
 });
 

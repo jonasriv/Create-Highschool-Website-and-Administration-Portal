@@ -72,7 +72,6 @@ const Soknad = () => {
         if(validateForm()) {
             setLoading(true);
             try {
-                
                 // Opprett FormData-objekt for å håndtere filopplasting:
                 const formDataToSend = new FormData();
                 formDataToSend.append('name', formData.fullName); 
@@ -136,8 +135,9 @@ const Soknad = () => {
       }}  >
             <Header/>
             {loading && (
-              <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 z-50">
+              <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 z-50 flex-col gap-12">
                 <div className="w-24 h-24 border-b-8 border-t-8 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div>
+                <p className="text-2xl">Vent mens opplastingen behandles...</p>
               </div>
 
 

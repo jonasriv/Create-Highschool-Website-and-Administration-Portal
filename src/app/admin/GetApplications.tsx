@@ -17,8 +17,12 @@ interface Application {
     filename: string;
     createdAt: string;
     s3FileUrl?: string;  // Add a new field to store S3 URL
-
+    textractAnalysis?: string;  // Add a new field to store S3 URL
+    karaktersett?: Array<number>,
+    gjennomsnitt?: number,
+    antallKarakterer?: number,
 }
+
 const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
     const tbl = useRef(null);
     const [applications, setApplications] = useState<Application[]>([]);
@@ -44,16 +48,57 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
             const data = await response.json();
             
             const applications = data.applications.map((app: Application) => ({
-                ...app,
+                ...app, 
                 s3FileUrl: app.s3FileUrl || null,
             }));
+
+            // Iterer gjennom hver applikasjon og prosesser Textract-resultatet
+            applications.forEach((app: Application) => {
+                if (app.textractAnalysis) {
+                    try {
+                        const linjer: Array<string> = [];
+                        const textractResult = JSON.parse(app.textractAnalysis); // Pars Textract JSON
+                        textractResult.forEach((result: string) => {
+                            const trimmetResultat: string = result.trim();
+                            linjer.push(trimmetResultat.toString());
+                        })
+                        const regex = /^\s?([1-6])\s?\-?\s?(EN|TO|TRE|FIRE|FEM|SEKS|en|to|tre|fire|fem|seks)?\s?$/;
+                        ;
+                        const matches: Array<string> = [];
+                        linjer.forEach((linje) => {
+                            const result = regex.exec(linje) || "";
+                            if (result) matches.push(result[0]);
+                        });
+                        
+                        const karakterer: Array<number> = [];
+                        matches.forEach((match) => {
+                            const trimmedMatch = match.trim();
+                            karakterer.push(parseInt(trimmedMatch[0][0]));
+                        });
+                        if (karakterer.length > 10 && karakterer.length < 28) {
+                            app.karaktersett = karakterer;
+                            let samletSum: number = 0;
+                            let antallKarakterer: number = 0;
+                            karakterer.forEach((karakter) => {
+                                samletSum += karakter;
+                                antallKarakterer ++;
+                            })
+                            app.gjennomsnitt = samletSum / antallKarakterer;
+                            app.antallKarakterer = antallKarakterer;
+                        } else {
+                            app.gjennomsnitt = 0;
+                            app.antallKarakterer = karakterer.length;
+                        }
+                    } catch (e) {
+                        console.error("Error parsing Textract analysis for application:", e);
+                    }
+                }
+            });
 
             setApplications(applications);
         } catch (err) {
             setError((err as Error).message);
         }
-
-
     };
 
     return (
@@ -92,24 +137,33 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
             </div>
             {error && <p className="text-red-500 mt-4">{error}</p>}
             {applications.length > 0 ? (
-                <table ref={tbl} className="table-auto w-full mt-8 text-xl p-4 bg-slate-800 rounded-xl">
+                <table ref={tbl} className="table-auto w-full mt-8 text-lg p-4 bg-slate-800 rounded-xl max-w-screen-md">
                     <thead>
                         <tr className="bg-slate-400-100">
                             <th className="border px-4 py-2">Navn</th>
+                            <th className="border px-4 py-2">Søkt dato <span className="text-sm">(YYYY-MM-DD)</span></th>
                             <th className="border px-4 py-2">E-post</th>
                             <th className="border px-4 py-2">Telefon</th>
                             <th className="border px-4 py-2">1. Prioritet</th>
+                            <th className="border px-4 py-2">2. Prioritet</th>
+                            <th className="border px-4 py-2">3. Prioritet</th>
                             <th className="border px-4 py-2">Bilde</th>
-                            <th className="border px-4 py-2">Søkt dato</th>
+                            <th className="border px-4 py-2">Gjennomsnitt</th>
+                            <th className="border px-4 py-2">Antall karakterer</th>
+                            <th className="border px-4 py-2">Karaktersett</th>
+
                         </tr>
                     </thead>
                     <tbody>
                         {applications.map((app) => (
                             <tr key={app._id} className="">
                                 <td className="border px-4 py-2">{app.name}</td>
+                                <td className="border px-4 py-2">{app.createdAt.slice(0, 10)}</td>
                                 <td className="border px-4 py-2">{app.email}</td>
                                 <td className="border px-4 py-2">{app.phone}</td>
                                 <td className="border px-4 py-2">{app.priority1}</td>
+                                <td className="border px-4 py-2">{app.priority2}</td>
+                                <td className="border px-4 py-2">{app.priority3}</td>
                                 <td className="border px-4 py-2 text-xs max-w-44 h-auto break-words">
                                     {app.s3FileUrl ? (
                                     <a href={app.s3FileUrl} target="_blank" rel="noopener noreferrer">
@@ -119,7 +173,10 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                         <span>Ingen fil</span>
                                     )}
                                     </td>
-                                <td className="border px-4 py-2">{app.createdAt.slice(0, 10)}</td>
+                                <td className="border px-4 py-2">{app.gjennomsnitt?.toString().substring(0, 7)}</td>
+                                <td className="border px-4 py-2">{app.antallKarakterer}</td>
+                                <td className="border px-4 py-2 break-words">{app.karaktersett}</td>
+                                
                             </tr>
                         ))}
                     </tbody>
