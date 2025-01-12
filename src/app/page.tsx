@@ -20,7 +20,7 @@ const Home = () => {
     }}  
     >
       <Header />
-      <main className="bg-black/65 h-screen w-screen snap-y snap-proximity overflow-x-hidden no-scrollbar mt-22 md:pt-28">  
+      <main className="bg-black/65 h-screen w-screen snap-y snap-mandatory overflow-x-hidden no-scrollbar mt-22 md:pt-28">  
 
           <div id="front" className="snap-start h-screen flex items-center justify-center">
             <Front />

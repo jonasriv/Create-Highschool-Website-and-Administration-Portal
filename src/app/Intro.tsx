@@ -13,13 +13,13 @@ const Intro: React.FC = () => {
     const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
     return (
-        <div className="flex flex-col justify-start items-center w-screen h-screen pt-20 ">
-            <div className=" w-full h-[1000px] text-white flex flex-col justify-start items-center box-border ...  no-scrollbar relative overflow-hidden">
+        <div className="flex flex-col justify-start items-center w-screen h-full pt-20 border-b-2 border-t-2 border-pinky">
+            <div className=" w-full h-auto text-white flex flex-col justify-start items-center box-border ...  no-scrollbar relative overflow-hidden">
                     <h1 className="w-auto font-mina text-2xl lg:text-3xl lg:mt-4 tracking-widest text-center text-white font-black p-2 z-50">
                         Elev på Create
                     </h1>
 
-                    <div className="lg:max-w-screen-lg flex flex-col justify-start items-center w-screen snap-y snap-proximity no-scrollbar overflow-y-scroll scroll-smooth h-full gap-16">
+                    <div className="lg:max-w-screen-lg flex flex-col justify-start items-center w-screen snap-y snap-mandatory snap-smooth no-scrollbar overflow-y-scroll h-full gap-16">
                     <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-[800px]">
                             <div className="flex flex-col w-screen lg:w-full justify-end items-center lg:h-full md:rounded-t-xl">
                                 
@@ -110,7 +110,7 @@ const Intro: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className="snap-start font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-[800px] mb-12 mt-10">
+                        <div className="snap-start snap-none font-mina text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center h-[800px] mb-12 mt-10 overflow-y-visible">
                             <div className="flex flex-col w-screen md:w-full justify-end items-center md:h-full md:rounded-t-xl">
                                 
                                 <div 
