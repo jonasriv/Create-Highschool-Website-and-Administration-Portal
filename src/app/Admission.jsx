@@ -6,7 +6,7 @@ const Admission = () => {
     const hipImage = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506363/card-background_theyxe.png";
     return (
         <div 
-        className="flex flex-col justify-center items-center w-screen h-full overflow-y-clip"
+        className="flex flex-col justify-center items-center w-screen h-full overflow-y-scroll"
         >
             <div className="w-full max-w-screen-lg text-white flex flex-col justify-start items-center box-border ... h-full">
                 <div className="flex flex-col lg:bg-black/50 lg:rounded-xl w-full overflow-hidden md:mt-8 min-h-[80%] md:mx-2">
@@ -38,7 +38,7 @@ const Admission = () => {
                                 </div>
                             </TabsContent>    
 
-                            <TabsContent value="future_tab" className="md:rounded-2xl w-full h-full overflow-y-scroll pb-12">
+                            <TabsContent value="future_tab" className="md:rounded-2xl w-full h-auto overflow-y-scroll pb-12">
                                 <div className="flex flex-col md:flex-row md:justify-between items-start md:pt-4">
                                     <div className="w-full pr-4">
                                         <div className="font-mina text-lg md:text-2xl text-slate-300 leading-normal px-6 pb-12">
@@ -53,7 +53,7 @@ const Admission = () => {
                                 </div>
                             </TabsContent>    
 
-                            <TabsContent value="about_tab" className="md:rounded-2xl w-full h-full overflow-y-scroll pb-12">
+                            <TabsContent value="about_tab" className="md:rounded-2xl w-full h-auto overflow-y-scroll pb-12">
                                 <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 ">
                                     <div className="w-full pr-4">
                                         <div className="font-mina text-lg md:text-2xl text-slate-300 leading-normal px-6 pb-12">
