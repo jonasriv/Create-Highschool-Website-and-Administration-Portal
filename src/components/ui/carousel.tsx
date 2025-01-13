@@ -13,7 +13,7 @@ const Carousel = React.forwardRef<
     autoplay?: boolean;
   }
 >(({ opts, setApi, autoplay = false, className, children, ...props }, ref) => {
-  const plugins = React.useMemo(() => (autoplay ? [Autoplay()] : []), [autoplay]);
+  const plugins = React.useMemo(() => (autoplay ? [Autoplay({ delay: 3000})] : []), [autoplay]);
   const [carouselRef, api] = useEmblaCarousel(opts, plugins);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [slideCount, setSlideCount] = React.useState(0);
