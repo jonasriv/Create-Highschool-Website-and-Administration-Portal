@@ -13,6 +13,7 @@ const ContentSchema = new mongoose.Schema({
   program_drama: { type: String, required: false },
   opptak: { type: String, required: false },
   hva_blir_jeg: { type: String, required: false },
+  soknad_intro: { type: String, required: false },
   om_create: { type: String, required: false },
 },
 { timestamps: true }

@@ -28,7 +28,7 @@ const Study: React.FC = () => {
 
     return (
         <div 
-        className="flex flex-col justify-center items-center w-screen h-screen mt-0 pb-8"
+        className="flex flex-col justify-center items-center w-screen h-screen mt-0"
         >
             <div className="w-screen h-screen lg:w-[1024px] text-white flex flex-col justify-start items-center box-border ...  no-scrollbar mt-0 overflow-hidden">
                 <div className="flex h-[1000px] lg:h[900] flex-col lg:rounded-2xl w-full mt-24 justify-start items-center">

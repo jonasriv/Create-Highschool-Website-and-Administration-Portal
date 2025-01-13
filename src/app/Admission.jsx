@@ -7,12 +7,12 @@ const Admission = () => {
         <div 
         className="flex flex-col justify-center items-center w-screen h-full overflow-y-scroll"
         >
-            <div className="w-full max-w-screen-lg text-white flex flex-col justify-start items-center box-border ... h-full pb-8">
+            <div className="w-full max-w-screen-lg text-white flex flex-col justify-start items-center box-border ... h-full">
                 <div className="flex flex-col lg:bg-black/50 lg:rounded-xl w-full overflow-hidden md:mt-8 min-h-[80%] md:mx-2">
                     <h1 className="font-mina text-2xl md:text-3xl lg:text-4xl tracking-widest text-center text-white font-black md:py-8">
                         Opptak og info
                     </h1>
-                    <div id="subject_tabs" className="w-full flex flex-row pb-12 md:pb-14 lg:pb-16">
+                    <div id="subject_tabs" className="w-full flex flex-row pb-6 md:pb-14 lg:pb-16">
                         <Tabs defaultValue="admission_tab" className="w-full">
                             <TabsList className="w-full rounded-none mt-4 md:mt-0 flex flex-row items-center justify-around h-22 gap-0 md:gap-8 bg-black/60 md:mb-12">
                                 <TabsTrigger value="admission_tab" className="font-mina opacity-100 p-2 md:p-4 text-md md:text-2xl">Opptak</TabsTrigger>                                
@@ -23,7 +23,7 @@ const Admission = () => {
                             <TabsContent value="admission_tab" className="md:rounded-2xl w-full h-auto overflow-y-scroll">
                                 <div className="flex flex-col md:flex-row md:justify-between items-start md:pt-4">
                                     <div className="w-full pr-4 font-roboto-mono">
-                                        <div className="font-roboto text-lg md:text-2xl text-slate-300 leading-normal px-6 pb-12 flex flex-col justifty-center items-center">
+                                        <div className="font-roboto text-lg md:text-2xl text-slate-300 leading-normal px-6 pb-12 flex flex-col justify-center items-center">
                                             <GetTextContent contentKey="opptak" className="font-roboto-mono"/>
                                             <div className="w-full flex items-center justify-center pt-8">
                                                 <Link href="/soknad">
@@ -51,10 +51,10 @@ const Admission = () => {
                                 </div>
                             </TabsContent>    
 
-                            <TabsContent value="about_tab" className="md:rounded-2xl w-full h-auto overflow-y-scroll pb-12">
+                            <TabsContent value="about_tab" className="md:rounded-2xl w-full h-auto overflow-y-scroll">
                                 <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 ">
                                     <div className="w-full pr-4">
-                                        <div className="font-roboto text-lg md:text-2xl text-slate-300 leading-normal px-6 pb-12">
+                                        <div className="font-roboto text-lg md:text-2xl text-slate-300 leading-normal px-6">
                                             <GetTextContent contentKey="om_create" />
                                             <div className="w-full flex items-center justify-center pt-8">
                                                 <Link href="/soknad">

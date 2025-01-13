@@ -3,6 +3,8 @@
 import React, { useState, useRef } from "react";
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import GetTextContent from "../GetTextContent";
+import GetContent from "../admin/GetContent";
 const Header = dynamic(() => import("./HeaderSoknad"));
 
 const Soknad = () => {
@@ -148,9 +150,9 @@ const Soknad = () => {
                 <h1 className="font-bahiana text-4xl md:text-6xl mb-4">
                     Bli en del av Create!
                 </h1>
-                <p className="font-mina text-lg md:text-2xl">
-                Create tar imot søkere fra hele landet. I 2024 tar vi hovedsaklig inn elever til vg1. Det er også mulig å søke på vg2 og vg3, der vi vil ta inn elever etter ledig kapasitet. Det går fint å søke på flere forskjellige skoler. Du bestemmer selv hvilken skole du vil gå på etter at du har fått tilbud om skoleplass. Opptaket starter 15. mars. Det koster 22.500 kroner per skoleår å gå på Create.
-                </p>
+                <div className="font-roboto text-lg md:text-2xl">
+                    <GetTextContent contentKey="soknad_intro"/>
+                </div>
             </div>
             <h1 className="text-4xl font-bold mb-6 pt-8 font-mina">Søknadsskjema</h1>
             
@@ -272,9 +274,9 @@ const Soknad = () => {
     
             {/* CV opplasting */}
             <div>
-                <h1 className="font-mina text-2xl">
+                <h1 className="font-roboto text-2xl">
                     <b>Opplasting av karakterkort:</b>
-                    &nbsp;Pass på at du legger ved et <b>tydelig og rent bilde</b> av din karakterutskrift. Det må vise navn, skole og alle karakterene. Bruk gjerne skjermbilde fra <a className="underlines text-red-400 hover:underline font-black" href="https://elev.visma.no/lillehammer" target="_blank">visma</a> eller en annen digital portal. Velg fil under*. 
+                    &nbsp;Last opp et <b>tydelig og klart bilde</b> av din karakterutskrift. Det må vise <b>navn, skole og alle karakterene</b>. Bruk gjerne skjermbilde fra <a className="underlines text-red-400 hover:underline font-black" href="https://elev.visma.no/lillehammer" target="_blank">visma</a> eller tilsvarende. Velg fil under*. 
                 </h1>
                 <label htmlFor="resume" className="block text-sm md:text-lg font-semibold"></label>
                 <input

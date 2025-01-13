@@ -18,6 +18,7 @@ interface ContentItem {
         opptak?: string;
         hva_blir_jeg?: string;
         om_create?: string;
+        soknad_intro?: string;
         createdAt: string;
     }
 
@@ -71,6 +72,7 @@ const GetContent: React.FC<GetContentProps> = ({ token }) => {
                         opptak: "",
                         hva_blir_jeg: "",
                         om_create: "",
+                        soknad_intro: "",
                         createdAt: "",
                     },
                 ]);
@@ -99,20 +101,17 @@ const GetContent: React.FC<GetContentProps> = ({ token }) => {
         if (!token) {
             return;
         }
-
         try {
-
             const formData = new FormData();
-
             content.forEach((item) => {
                 Object.entries(item).forEach(([key, value]) => {
                     if (value) {
+                        console.log(`Key: ${key}, Value: ${value}`); // Debugging
+
                         formData.append(key, value.toString());
                     }
                 });
             });
-
-            console.log([...formData]);
             const response = await fetch("api/content", {
                 method: "POST",
                 headers: { 
@@ -127,20 +126,21 @@ const GetContent: React.FC<GetContentProps> = ({ token }) => {
 
             const data = await response.json();
             console.log("Content saved successfully:", data);
+            alert("Innholdet ble oppdatert!");
         } catch (err: unknown) {
             if (err instanceof Error) {
                 console.error("Error saving content:", err.message);
                 setError(err.message);
+                alert("Feil ved oppdatering av innhold!");
             } else {
                 console.log("An unknown error occuurred");
                 setError("An unknown error occurred");
+                alert("En ukjent feil oppsto!");
             }    
         }
     };
-
     
-    return (
-        
+    return (        
         <div className="w-full">
             <button
                 className="p-4 rounded-xl text-2xl border-2 border-purple-500 w-96 bg-black/60 cursor-pointer hover:bg-black/80"
@@ -219,6 +219,11 @@ const GetContent: React.FC<GetContentProps> = ({ token }) => {
                                 onChange={(e) => handleInputChange(index, "om_create", e.target.value)} 
                                 className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
                                 value={content.om_create || ""}></textarea>
+                            <h2>Søknadsside intro:</h2>
+                            <textarea 
+                                onChange={(e) => handleInputChange(index, "soknad_intro", e.target.value)} 
+                                className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
+                                value={content.soknad_intro || ""}></textarea>                                
                         </div>
                     ))}
                     <button

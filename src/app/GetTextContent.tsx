@@ -15,6 +15,7 @@ interface ContentItem {
     opptak?: string;
     hva_blir_jeg?: string;
     om_create?: string;
+    soknad_intro?: string;
     createdAt?: Date;
 }
 
@@ -29,7 +30,7 @@ const GetTextContent = ({ contentKey }: GetTextContentProps) => {
     const { data, error } = useSWR<{ content: ContentItem[] }>("/api/content", fetcher);
 
     if (error) {
-        return <div>Error: {error.message}</div>;
+        return <div>Last siden på nytt</div>;
     }
 
     if (!data) {
@@ -55,10 +56,11 @@ const GetTextContent = ({ contentKey }: GetTextContentProps) => {
         opptak: "",
         hva_blir_jeg: "",
         om_create: "",
+        soknad_intro: "",
     };
 
     const contentValue =
-        typeof content[contentKey] === "string" ? content[contentKey] : "No content available";
+        typeof content[contentKey] === "string" ? content[contentKey] : "";
 
     const sanitizedHTML = DOMPurify.sanitize(contentValue as string);
 

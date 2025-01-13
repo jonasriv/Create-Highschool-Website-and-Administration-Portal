@@ -11,7 +11,6 @@ export default function AdminPage() {
     const [token, setToken] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-
     const handleLogin = async () => {
         setError(null);
         
@@ -51,10 +50,7 @@ export default function AdminPage() {
                 setError("An unknown error occurred");
             }
         }
-    };
-    
-
-
+    };    
 
     return (
         <div className="flex flex-col w-screen h-screen box-border bg-fuchsia-950 justify-start items-center ">

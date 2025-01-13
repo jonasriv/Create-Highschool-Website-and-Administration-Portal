@@ -7,6 +7,8 @@ export async function POST(req: Request) {
   try {
     // Parse forespørselen som JSON
     const formData = await req.formData();
+    console.log("FormData keys:", [...formData.keys()]);
+    console.log("soknad_intro:", formData.get("soknad_intro"));
     const frontpage_title = formData.get("frontpage_title") as string;
     const frontpage_soknadsfrist = formData.get("frontpage_soknadsfrist") as string;
     const elev_1 = formData.get("elev_1") as string;
@@ -19,6 +21,7 @@ export async function POST(req: Request) {
     const opptak = formData.get("opptak") as string;
     const hva_blir_jeg = formData.get("hva_blir_jeg") as string;
     const om_create = formData.get("om_create") as string;
+    const soknad_intro = formData.get("soknad_intro") as string;
 
     // Koble til databasen
     await dbConnect();
@@ -37,13 +40,15 @@ export async function POST(req: Request) {
         opptak,
         hva_blir_jeg,
         om_create,
+        soknad_intro,
     });
-    
+    console.log("Lagret innhold fra databasen:", newContent);
     // Returner en vellykket respons
     return NextResponse.json(
       {
         message: "Innholdet ble oppdatert!",
         data: newContent,
+        
       },
       { status: 201 }
     );
