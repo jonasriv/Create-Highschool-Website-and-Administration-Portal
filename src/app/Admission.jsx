@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import GetTextContent from "./GetTextContent";
 import Link from "next/link";
 const Admission = () => {
+    const cityLife = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736805160/create_dolajazz_qzbnpl.png";
     return (
         <div 
         className="flex flex-col justify-center items-center w-screen h-full overflow-y-scroll"
@@ -25,7 +26,8 @@ const Admission = () => {
                                     <div className="w-full pr-4 font-roboto-mono">
                                         <div className="font-roboto text-lg md:text-2xl text-slate-300 leading-normal px-6 pb-12 flex flex-col justify-center items-center">
                                             <GetTextContent contentKey="opptak" className="font-roboto-mono"/>
-                                            <div className="w-full flex items-center justify-center pt-8">
+                                            <div className="w-full flex items-center justify-center pt-8 flex-col">
+                                                <img src={cityLife} alt="" className="w-full flex text-center h-56 md:h-80 object-cover mb-8 rounded-xl"></img>
                                                 <Link href="/soknad">
                                                 <button className="bg-pinky w-36 h-14 flex justify-center items-center text-xl px-4 rounded-3xl font-black uppercase text-slate-200 border-2 border-transparent hover:border-white hover:text-white">Søk nå</button>
                                                 </Link>

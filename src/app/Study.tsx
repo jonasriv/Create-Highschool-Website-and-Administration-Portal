@@ -12,19 +12,29 @@ import { Star } from "lucide-react";
 const Study: React.FC = () => {    
 
     const Music0 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506364/field-background_z3hrk2.jpg";
-    const Music1 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507022/IMG_3025-2_vrqnhx.jpg";
+    const Music1 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736805178/nymusikk3_zlu67s.png";
     const Music2 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507021/IMG_1739-1_mnwwrh.jpg";
-    const Music3 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736508598/choir_bvha8m.jpg";
+    const Music3 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736805181/nymusikk4_v4rv7i.png";
     const Music4 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736522031/storband_bztt4g.png";
+    const Music5 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736805184/NYmusikk5_izmfkl.png";
+    const Music6 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736805184/nymusikk9_vnpore.png";
+    const Music7 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736805184/nymusikk6_wm2jrp.png";
     const Dance0 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506364/dance-background_vv5xbm.jpg";
     const Dance1 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507025/IMG_8432-1_exnjf5.jpg";
     const Dance2 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507028/IMG_8823-2_hhyell.jpg";
     const Dance3 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507027/IMG_9985_3-1_ctadia.jpg";
     const Dance4 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736519501/hopp_cq7cox.png";
+    const Dance5 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507024/IMG_7295-1_ltui3m.jpg";
+    const Dance6 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736805160/nydans1_ods3cn.png";
+    const Dance7 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736805156/nydans2_cyfzk9.png";
     const Drama0 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506365/movie-background_t26tgr.jpg";
     const Drama1 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507030/IMG_8700-2_tk0wt1.jpg";
-    const Drama2 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507023/IMG_2491-2_b8upxb.jpg";
     const Drama3 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507020/IMG_0328-1_nfaps6.jpg";
+    const Drama4 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507021/IMG_1908-1_neuizp.jpg";
+    const Drama5 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736805174/nydrama6_w4c05e.png";
+    const Drama6 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736805170/nydrama5_nvflmd.png";
+    const Drama7 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736805163/Nydrama2_ktxgiz.png";
+    const Drama8 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736805160/Nydrama3_lxvq8y.png";
 
     return (
         <div 
@@ -57,17 +67,26 @@ const Study: React.FC = () => {
                                                 <img src={Music0} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
                                             </CarouselItem>
                                             <CarouselItem className="flex justify-center">
-                                                <img src={Music1} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
+                                                <img src={Music3} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
                                             </CarouselItem>                                            
                                             <CarouselItem className="flex justify-center">
                                                 <img src={Music2} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
                                             </CarouselItem>
                                             <CarouselItem className="flex justify-center">
-                                                <img src={Music3} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
+                                                <img src={Music1} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
                                             </CarouselItem>     
                                             <CarouselItem className="flex justify-center">
                                                 <img src={Music4} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
-                                            </CarouselItem>                                                                        
+                                            </CarouselItem>      
+                                            <CarouselItem className="flex justify-center">
+                                                <img src={Music5} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
+                                            </CarouselItem>      
+                                            <CarouselItem className="flex justify-center">
+                                                <img src={Music6} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
+                                            </CarouselItem>      
+                                            <CarouselItem className="flex justify-center">
+                                                <img src={Music7} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
+                                            </CarouselItem>                                                                                                                                                                                                            
                                         </CarouselContent>
                                     </Carousel>
                                 </div>
@@ -98,7 +117,16 @@ const Study: React.FC = () => {
                                             </CarouselItem>      
                                             <CarouselItem className="flex justify-center">
                                                 <img src={Dance4} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
-                                            </CarouselItem>                                                                        
+                                            </CarouselItem>  
+                                            <CarouselItem className="flex justify-center">
+                                                <img src={Dance5} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
+                                            </CarouselItem>  
+                                            <CarouselItem className="flex justify-center">
+                                                <img src={Dance6} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
+                                            </CarouselItem>  
+                                            <CarouselItem className="flex justify-center">
+                                                <img src={Dance7} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
+                                            </CarouselItem>                                                                                                                                                                                                                                                        
                                         </CarouselContent>
                                     </Carousel>
                                 </div>
@@ -122,11 +150,23 @@ const Study: React.FC = () => {
                                                 <img src={Drama1} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
                                             </CarouselItem>                                            
                                             <CarouselItem className="flex justify-center">
-                                                <img src={Drama2} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
-                                            </CarouselItem>
-                                            <CarouselItem className="flex justify-center">
                                                 <img src={Drama3} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
-                                            </CarouselItem>                            
+                                            </CarouselItem>  
+                                            <CarouselItem className="flex justify-center">
+                                                <img src={Drama4} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
+                                            </CarouselItem>  
+                                            <CarouselItem className="flex justify-center">
+                                                <img src={Drama5} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
+                                            </CarouselItem>  
+                                            <CarouselItem className="flex justify-center">
+                                                <img src={Drama6} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
+                                            </CarouselItem>  
+                                            <CarouselItem className="flex justify-center">
+                                                <img src={Drama7} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
+                                            </CarouselItem>   
+                                            <CarouselItem className="flex justify-center">
+                                                <img src={Drama8} alt="" className="h-[24rem] md:h-[32rem] lg:h[42rem] w-full object-contain object-top"></img>
+                                            </CarouselItem>                                                                                                                                                                                                                                                       
                                         </CarouselContent>
                                     </Carousel>
                                 </div>
