@@ -227,7 +227,7 @@ const Soknad = () => {
                 className="w-full p-2 border border-gray-300 rounded-md text-slate-700"
                 
                 >
-                    <option>Velg</option>
+                    <option disabled selected>Velg</option>
                     <option value="musikk">Musikk</option>
                     <option value="dans">Dans</option>
                     <option value="drama">Drama</option>
@@ -245,7 +245,7 @@ const Soknad = () => {
                 className="w-full p-2 border border-gray-300 rounded-md text-slate-700"
                 
                 >
-                    <option>Velg</option>
+                    <option disabled selected>Velg</option>
                     <option value="musikk">Musikk</option>
                     <option value="dans">Dans</option>
                     <option value="drama">Drama</option>
@@ -263,7 +263,7 @@ const Soknad = () => {
                 className="w-full p-2 border border-gray-300 rounded-md text-slate-700"
                 
                 >
-                    <option>Velg</option>
+                    <option disabled selected>Velg</option>
                     <option value="musikk">Musikk</option>
                     <option value="dans">Dans</option>
                     <option value="drama">Drama</option>

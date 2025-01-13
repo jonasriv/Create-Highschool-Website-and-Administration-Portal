@@ -28,25 +28,25 @@ const Study: React.FC = () => {
 
     return (
         <div 
-        className="flex flex-col justify-center items-center w-screen h-screen mt-0 border-b-2 border-pinky pb-8"
+        className="flex flex-col justify-center items-center w-screen h-screen mt-0 pb-8"
         >
             <div className="w-screen h-screen lg:w-[1024px] text-white flex flex-col justify-start items-center box-border ...  no-scrollbar mt-0 overflow-hidden">
                 <div className="flex h-[1000px] lg:h[900] flex-col lg:rounded-2xl w-full mt-24 justify-start items-center">
-                    <h1 className="font-mina text-2xl md:text-3xl lg:text-5xl tracking-widest text-center text-white font-black mb-4 mt-8 lg:m4-0">
+                    <h1 className="font-mina text-2xl md:text-3xl lg:text-4xl tracking-widest text-center text-white font-black mb-4 mt-8 lg:m4-0">
                         Programfagene
                     </h1>
                     
                     <div id="subject_tabs" className="w-full">
                         <Tabs defaultValue="music_tab" className="w-full flex-col justify-start items-start">
                             <TabsList className="w-full flex flex-row items-center justify-between h-22 gap-4 md:mb-4 rounded-none lg:rounded-xl lg:mb-8">
-                                <TabsTrigger value="music_tab" className="opacity-100 p-2 lg:p-4 animate-flash-border1 text-md md:text-2xl"><span className="hidden md:block">Create&nbsp;</span>Musikk&nbsp;<Star size="12"/></TabsTrigger>
-                                <TabsTrigger value="dance_tab" className="opacity-100 p-2 lg:p-4 animate-flash-border2 text-md md:text-2xl "><span className="hidden md:block">Create&nbsp;</span>Dans&nbsp;<Star size="12"/></TabsTrigger>
-                                <TabsTrigger value="drama_tab" className="opacity-100 p-2 lg:p-4 animate-flash-border3 text-md md:text-2xl "><span className="hidden md:block">Create&nbsp;</span> Drama&nbsp;<Star size="12"/></TabsTrigger>
+                                <TabsTrigger value="music_tab" className="opacity-100 p-2 lg:p-4 text-md md:text-2xl"><span className="hidden md:block">Create&nbsp;</span>Musikk&nbsp;<Star size="12"/></TabsTrigger>
+                                <TabsTrigger value="dance_tab" className="opacity-100 p-2 lg:p-4 text-md md:text-2xl "><span className="hidden md:block">Create&nbsp;</span>Dans&nbsp;<Star size="12"/></TabsTrigger>
+                                <TabsTrigger value="drama_tab" className="opacity-100 p-2 lg:p-4 text-md md:text-2xl "><span className="hidden md:block">Create&nbsp;</span> Drama&nbsp;<Star size="12"/></TabsTrigger>
                             </TabsList> 
                         <TabsContent value="music_tab" className="lg:rounded-2xl w-full h-[800px] overflow-hidden">
                             <div className="flex flex-col lg:justify-between items-start mb-4 lg:bg-black/60 lg:p-4 lg:rounded-xl">
                                 <div className="w-full">
-                                    <div className="font-mina text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal px-4">
+                                    <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal px-4">
                                         <GetTextContent contentKey="program_musikk" />
                                     </div>                                   
                                 </div>
@@ -77,7 +77,7 @@ const Study: React.FC = () => {
                         <TabsContent value="dance_tab" className="lg:rounded-2xl w-full h-[800px] overflow-hidden">
                             <div className="flex flex-col lg:justify-between items-start mb-4 lg:bg-black/60 lg:p-4 lg:rounded-xl">
                                 <div className="w-full">
-                                    <div className="font-mina text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal px-4">
+                                    <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal px-4">
                                         <GetTextContent contentKey="program_dans" />
                                     </div>                                   
                                 </div>
@@ -108,7 +108,7 @@ const Study: React.FC = () => {
                         <TabsContent value="drama_tab" className="lg:rounded-2xl w-full h-[800px] overflow-hidden">
                             <div className="flex flex-col  lg:justify-between items-start mb-4 lg:bg-black/60 lg:p-4 lg:rounded-xl">
                                 <div className="w-full">
-                                    <div className="font-mina text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal px-4">
+                                    <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal px-4">
                                         <GetTextContent contentKey="program_drama" />
                                     </div>                                   
                                 </div>

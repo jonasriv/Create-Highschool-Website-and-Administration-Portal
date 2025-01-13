@@ -2,7 +2,7 @@
 import React from "react";
 import Image from 'next/image';
 import Logo from  '../../public/images/logo-header.svg'
-import { ChevronsDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 const Front = () => {
     
@@ -20,7 +20,7 @@ const Front = () => {
                         Lillehammer kreative videregående skole
                     </h1>
                 </div>
-                <h1 className="font-mina font-black text-xl normal-case">
+                <h1 className="font-roboto font-black text-xl normal-case">
                     Søknadsfrist 1.mars!
                 </h1>
                 <Link href="/soknad">
@@ -28,10 +28,10 @@ const Front = () => {
                 </Link>
                 <div className="flex justify-center items-center pb-16">
                     <div className="opacity-40 py-4 md:hidden">
-                        <ChevronsDown size="44"/>
+                        <ChevronDown size="44"/>
                     </div>
                     <div className="hidden md:block opacity-40 py-4">
-                        <ChevronsDown size="56"/>
+                        <ChevronDown size="56"/>
                     </div>
                 </div>   
             </div>

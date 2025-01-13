@@ -21,25 +21,25 @@ const Home = () => {
     }}  
     >
       <Header />
-      <main className="bg-black/65 h-screen w-screen snap-y snap-proximity scroll-smooth overflow-x-hidden no-scrollbar mt-22 md:pt-28">  
+      <main className="bg-black/65 h-screen w-screen scroll-smooth overflow-x-hidden no-scrollbar mt-22 md:pt-28">  
 
-          <div id="front" className="snap-start h-screen flex items-center justify-center">
+          <div id="front" className="h-screen flex items-center justify-center">
             <Front />
           </div>
           
-          <div id="intro" className="snap-start h-auto flex items-center justify-center backdrop-blur-lg">
+          <div id="intro" className="h-auto flex items-center justify-center backdrop-blur-lg">
             <Intro />
           </div>
 
-          <div id="study" className="snap-start h-screen flex items-center justify-center backdrop-blur-lg">
+          <div id="study" className="h-screen flex items-center justify-center backdrop-blur-lg">
             <Study />
           </div>             
 
-          <div id="admission" className="snap-start flex h-auto items-start justify-center backdrop-blur-lg pt-24">
+          <div id="admission" className="flex h-auto items-start justify-center backdrop-blur-lg pt-24">
             <Admission />
           </div>         
 
-          <div id="contact" className="snap-start flex lg:h-screen items-start justify-center backdrop-blur-lg pt-24">
+          <div id="contact" className="flex lg:h-screen items-start justify-center backdrop-blur-lg pt-24">
             <Contact />
           </div>                       
         
