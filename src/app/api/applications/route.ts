@@ -82,6 +82,7 @@ const generatePresignedUrl = async (bucketName: string, fileKey: string): Promis
 
   return getSignedUrl(s3, command, { expiresIn: 3600 }); // 1 time
 };
+export const maxDuration = 60; // Sett maksimal varighet til 60 sekunder
 
 export async function POST(req: Request) {
     
@@ -125,14 +126,21 @@ export async function POST(req: Request) {
 
     const fileUrl = filename;
 
+    const timeout = new Promise<string[]>((_, reject) =>
+      setTimeout(() => reject(new Error("Textract prosessen tok for lang tid.")), 50000)
+    );
+
     // Kjør Textract-analyse
     let textractAnalysis: string | null = null;
     try {
-      const textractData = await analyzeDocument(process.env.AWS_BUCKET_NAME!, filename);
-      textractAnalysis = JSON.stringify(textractData); // Konverter til JSON-streng for lagring
+      const textractData = await Promise.race([
+        analyzeDocument(process.env.AWS_BUCKET_NAME!, filename),
+        timeout,
+      ]);
+      textractAnalysis = JSON.stringify(textractData);
     } catch (error) {
-      console.error("Feil ved Textract-analyse:", error);
-      // Håndter Textract-feil uten å avbryte hele prosessen
+      console.error("Textract feilet eller tok for lang tid:", error);
+      textractAnalysis = null; // Håndter feil uten å avbryte hele prosessen
     }
 
     const behandlet: number = 0;

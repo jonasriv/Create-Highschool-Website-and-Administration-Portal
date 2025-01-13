@@ -41,6 +41,7 @@
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.1",
     "react-slick": "^0.30.3",
+    "redis": "^4.7.0",
     "slick-carousel": "^1.8.1",
     "swr": "^2.3.0",
     "tailwind-merge": "^2.5.5",
