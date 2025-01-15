@@ -103,20 +103,21 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
     };
 
     return (
-        <div>
-            <div className="flex flex-row w-full gap-8 justify-between items-center">
+        <div className="flex flex-col w-full min-h-screen">
+            <div className="flex flex-row w-full h-full gap-8 justify-between items-center">
                 <button
                     className="p-4 flex justify-center items-center rounded-xl text-2xl border-2 border-purple-500 w-96 bg-fuchsia-500 cursor-pointer hover:bg-pinky"
                     onClick={fetchApplications}
                 >
                     {pressedButton && (
                         <span>Oppdater søknader</span>
+                        
                     )}
                     {!pressedButton && (
                         <span>Hent søknader</span>
                     )}
                 </button>
-                <h1>Antall søknader: {applications.length}</h1>
+                
                 {pressedButton && 
                     <button className="justify-center items-center p-4 flex flex-row rounded-xl text-2xl  w-96 bg-fuchsia-500 cursor-pointer hover:bg-pinky" onClick={() => {
                         const wb = utils.table_to_book(tbl.current);
@@ -136,55 +137,58 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                     }}>Eksporter søknader<Download/></button>
 }
             </div>
+            
             {error && <p className="text-red-500 mt-4">{error}</p>}
             {applications.length > 0 ? (
-                
-                <table ref={tbl} className="table-auto w-full mt-8 text-lg p-4 bg-slate-800 rounded-xl max-w-screen-md">
-                    <thead className="bg-slate-600">
-                        <tr className="bg-slate-400-100">
-                            <th className="border px-4 py-2">Navn</th>
-                            <th className="border px-4 py-2">Søkt dato <span className="text-sm">(YYYY-MM-DD)</span></th>
-                            <th className="border px-4 py-2">E-post</th>
-                            <th className="border px-4 py-2">Telefon</th>
-                            <th className="border px-4 py-2">1. Prioritet</th>
-                            <th className="border px-4 py-2">2. Prioritet</th>
-                            <th className="border px-4 py-2">3. Prioritet</th>
-                            <th className="border px-4 py-2">Bilde</th>
-                            <th className="border px-4 py-2">Gjennomsnitt</th>
-                            <th className="border px-4 py-2">Antall karakterer</th>
-                            <th className="border px-4 py-2">Karaktersett</th>
-                            <th className="border px-4 py-2">Behandlet?</th>
+                <div className="flex flex-col w-full overflow-scroll justify-start items-start px-8">
+                    <h1>Antall søknader: {applications.length}</h1>
+                    <table ref={tbl} className="table-auto w-full mt-8 text-lg p-4 bg-slate-800 rounded-xl max-w-screen-md overflow-scroll">
+                        <thead className="bg-slate-600">
+                            <tr className="bg-slate-400-100">
+                                <th className="border px-4 py-2">Navn</th>
+                                <th className="border px-4 py-2">Søkt dato <span className="text-sm">(YYYY-MM-DD)</span></th>
+                                <th className="border px-4 py-2">E-post</th>
+                                <th className="border px-4 py-2">Telefon</th>
+                                <th className="border px-4 py-2">1. Prioritet</th>
+                                <th className="border px-4 py-2">2. Prioritet</th>
+                                <th className="border px-4 py-2">3. Prioritet</th>
+                                <th className="border px-4 py-2">Bilde</th>
+                                <th className="border px-4 py-2">Gjennomsnitt</th>
+                                <th className="border px-4 py-2">Antall karakterer</th>
+                                <th className="border px-4 py-2">Karaktersett</th>
+                                <th className="border px-4 py-2">Behandlet?</th>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {applications.map((app) => (
-                            <tr key={app._id} className="">
-                                <td className="border px-4 py-2">{app.name}</td>
-                                <td className="border px-4 py-2">{app.createdAt.slice(0, 10)}</td>
-                                <td className="border px-4 py-2">{app.email}</td>
-                                <td className="border px-4 py-2">{app.phone}</td>
-                                <td className="border px-4 py-2">{app.priority1}</td>
-                                <td className="border px-4 py-2">{app.priority2}</td>
-                                <td className="border px-4 py-2">{app.priority3}</td>
-                                <td className="border px-4 py-2 text-xs max-w-44 h-auto break-words">
-                                    {app.s3FileUrl ? (
-                                    <a href={app.s3FileUrl} target="_blank" rel="noopener noreferrer">
-                                        Last ned fil
-                                    </a>
-                                    ) : (
-                                        <span>Ingen fil</span>
-                                    )}
-                                    </td>
-                                <td className="border px-4 py-2">{app.gjennomsnitt?.toString().substring(0, 7)}</td>
-                                <td className="border px-4 py-2">{app.antallKarakterer}</td>
-                                <td className="border px-4 py-2 break-words">{app.karaktersett}</td>
-                                <td className="border px-4 py-2 break-words">{app.behandlet}</td>
-                                
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {applications.map((app) => (
+                                <tr key={app._id} className="">
+                                    <td className="border px-4 py-2">{app.name}</td>
+                                    <td className="border px-4 py-2">{app.createdAt.slice(0, 10)}</td>
+                                    <td className="border px-4 py-2">{app.email}</td>
+                                    <td className="border px-4 py-2">{app.phone}</td>
+                                    <td className="border px-4 py-2">{app.priority1}</td>
+                                    <td className="border px-4 py-2">{app.priority2}</td>
+                                    <td className="border px-4 py-2">{app.priority3}</td>
+                                    <td className="border px-4 py-2 text-xs max-w-44 h-auto break-words">
+                                        {app.s3FileUrl ? (
+                                        <a href={app.s3FileUrl} target="_blank" rel="noopener noreferrer">
+                                            Last ned fil
+                                        </a>
+                                        ) : (
+                                            <span>Ingen fil</span>
+                                        )}
+                                        </td>
+                                    <td className="border px-4 py-2">{app.gjennomsnitt?.toString().substring(0, 7)}</td>
+                                    <td className="border px-4 py-2">{app.antallKarakterer}</td>
+                                    <td className="border px-4 py-2 break-words">{app.karaktersett}</td>
+                                    <td className="border px-4 py-2 break-words">{app.behandlet}</td>
+                                    
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             ) : (
                 <div>{pressedButton && <p>No applications found</p>}</div>
             )}

@@ -26,14 +26,14 @@ const Home = () => {
           <div id="front" className="h-screen flex items-center justify-center">
             <Front />
           </div>
-          
-          <div id="intro" className="h-auto flex items-center justify-center backdrop-blur-lg">
-            <Intro />
-          </div>
 
           <div id="study" className="h-screen flex items-center justify-center backdrop-blur-lg">
             <Study />
-          </div>             
+          </div>
+
+          <div id="intro" className="h-auto flex items-center justify-center backdrop-blur-lg">
+            <Intro />
+          </div>                       
 
           <div id="admission" className="flex h-auto items-start justify-center backdrop-blur-lg pt-24">
             <Admission />
