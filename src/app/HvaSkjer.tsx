@@ -26,7 +26,10 @@ const HvaSkjer = () => {
                 const response = await fetch("/api/news");
                 const data = await response.json();
                 if (data && data.news) {
-                    setNewsItems(data.news); // Sett nyhetene i state
+                    const sortedNews = data.news.sort(
+                        (a: NewsItem, b: NewsItem) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+                    );
+                    setNewsItems(sortedNews); // Sett nyhetene i state
                 } else {
                     setError("Ingen nyheter tilgjengelig.");
                 }
