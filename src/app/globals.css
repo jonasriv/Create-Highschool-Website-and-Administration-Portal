@@ -213,3 +213,15 @@ body {
 .svg-purple {
   filter: brightness(0) saturate(100%) invert(16%) sepia(91%) saturate(6970%) hue-rotate(283deg) brightness(102%) contrast(121%);
 }
+
+.rdp-weekdays {
+  display: none !important;
+}
+
+.right-1 {
+  display:none
+}
+
+.left-1 {
+  display:none
+}
