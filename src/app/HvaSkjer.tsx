@@ -72,7 +72,7 @@ const HvaSkjer = () => {
                                         backgroundRepeat: 'no-repeat',
                                     }}
                                     >
-                                    <div className="font-mina text-md lg:text-2xl bg-black/60 p-4">
+                                    <div className="font-mina text-md lg:text-2xl bg-black/60 p-4 min-w-full flex flex-col justify-start items-start">
                                         <h1 className="font-mina text-lg md:text-2xl">{newsItem.news_title} </h1>
                                         <p className="font-roboto text-md md:text-lg lg:text-xl md:mt-2">
                                             {newsItem.news_content}
