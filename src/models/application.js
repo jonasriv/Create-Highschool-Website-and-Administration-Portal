@@ -9,12 +9,13 @@ const ApplicationSchema = new mongoose.Schema({
   priority1: { type: String, required: true },
   priority2: { type: String, required: true },
   priority3: { type: String, required: true },
+  opptaksprove: { type: String, required: false },
   filename: { type: String, required: true },
   textractAnalysis: {
     type: String,
     required: false,
   },
-  behandlet: { type: String, required: false },  
+  behandlet: { type: Number, required: false },  
   createdAt: { type: Date, default: Date.now },
 });
 

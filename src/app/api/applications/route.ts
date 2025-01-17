@@ -4,66 +4,7 @@ import { NextResponse } from "next/server";
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { Upload } from "@aws-sdk/lib-storage";
-import { TextractClient, StartDocumentTextDetectionCommand, GetDocumentTextDetectionCommand } from "@aws-sdk/client-textract";
-
-
-const textract = new TextractClient({
-  region: process.env.AWS_REGION,
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-  },
-});
-
-async function analyzeDocument(bucketName: string, fileKey: string) {
-  try {
-    const startCommand = new StartDocumentTextDetectionCommand({
-      DocumentLocation: {
-        S3Object: {
-          Bucket: bucketName,
-          Name: fileKey,
-        },
-      },
-    });
-
-    const startResponse = await textract.send(startCommand);
-    const jobId = startResponse.JobId;
-
-    if (!jobId) {
-      throw new Error("Kunne ikke starte Textract-jobb.");
-    }
-
-    // Vent på at Textract-jobben fullføres
-    let jobStatus = "IN_PROGRESS";
-    let textractResponse = undefined;
-
-    while (jobStatus === "IN_PROGRESS") {
-      await new Promise((resolve) => setTimeout(resolve, 5000)); // Vent 5 sekunder
-
-      const getCommand = new GetDocumentTextDetectionCommand({
-        JobId: jobId,
-      });
-
-      textractResponse = await textract.send(getCommand);
-      jobStatus = textractResponse.JobStatus!;
-    }
-
-    if (!textractResponse || jobStatus !== "SUCCEEDED") {
-      throw new Error(`Textract-jobb mislyktes eller returnerte ingen data.`);
-    }
-
-    // Filtrer blokker for å hente kun tekstlinjer
-    const textLines = textractResponse.Blocks?.filter((block) => block.BlockType === "LINE")
-                                               .map((block) => block.Text);
-
-    // Hvis du bare vil ha tekstlinjene og ikke metadataene
-    return textLines || [];
-  } catch (error) {
-    console.error("Feil ved Textract-analyse:", error);
-    throw new Error("Kunne ikke analysere dokumentet.");
-  }
-}
-
+import nodemailer from 'nodemailer';
 
 // Konfigurer S3-klienten
 const s3 = new S3Client({
@@ -82,7 +23,6 @@ const generatePresignedUrl = async (bucketName: string, fileKey: string): Promis
 
   return getSignedUrl(s3, command, { expiresIn: 3600 }); // 1 time
 };
-export const maxDuration = 60; // Sett maksimal varighet til 60 sekunder
 
 export async function POST(req: Request) {
     
@@ -96,7 +36,10 @@ export async function POST(req: Request) {
     const priority1 = formData.get("priority1") as string;
     const priority2 = formData.get("priority2") as string;
     const priority3 = formData.get("priority3") as string;
+    const opptaksprove = formData.get("opptaksprove") as string;
     const file = formData.get("resume") as File;
+    const behandlet = 0 as number;
+    
 
     if (!file) {
       return NextResponse.json(
@@ -125,26 +68,7 @@ export async function POST(req: Request) {
     console.log("Fil lastet opp til S3:", uploadResult);
 
     const fileUrl = filename;
-
-    const timeout = new Promise<string[]>((_, reject) =>
-      setTimeout(() => reject(new Error("Textract prosessen tok for lang tid.")), 50000)
-    );
-
-    // Kjør Textract-analyse
-    let textractAnalysis: string | null = null;
-    try {
-      const textractData = await Promise.race([
-        analyzeDocument(process.env.AWS_BUCKET_NAME!, filename),
-        timeout,
-      ]);
-      textractAnalysis = JSON.stringify(textractData);
-    } catch (error) {
-      console.error("Textract feilet eller tok for lang tid:", error);
-      textractAnalysis = null; // Håndter feil uten å avbryte hele prosessen
-    }
-
-    const behandlet: number = 0;
-    
+   
     // Koble til databasen
     await dbConnect();
 
@@ -158,10 +82,43 @@ export async function POST(req: Request) {
       priority2,
       priority3,
       filename: fileUrl, // Lagre S3-URL i databasen
-      textractAnalysis,  // Lagre Textract-resultatet (kan være null hvis analysen feiler)
+      textractAnalysis: "",  // Lagre Textract-resultatet (kan være null hvis analysen feiler)
       behandlet,  //setter status til ubehandlet
+      opptaksprove,
     });
-    
+    // Nodemailer-konfigurasjon
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.office365.com', // SMTP-server for Office 365
+      port: 587,                  // Port 587 for TLS
+      secure: false,              // Bruker ikke SSL, men TLS
+      auth: {
+        user: process.env.EMAIL_USER, // E-postadressen din (f.eks. mail@create.no)
+        pass: process.env.EMAIL_PASS, // E-postpassordet ditt
+      },
+    });
+      
+    const mailOptions = {
+      from: process.env.MAIL_USER,
+      to: email, emailParent, // E-postadresse til administratoren
+      subject: 'Søknad mottatt',
+      text: `
+        Vi har mottatt en søknad fra deg. Her er detaljene:
+        
+        Navn: ${name}
+        E-post: ${email}
+        E-post (forelder): ${emailParent}
+        Telefon: ${phone}
+        Prioritet 1: ${priority1}
+        Prioritet 2: ${priority2}
+        Prioritet 3: ${priority3}
+        Opptaksprøve: ${opptaksprove}
+      `,
+    };
+
+    // Send e-post
+    await transporter.sendMail(mailOptions);
+    console.log('Søknadsbekreftelse sendt søker og forelder');
+
     // Returner en vellykket respons
     return NextResponse.json(
       {
@@ -169,7 +126,9 @@ export async function POST(req: Request) {
         application: newApplication,
       },
       { status: 201 }
+      
     );
+
   } catch (error) {
     console.error("Error:", error);
     return NextResponse.json(
@@ -177,7 +136,7 @@ export async function POST(req: Request) {
       { status: 500 }
     );
   }
-}
+};
 
 // GET: Hent søknader og generer presigned URL-er
 export async function GET() {
@@ -215,4 +174,4 @@ export async function GET() {
     console.error("Error:", error);
     return NextResponse.json({ error: "Kunne ikke hente søknadene." }, { status: 500 });
   }
-}
+};

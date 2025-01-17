@@ -3,6 +3,7 @@
 import { useState } from "react";
 import GetApplications from "./GetApplications";
 import GetContent from "./GetContent";
+import GetNews from "./GetNews";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function AdminPage() {
@@ -53,10 +54,10 @@ export default function AdminPage() {
     };    
 
     return (
-        <div className="flex flex-col w-screen h-screen box-border bg-fuchsia-950 justify-start items-center ">
-            <h1 className="font-black font-mina">Create VGS Admin Panel</h1>
+        <div className="flex flex-col w-screen h-screen box-border bg-fuchsia-black justify-start items-center ">
+            <h1 className="bg-slate-800 w-full p-4 text-center font-black font-mina">Create VGS Admin Panel</h1>
             {!token ? (
-                <div className="flex flex-col gap-12 w-full md:max-w-screen-lg items-center bg-black/60 p-12 rounded-2xl">
+                <div className="flex flex-col gap-12 w-full items-center bg-black/60 p-12 rounded-2xl">
                     {error && <p style={{color:"red" }}>{error}</p>}
                     <input  
                         type="text"
@@ -72,19 +73,27 @@ export default function AdminPage() {
                         onChange={(e) => setPassword(e.target.value)}
                         className="text-black text-2xl p-2 rounded-lg w-96"
                     />                    
-                    <button className="p-4 rounded-xl text-2xl border-2 border-purple-500 w-96" onClick={handleLogin}>Login</button>
+                    <button className="p-4 rounded-xl text-2xl border-2 border-purple-500 w-96 hover:bg-pinky" onClick={handleLogin}>Login</button>
                 </div>
             ) : (
-                <div id="subject_tabs" className="w-full h-auto flex flex-row pb-12 lg:pb-16 bg-black/60">
-                <Tabs defaultValue="applications_tab" className="w-full h-full">
-                    
-                    <TabsList className="min-w-full rounded-none flex flex-row items-center justify-between h-22 gap-0  bg-fuchsia-950 p-4 mb-4">
-                        <TabsTrigger value="applications_tab" className="opacity-100 p-2 md:p-4 animate-flash-border3 text-md md:text-2xl uppercase">Søknader</TabsTrigger>
-                        <TabsTrigger value="content_tab" className="opacity-100 p-2 md:p-4 animate-flash-border2 text-md md:text-2xl uppercase">Web-innhold</TabsTrigger>
-                    </TabsList> 
-           
-                    <TabsContent value="applications_tab" className="w-full h-auto min-h-screen">
+                <div id="subject_tabs" className="w-full h-auto flex flex-row justify-center items-center pb-12 lg:pb-16 bg-slate-800 border-t-2 border-b-2 border-pinky">
+                <Tabs defaultValue="news_tab" className="w-full h-full flex flex-col justify-center">
+                    <div className="w-full flex justify-center">
+                        <TabsList className="rounded-none h-22 p-4 mb-4 flex flex-row justify-between w-8/12">
+                            <TabsTrigger value="news_tab" className="opacity-100 p-2 md:p-4 animate-flash-border2 text-md md:text-2xl uppercase">Nyheter</TabsTrigger>
+                            <TabsTrigger value="applications_tab" className="opacity-100 p-2 md:p-4 animate-flash-border3 text-md md:text-2xl uppercase">Søknader</TabsTrigger>
+                            <TabsTrigger value="content_tab" className="opacity-100 p-2 md:p-4 animate-flash-border2 text-md md:text-2xl uppercase">Web-innhold</TabsTrigger>
+                        </TabsList> 
+                    </div>
+
+                    <TabsContent value="news_tab" className="w-full h-auto min-h-screen">
                         <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 p-4">
+                            <GetNews token={token}/>
+                        </div>
+                    </TabsContent>                      
+
+                    <TabsContent value="applications_tab" className="w-auto h-auto min-h-screen">
+                        <div className="flex flex-col md:flex-row justify-center items-start mb-4 p-4">
                             <GetApplications token={token}/>
                         </div>
                     </TabsContent>                             
@@ -93,7 +102,7 @@ export default function AdminPage() {
                         <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 p-4">
                             <GetContent token={token}/>
                         </div>
-                    </TabsContent>   
+                    </TabsContent>                      
 
                 </Tabs>    
 

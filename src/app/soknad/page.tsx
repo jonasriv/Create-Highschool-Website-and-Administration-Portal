@@ -7,6 +7,7 @@ import GetTextContent from "../GetTextContent";
 const Header = dynamic(() => import("./HeaderSoknad"));
 
 const Soknad = () => {
+    const divRef = useRef<HTMLDivElement | null>(null);
     const externalBackground = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506363/background_no_logo_yhjwra.jpg";
     type FormData = {
         fullName: string;
@@ -16,6 +17,7 @@ const Soknad = () => {
         priority1: string;
         priority2: string;
         priority3: string;
+        opptaksprove: string;
         resume: File | null;
     }
     const [ formData, setFormData ] = useState<FormData>({
@@ -26,6 +28,7 @@ const Soknad = () => {
         priority1: '',
         priority2: '',
         priority3: '',
+        opptaksprove: '',
         resume: null,
     });
 
@@ -37,6 +40,7 @@ const Soknad = () => {
         priority1: '',
         priority2: '',
         priority3: '',
+        opptaksprove: '',
         resume: '',
     })
 
@@ -52,6 +56,7 @@ const Soknad = () => {
             priority1: formData.priority1 ? '' : 'Du må velge en førsteprioritet',
             priority2: formData.priority2 ? '' : 'Du må velge en andreprioritet',
             priority3: formData.priority3 ? '' : 'Du må velge en tredjeprioritet',
+            opptaksprove: formData.priority3 ? '' : 'Du må velge om ønsker frivillig opptaksprøve',
             resume: formData.resume ? '' : 'Du må laste opp en karakterutskrift',
         };
         setErrors(newErrors);
@@ -60,20 +65,20 @@ const Soknad = () => {
     
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
+    
         if (formData.priority1 === formData.priority2 || formData.priority1 === formData.priority3 || formData.priority3 === formData.priority2) {
-          alert("Du må velge tre forskjellige prioriteringer!")
+            alert("Du må velge tre forskjellige prioriteringer!");
+            return;
         }
-        
+    
         if (!formData.resume) {
             alert('Du må laste opp et karakterkort!');
             return;
-          }
-
-        if(validateForm()) {
+        }
+    
+        if (validateForm()) {
             setLoading(true);
             try {
-                // Opprett FormData-objekt for å håndtere filopplasting:
                 const formDataToSend = new FormData();
                 formDataToSend.append('name', formData.fullName); 
                 formDataToSend.append('email', formData.email); 
@@ -82,21 +87,25 @@ const Soknad = () => {
                 formDataToSend.append('priority1', formData.priority1); 
                 formDataToSend.append('priority2', formData.priority2); 
                 formDataToSend.append('priority3', formData.priority3); 
+                formDataToSend.append('opptaksprove', formData.opptaksprove); 
                 formDataToSend.append('resume', formData.resume as File); 
-
-                //Post-forespørsel til API: 
+    
                 const response = await fetch('api/applications', {
                     method: 'POST', 
                     body: formDataToSend,
                 });
-
+    
                 if (!response.ok) {
-                    throw new Error('Noe gikk galt. Prøv igjen senere');
+                    const errorData = await response.json();
+                    alert(errorData.message || 'Noe gikk galt. Prøv igjen senere.');
+                    throw new Error(errorData.message || 'Feil under innsending.');
                 }
-
+    
                 const data = await response.json();
+                alert(data.message || 'Søknaden ble sendt inn!');
                 console.log('Søknaden ble sendt inn', data);
-
+                setLoading(false);
+    
                 setFormData({
                     fullName: '',
                     email: '',
@@ -105,24 +114,32 @@ const Soknad = () => {
                     priority1: '',
                     priority2: '',
                     priority3: '',
+                    opptaksprove: '',
                     resume: null,
                 });
-
-            // Clear the file input field
-            if (fileInputRef.current) {
-              fileInputRef.current.value = '';  // Reset the file input
-            }
-                alert('Søknaden ble sendt inn!');
-                setLoading(false);
+    
+                if (fileInputRef.current) {
+                    fileInputRef.current.value = '';
+                }
+    
                 window.location.href = '/';
             } catch (error) {
                 console.error('Error:', error);
-                alert('Kunne ikke sende inn søknaden. Prøv igjen senere');
+                alert('Kunne ikke sende inn søknaden. Prøv igjen senere.');
             } finally {
                 setLoading(false);
             }
         }
     };
+    
+
+    const handleExpand = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault(); // Forhindrer standard oppførsel for hendelsen (f.eks. lenkeklikk eller form sending)
+      
+        if (divRef.current) {
+          divRef.current.classList.toggle("hidden");
+        } 
+      };
     
       return (
         <div 
@@ -146,14 +163,15 @@ const Soknad = () => {
             <div className="w-full h-20 md:h-24 mt-4"></div>
             <div className="max-w-screen-lg mb-8 w-11/12 mx-auto p-6 bg-slate-600 rounded-lg shadow-lg md:24 flex flex-col">
             <div className="">
-                <h1 className="font-bahiana text-4xl md:text-6xl mb-4">
+                <h1 className="font-mina text-2xl md:text-3xl mb-4">
                     Bli en del av Create!
                 </h1>
-                <div className="font-roboto text-lg md:text-2xl">
+                <div className="font-roboto text-lg md:text-xl">
                     <GetTextContent contentKey="soknad_intro"/>
                 </div>
+                <p className="text-lg text-red-400 mt-4">Søknadsfrist 1. mars</p>
             </div>
-            <h1 className="text-4xl font-bold mb-6 pt-8 font-mina">Søknadsskjema</h1>
+            <h1 className="text-2xl font-bold mb-6 pt-8 font-roboto">Søknadsskjema</h1>
             
             <form onSubmit={handleSubmit} className="space-y-4">
             {/* Fullt navn */}
@@ -173,7 +191,7 @@ const Soknad = () => {
     
             {/* E-post */}
             <div>
-                <label htmlFor="email" className="block text-sm md:text-lg font-semibold">E-post</label>
+                <label htmlFor="email" className="block text-sm md:text-lg font-semibold">Din e-postadresse</label>
                 <input
                 type="email"
                 placeholder="Din e-postadresse"
@@ -188,7 +206,7 @@ const Soknad = () => {
 
             {/* E-post foresatt*/}
             <div>
-                <label htmlFor="emailParent" className="block text-sm md:text-lg font-semibold">E-post</label>
+                <label htmlFor="emailParent" className="block text-sm md:text-lg font-semibold">Foresattes e-postadresse</label>
                 <input
                 type="email"
                 placeholder="Foresattes e-postadresse"
@@ -217,7 +235,7 @@ const Soknad = () => {
             </div>
     
             {/* Prioritering */}
-            <h1 className="font-mina text-3xl">Prioritering:</h1>
+            <h1 className="font-roboto text-2xl pt-4">Prioritering:</h1>
             <div>
                 <label htmlFor="priority1" className="block text-sm md:text-lg font-semibold">Førstevalg</label>
                 <select
@@ -250,6 +268,7 @@ const Soknad = () => {
                     <option value="musikk">Musikk</option>
                     <option value="dans">Dans</option>
                     <option value="drama">Drama</option>
+                    <option value="onsker_ikke_2">Ønsker ikke andrevalg</option>
                 </select>
                 {errors.priority2 && <p className="text-red-500 text-sm md:text-lg">{errors.priority2}</p>}
             </div>
@@ -267,44 +286,68 @@ const Soknad = () => {
                     <option value="musikk">Musikk</option>
                     <option value="dans">Dans</option>
                     <option value="drama">Drama</option>
+                    <option value="onsker_ikke_3">Ønsker ikke tredjevalg</option>
                 </select>
                 {errors.priority3 && <p className="text-red-500 text-sm md:text-lg">{errors.priority3}</p>}
             </div>      
+            <div>
+                <label htmlFor="opptaksprove" className="block text-sm md:text-lg font-semibold">Ønsker du frivillig opptaksprøve? Kan gi ekstra poeng.</label>
+                <select
+                id="opptaksprove"
+                name="opptaksprove"
+                value={formData.opptaksprove}
+                onChange={(e) => setFormData({ ...formData, opptaksprove: e.target.value})}
+                className="w-full p-2 border border-gray-300 rounded-md text-slate-700"
+                >
+                    <option value="" disabled>Velg</option>
+                    <option value="ja">Ja, jeg ønsker opptaksprøve.</option>
+                    <option value="nei">Nei, jeg ønsker ikke opptaksprøve. </option>
+
+                </select>
+                {errors.priority3 && <p className="text-red-500 text-sm md:text-lg">{errors.priority3}</p>}
+            </div>                
     
             {/* CV opplasting */}
             <div>
-                <h1 className="font-roboto text-2xl">
-                    <b>Opplasting av karakterkort:</b>
-                    &nbsp;Last opp et <b>tydelig og klart bilde</b> av din karakterutskrift. Det må vise <b>navn, skole og alle karakterene</b>. Bruk gjerne skjermbilde fra <a className="underlines text-red-400 hover:underline font-black" href="https://elev.visma.no/lillehammer" target="_blank">visma</a> eller tilsvarende. Velg fil under*. 
-                </h1>
-                <label htmlFor="resume" className="block text-sm md:text-lg font-semibold"></label>
-                <input
-                ref={fileInputRef}
-                type="file"
-                id="resume"
-                accept=".pdf,.doc,.docx,.jpeg,.png,.jpg,.webp,.tiff,.bmp,.gif"
-                name="resume"
-                onChange={(e) => setFormData({ ...formData, resume: e.target.files ? e.target.files[0] : null})}
-                className="w-full p-4 border border-gray-300 rounded-md text-white text-xl "
-                />
-                {errors.resume && <p className="text-red-500 text-sm md:text-lg">{errors.resume}</p>}
-            </div>
-    
-            {/* Submit Button */}
-            <div>
-                <button
-                type="submit"
-                className="w-full p-2 bg-pinky text-white rounded-md text-2xl font-mina border-2 border-transparent hover:bg-redpink"
+                <button className="border-2 border-transparent hover:bg-redpink rounded-lg bg-pinky p-2 font-mina text-xl mb-6" 
+                    onClick={(event) => handleExpand(event)}
                 >
-                Send søknad
+                    <b>Last opp karakterkort</b>
                 </button>
-
+                    <div id="expand_div" ref={divRef} className="hidden bg-black/60 p-4 mb-8 rounded-xl">
+                    <p className="text-xl mb-4">
+                        Last opp et <b>tydelig og klart bilde</b> av din karakterutskrift fra 1. termin på 10. trinn. Det må vise <b>navn, skole og alle karakterene</b>. Bruk gjerne skjermbilde fra <a className="underlines text-red-400 hover:underline font-black" href="https://elev.visma.no/lillehammer" target="_blank">visma</a> eller tilsvarende. Velg fil under. 
+                    </p>
+                    <p className="mb-4">
+                    Opplastede bilder/pdf av karakterkort lagres i opptil 12 måneder for søknadsprosessen og slettes deretter automatisk. Ingen data deles med tredjeparter. 
+                    </p>
+                    
+                    <label htmlFor="resume" className="block text-sm md:text-lg font-semibold"></label>
+                    <input
+                    ref={fileInputRef}
+                    type="file"
+                    id="resume"
+                    accept=".pdf,.doc,.docx,.jpeg,.png,.jpg,.webp,.tiff,.bmp,.gif"
+                    name="resume"
+                    onChange={(e) => setFormData({ ...formData, resume: e.target.files ? e.target.files[0] : null})}
+                    className="w-full p-4 border border-gray-300 rounded-md text-white text-xl "
+                    />
+                    {errors.resume && <p className="text-red-500 text-sm md:text-lg">{errors.resume}</p>}
+                    </div>
+            {/* Submit Button */}
+                    <div>
+                        <button
+                        type="submit"
+                        className="w-full p-2 bg-pinky text-white rounded-md text-2xl font-mina border-2 border-transparent hover:bg-redpink"
+                        >
+                        Send søknad
+                        </button>
+                    
+                </div>
             </div>
             </form>
             <Link href="/" className="w-full h-[48px] text-2xl font-mina mt-8 flex justify-center items-center bg-blue-800 opacity-70 hover:bg-blue-600 rounded-md mb-16">Tilbake til hovedsiden</Link>
-            <div>
-                * Opplastede bilder/pdf av karakterkort lagres i opptil 12 måneder for søknadsprosessen og slettes deretter automatisk. Ingen data deles med tredjeparter. 
-            </div>
+            
         </div>
     </div>
     );

@@ -6,6 +6,7 @@ const Header = dynamic(() => import("./Header"));
 const Intro = dynamic(() => import("./Intro"));
 const Admission = dynamic(() => import("./Admission"));
 const Contact = dynamic(() => import("./Contact"));
+const HvaSkjer = dynamic(() => import("./HvaSkjer"));
 
 const Home = () => {
   const externalBackground = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506363/background_no_logo_yhjwra.jpg";
@@ -27,6 +28,10 @@ const Home = () => {
             <Front />
           </div>
 
+          <div id="hvaskjer" className="flex h-screen flex-col items-center justify-center backdrop-blur-lg pt-24">
+            <HvaSkjer />
+          </div>   
+          
           <div id="study" className="h-screen flex items-center justify-center backdrop-blur-lg">
             <Study />
           </div>
@@ -42,7 +47,8 @@ const Home = () => {
           <div id="contact" className="flex lg:h-screen items-start justify-center backdrop-blur-lg pt-24">
             <Contact />
           </div>                       
-        
+
+         
       </main>
       
     </div>

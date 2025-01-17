@@ -12,7 +12,7 @@ const Intro: React.FC = () => {
     return (
         <div className="flex flex-col justify-start items-center w-screen pt-20">
             <div className="w-full h-auto text-white flex flex-col justify-start items-center box-border ...  no-scrollbar relative overflow-hidden pb-8">
-                    <h1 className="w-auto font-mina text-2xl md:text-3xl lg:text-4xl lg:mt-4 tracking-widest text-center text-white font-black p-2 py-4 z-50">
+                    <h1 className="w-auto font-mina text-2xl md:text-3xl lg:text-4xl lg:mt-4 tracking-widest text-center text-white font-black p-2 py-8 z-50">
                         Elev på Create
                     </h1>
 
@@ -30,8 +30,8 @@ const Intro: React.FC = () => {
                                         //filter: 'brightness(80%)',
                                     }}  
                                 >
-                                    <div className="text-md md:text-2xl lg:text-3xl bg-black/70 py-4 w-full flex justify-center items-end rounded-b-xl">
-                                        <div className="mx-2 md:m-4 px-2">
+                                    <div className="text-md md:text-2xl lg:text-2xl bg-black/70 py-4 w-full flex justify-center items-end rounded-b-xl">
+                                        <div className="mx-2 md:m-4 px-2 max-w-screen-md">
                                             <GetTextContent contentKey="elev_1" />   
                                         </div>                                       
                                     </div>   
@@ -60,8 +60,8 @@ const Intro: React.FC = () => {
                                         //filter: 'brightness(80%)',
                                     }}  
                                 >
-                                    <div className="text-md md:text-2xl lg:text-3xl bg-black/70 py-4 w-full flex justify-center items-end rounded-b-xl">
-                                        <div className="mx-2 md:m-4 px-2">
+                                    <div className="text-md md:text-2xl lg:text-2xl bg-black/70 py-4 w-full flex justify-center items-end rounded-b-xl">
+                                        <div className="mx-2 md:m-4 px-2 max-w-screen-md">
                                             <GetTextContent contentKey="elev_2" />   
                                         </div>
                                        
@@ -92,8 +92,8 @@ const Intro: React.FC = () => {
                                         //filter: 'brightness(80%)',
                                     }}  
                                 >
-                                    <div className="text-md md:text-2xl lg:text-3xl bg-black/70 py-4 w-full flex justify-center items-end rounded-b-xl">
-                                        <div className="mx-2 md:m-4 px-2">
+                                    <div className="text-md md:text-2xl lg:text-2xl bg-black/70 py-4 w-full flex justify-center items-end rounded-b-xl">
+                                        <div className="mx-2 md:m-4 px-2 max-w-screen-md">
                                             <GetTextContent contentKey="elev_3" />   
                                         </div>                                      
                                     </div>   
@@ -121,8 +121,8 @@ const Intro: React.FC = () => {
                                         //filter: 'brightness(80%)',
                                     }}  
                                 >
-                                    <div className="text-md md:text-2xl lg:text-3xl bg-black/70 py-4 w-full flex justify-center items-end rounded-b-xl">
-                                        <div className="mx-2 md:m-4 px-2">
+                                    <div className="text-md md:text-2xl lg:text-2xl bg-black/70 py-4 w-full flex justify-center items-end rounded-b-xl">
+                                        <div className="mx-2 md:m-4 px-2 max-w-screen-md">
                                             <GetTextContent contentKey="elev_4" />   
                                         </div>                                     
                                     </div>   

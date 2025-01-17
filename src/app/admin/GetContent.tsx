@@ -6,15 +6,14 @@ interface GetContentProps {
 
 interface ContentItem {
         _id: string;
-        frontpage_title?: string;
         frontpage_soknadsfrist?: string;
+        program_musikk?: string;
+        program_dans?: string;
+        program_drama?: string;
         elev_1?: string;
         elev_2?: string;
         elev_3?: string;
         elev_4?: string;
-        program_musikk?: string;
-        program_dans?: string;
-        program_drama?: string;
         opptak?: string;
         hva_blir_jeg?: string;
         om_create?: string;
@@ -60,7 +59,6 @@ const GetContent: React.FC<GetContentProps> = ({ token }) => {
                 setContent([
                     {
                         _id: "new-content",
-                        frontpage_title: "",
                         frontpage_soknadsfrist: "",
                         elev_1: "",
                         elev_2: "",
@@ -141,14 +139,17 @@ const GetContent: React.FC<GetContentProps> = ({ token }) => {
     };
     
     return (        
-        <div className="w-full">
+        <div className="flex flex-col w-full min-h-screen justify-start items-center">
             <button
-                className="p-4 rounded-xl text-2xl border-2 border-purple-500 w-96 bg-black/60 cursor-pointer hover:bg-black/80"
+                className="p-[8px] flex justify-center items-center rounded-xl text-xl border-2 border-white w-52 bg-pinky cursor-pointer hover:bg-fuchsia-950"
                 onClick={fetchContent}
             >
-                Hent innholdsskjema
+                Hent innhold
             </button>
             {error && <p className="text-red-500 mt-4">{error}</p>}
+            <p className="pt-4 text-lg">Bruk &lt;br/&gt; for linjeskift</p>
+            <p className="pt-4 text-lg">Fet skrift: Bruk &lt;b&gt; før ordet og &lt;/b&gt; etter ordet: Slik som dette: &lt;b&gt; <b>fett</b> &lt;/b&gt;</p>
+            <p className="text-green-400 font-bold text-xl">Huske å LAGRE nederst på siden når du gjør endringer</p>
             {content.length > 0 ? (
                 <form key='formA' className="table-auto w-full mt-8 text-xl p-4 bg-slate-800 rounded-xl"
                     onSubmit={(e) => {
@@ -159,71 +160,78 @@ const GetContent: React.FC<GetContentProps> = ({ token }) => {
                     
                     {content.map((content, index) => (
                         <div key={content._id} className="flex flex-col mb-4 w-full items-start">
-                            <h2>Forside tittel:</h2>
-                            <input 
-                                onChange={(e) => handleInputChange(index, "frontpage_title", e.target.value)} 
-                                className="border px-4 py-2 w-11/12 mb-8 text-black bg-slate-100" 
-                                value={content.frontpage_title || ""}></input>
                             <h2>Forside info om frist:</h2>
                             <textarea 
                                 onChange={(e) => handleInputChange(index, "frontpage_soknadsfrist", e.target.value)} 
-                                className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
-                                value={content.frontpage_soknadsfrist || ""}></textarea>
-                            <h2>Elev på Create 1:</h2>
-                            <textarea 
-                                onChange={(e) => handleInputChange(index, "elev_1", e.target.value)} 
-                                className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
-                                value={content.elev_1 || ""}></textarea>
-                            <h2>Elev på Create 2:</h2>
-                            <textarea 
-                                onChange={(e) => handleInputChange(index, "elev_2", e.target.value)} 
-                                className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
-                                value={content.elev_2 || ""}></textarea>
-                            <h2>Elev på Create 3:</h2>
-                            <textarea 
-                                onChange={(e) => handleInputChange(index, "elev_3", e.target.value)} 
-                                className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
-                                value={content.elev_3 || ""}></textarea>
-                            <h2>Elev på Create 4:</h2>
-                            <textarea 
-                                onChange={(e) => handleInputChange(index, "elev_4", e.target.value)} 
-                                className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
-                                value={content.elev_4 || ""}></textarea>
+                                className="border px-4 py-2 w-11/12 min-h-24 mb-8 h-auto text-black bg-slate-100" 
+                                value={content.frontpage_soknadsfrist || ""}>
+                            </textarea>
                             <h2>Programfag musikk:</h2>
                             <textarea 
                                 onChange={(e) => handleInputChange(index, "program_musikk", e.target.value)} 
-                                className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
-                                value={content.program_musikk || ""}></textarea>
+                                className="border px-4 py-2 w-11/12 min-h-24 mb-8 h-auto text-black bg-slate-100" 
+                                value={content.program_musikk || ""}>
+                            </textarea>
                             <h2>Programfag dans:</h2>
                             <textarea 
                                 onChange={(e) => handleInputChange(index, "program_dans", e.target.value)} 
-                                className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
-                                value={content.program_dans || ""}></textarea>
+                                className="border px-4 py-2 w-11/12 min-h-24 mb-8 h-auto text-black bg-slate-100" 
+                                value={content.program_dans || ""}>
+                            </textarea>
                             <h2>Programfag drama:</h2><textarea 
 
                                 onChange={(e) => handleInputChange(index, "program_drama", e.target.value)} 
-                                className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
-                                value={content.program_drama || ""}></textarea>
+                                className="border px-4 py-2 w-11/12 min-h-24 mb-8 h-auto text-black bg-slate-100" 
+                                value={content.program_drama || ""}>
+                            </textarea>
+                            <h2>Elev på Create 1:</h2>
+                            <textarea 
+                                onChange={(e) => handleInputChange(index, "elev_1", e.target.value)} 
+                                className="border px-4 py-2 w-11/12 min-h-24 mb-8 h-auto text-black bg-slate-100" 
+                                value={content.elev_1 || ""}>
+                            </textarea>
+                            <h2>Elev på Create 2:</h2>
+                            <textarea 
+                                onChange={(e) => handleInputChange(index, "elev_2", e.target.value)} 
+                                className="border px-4 py-2 w-11/12 min-h-24 mb-8 h-auto text-black bg-slate-100" 
+                                value={content.elev_2 || ""}>
+                            </textarea>
+                            <h2>Elev på Create 3:</h2>
+                            <textarea 
+                                onChange={(e) => handleInputChange(index, "elev_3", e.target.value)} 
+                                className="border px-4 py-2 w-11/12 min-h-24 mb-8 h-auto text-black bg-slate-100" 
+                                value={content.elev_3 || ""}>
+                            </textarea>
+                            <h2>Elev på Create 4:</h2>
+                            <textarea 
+                                onChange={(e) => handleInputChange(index, "elev_4", e.target.value)} 
+                                className="border px-4 py-2 w-11/12 min-h-24 mb-8 h-auto text-black bg-slate-100" 
+                                value={content.elev_4 || ""}>
+                            </textarea>                            
                             <h2>Opptak:</h2>
                             <textarea 
                                 onChange={(e) => handleInputChange(index, "opptak", e.target.value)} 
-                                className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
-                                value={content.opptak || ""}></textarea>
+                                className="border px-4 py-2 w-11/12 min-h-24 mb-8 h-auto text-black bg-slate-100" 
+                                value={content.opptak || ""}>
+                            </textarea>
                             <h2>Hva blir jeg?:</h2>
                             <textarea 
                                 onChange={(e) => handleInputChange(index, "hva_blir_jeg", e.target.value)} 
-                                className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
-                                value={content.hva_blir_jeg || ""}></textarea>
+                                className="border px-4 py-2 w-11/12 min-h-24 mb-8 h-auto text-black bg-slate-100" 
+                                value={content.hva_blir_jeg || ""}>
+                            </textarea>
                             <h2>Om create:</h2>
                             <textarea 
                                 onChange={(e) => handleInputChange(index, "om_create", e.target.value)} 
-                                className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
-                                value={content.om_create || ""}></textarea>
+                                className="border px-4 py-2 w-11/12 min-h-24 mb-8 h-auto text-black bg-slate-100" 
+                                value={content.om_create || ""}>
+                            </textarea>
                             <h2>Søknadsside intro:</h2>
                             <textarea 
                                 onChange={(e) => handleInputChange(index, "soknad_intro", e.target.value)} 
-                                className="border px-4 py-2 w-11/12 min-h-36 mb-8 h-auto text-black bg-slate-100" 
-                                value={content.soknad_intro || ""}></textarea>                                
+                                className="border px-4 py-2 w-11/12 min-h-24 mb-8 h-auto text-black bg-slate-100" 
+                                value={content.soknad_intro || ""}>
+                            </textarea>                                
                         </div>
                     ))}
                     <button

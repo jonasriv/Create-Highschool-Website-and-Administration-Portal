@@ -208,3 +208,8 @@ body {
     transform: rotate(360deg);
   }
 }
+
+
+.svg-purple {
+  filter: brightness(0) saturate(100%) invert(16%) sepia(91%) saturate(6970%) hue-rotate(283deg) brightness(102%) contrast(121%);
+}
