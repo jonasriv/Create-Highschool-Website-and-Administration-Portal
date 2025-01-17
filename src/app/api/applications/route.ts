@@ -98,7 +98,7 @@ export async function POST(req: Request) {
     });
       
     const mailOptions = {
-      from: process.env.MAIL_USER,
+      from: process.env.EMAIL_USER,
       to: [email, emailParent], // E-postadresse til administratoren
       subject: 'Søknad mottatt',
       text: `
