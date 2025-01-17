@@ -99,7 +99,7 @@ export async function POST(req: Request) {
       
     const mailOptions = {
       from: process.env.MAIL_USER,
-      to: email, emailParent, // E-postadresse til administratoren
+      to: [email, emailParent], // E-postadresse til administratoren
       subject: 'Søknad mottatt',
       text: `
         Vi har mottatt en søknad fra deg. Her er detaljene:
@@ -116,8 +116,12 @@ export async function POST(req: Request) {
     };
 
     // Send e-post
-    await transporter.sendMail(mailOptions);
-    console.log('Søknadsbekreftelse sendt søker og forelder');
+    try {
+      await transporter.sendMail(mailOptions);
+      console.log('Søknadsbekreftelse sendt søker og forelder');
+    } catch (error) {
+      console.error('Feil ved sending av e-post: ', error);
+    }
 
     // Returner en vellykket respons
     return NextResponse.json(
