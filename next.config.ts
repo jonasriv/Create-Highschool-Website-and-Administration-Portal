@@ -1,23 +1,16 @@
-// next.config.ts
 import { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  webpack(config, { isServer }) {
-    if (!isServer) {
-      config.module.rules.push({
-        test: /pdfjs-dist/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: 'static/pdfjs/[name].[ext]',
-            },
-          },
-        ],
-      });
-    }
-    return config;
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com', // Cloudinary URL
+        pathname: '/**', // Tillat alle paths fra denne hosten
+      },
+    ],
   },
 };
 
 export default nextConfig;
+
