@@ -1,6 +1,5 @@
 'use client'
 import React from "react";
-import Footer from "./Footer";
 import Image from "next/image"
 import { Instagram, Facebook, Mail, Phone} from 'lucide-react'
 import tiktoklogo from '../../public/images/tiktok-white-icon.svg';
@@ -100,9 +99,7 @@ const Contact = () => {
                 </div>
 
             </div>
-            <div className="w-screen h-full uppercase flex flex-col justify-end items-start max-w-screen">
-                <Footer/>
-            </div>
+
         </div>
     )
 }
