@@ -3,7 +3,7 @@ import Admin from "../src/models/admin.js";
 import bcrypt from "bcrypt";
 import mongoose from "mongoose";
 
-const MONGODB_URI = "mongodb+srv://create-bruker:create-passord@cluster0.si5gg.mongodb.net/create-admin?retryWrites=true&w=majority"
+const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!MONGODB_URI) {
   throw new Error("Please define the MONGODB_URI environment variable in .env.local");

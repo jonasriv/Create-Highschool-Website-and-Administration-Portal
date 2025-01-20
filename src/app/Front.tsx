@@ -21,7 +21,7 @@ const Front = () => {
                 </div>
 
 
-                <div className="flex flex-col w-full items-center justify-around gap-4">
+                <div className="flex flex-col w-full items-center justify-around gap-8">
                     <h1 className="font-roboto font-black text-xl normal-case text-center">
                         <GetTextContent contentKey="frontpage_soknadsfrist"/>
                     </h1>

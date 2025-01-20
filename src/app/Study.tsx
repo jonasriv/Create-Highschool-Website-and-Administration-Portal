@@ -49,8 +49,8 @@ const Study: React.FC = () => {
         <div 
         className="flex flex-col justify-center items-center w-screen h-full mt-0"
         >
-            <div className="w-screen h-full lg:w-[1024px] text-white flex flex-col justify-start items-center box-border ...  no-scrollbar mt-0 overflow-hidden rounded-xl">
-                <div className="flex h-[1000px] lg:h[900] flex-col lg:rounded-2xl w-full mt-24 justify-start items-center">
+            <div className="w-screen h-full lg:w-[1024px] text-white flex flex-col justify-start items-center box-border ...  no-scrollbar mt-0 overflow-hidden">
+                <div className="flex h-[1000px] lg:h[900] flex-col lg:rounded-xl w-full mt-24 justify-start items-center">
                     <h1 className="font-mina text-2xl md:text-3xl lg:text-4xl tracking-widest text-center text-white font-black mb-4 mt-8 lg:m4-0">
                         Programfagene
                     </h1>
@@ -62,7 +62,7 @@ const Study: React.FC = () => {
                                 <TabsTrigger value="dance_tab" className="opacity-100 p-2 lg:p-4 text-md md:text-2xl "><Star size="12"/>&nbsp;Dans&nbsp;<Star size="12"/></TabsTrigger>
                                 <TabsTrigger value="drama_tab" className="opacity-100 p-2 lg:p-4 text-md md:text-2xl "><Star size="12"/>&nbsp;Drama&nbsp;<Star size="12"/></TabsTrigger>
                             </TabsList> 
-                        <TabsContent value="music_tab" className="lg:rounded-2xl w-full h-[800px] overflow-hidden">
+                        <TabsContent value="music_tab" className="lg:rounded-xl w-full h-[800px] overflow-hidden">
                             <div className="flex flex-col lg:justify-between items-start mb-4 lg:bg-black/60 lg:p-4 lg:rounded-xl">
                                 <div className="w-full">
                                     <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal px-4 lg:px-8">
@@ -70,40 +70,40 @@ const Study: React.FC = () => {
                                     </div>                                   
                                 </div>
                                 <div className="flex w-full justify-start items-center mt-4 lg:px-8">
-                                <Carousel autoplay={true} opts={{ loop: true }} className="w-full flex justify-center items-center mb-4 overflow-hidden no-scrollbar lg:rounded-xl">
+                                <Carousel autoplay={true} opts={{ loop: true }} className="w-full flex justify-center items-center mb-4 overflow-hidden no-scrollbar">
                                         <CarouselContent className="">
-                                            <CarouselItem className="flex justify-center">
-                                                <Image src={Music0} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                            <CarouselItem className="flex justify-center overflow-hidden">
+                                                <Image src={Music0} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] md:rounded-xl w-full md:w-auto object-contain object-top"></Image>
                                             </CarouselItem>
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Music3} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Music3} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] md:rounded-xl w-full md:w-auto object-contain object-top"></Image>
                                             </CarouselItem>                                            
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Music2} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Music2} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] md:rounded-xl w-full md:w-auto object-contain object-top"></Image>
                                             </CarouselItem>
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Music1} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Music1} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] md:rounded-xl w-full md:w-auto object-contain object-top"></Image>
                                             </CarouselItem>     
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Music4} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Music4} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] md:rounded-xl w-full md:w-auto object-contain object-top"></Image>
                                             </CarouselItem>      
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Music5} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Music5} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] md:rounded-xl w-full md:w-auto object-contain object-top"></Image>
                                             </CarouselItem>      
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Music6} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Music6} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] md:rounded-xl w-full md:w-auto object-contain object-top"></Image>
                                             </CarouselItem>      
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Music7} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Music7} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] md:rounded-xl w-full md:w-auto object-contain object-top"></Image>
                                             </CarouselItem>   
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Music8} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Music8} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] md:rounded-xl w-full md:w-auto object-contain object-top"></Image>
                                             </CarouselItem>   
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Music9} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Music9} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] md:rounded-xl w-full md:w-auto object-contain object-top"></Image>
                                             </CarouselItem>  
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Music10} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Music10} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] md:rounded-xl w-full md:w-auto object-contain object-top"></Image>
                                             </CarouselItem>                                                                                                                                                                                                                                                                                                                                                
                                         </CarouselContent>
                                     </Carousel>
@@ -111,7 +111,7 @@ const Study: React.FC = () => {
                             </div>
                         </TabsContent>    
 
-                        <TabsContent value="dance_tab" className="lg:rounded-2xl w-full h-[800px] overflow-hidden">
+                        <TabsContent value="dance_tab" className="lg:rounded-xl w-full h-[800px] overflow-hidden">
                             <div className="flex flex-col lg:justify-between items-start mb-4 lg:bg-black/60 lg:p-4 lg:rounded-xl">
                                 <div className="w-full">
                                     <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal px-4 lg:px-8">
@@ -122,37 +122,37 @@ const Study: React.FC = () => {
                                     <Carousel autoplay={true} opts={{ loop: true }} className="w-full flex justify-start place-items-end mb-4 overflow-hidden no-scrollbar lg:rounded-xl">
                                         <CarouselContent className="">
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Dance0} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Dance0} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] rounded-xl w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
                                             </CarouselItem>
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Dance1} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Dance1} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] rounded-xl w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
                                             </CarouselItem>                                            
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Dance2} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Dance2} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] rounded-xl w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
                                             </CarouselItem>
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Dance3} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Dance3} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] rounded-xl w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
                                             </CarouselItem>      
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Dance4} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Dance4} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] rounded-xl w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
                                             </CarouselItem>  
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Dance5} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Dance5} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] rounded-xl w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
                                             </CarouselItem>  
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Dance7} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Dance7} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] rounded-xl w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
                                             </CarouselItem>    
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Dance8} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Dance8} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] rounded-xl w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
                                             </CarouselItem>    
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Dance9} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Dance9} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] rounded-xl w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
                                             </CarouselItem>    
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Dance10} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Dance10} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] rounded-xl w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
                                             </CarouselItem>    
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Dance11} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Dance11} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] rounded-xl w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
                                             </CarouselItem>                                                                                                                                                                                                                                                                                                                                                                                                                                        
                                         </CarouselContent>
                                     </Carousel>
@@ -160,7 +160,7 @@ const Study: React.FC = () => {
                             </div>
                         </TabsContent>    
 
-                        <TabsContent value="drama_tab" className="lg:rounded-2xl w-full h-[800px] overflow-hidden">
+                        <TabsContent value="drama_tab" className="lg:rounded-xl w-full h-[800px] overflow-hidden">
                             <div className="flex flex-col  lg:justify-between items-start mb-4 lg:bg-black/60 lg:p-4 lg:rounded-xl">
                                 <div className="w-full">
                                     <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal px-4 lg:px-8">
@@ -171,31 +171,31 @@ const Study: React.FC = () => {
                                 <Carousel autoplay={true} opts={{ loop: true }} className="w-full flex justify-start place-items-end mb-4 overflow-hidden no-scrollbar lg:rounded-xl">
                                         <CarouselContent className="">
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Drama0} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Drama0} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] rounded-xl w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
                                             </CarouselItem>
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Drama1} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Drama1} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] rounded-xl w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
                                             </CarouselItem>                                            
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Drama3} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Drama3} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] rounded-xl w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
                                             </CarouselItem>  
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Drama4} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Drama4} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] rounded-xl w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
                                             </CarouselItem>  
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Drama5} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Drama5} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] rounded-xl w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
                                             </CarouselItem>  
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Drama6} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Drama6} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] rounded-xl w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
                                             </CarouselItem>  
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Drama7} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Drama7} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] rounded-xl w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
                                             </CarouselItem>   
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Drama8} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Drama8} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] rounded-xl w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
                                             </CarouselItem>   
                                             <CarouselItem className="flex justify-center">
-                                                <Image src={Drama9} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h[32rem] w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
+                                                <Image src={Drama9} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] rounded-xl w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
                                             </CarouselItem>                                                                                                                                                                                                                                                       
                                         </CarouselContent>
                                     </Carousel>

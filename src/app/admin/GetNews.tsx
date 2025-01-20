@@ -111,27 +111,27 @@ const GetNews: React.FC<GetNewsItemProps> = ({ token }) => {
     }, [fetchNews]);
 
     return (
-        <div className="flex flex-col w-full min-h-screen justify-start items-start">
-            <div className="flex flex-row w-full h-full gap-8 justify-center ml-8 items-center"></div>
+        <div className="flex flex-col w-full min-h-screen justify-start items-center ">
+            <div className="flex flex-row w-full max-w-screen-sm h-full gap-8 justify-center ml-8 items-center"></div>
     
             {error && <p className="text-red-500 mt-4">{error}</p>}
     
-                <div className="flex flex-col w-full overflow-scroll justify-center items-start px-8">
+                <div className="flex flex-col w-full overflow-scroll justify-center items-start max-w-[1000px]">
                     <h1 className="w-full text-center pb-4">Antall nyheter: {newsItems.length}</h1>
-                    <div className="grid grid-cols-2 gap-8 w-full justify-center ">
+                    <div className="grid grid-cols-2 gap-8 w-full justify-start items-center ">
                         {newsItems.map((newsitem) => (
                             <div 
                             key={newsitem._id}
-                            className="bg-red-300 rounded-xl p-4"
+                            className="bg-white/60 rounded-xl p-4 w-auto max-w-[600px]"
                             >
-                                <p className="text-lg font-bold text-black">{newsitem.news_title}</p>
-                                <p className="text-md text-black">{newsitem.news_content}</p>
+                                <p className="text-xl font-bold text-black">{newsitem.news_title}</p>
+                                <p className="text-lg text-black">{newsitem.news_content}</p>
                                 <p className="italic">{newsitem.news_image}</p>
-                                <p>{newsitem.createdAt.substring(0, 10)}</p>
+                                <p className="text-black">{newsitem.createdAt.substring(0, 10)}</p>
                                 
                                 <button 
                                     onClick={(e) => handleDelete(e, newsitem)}
-                                    className="p-2 bg-red-500 rounded-xl mt-2"
+                                    className="p-2 bg-red-400 rounded-xl mt-2 hover:bg-red-500 cursor-pointer"
                                     >
                                         SLETT
                                     </button>
@@ -141,40 +141,41 @@ const GetNews: React.FC<GetNewsItemProps> = ({ token }) => {
                 </div>
                             
             <form
-                className="table-auto w-full mt-8 text-xl p-4 rounded-xl bg-slate-700 flex flex-col gap-4"
+                className="table-auto w-full mt-8 text-xl p-4 rounded-xl bg-white/60 border-2 border-black text-black flex flex-col gap-4 max-w-[1000px]"
                 onSubmit={(e) => {
                     e.preventDefault();
                     saveContent();
                 }}
             >
-                <h1 className="text-center text-2xl font-bold font-mina">Opprett nyhet:</h1>
-                <p>For bilder, last opp på cloudinary ( mail@create.no / M3rennbareskole! ) og hold over bildet for å få link</p>
-                <h2>Tittel (maks 30 tegn):</h2>
+                <h1 className="text-center text-2xl font-bold font-mina">Opprett en nyhet:</h1>
+                <p>For bilder, last opp på cloudinary.com ( mail@create.no / M3rennbareskole! ) og hold over bildet for å få link</p>
+                <h2 className="font-black">Tittel (maks 30 tegn):</h2>
                 <input 
                     type="text" 
                     name="tittel" 
                     maxLength={30}
                     value={newsTitle} 
                     onChange={(e) => setNewsTitle(e.target.value)} 
-                    className="text-black rounded-md"></input>
-                <h2>Innhold (max 400 tegn):</h2>
+                    className="text-black rounded-md h-12"></input>
+                <h2 className="font-black">Innhold (max 400 tegn):</h2>
                 <textarea
                     value={newsContent} 
                     onChange={(e) => setNewsContent(e.target.value)}
                     maxLength={400}
                     className="text-black rounded-md"
+                    rows={4}
                 ></textarea>
-                <h2>Bildelink (fra Create sin Cloudinary)</h2>
+                <h2 className="font-black">Bildelink (fra Create sin Cloudinary)</h2>
                 <input 
                     type="text" 
                     name="bildelink" 
                     value={newsImage}
                     onChange={(e) => setNewsImage(e.target.value)} 
-                    className="text-black rounded-md"   
+                    className="text-black rounded-md h-12"   
                 ></input>
                 <button
                     type="submit"
-                    className="p-4 rounded-md text-black text-2xl font-mina bg-green-500 hover:bg-green-600"
+                    className="p-4 rounded-md text-black text-2xl font-mina bg-green-500 hover:bg-green-600 cursor-pointer"
                 >
                     Lagre nyhet
                 </button>

@@ -4,10 +4,11 @@ import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 
+const JWT_SECRET = process.env.JWT_SECRET;
 
-
-const JWT_SECRET = process.env.JWT_SECRET || "defaultsecret";
-
+if (!JWT_SECRET) {
+  throw new Error("Token er ikke definert!");
+}
 // POST: Autentisering
 export async function POST(req: Request) {
   await dbConnect();
@@ -36,12 +37,18 @@ export async function POST(req: Request) {
     }
 
     // Generer JWT-token hvis passordet er gyldig
-    const token = jwt.sign({ id: admin._id, username: admin.username }, JWT_SECRET, {
-      expiresIn: "2h",
-    });
-
-    return NextResponse.json({ token });
-
+    if (JWT_SECRET) {
+      const token = jwt.sign({ 
+          id: admin._id, 
+          username: admin.username 
+          
+        }, JWT_SECRET, {
+        expiresIn: "2h",
+      });
+      return NextResponse.json({ token });
+    } else {
+      throw new Error("Feil med autentisering");
+    }
   } catch (error) {
     console.error("Error comparing password:", error);
     return NextResponse.json({ error: "Error comparing password" }, { status: 500 });
