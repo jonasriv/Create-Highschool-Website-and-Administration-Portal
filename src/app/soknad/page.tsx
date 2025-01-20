@@ -1,4 +1,3 @@
-
 'use client'
 import React, { useState, useRef } from "react";
 import dynamic from 'next/dynamic';
@@ -8,7 +7,7 @@ const Header = dynamic(() => import("./HeaderSoknad"));
 
 const Soknad = () => {
     const divRef = useRef<HTMLDivElement | null>(null);
-    const externalBackground = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506363/background_no_logo_yhjwra.jpg";
+    const externalBackground = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506363/background_no_logo_yhjwra.jpg"; 
     type FormData = {
         fullName: string;
         email: string;
@@ -132,18 +131,28 @@ const Soknad = () => {
         }
     };
     
+    const [requirements, setRequirements] = useState<number>(0);
 
     const handleExpand = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault(); // Forhindrer standard oppførsel for hendelsen (f.eks. lenkeklikk eller form sending)
-      
-        if (divRef.current) {
-          divRef.current.classList.toggle("hidden");
-        } 
+        event.preventDefault(); 
+        setRequirements(1);
+
       };
+
+    const handleGetIt = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        setRequirements(0);
+        if (divRef.current) {
+            divRef.current.classList.remove("hidden");
+            document.getElementById("expand_button")?.classList.toggle("hidden");
+          } 
+    };
+
+ 
     
       return (
         <div 
-        className="flex flex-col h-auto min-h-screen w-screen bg-white/40 "
+        className="flex flex-col overflow-y-scroll h-screen w-screen bg-black"
         style={{
           backgroundImage: `url(${externalBackground})`,
           backgroundSize: 'cover',
@@ -157,11 +166,22 @@ const Soknad = () => {
                 <div className="w-24 h-24 border-b-8 border-t-8 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div>
                 <p className="text-2xl">Vent mens opplastingen behandles...</p>
               </div>
-
-
             )}
-            <div className="w-full h-20 md:h-24 mt-4"></div>
-            <div className="max-w-screen-lg mb-8 w-11/12 mx-auto p-6 bg-slate-600 rounded-lg shadow-lg md:24 flex flex-col">
+            {requirements && (
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 z-50 flex-col gap-12">    
+                    <div className="bg-white/90 p-4 mb-4 rounded-xl w-96 h-auto font-roboto">
+                        <h1 className="text-black text-2xl font-black">Opplasting av karakterkort</h1>
+                        <p className="text-xl text-black mb-4">
+                            Last opp et tydelig og klart bilde av din karakterutskrift fra 1. termin på 10. trinn. Det må vise fullt navn, skole og alle karakterene dine. Bruk gjerne skjermbilde fra <a className="underlines hover:underline font-black text-blue-800" href="https://elev.visma.no/lillehammer" target="_blank">visma</a> eller tilsvarende. 
+                        </p>
+                        <p className="text-xl mb-4 text-black">
+                            Karakterkort lagres i opptil 12 måneder for søknadsprosessen og slettes deretter automatisk. Ingen data deles med tredjeparter. 
+                        </p>
+                        <button onClick={(e) => {handleGetIt(e)}} className="p-4 w-full border-2 bg-blue-600 hover:bg-black cursor-pointer rounded-lg">Jeg skjønner!</button>
+                    </div>    
+                </div>
+            )}            
+            <div className="max-w-screen-lg mt-36 mb-8 w-11/12 mx-auto p-6 bg-slate-600 rounded-lg shadow-lg md:24 flex flex-col">
             <div className="">
                 <h1 className="font-mina text-2xl md:text-3xl mb-4">
                     Bli en del av Create!
@@ -309,31 +329,25 @@ const Soknad = () => {
     
             {/* CV opplasting */}
             <div>
-                <button className="border-2 border-transparent hover:bg-redpink rounded-lg bg-pinky p-2 font-mina text-xl mb-6" 
+                <button id="expand_button" className="border-2 border-transparent hover:bg-redpink rounded-lg bg-pinky p-2 font-mina text-xl mb-6" 
                     onClick={(event) => handleExpand(event)}
                 >
                     <b>Last opp karakterkort</b>
                 </button>
-                    <div id="expand_div" ref={divRef} className="hidden bg-black/60 p-4 mb-8 rounded-xl">
-                    <p className="text-xl mb-4">
-                        Last opp et <b>tydelig og klart bilde</b> av din karakterutskrift fra 1. termin på 10. trinn. Det må vise <b>navn, skole og alle karakterene</b>. Bruk gjerne skjermbilde fra <a className="underlines text-red-400 hover:underline font-black" href="https://elev.visma.no/lillehammer" target="_blank">visma</a> eller tilsvarende. Velg fil under. 
-                    </p>
-                    <p className="mb-4">
-                    Opplastede bilder/pdf av karakterkort lagres i opptil 12 måneder for søknadsprosessen og slettes deretter automatisk. Ingen data deles med tredjeparter. 
-                    </p>
-                    
-                    <label htmlFor="resume" className="block text-sm md:text-lg font-semibold"></label>
-                    <input
-                    ref={fileInputRef}
-                    type="file"
-                    id="resume"
-                    accept=".pdf,.doc,.docx,.jpeg,.png,.jpg,.webp,.tiff,.bmp,.gif"
-                    name="resume"
-                    onChange={(e) => setFormData({ ...formData, resume: e.target.files ? e.target.files[0] : null})}
-                    className="w-full p-4 border border-gray-300 rounded-md text-white text-xl "
-                    />
-                    {errors.resume && <p className="text-red-500 text-sm md:text-lg">{errors.resume}</p>}
-                    </div>
+                        <div id="expand_div" ref={divRef} className="hidden mb-8 rounded-xl ">
+
+                            <label htmlFor="resume" className="block text-sm md:text-lg font-semibold"></label>
+                            <input
+                                ref={fileInputRef}
+                                type="file"
+                                id="resume"
+                                accept=".pdf,.doc,.docx,.jpeg,.png,.jpg,.webp,.tiff,.bmp,.gif"
+                                name="resume"
+                                onChange={(e) => setFormData({ ...formData, resume: e.target.files ? e.target.files[0] : null})}
+                                className="w-full p-4 border-2 border-pinky rounded-md text-white text-xl animate-highlight-fileinput bg-black/40"
+                            />
+                            {errors.resume && <p className="text-red-500 text-sm md:text-lg">{errors.resume}</p>}
+                        </div>
             {/* Submit Button */}
                     <div>
                         <button

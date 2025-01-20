@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import GetApplications from "./GetApplications";
 import GetContent from "./GetContent";
 import GetNews from "./GetNews";
@@ -9,7 +9,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function AdminPage() {
     const externalBackground = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506363/background_no_logo_yhjwra.jpg";
-
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [token, setToken] = useState<string | null>(null);
@@ -54,6 +53,20 @@ export default function AdminPage() {
         setToken(null);
         location.reload();
     }
+
+    useEffect(() => {
+        const handleKeyPress = (event: KeyboardEvent) => {
+            if (event.key === 'Enter' && (!token)) {
+                handleLogin();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyPress);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyPress);
+        };
+    }, [username, password, handleLogin, token]);
 
     return (
         <div className="flex flex-col w-screen h-screen box-border bg-fuchsia-black justify-start items-center" 
@@ -113,9 +126,9 @@ export default function AdminPage() {
                 <Tabs defaultValue="news_tab" className="w-full h-full flex flex-col justify-center">
                     <div className="w-full flex justify-center">
                         <TabsList className="rounded-none h-22 p-4 mb-4 flex flex-row justify-between w-8/12">
-                            <TabsTrigger value="news_tab" className="opacity-100 p-2 md:p-4 text-md md:text-2xl">Nyheter</TabsTrigger>
-                            <TabsTrigger value="applications_tab" className="opacity-100 p-2 md:p-4 text-md md:text-2xl">Søknader</TabsTrigger>
-                            <TabsTrigger value="content_tab" className="opacity-100 p-2 md:p-4 text-md md:text-2xl">Web-innhold</TabsTrigger>
+                            <TabsTrigger value="news_tab" className="opacity-100 bg-black p-2 md:p-4 text-md md:text-2xl">Nyheter</TabsTrigger>
+                            <TabsTrigger value="applications_tab" className="opacity-100 bg-black p-2 md:p-4 text-md md:text-2xl">Søknader</TabsTrigger>
+                            <TabsTrigger value="content_tab" className="opacity-100 p-2 md:p-4 bg-black text-md md:text-2xl">Web-innhold</TabsTrigger>
                         </TabsList> 
                     </div>
 

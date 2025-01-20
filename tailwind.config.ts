@@ -41,6 +41,7 @@ export default {
 			'flash-border2': 'flash-border2 5s infinite',
 			'flash-border3': 'flash-border3 5s infinite',
 			'spin-fast': 'spin 1s linear infinite',
+			'highlight-fileinput': 'highlight-fileinput 3s infinite'
 		},		
 		keyframes: {
 			'flash-border1': {
@@ -61,6 +62,11 @@ export default {
 				'100%': { transform: 'rotate(360deg)' },
 	  
 			},
+			'highlight-fileinput': {
+				'0%': { borderColor: 'white' },
+				'50%': { borderColor: '#d500f9' },
+				'100%': { borderColor: 'white' },
+			},			
 		},				
 		fontFamily: {
 			offside: ["var(--font-offside)", "sans-serif"],

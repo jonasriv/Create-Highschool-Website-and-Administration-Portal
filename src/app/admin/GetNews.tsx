@@ -128,13 +128,14 @@ const GetNews: React.FC<GetNewsItemProps> = ({ token }) => {
                                 <p className="text-lg text-black">{newsitem.news_content}</p>
                                 <p className="italic">{newsitem.news_image}</p>
                                 <p className="text-black">{newsitem.createdAt.substring(0, 10)}</p>
-                                
-                                <button 
-                                    onClick={(e) => handleDelete(e, newsitem)}
-                                    className="p-2 bg-red-400 rounded-xl mt-2 hover:bg-red-500 cursor-pointer"
-                                    >
-                                        SLETT
+                                <div className="w-full flex justify-end items-center">
+                                    <button 
+                                        onClick={(e) => handleDelete(e, newsitem)}
+                                        className="p-2 bg-red-400 rounded-xl mt-2 hover:bg-red-500 cursor-pointer"
+                                        >
+                                            SLETT
                                     </button>
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -148,7 +149,7 @@ const GetNews: React.FC<GetNewsItemProps> = ({ token }) => {
                 }}
             >
                 <h1 className="text-center text-2xl font-bold font-mina">Opprett en nyhet:</h1>
-                <p>For bilder, last opp på cloudinary.com ( mail@create.no / M3rennbareskole! ) og hold over bildet for å få link</p>
+                <p>*For bilder, last opp på cloudinary.com ( mail@create.no / M3rennbareskole! ) og hold over bildet for å få link</p>
                 <h2 className="font-black">Tittel (maks 30 tegn):</h2>
                 <input 
                     type="text" 
@@ -171,7 +172,8 @@ const GetNews: React.FC<GetNewsItemProps> = ({ token }) => {
                     name="bildelink" 
                     value={newsImage}
                     onChange={(e) => setNewsImage(e.target.value)} 
-                    className="text-black rounded-md h-12"   
+                    className="text-black rounded-md h-12 p-4" 
+                    placeholder="https://....."
                 ></input>
                 <button
                     type="submit"

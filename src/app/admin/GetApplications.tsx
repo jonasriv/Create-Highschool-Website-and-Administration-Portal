@@ -1,9 +1,8 @@
 import { useState, useRef } from "react";
 import { utils, writeFileXLSX } from "xlsx";
-import { Download } from 'lucide-react';
 import React, { ChangeEvent } from "react";
 import { format } from "date-fns"
-import { CalendarIcon } from "lucide-react"
+import { CalendarIcon, ImageDown, Download } from "lucide-react"
  
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -314,53 +313,55 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                         <table ref={tbl} className="table-auto w-full mt-8 text-sm p-4 bg-slate-800 rounded-xl max-w-screen-md overflow-scroll">
                         <thead className="bg-slate-600">
                             <tr className="bg-slate-400-100">
-                                <th className="border px-2 py-2">Navn</th>
-                                <th className="border px-2 py-2">Søkt dato <span className="text-sm">(YYYY-MM-DD)</span></th>
-                                <th className="border px-2 py-2">E-post</th>
-                                <th className="border px-2 py-2">E-post foresatt</th>
-                                <th className="border px-2 py-2">Telefon</th>
-                                <th className="border px-2 py-2">1. Pri</th>
-                                <th className="border px-2 py-2">2. Pri</th>
-                                <th className="border px-2 py-2">3. Pri</th>
-                                <th className="border px-2 py-2 break-words">Opptaks- prøve</th>
-                                <th className="border px-2 py-2">Bilde</th>
-                                <th className="border px-2 py-2">Analyse</th>
-                                <th className="border px-2 py-2">Gjennomsnitt</th>
-                                <th className="border px-2 py-2">Antall karakterer</th>
-                                <th className="border px-2 py-2">Karaktersett</th>
-                                <th className="border px-2 py-2">Behandlet?</th>
-                                <th className="border px-2 py-2">Behandlet</th>
+                                <th className="border px-[2px] break-words py-2">Navn</th>
+                                <th className="border px-[2px] break-words py-2">Søkt dato <span className="text-xs">(YYYY-MM-DD)</span></th>
+                                <th className="border px-[2px] break-words py-2">E-post</th>
+                                <th className="border px-[2px] break-words py-2">E-post foresatt</th>
+                                <th className="border px-[2px] break-words py-2">TLF</th>
+                                <th className="border px-[2px] break-words py-2">1. Pri</th>
+                                <th className="border px-[2px] break-words py-2">2. Pri</th>
+                                <th className="border px-[2px] break-words py-2">3. Pri</th>
+                                <th className="border px-[2px] break-words py-2 max-w-16">Prøve-spill</th>
+                                <th className="border px-[2px] break-words py-2">Bilde</th>
+                                <th className="border px-[2px] break-words py-2">Analyse</th>
+                                <th className="border px-[2px] break-words py-2">Gjennomsnitt</th>
+                                <th className="border px-[2px] break-words py-2">Antall karakterer</th>
+                                <th className="border px-[2px] break-words py-2">Karaktersett</th>
+                                <th className="border px-[2px] break-words py-2">Behandlet?</th>
+                                <th className="border px-[2px] break-words py-2">Behandlet</th>
 
                             </tr>
                         </thead>
                         <tbody>
                             {applications.map((app) => (
-                                <tr key={app._id} className={app.behandlet === 1 ? 'bg-green-500' : 'bg-slate-400'}>
-                                    <td className="border px-4 py-2">{app.name}</td>
-                                    <td className="border px-4 py-2">{app.createdAt.slice(0, 10)}</td>
-                                    <td className="border px-4 py-2 break-words max-w-24">{app.email}</td>
-                                    <td className="border px-4 py-2 break-words max-w-24">{app.emailParent}</td>
-                                    <td className="border px-4 py-2">{app.phone}</td>
-                                    <td className="border px-4 py-2">{app.priority1}</td>
-                                    <td className="border px-4 py-2">{app.priority2}</td>
-                                    <td className="border px-4 py-2">{app.priority3}</td>
-                                    <td className="border px-4 py-2 max-w-8">{app.opptaksprove}</td>
-                                    <td className="border px-4 py-2 text-xs max-w-44 h-auto break-words">
+                                <tr key={app._id} className={app.behandlet === 1 ? 'bg-green-500' : 'bg-slate-600'}>
+                                    <td className="border px-[2px] text-center py-2 break-words max-w-24">{app.name}</td>
+                                    <td className="border px-[2px] text-center py-2 break-words max-w-24">{app.createdAt.slice(0, 10)}</td>
+                                    <td className="border px-[2px] text-center py-2 break-words max-w-24">{app.email}</td>
+                                    <td className="border px-[2px] text-center py-2 break-words max-w-24">{app.emailParent}</td>
+                                    <td className="border px-[2px] text-center py-2 max-w-16">{app.phone}</td>
+                                    <td className="border px-[2px] text-center py-2">{app.priority1}</td>
+                                    <td className="border px-[2px] text-center py-2 break-words max-w-24">{app.priority2}</td>
+                                    <td className="border px-[2px] text-center py-2 break-words max-w-24">{app.priority3}</td>
+                                    <td className="border px-[2px] text-center py-2 break-words max-w-16">{app.opptaksprove}</td>
+                                    <td className="border text-center py-0 text-xs h-auto">
                                         {app.s3FileUrl ? (
-                                        <a href={app.s3FileUrl} target="_blank" rel="noopener noreferrer">
-                                            Last ned fil
-                                        </a>
+                                        <div className="w-full h-full flex justify-center items-center">
+                                            <a href={app.s3FileUrl} target="_blank" rel="noopener noreferrer">
+                                                <ImageDown size="24" className="bg-transparent p-[1px] rounded-lg hover:bg-blue-400"/>
+                                            </a>
+                                        </div>    
                                         ) : (
                                             <span>Ingen fil</span>
                                         )}
                                         </td>
-                                    <td className="border px-4 py-2">
+                                    <td className="border px-[2px] text-center py-2">
                                     {
                                         app.textractAnalysis === "feilet" ? (
                                             <span className="flex flex-col bg-black/40">
                                                 <p className="text-red-400">Feilet</p>
                                             <button 
-                                                className="bg-black/60 px-4 py-[2px] text-xs rounded-sm hover:bg-pinky "
+                                                className="bg-black/60 px-[2px] text-center py-[2px] text-xs rounded-sm hover:bg-pinky "
                                                 onClick={(e) => handleTextract(e, app)}
                                             > 
                                                 Kjør!
@@ -372,28 +373,27 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                             <p className="text-green-400 bg-black/40 p-2 rounded-sm">Kjører...</p>
                                         ) : app.textractAnalysis === "" && isLoading !== app._id ? (
                                             <button 
-                                                className="bg-green-500 px-4 py-2 text-md font-bold rounded-lg hover:bg-pinky"
+                                                className="bg-green-500 p-[2px] text-center py-2 text-md font-bold text-black rounded-md hover:bg-pinky"
                                                 onClick={(e) => handleTextract(e, app)}
                                             > 
                                                 KJØR!
                                             </button>
                                         ) : null}
                                     </td>
-                                    <td className="border px-4 py-2">{app.gjennomsnitt?.toString().substring(0, 7)}</td>
-                                    <td className="border px-4 py-2">{app.antallKarakterer}</td>
-                                    <td className="border px-4 py-2 break-words max-w-2">{app.karaktersett}</td>
-                                    <td className="border px-4 py-2 break-words text-center">
+                                    <td className="border px-[2px] text-center py-2">{app.gjennomsnitt?.toString().substring(0, 7)}</td>
+                                    <td className="border px-[2px] text-center py-2">{app.antallKarakterer}</td>
+                                    <td className="border px-[2px] text-center py-2 break-words max-w-2">{app.karaktersett}</td>
+                                    <td className="border px-[2px] text-center py-2 break-words">
                                         {
                                              <input 
                                              type="checkbox" 
                                              checked={app.behandlet === 1} 
-                                             className="w-6 h-6"
                                              onChange={(e) => handleCheckboxChange(e, app)} // Hvis du trenger å håndtere endringer
                                            />
                                            
                                         }
                                     </td>
-                                    <td className="border px-4 py-2 break-words">{
+                                    <td className="border px-[2px] text-center py-2 break-words">{
                                         app.behandlet === 1 ? "ja" : "nei"
                                         }
                                     </td>
@@ -404,7 +404,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                     </div>
                 </div>
             ) : (
-                <div>{pressedButton && <p>No applications found</p>}</div>
+                <div className="w-full">{pressedButton && <p className="text-center">No applications found</p>}</div>
             )}
         </div>
     );
