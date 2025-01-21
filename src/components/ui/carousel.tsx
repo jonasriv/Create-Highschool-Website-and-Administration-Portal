@@ -21,7 +21,7 @@ const Carousel = React.forwardRef<
       opts,
       setApi,
       autoplay = false,
-      autoplayDelay = 3000,
+      autoplayDelay = 5000,
       className,
       children,
       showButtons = false, // Standard: ikke vis knappene

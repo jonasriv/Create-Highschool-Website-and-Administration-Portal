@@ -70,7 +70,7 @@ const Study: React.FC = () => {
                                     </div>                                   
                                 </div>
                                 <div className="flex w-full justify-start items-center mt-4 lg:px-8">
-                                <Carousel autoplay={true} opts={{ loop: true }} className="w-full flex justify-center items-center mb-4 overflow-hidden no-scrollbar">
+                                <Carousel autoplay={true} showButtons={true} opts={{ loop: true }} className="w-full flex justify-center items-center mb-4 overflow-hidden no-scrollbar">
                                         <CarouselContent className="">
                                             <CarouselItem className="flex justify-center overflow-hidden">
                                                 <Image src={Music0} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] md:rounded-xl w-full md:w-auto object-contain object-top"></Image>
@@ -119,7 +119,7 @@ const Study: React.FC = () => {
                                     </div>                                   
                                 </div>
                                 <div className="w-full justify-center items-center mt-4 lg:px-8">
-                                    <Carousel autoplay={true} opts={{ loop: true }} className="w-full flex justify-start place-items-end mb-4 overflow-hidden no-scrollbar lg:rounded-xl">
+                                    <Carousel autoplay={true} showButtons={true} opts={{ loop: true }} className="w-full flex justify-start place-items-end mb-4 overflow-hidden no-scrollbar lg:rounded-xl">
                                         <CarouselContent className="">
                                             <CarouselItem className="flex justify-center">
                                                 <Image src={Dance0} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] rounded-xl w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
@@ -168,7 +168,7 @@ const Study: React.FC = () => {
                                     </div>                                   
                                 </div>
                                 <div className="w-full justify-center items-center mt-4 lg:px-8">
-                                <Carousel autoplay={true} opts={{ loop: true }} className="w-full flex justify-start place-items-end mb-4 overflow-hidden no-scrollbar lg:rounded-xl">
+                                <Carousel autoplay={true} showButtons={true} opts={{ loop: true }} className="w-full flex justify-start place-items-end mb-4 overflow-hidden no-scrollbar lg:rounded-xl">
                                         <CarouselContent className="">
                                             <CarouselItem className="flex justify-center">
                                                 <Image src={Drama0} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] rounded-xl w-full object-contain object-top lg:object-contain lg:object-top lg:rounded-xl"></Image>
