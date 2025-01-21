@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import GetApplications from "./GetApplications";
 import GetContent from "./GetContent";
 import GetNews from "./GetNews";
@@ -14,7 +14,7 @@ export default function AdminPage() {
     const [token, setToken] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-    const handleLogin = async () => {
+    const handleLogin = useCallback(async () => {
         setError(null);
         
         if (!username || !password) {
@@ -47,7 +47,7 @@ export default function AdminPage() {
                 setError("An unknown error occurred");
             }
         }
-    };    
+    }, [username, password]);    
 
     const handleLogout = () => {   
         setToken(null);

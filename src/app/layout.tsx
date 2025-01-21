@@ -59,7 +59,9 @@ export default function RootLayout({
     <html lang="no">
       <head>
         {/* Legg til favicon */}
+        <Head>
         <link rel="icon" href="/favicon.png" type="image/png" />
+        </Head>
       </head>
       <body
         className={`bg-black ${robotoMono.variable} ${robotoSans.variable} ${bungee.variable} ${exo2.variable} ${rubik.variable} ${notable.variable} ${bahiana.variable} antialiased`}
