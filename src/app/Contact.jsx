@@ -65,20 +65,22 @@ const Contact = () => {
                             </a>
                         </div>                        
                     </div>
-                    <div className="bg-black/40 mx-4 md:mx-0 rounded-xl p-2 pb-4 font-mina md:h-72 flex flex-col justify-start items-center">
-                        <h1 className="text-pinky text-center pb-2">
-                            Besøk oss:
-                        </h1>
-                        <p className="font-mina text-xl">
-                            CREATE
-                        </p>
-                        <p className="font-mina text-xl">
-                            Mesnakvartalet 20
-                        </p>
-                        <p className="font-mina text-xl">
-                            2615 Lillehammer
-                        </p>
-                    </div>
+                    <a href="https://maps.app.goo.gl/awVbaaBz9H5Ehww3A">
+                        <div className="bg-black/40 mx-4 md:mx-0 rounded-xl p-2 pb-4 font-mina md:h-72 flex flex-col justify-start items-center">
+                            <h1 className="text-pinky text-center pb-2">
+                                Besøk oss:
+                            </h1>
+                            <p className="font-mina text-xl">
+                                CREATE
+                            </p>
+                            <p className="font-mina text-xl">
+                                Mesnakvartalet 20
+                            </p>
+                            <p className="font-mina text-xl">
+                                2615 Lillehammer
+                            </p>
+                        </div>
+                    </a>    
                     <div className="bg-black/40 mx-4 md:mx-0 rounded-xl p-2 font-mina mb-8 flex flex-col gap-2 md:h-80">
                         <h1 className="text-pinky text-center">
                             Les mer:
