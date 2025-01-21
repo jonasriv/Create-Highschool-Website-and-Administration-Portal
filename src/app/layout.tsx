@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto, Roboto_Mono, Bungee_Hairline, Mina, Notable, Rubik_Dirt, Bahiana } from "next/font/google";
 import "./globals.css";
+import Head from 'next/head';
 
 const bungee = Bungee_Hairline({
   variable: "--font-bungee",
@@ -55,7 +56,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="no">
+      <head>
+        {/* Legg til favicon */}
+        <link rel="icon" href="/favicon.png" type="image/png" />
+      </head>
       <body
         className={`bg-black ${robotoMono.variable} ${robotoSans.variable} ${bungee.variable} ${exo2.variable} ${rubik.variable} ${notable.variable} ${bahiana.variable} antialiased`}
       >
