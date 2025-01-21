@@ -21,12 +21,15 @@ const Front = () => {
                 </div>
 
 
-                <div className="flex flex-col w-full items-center justify-around gap-8">
+                <div className="flex flex-col w-96 items-center justify-around gap-8"
+ >
                     <h1 className="font-roboto font-black text-xl normal-case text-center">
                         <GetTextContent contentKey="frontpage_soknadsfrist"/>
                     </h1>
                     <Link href="/soknad">
-                        <button className="bg-pinky w-42 h-14 flex justify-center items-center text-2xl py-4 px-8 rounded-3xl font-black uppercase text-slate-200 border-2 border-transparent hover:border-white hover:text-white">Søk nå</button>
+                        <button className="bg-pinky w-42 h-14 flex justify-center items-center text-2xl py-4 px-8 rounded-3xl font-black text-slate-200 border-2 border-transparent hover:border-white hover:text-white">
+                            Søk nå!
+                        </button>
                     </Link>
                     <div className="flex justify-center items-center">
                         <div className="opacity-40 py-4 md:hidden">

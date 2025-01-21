@@ -38,7 +38,9 @@ const Header = () => {
                     
                     <div className="flex flex-row gap-12 m-4 justify-between items-center ">
                         <Link href="/soknad">
-                            <button className="bg-pinky w-22 h-10 flex justify-center items-center text-sm py-4 px-4 rounded-3xl font-black uppercase text-slate-200 border-2 border-transparent hover:border-white hover:text-white">Søk nå</button>
+                            <button className="bg-pinky w-22 h-10 flex justify-center items-center text-sm py-4 px-4 rounded-3xl font-black text-slate-200 border-2 border-transparent hover:border-white hover:text-white">
+                                Søk nå
+                            </button>
                         </Link>
                         <HamburgerMenu isOpen={isOpen} toggleMenu={toggleMenu} />
                     </div>

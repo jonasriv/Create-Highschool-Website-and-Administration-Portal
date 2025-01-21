@@ -41,7 +41,7 @@ const Home = () => {
             <Intro />
           </div>                       
 
-          <div id="admission" className="flex h-auto items-start justify-center backdrop-blur-lg pt-24">
+          <div id="admission" className="flex h-auto items-start justify-center backdrop-blur-lg pt-24 pb-8">
             <Admission />
           </div>         
 

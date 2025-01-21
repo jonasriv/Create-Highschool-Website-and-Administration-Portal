@@ -126,7 +126,7 @@ const GetNews: React.FC<GetNewsItemProps> = ({ token }) => {
                             >
                                 <p className="text-xl font-bold text-black">{newsitem.news_title}</p>
                                 <p className="text-lg text-black">{newsitem.news_content}</p>
-                                <p className="italic">{newsitem.news_image}</p>
+                                <p className="italic break-words">{newsitem.news_image}</p>
                                 <p className="text-black">{newsitem.createdAt.substring(0, 10)}</p>
                                 <div className="w-full flex justify-end items-center">
                                     <button 

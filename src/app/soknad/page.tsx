@@ -169,19 +169,19 @@ const Soknad = () => {
             )}
             {requirements && (
                 <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 z-50 flex-col gap-12">    
-                    <div className="bg-white/90 p-4 mb-4 rounded-xl w-96 h-auto font-roboto">
-                        <h1 className="text-black text-2xl font-black">Opplasting av karakterkort</h1>
-                        <p className="text-xl text-black mb-4">
-                            Last opp et tydelig og klart bilde av din karakterutskrift fra 1. termin på 10. trinn. Det må vise fullt navn, skole og alle karakterene dine. Bruk gjerne skjermbilde fra <a className="underlines hover:underline font-black text-blue-800" href="https://elev.visma.no/lillehammer" target="_blank">visma</a> eller tilsvarende. 
+                    <div className="bg-black/80 p-4 mb-4 rounded-xl w-96 h-auto font-roboto">
+                        <h1 className="text-white text-2xl font-black">Opplasting av karakterkort</h1>
+                        <p className="text-xl text-white mb-4">
+                            Last opp et tydelig og klart bilde av din karakterutskrift fra 1. termin på 10. trinn. Det må vise fullt navn, skole og alle karakterene dine. Bruk gjerne skjermbilde fra <a className="underlines hover:underline font-black text-blue-400" href="https://elev.visma.no/lillehammer" target="_blank">visma</a> eller tilsvarende. 
                         </p>
-                        <p className="text-xl mb-4 text-black">
+                        <p className="text-xl mb-4 text-white">
                             Karakterkort lagres i opptil 12 måneder for søknadsprosessen og slettes deretter automatisk. Ingen data deles med tredjeparter. 
                         </p>
-                        <button onClick={(e) => {handleGetIt(e)}} className="p-4 w-full border-2 bg-blue-600 hover:bg-black cursor-pointer rounded-lg">Jeg skjønner!</button>
+                        <button onClick={(e) => {handleGetIt(e)}} className="p-4 w-full bg-blue-600 hover:bg-blue-500 cursor-pointer rounded-lg">Jeg skjønner!</button>
                     </div>    
                 </div>
             )}            
-            <div className="max-w-screen-lg mt-36 mb-8 w-11/12 mx-auto p-6 bg-slate-600 rounded-lg shadow-lg md:24 flex flex-col">
+            <div className="max-w-screen-lg mt-36 mb-8 w-11/12 mx-auto p-6 bg-slate-600 bg-opacity-95 rounded-lg shadow-lg md:24 flex flex-col">
             <div className="">
                 <h1 className="font-mina text-2xl md:text-3xl mb-4">
                     Bli en del av Create!
@@ -191,12 +191,12 @@ const Soknad = () => {
                 </div>
                 <p className="text-lg text-red-400 mt-4">Søknadsfrist 1. mars</p>
             </div>
-            <h1 className="text-2xl font-bold mb-6 pt-8 font-roboto">Søknadsskjema</h1>
+            <h1 className="text-2xl font-bold mb-6 pt-8 font-mina">Søknadsskjema</h1>
             
             <form onSubmit={handleSubmit} className="space-y-4">
             {/* Fullt navn */}
             <div>
-                <label htmlFor="fullName" className="block text-sm md:text-lg font-semibold">Fullt navn</label>
+                <label htmlFor="fullName" className="block text-sm md:text-lg font-semibold">Fullt navn:</label>
                 <input
                 type="text"
                 placeholder="Ditt fulle navn"
@@ -211,7 +211,7 @@ const Soknad = () => {
     
             {/* E-post */}
             <div>
-                <label htmlFor="email" className="block text-sm md:text-lg font-semibold">Din e-postadresse</label>
+                <label htmlFor="email" className="block text-sm md:text-lg font-semibold">Din e-postadresse:</label>
                 <input
                 type="email"
                 placeholder="Din e-postadresse"
@@ -226,7 +226,7 @@ const Soknad = () => {
 
             {/* E-post foresatt*/}
             <div>
-                <label htmlFor="emailParent" className="block text-sm md:text-lg font-semibold">Foresattes e-postadresse</label>
+                <label htmlFor="emailParent" className="block text-sm md:text-lg font-semibold">Foresattes e-postadresse:</label>
                 <input
                 type="email"
                 placeholder="Foresattes e-postadresse"
@@ -241,7 +241,7 @@ const Soknad = () => {
     
             {/* Telefonnummer */}
             <div>
-                <label htmlFor="phone" className="block text-sm md:text-lg font-semibold">Telefonnummer</label>
+                <label htmlFor="phone" className="block text-sm md:text-lg font-semibold">Telefonnummer:</label>
                 <input
                 type="tel"
                 placeholder="Telefonnummer"
@@ -255,9 +255,9 @@ const Soknad = () => {
             </div>
     
             {/* Prioritering */}
-            <h1 className="font-roboto text-2xl pt-4">Prioritering:</h1>
+            <h1 className="font-mina text-2xl pt-4">Prioritering:</h1>
             <div>
-                <label htmlFor="priority1" className="block text-sm md:text-lg font-semibold">Førstevalg</label>
+                <label htmlFor="priority1" className="block text-sm md:text-lg font-semibold">Førstevalg:</label>
                 <select
                 id="prority1"
                 name="prority1"
@@ -275,7 +275,7 @@ const Soknad = () => {
             </div>
 
             <div>
-                <label htmlFor="priority2" className="block text-sm md:text-lg font-semibold">Andrevalg</label>
+                <label htmlFor="priority2" className="block text-sm md:text-lg font-semibold">Andrevalg:</label>
                 <select
                 id="prority2"
                 name="prority2"
@@ -294,7 +294,7 @@ const Soknad = () => {
             </div>
 
             <div>
-                <label htmlFor="priority3" className="block text-sm md:text-lg font-semibold">Tredjevalg</label>
+                <label htmlFor="priority3" className="block text-sm md:text-lg font-semibold">Tredjevalg:</label>
                 <select
                 id="prority3"
                 name="prority3"

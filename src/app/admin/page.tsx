@@ -124,7 +124,7 @@ export default function AdminPage() {
                 }
                 {username === "admin" &&
                 <Tabs defaultValue="news_tab" className="w-full h-full flex flex-col justify-center">
-                    <div className="w-full flex justify-center">
+                    <div className="w-full flex justify-center bg-white/20">
                         <TabsList className="rounded-none h-22 p-4 mb-4 flex flex-row justify-between w-8/12">
                             <TabsTrigger value="news_tab" className="opacity-100 bg-black p-2 md:p-4 text-md md:text-2xl">Nyheter</TabsTrigger>
                             <TabsTrigger value="applications_tab" className="opacity-100 bg-black p-2 md:p-4 text-md md:text-2xl">Søknader</TabsTrigger>
