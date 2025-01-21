@@ -78,14 +78,14 @@ export default function AdminPage() {
           backgroundRepeat: 'no-repeat',
           //filter: 'brightness(80%)',
       }}>
-                <div className="flex flex-row gap-4 items-center justify-between w-full bg-slate-950 px-8 text-lg font-bold font-roboto min-h-16">
+                <div className="flex flex-row gap-4 items-center justify-between w-full bg-slate-950 px-8 text-sm md:text-lg font-bold font-roboto min-h-16">
                     <div>
                         <h1 className="w-full p-4 text-center font-black font-mina">Create VGS Admin Panel</h1>
                     </div>
                     {token &&
-                        <div className="flex flex-row gap-8 items-center">
+                        <div className="flex flex-row gap-4 md:gap-8 items-center">
                             <p>Logget inn som <span className="text-red-700">{username}</span></p>
-                            <button onClick={handleLogout} className="rounded-xl px-4 my-2 py-[2px] bg-red-400 hover:bg-red-500">Logg ut</button>
+                            <button onClick={handleLogout} className="rounded-xl px-2 md:px-4 my-2 py-[2px] bg-red-400 hover:bg-red-500">Logg ut</button>
                         </div>
                     }
 
@@ -126,9 +126,9 @@ export default function AdminPage() {
                 <Tabs defaultValue="news_tab" className="w-full h-full flex flex-col justify-center">
                     <div className="w-full flex justify-center bg-white/20">
                         <TabsList className="rounded-none h-22 p-4 mb-4 flex flex-row justify-between w-8/12">
-                            <TabsTrigger value="news_tab" className="opacity-100 bg-black p-2 md:p-4 text-md md:text-2xl">Nyheter</TabsTrigger>
-                            <TabsTrigger value="applications_tab" className="opacity-100 bg-black p-2 md:p-4 text-md md:text-2xl">Søknader</TabsTrigger>
-                            <TabsTrigger value="content_tab" className="opacity-100 p-2 md:p-4 bg-black text-md md:text-2xl">Web-innhold</TabsTrigger>
+                            <TabsTrigger value="news_tab" className="opacity-100 bg-black p-2 md:p-4 text-sm md:text-md lg:text-2xl">Nyheter</TabsTrigger>
+                            <TabsTrigger value="applications_tab" className="opacity-100 bg-black p-2 md:p-4 text-sm md:text-md lg:text-2xl">Søknader</TabsTrigger>
+                            <TabsTrigger value="content_tab" className="opacity-100 p-2 md:p-4 bg-black text-sm md:text-md lg:text-2xl">Web-innhold</TabsTrigger>
                         </TabsList> 
                     </div>
 
