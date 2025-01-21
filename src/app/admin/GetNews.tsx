@@ -122,7 +122,7 @@ const GetNews: React.FC<GetNewsItemProps> = ({ token }) => {
                         {newsItems.map((newsitem) => (
                             <div 
                             key={newsitem._id}
-                            className="bg-white/60 md:rounded-xl p-4 w-auto max-w-[600px]"
+                            className="bg-white/60 rounded-xl p-4 w-auto max-w-[600px]"
                             >
                                 <p className="text-xl font-bold text-black">{newsitem.news_title}</p>
                                 <p className="text-lg text-black">{newsitem.news_content}</p>
@@ -142,7 +142,7 @@ const GetNews: React.FC<GetNewsItemProps> = ({ token }) => {
                 </div>
                             
             <form
-                className="table-auto w-full mt-8 text-xl p-4 md:rounded-xl bg-white/60 border-2 border-black text-black flex flex-col gap-4 max-w-[1000px]"
+                className="table-auto w-full mt-8 text-xl p-4 rounded-xl bg-white/60 border-2 border-black text-black flex flex-col gap-4 max-w-[1000px]"
                 onSubmit={(e) => {
                     e.preventDefault();
                     saveContent();

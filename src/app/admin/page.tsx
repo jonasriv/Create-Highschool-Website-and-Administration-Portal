@@ -91,7 +91,7 @@ export default function AdminPage() {
 
                 </div>
             {!token ? (
-                <div className="flex flex-col gap-12 w-full max-w-screen-sm min-h-96 items-center bg-black/60 p-12 rounded-2xl mt-16 ">
+                <div className="flex flex-col gap-12 w-full max-w-screen-sm min-h-96 items-center bg-black/60 p-12 md:rounded-2xl mt-16 ">
                     {error && <p style={{color:"red" }}>{error}</p>}
                     <input  
                         type="text"
@@ -116,7 +116,7 @@ export default function AdminPage() {
                     <div className="w-full h-full flex flex-col justify-center">
                         <div className="w-full h-auto min-h-screen">
                             <h1 className="text-center text-2xl p-8 w-full bg-black/40">Nyheter</h1>
-                            <div className="w-full mb-4">
+                            <div className="w-full mb-4 p-4">
                                 <GetNews token={token}/>
                             </div>
                     </div>  
