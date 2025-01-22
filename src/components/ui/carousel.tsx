@@ -70,13 +70,13 @@ const Carousel = React.forwardRef<
           <>
             <button
               onClick={() => api?.scrollPrev()} // Gå til forrige slide
-              className="absolute top-1/3 left-3 transform -translate-y-1/2 bg-black/60 py-[11px] px-[12px] rounded-full md:hover:bg-gray-400"
+              className="absolute top-1/2 left-3 transform -translate-y-1/2 bg-black/60 py-[11px] px-[12px] rounded-full md:hover:bg-gray-400"
             >
               <ChevronLeft/>
             </button>
             <button
               onClick={() => api?.scrollNext()} // Gå til neste slide
-              className="absolute top-1/3 right-3 transform -translate-y-1/2 bg-black/60 py-[11px] px-[12px] rounded-full md:hover:bg-gray-400"
+              className="absolute top-1/2 right-3 transform -translate-y-1/2 bg-black/60 py-[11px] px-[12px] rounded-full md:hover:bg-gray-400"
             >
               <ChevronRight/>
             </button>

@@ -18,10 +18,10 @@ const Intro: React.FC = () => {
 
                     <div className="lg:max-w-screen-lg flex flex-col justify-around items-center w-screen scroll-smooth no-scrollbar overflow-y-scroll gap-6">
                     <div className="font-roboto-mono text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center rounded-xl">
-                            <div className="flex flex-col w-screen lg:w-full justify-start items-center h-full md:rounded-t-xl px-2 rounded-xl">
+                            <div className="flex flex-col w-screen lg:w-full justify-start items-center h-full md:rounded-t-xl md:px-2 rounded-xl">
                                 
                                 <div 
-                                    className="w-full min-h-[450px] md:min-h-[600px] lg:rounded-xl flex flex-col justify-end items-center h-full rounded-xl"
+                                    className="w-full min-h-[450px] md:min-h-[600px] lg:rounded-xl flex flex-col justify-end items-center h-full"
                                     style={{
                                         backgroundImage: `url(${Create3})`,
                                         backgroundSize: 'cover',
@@ -30,7 +30,7 @@ const Intro: React.FC = () => {
                                         //filter: 'brightness(80%)',
                                     }}  
                                 >
-                                    <div className="text-md md:text-2xl lg:text-2xl bg-black/70 py-4 w-full flex justify-center items-end rounded-b-xl">
+                                    <div className="text-md md:text-2xl lg:text-2xl bg-black/70 py-4 w-full flex justify-center items-end md:rounded-b-xl">
                                         <div className="mx-2 md:m-4 px-2 max-w-screen-md">
                                             <GetTextContent contentKey="elev_1" />   
                                         </div>                                       
@@ -47,11 +47,11 @@ const Intro: React.FC = () => {
                         </div>                                
                         </div>
 
-                        <div className="font-roboto-mono text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center rounded-xl">
-                            <div className="flex flex-col w-screen lg:w-full justify-start items-center h-full md:rounded-t-xl px-2 rounded-xl">
+                        <div className="font-roboto-mono text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center md:rounded-xl">
+                            <div className="flex flex-col w-screen lg:w-full justify-start items-center h-full md:rounded-t-xl md:px-2 rounded-xl">
                                 
                                 <div 
-                                    className="w-full min-h-[450px] md:min-h-[600px] lg:rounded-xl flex flex-col justify-end items-center h-full rounded-xl"
+                                    className="w-full min-h-[450px] md:min-h-[600px] lg:rounded-xl flex flex-col justify-end items-center h-full md:rounded-xl"
                                     style={{
                                         backgroundImage: `url(${Create1})`,
                                         backgroundSize: 'cover',
@@ -60,7 +60,7 @@ const Intro: React.FC = () => {
                                         //filter: 'brightness(80%)',
                                     }}  
                                 >
-                                    <div className="text-md md:text-2xl lg:text-2xl bg-black/70 py-4 w-full flex justify-center items-end rounded-b-xl">
+                                    <div className="text-md md:text-2xl lg:text-2xl bg-black/70 py-4 w-full flex justify-center items-end md:rounded-b-xl">
                                         <div className="mx-2 md:m-4 px-2 max-w-screen-md">
                                             <GetTextContent contentKey="elev_2" />   
                                         </div>
@@ -80,10 +80,10 @@ const Intro: React.FC = () => {
  
                   
                         <div className="font-roboto-mono text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center rounded-xl">
-                            <div className="flex flex-col w-screen lg:w-full justify-start items-center h-full md:rounded-t-xl px-2 rounded-xl">
+                            <div className="flex flex-col w-screen lg:w-full justify-start items-center h-full md:rounded-t-xl md:px-2 md:rounded-xl">
                                 
                                 <div 
-                                    className="w-full min-h-[450px] md:min-h-[600px] lg:rounded-xl flex flex-col justify-end items-center h-full rounded-xl"
+                                    className="w-full min-h-[450px] md:min-h-[600px] lg:rounded-xl flex flex-col justify-end items-center h-full md:rounded-xl"
                                     style={{
                                         backgroundImage: `url(${Create2})`,
                                         backgroundSize: 'cover',
@@ -92,7 +92,7 @@ const Intro: React.FC = () => {
                                         //filter: 'brightness(80%)',
                                     }}  
                                 >
-                                    <div className="text-md md:text-2xl lg:text-2xl bg-black/70 py-4 w-full flex justify-center items-end rounded-b-xl">
+                                    <div className="text-md md:text-2xl lg:text-2xl bg-black/70 py-4 w-full flex justify-center items-end md:rounded-b-xl">
                                         <div className="mx-2 md:m-4 px-2 max-w-screen-md">
                                             <GetTextContent contentKey="elev_3" />   
                                         </div>                                      
@@ -108,11 +108,11 @@ const Intro: React.FC = () => {
                                 <ChevronDown size="56"/>
                             </div>
                         </div>   
-                        <div className="font-roboto-mono text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center rounded-xl">
-                            <div className="flex flex-col w-screen lg:w-full justify-start items-center h-full md:rounded-t-xl px-2 rounded-xl">
+                        <div className="font-roboto-mono text-lg text-white min-w-full flex flex-col no-scrollbar justify-center items-center md:rounded-xl">
+                            <div className="flex flex-col w-screen lg:w-full justify-start items-center h-full md:rounded-t-xl md:px-2 rounded-xl">
                                 
                                 <div 
-                                    className="w-full min-h-[450px] md:min-h-[600px] lg:rounded-xl flex flex-col justify-end items-center h-full rounded-xl"
+                                    className="w-full min-h-[450px] md:min-h-[600px] lg:rounded-xl flex flex-col justify-end items-center h-full md:rounded-xl"
                                     style={{
                                         backgroundImage: `url(${Create4})`,
                                         backgroundSize: 'cover',
@@ -121,7 +121,7 @@ const Intro: React.FC = () => {
                                         //filter: 'brightness(80%)',
                                     }}  
                                 >
-                                    <div className="text-md md:text-2xl lg:text-2xl bg-black/70 py-4 w-full flex justify-center items-end rounded-b-xl">
+                                    <div className="text-md md:text-2xl lg:text-2xl bg-black/70 py-4 w-full flex justify-center items-end md:rounded-b-xl">
                                         <div className="mx-2 md:m-4 px-2 max-w-screen-md">
                                             <GetTextContent contentKey="elev_4" />   
                                         </div>                                     
