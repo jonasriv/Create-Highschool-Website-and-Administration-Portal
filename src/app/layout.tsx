@@ -48,6 +48,9 @@ const robotoMono = Roboto_Mono({
 export const metadata: Metadata = {
   title: "Create VGS",
   description: "Lillehammer kreative videregående skole",
+  icons: {
+    icon: "/favicon.ico",
+  }
 };
 
 export default function RootLayout({
