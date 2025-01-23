@@ -51,7 +51,7 @@ const Study: React.FC = () => {
         >
             <div className="w-screen h-auto lg:w-[1024px] text-white flex flex-col justify-start items-center box-border ...  no-scrollbar mt-0 overflow-hidden">
                 <div className="lg:bg-black/50 flex max-h-[1000px] lg:h[900] flex-col lg:rounded-xl w-full mt-16 md:mt-24 justify-start items-center md:gap-4">
-                    <h1 className="font-mina text-2xl md:text-3xl lg:text-4xl tracking-widest text-center text-white font-black mb-16 pt-4">
+                    <h1 className="font-mina text-2xl md:text-3xl lg:text-4xl tracking-widest text-center text-white font-black mb-8 pt-4">
                         Programfagene
                     </h1>
                     
