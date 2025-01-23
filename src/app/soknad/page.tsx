@@ -152,7 +152,7 @@ const Soknad = () => {
     
       return (
         <div 
-        className="flex flex-col overflow-y-scroll h-screen w-screen bg-black"
+        className="flex flex-col overflow-y-scroll h-screen w-screen bg-black "
         style={{
           backgroundImage: `url(${externalBackground})`,
           backgroundSize: 'cover',
@@ -181,7 +181,7 @@ const Soknad = () => {
                     </div>    
                 </div>
             )}            
-            <div className="max-w-screen-lg mt-36 mb-8 w-11/12 mx-auto p-6 bg-slate-600 bg-opacity-95 rounded-lg shadow-lg md:24 flex flex-col">
+            <div className="max-w-screen-lg mt-20 mb-8 w-11/12 mx-auto p-6 bg-slate-600 bg-opacity-95 rounded-lg flex flex-col">
             <div className="">
                 <h1 className="font-mina text-2xl md:text-3xl mb-4">
                     Bli en del av Create!

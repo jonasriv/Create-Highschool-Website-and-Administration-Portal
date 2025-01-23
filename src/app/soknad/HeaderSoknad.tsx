@@ -9,7 +9,7 @@ const Header = () => {
     return (
         <header>
             <div 
-                className='flex fixed flex-row gap-1 justify-center items-center w-screen max-w-screen bg-black/60 h-20 md:h-24 p-4 z-50 backdrop-blur-lg'
+                className='flex fixed flex-row gap-1 justify-center items-center w-screen max-w-screen bg-black/60 h-20 p-4 z-50 backdrop-blur-lg'
             >
                 <div className="flex justify-between items-center max-w-screen-lg w-screen h-full">
                     <div className="cursor-pointer">
