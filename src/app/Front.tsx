@@ -24,7 +24,7 @@ const Front = () => {
                 <div className="flex flex-col w-96 items-center justify-around gap-8"
  >
                     <h1 className="font-roboto text-xl normal-case text-center">
-                        <GetTextContent contentKey="frontpage_soknadsfrist"/>
+                        Søknadsfrist 1. mars!
                     </h1>
                     <Link href="/soknad">
                         <button className="bg-pinky w-42 h-14 flex justify-center items-center text-2xl py-4 px-8 rounded-3xl font-black text-slate-200 border-2 border-transparent hover:border-white hover:text-white">
