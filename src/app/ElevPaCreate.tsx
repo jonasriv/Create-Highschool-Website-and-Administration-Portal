@@ -15,9 +15,9 @@ const ElevPaCreate: React.FC = () => {
     return (
         <div className="flex flex-col justify-center items-center w-screen h-full mt-12 mb-8 rounded-xl">
             <div className="w-screen h-full lg:w-[1024px] text-white flex flex-col justify-center items-center box-border ...  no-scrollbar mt-0 ">
-                <div className="flex h-full flex-col lg:rounded-2xl w-full justify-center items-center ">
+                <div className="flex h-full flex-col lg:rounded-2xl w-full justify-center items-center gap-8">
 
-                    <div className="flex flex-col justify-between items-center md:rounded-t-xl w-full md:w-[600px] lg:w-[1024px] h-[480px] md:h-[600px] lg:h-[600px]"
+                    <div className="flex flex-col justify-between items-center md:rounded-xl w-full md:w-[600px] lg:w-[1024px] h-[480px] md:h-[600px] lg:h-[600px]"
                                     style={{
                                         backgroundImage: `url(${Create1})`, 
                                         backgroundSize: 'cover',
@@ -42,7 +42,7 @@ const ElevPaCreate: React.FC = () => {
                             </Carousel>
                         </div>
                     </div>
-                    <div className="flex flex-col justify-between items-center md:rounded-b-xl w-full md:w-[600px] lg:w-[1024px] h-[480px] md:h-[600px] lg:h-[600px]"
+                    <div className="flex flex-col justify-between items-center md:rounded-xl w-full md:w-[600px] lg:w-[1024px] h-[480px] md:h-[600px] lg:h-[600px]"
                                     style={{
                                         backgroundImage: `url(${Create2})`, 
                                         backgroundSize: 'cover',
