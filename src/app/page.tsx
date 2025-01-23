@@ -3,11 +3,10 @@ import dynamic from "next/dynamic";
 const Front = dynamic(() => import("./Front"));
 const Study = dynamic(() => import("./Study"));
 const Header = dynamic(() => import("./Header"));
-const Intro = dynamic(() => import("./Intro"));
 const Admission = dynamic(() => import("./Admission"));
 const Contact = dynamic(() => import("./Contact"));
-const HvaSkjer = dynamic(() => import("./HvaSkjer"));
 const Footer = dynamic(() => import("./Footer"));
+const ElevPaCreate = dynamic(() => import("./ElevPaCreate"));
 
 const Home = () => {
   const externalBackground = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506363/background_no_logo_yhjwra.jpg";
@@ -27,21 +26,17 @@ const Home = () => {
 
           <div id="front" className="h-screen flex items-center justify-center">
             <Front />
-          </div>
-
-          <div id="hvaskjer" className="flex h-screen flex-col items-center justify-center backdrop-blur-lg pt-24">
-            <HvaSkjer />
-          </div>   
+          </div> 
           
-          <div id="study" className="h-screen flex items-center justify-center backdrop-blur-lg">
+          <div id="study" className="h-auto flex items-center justify-center backdrop-blur-lg pb-0 mb-0 lg:pb-8">
             <Study />
           </div>
 
-          <div id="intro" className="h-auto flex items-center justify-center backdrop-blur-lg">
-            <Intro />
+          <div id="intro" className="h-auto flex items-center justify-center backdrop-blur-lg pt-8 pb-16 mt-0">
+            <ElevPaCreate />
           </div>                       
 
-          <div id="admission" className="flex h-auto items-start justify-center backdrop-blur-lg pt-24 pb-8">
+          <div id="admission" className="flex h-auto items-start justify-center backdrop-blur-lg pt-16 pb-16">
             <Admission />
           </div>         
 

@@ -10,7 +10,7 @@ const Intro: React.FC = () => {
     const Create4 = 'https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507023/IMG_7018-1_uqzmsn.jpg';
 
     return (
-        <div className="flex flex-col justify-start items-center w-screen pt-20">
+        <div className="flex flex-col justify-start items-center w-screen">
             <div className="w-full h-auto text-white flex flex-col justify-start items-center box-border ...  no-scrollbar relative overflow-hidden pb-8">
                     <h1 className="w-auto font-mina text-2xl md:text-3xl lg:text-4xl lg:mt-4 tracking-widest text-center text-white font-black p-2 py-8 z-50">
                         Elev på Create

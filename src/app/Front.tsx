@@ -1,7 +1,7 @@
 'use client'
 import React from "react";
 import Image from 'next/image';
-import Logo from  '../../public/images/logo-header-kopi.svg'
+import Logo from  '../../public/images/fjernetbakgrunnLogo.png'
 import { ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import GetTextContent from "./GetTextContent";
@@ -12,10 +12,10 @@ const Front = () => {
             id="front"
             className="flex flex-col justify-center items-center w-screen max-w-screen h-screen"
         >          
-            <div className="w-screen h-full gap-32 flex flex-col justify-center items-center max-w-screen pt-16 md:pt-0 pb-0 mb-0">
-                <div className="bg-blue flex flex-col justify-around items-center w-full px-4 tracking-widest font-roboto text-lg gap-4 break-keep">
-                    <Image alt="image" src={Logo} className="w-36 md:w-72 flex justify-center items-center svg-purple"></Image>
-                    <h1 className="text-center leading-loose text-xs normal-case font-roboto break-keep">
+            <div className="w-screen h-full gap-20 flex flex-col justify-center items-center max-w-screen pt-16 md:pt-0 pb-0 mb-0">
+                <div className="flex flex-col justify-around items-center w-full px-4 font-roboto text-lg gap-2 break-keep">
+                    <Image alt="image" src={Logo} className="w-52 md:w-96 flex justify-center items-center"></Image>
+                    <h1 className="text-center text-sm leading-loose normal-case break-keep font-roboto">
                         Lillehammer kreative videregående skole
                     </h1>
                 </div>
@@ -23,7 +23,7 @@ const Front = () => {
 
                 <div className="flex flex-col w-96 items-center justify-around gap-8"
  >
-                    <h1 className="font-roboto font-black text-xl normal-case text-center">
+                    <h1 className="font-roboto text-xl normal-case text-center">
                         <GetTextContent contentKey="frontpage_soknadsfrist"/>
                     </h1>
                     <Link href="/soknad">
