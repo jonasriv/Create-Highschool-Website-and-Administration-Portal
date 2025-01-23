@@ -25,9 +25,6 @@ const Navbar: React.FC<NavbarProps> = ({isOpen, onClose }) => {
         <div className={`${isOpen ? "opacity-100 lg:opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"} transition-all duration-300 z-200 h-full md:h-auto `}>
             <div className="flex fixed bg-black/40 flex-col w-full h-full lg:h-32 font-mina text-slate-100 z-200 justify-start backdrop-blur-lg border-white">
                 <ul className="border-y-2 lg:border-0 border-pinky flex cursor-pointer flex-col lg:flex-row text-lg font-bold lg:justify-center lg:left-0 lg:right-0 lg:mx-auto lg:mt-4 lg:max-w-screen-2xl z-200 divide-y-2 lg:divide-y-0 divide-pinky">
-                    <li onClick={() => { scrollToSection("hvaskjer"); onClose(); }} className="px-2 lg:px-0 flex items-center lg:items-start justify-between py-4 lg:text-xl lg:mx-4 hover:text-pinky"> 
-                        <span>Hva skjer?</span><CircleArrowRight  size={42} className="pr-2 lg:hidden"/>
-                    </li>
                     <li onClick={() => { scrollToSection("study"); onClose(); }} className="px-2 lg:px-0 flex items-center lg:items-start justify-between py-4 lg:text-xl lg:mx-4 hover:text-pinky">
                         <span>Programfagene</span><CircleArrowRight  size={42} className="pr-2 lg:hidden"/>
                     </li>
