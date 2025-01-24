@@ -147,8 +147,6 @@ const Soknad = () => {
             document.getElementById("expand_button")?.classList.toggle("hidden");
           } 
     };
-
- 
     
       return (
         <div 

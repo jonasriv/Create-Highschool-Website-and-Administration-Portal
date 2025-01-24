@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/carousel";
 import React from 'react';
 import GetTextContent from './GetTextContent';
+import { ChevronRight, ChevronLeft } from 'lucide-react';
 
 
 const ElevPaCreate: React.FC = () => {
@@ -30,13 +31,29 @@ const ElevPaCreate: React.FC = () => {
                     </h1>
                         <div className="w-full justify-center md:rounded-b-xl h-auto bg-black/90 flex items-center">
                             
-                            <Carousel autoplay={true} autoplayDelay={9000} opts={{ loop: true }} className="flex flex-row w-11/12 justify-center md:rounded-b-xl h-auto text-white pt-4 pb-2 max-w-screen-md overflow-hidden cursor-grab">
-                                <CarouselContent className="w-full flex flex-row mt-4">
-                                    <CarouselItem className="w-full min-w-full flex flex-col justify-end items-center text-xl md:text-2xl px-4 pb-2">
-                                        <GetTextContent contentKey="elev_4" />   
+                            <Carousel autoplay={true} autoplayDelay={9000} opts={{ loop: true }} className="flex flex-row w-11/12 justify-center md:rounded-b-xl h-auto text-white pt-4 pb-2 md:pb-8 max-w-screen-md overflow-hidden cursor-grab">
+                                <CarouselContent className="w-full flex flex-row mt-2 pt-0">
+                                    <CarouselItem className="w-full min-w-full flex flex-row justify-center items-center text-xl md:text-2xl">
+                                        <div className="w-1/12 text-left h-full flex items-center justify-start">
+                                            <ChevronLeft/>
+                                        </div>                                       
+                                        <div className="w-10/12 h-full pt-4">
+                                            <GetTextContent contentKey="elev_4"/>   
+                                        </div>
+                                        <div className="w-1/12 text-end h-full flex items-center justify-end">
+                                            <ChevronRight/>
+                                        </div>
                                     </CarouselItem>
-                                    <CarouselItem className="w-full min-w-full flex flex-col justify-end items-center text-xl md:text-2xl px-4 pb-2">
-                                        <GetTextContent contentKey="elev_1" />   
+                                    <CarouselItem className="w-full min-w-full flex flex-row justify-center items-center text-xl md:text-2xl">
+                                        <div className="w-1/12 text-left h-full flex items-center justify-start">
+                                            <ChevronLeft/>
+                                        </div>                                       
+                                        <div className="w-10/12 h-full pt-4">
+                                            <GetTextContent contentKey="elev_1"/>   
+                                        </div>
+                                        <div className="w-1/12 text-end h-full flex items-center justify-end">
+                                            <ChevronRight/>
+                                        </div>
                                     </CarouselItem>
                                 </CarouselContent>                            
                             </Carousel>
@@ -54,15 +71,31 @@ const ElevPaCreate: React.FC = () => {
                         
                     </h1>
                     <div className="w-full justify-center md:rounded-b-xl h-auto bg-black/90 flex jstify-center items center">
-                            <Carousel autoplay={true} autoplayDelay={10000} opts={{ loop: true }} className="flex flex-row w-full justify-center md:rounded-b-xl h-auto text-white pt-4 pb-8 max-w-screen-md overflow-hidden cursor-grab">
-                                <CarouselContent className="w-full flex flex-row mt-4">
-                                    <CarouselItem className="w-full min-w-full flex flex-col justify-end items-center text-xl md:text-2xl px-4 ">
-                                        <GetTextContent contentKey="elev_2" />   
+                            <Carousel autoplay={true} autoplayDelay={10000} opts={{ loop: true }} className="flex flex-row w-full justify-center md:rounded-b-xl h-auto text-white pt-4 pb-2 md:pb-8 max-w-screen-md overflow-hidden cursor-grab">
+                                <CarouselContent className="w-full flex flex-row mt-2 pt-0">
+                                    <CarouselItem className="w-full min-w-full flex flex-row justify-center items-center text-xl md:text-2xl">
+                                        <div className="w-1/12 text-left h-full flex items-center justify-start">
+                                            <ChevronLeft/>
+                                        </div>                                       
+                                        <div className="w-10/12 h-full pt-4">
+                                            <GetTextContent contentKey="elev_2"/>   
+                                        </div>
+                                        <div className="w-1/12 text-end h-full flex items-center justify-end">
+                                            <ChevronRight/>
+                                        </div>
                                     </CarouselItem>
-                                    <CarouselItem className="w-full min-w-full flex flex-col justify-end items-center text-xl md:text-2xl px-4 ">
-                                        <GetTextContent contentKey="elev_3" />   
+                                    <CarouselItem className="w-full min-w-full flex flex-row justify-center items-center text-xl md:text-2xl">
+                                        <div className="w-1/12 text-left h-full flex items-center justify-start">
+                                            <ChevronLeft/>
+                                        </div>                                       
+                                        <div className="w-10/12 h-full pt-4">
+                                            <GetTextContent contentKey="elev_3"/>   
+                                        </div>
+                                        <div className="w-1/12 text-end h-full flex items-center justify-end">
+                                            <ChevronRight/>
+                                        </div>
                                     </CarouselItem>
-                                </CarouselContent>                            
+                                </CarouselContent>   
                             </Carousel>
                         </div>
                     </div>                    
