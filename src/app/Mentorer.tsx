@@ -17,7 +17,7 @@ const Mentorer = () => {
             <div className="w-screen h-full gap-20 flex flex-col justify-center items-center max-w-screen pt-16">
                 <div className="flex flex-col justify-center items-center w-full px-4 font-black gap-2 break-keep">
                     <h1 className="pb-4 text-2xl md:text-4xl font-mina">Noen av våre mentorer:</h1>
-                    <div className="w-auto h-full max-w-screen-sm lg:max-w-screen-md grid grid-cols-2 md:grid-cols-3 gap-2 justify-center items-center rounded-3xl">
+                    <div className="w-auto h-auto max-w-screen-sm lg:max-w-screen-md grid grid-cols-2 md:grid-cols-3 gap-2 justify-center items-center rounded-3xl">
                         <div className="h-48 w-42 md:h-56 md:w-56 rounded-none flex justify-center items-end"
                             style={{
                                 backgroundImage: `url(${mona})`,
