@@ -25,54 +25,54 @@ const Mentorer = () => {
                                 backgroundImage: `url(${mona})`,
                             }}
                         >
-                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Mona Berntsen</p>
+                            <p className="font-mina w-full min-w-full bg-white/70 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Mona Berntsen</p>
                         </div>
                         <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-lg flex justify-center items-end bg-cover bg-top bg-no-repeat hover:scale-110 active:scale-110 transition-transform duration-300"
                             style={{
                                 backgroundImage: `url(${ellen})`,
                             }}>
-                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Ellen Andrea Wang</p>
+                            <p className="font-mina w-full min-w-full bg-white/70 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Ellen Andrea Wang</p>
                         </div>
                         <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-lg flex justify-center items-end bg-cover bg-top bg-no-repeat hover:scale-110 active:scale-110 transition-transform duration-300"
                             style={{
                                 backgroundImage: `url(${onklP})`,
                                 }}>
-                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Onkl P</p>
+                            <p className="font-mina w-full min-w-full bg-white/70 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Onkl P</p>
                         </div>
                         <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-lg flex justify-center items-end bg-cover bg-top bg-no-repeat hover:scale-110 active:scale-110 transition-transform duration-300"
                             style={{
                                 backgroundImage: `url(${makosir})`,
                                 
                             }}                        >
-                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Makosir</p>
+                            <p className="font-mina w-full min-w-full bg-white/70 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Makosir</p>
                         </div>
                         <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-lg flex justify-center items-end bg-cover bg-top bg-no-repeat hover:scale-110 active:scale-110 transition-transform duration-300"
                             style={{
                                 backgroundImage: `url(${rolf})`,
                                 
                             }}                        >
-                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Rolf Kristian Larsen</p>
+                            <p className="font-mina w-full min-w-full bg-white/70 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Rolf Kristian Larsen</p>
                         </div>
                         <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-lg flex justify-center items-end bg-cover bg-top bg-no-repeat hover:scale-110 active:scale-110 transition-transform duration-300"
                             style={{
                                 backgroundImage: `url(${mathilde})`,
                                 
                             }}                        >
-                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Mathilde Storm</p>
+                            <p className="font-mina w-full min-w-full bg-white/70 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Mathilde Storm</p>
                         </div> 
                         <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-lg flex justify-center items-end bg-cover bg-top bg-no-repeat hover:scale-110 active:scale-110 transition-transform duration-300"
                             style={{
                                 backgroundImage: `url(${synne})`,
                                 
                             }}                        >
-                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Synne Vo</p>
+                            <p className="font-mina w-full min-w-full bg-white/70 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Synne Vo</p>
                         </div> 
                         <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-lg flex justify-center items-end bg-cover bg-top bg-no-repeat hover:scale-110 active:scale-110 transition-transform duration-300"
                             style={{
                                 backgroundImage: `url(${polsa})`,
                                 
                             }}                        >
-                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Øystein Pettersen</p>
+                            <p className="font-mina w-full min-w-full bg-white/70 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Øystein Pettersen</p>
                         </div>                                                 
                     </div>                       
                 </div>
