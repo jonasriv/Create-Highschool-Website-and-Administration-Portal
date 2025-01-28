@@ -35,7 +35,7 @@ const Home = () => {
             <Study />
           </div>
           
-          <div id="elevpacreate" className="h-auto flex items-center justify-center backdrop-blur-lg pt-8 pb-16 mt-0">
+          <div id="intro" className="h-auto flex items-center justify-center backdrop-blur-lg pt-8 pb-16 mt-0">
             <ElevPaCreate />
           </div>                                 
 

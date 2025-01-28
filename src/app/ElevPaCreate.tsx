@@ -20,7 +20,7 @@ const ElevPaCreate: React.FC = () => {
                     <h1 className="font-mina text-2xl md:text-3xl lg:text-4xl tracking-widest text-center text-white font-black mb-4 mt-8">
                         Elev på Create
                     </h1>
-                    <div className="flex flex-col justify-between items-center md:rounded-xl w-full md:w-[600px] lg:w-[1024px] h-[480px] md:h-[600px] lg:h-[600px]"
+                    <div className="flex flex-col justify-end items-center md:rounded-xl w-full md:w-[600px] lg:w-[1024px] h-[480px] md:h-[600px] lg:h-[600px]"
                                     style={{
                                         backgroundImage: `url(${Create1})`, 
                                         backgroundSize: 'cover',
@@ -29,7 +29,7 @@ const ElevPaCreate: React.FC = () => {
                                     }}
                     >                   
 
-                        <div className="w-full justify-center md:rounded-b-xl h-auto bg-black/90 flex items-center">
+                        <div className="w-full justify-center md:rounded-xl h-auto bg-black/90 flex items-center">
                             
                             <Carousel autoplay={true} autoplayDelay={9000} opts={{ loop: true }} className="flex flex-row w-11/12 justify-center md:rounded-b-xl h-auto text-white pt-4 pb-2 md:pb-8 max-w-screen-md overflow-hidden cursor-grab">
                                 <CarouselContent className="w-full flex flex-row mt-2 pt-0">
