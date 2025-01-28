@@ -20,78 +20,59 @@ const Mentorer = () => {
                 <div className="flex flex-col justify-center items-center w-full px-4 font-black gap-2 mt-4 break-keep">
                     <h1 className="pb-4 text-2xl md:text-4xl font-mina">Noen av våre mentorer:</h1>
                     <div className="w-auto h-auto max-w-screen-sm lg:max-w-screen-lg grid grid-cols-2 md:grid-cols-4 gap-4 ">
-                        <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-none flex justify-center items-end"
+                        <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-lg flex justify-center items-end bg-cover bg-top bg-no-repeat hover:scale-110 active:scale-110 transition-transform duration-300"
                             style={{
                                 backgroundImage: `url(${mona})`,
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'top',
-                                backgroundRepeat: 'no-repeat'
                             }}
                         >
-                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-none text-center flex items-center justify-center">Mona Berntsen</p>
+                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Mona Berntsen</p>
                         </div>
-                        <div  className="h-48 w-42 lg:h-56 lg:w-56 rounded-none flex justify-center items-end"
+                        <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-lg flex justify-center items-end bg-cover bg-top bg-no-repeat hover:scale-110 active:scale-110 transition-transform duration-300"
                             style={{
                                 backgroundImage: `url(${ellen})`,
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'top',
-                                backgroundRepeat: 'no-repeat'
                             }}>
-                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-none text-center flex items-center justify-center">Ellen Andrea Wang</p>
+                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Ellen Andrea Wang</p>
                         </div>
-                        <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-none flex justify-center items-end"
+                        <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-lg flex justify-center items-end bg-cover bg-top bg-no-repeat hover:scale-110 active:scale-110 transition-transform duration-300"
                             style={{
                                 backgroundImage: `url(${onklP})`,
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'top',
-                                backgroundRepeat: 'no-repeat'
-                            }}>
-                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-none text-center flex items-center justify-center">Onkl P</p>
+                                }}>
+                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Onkl P</p>
                         </div>
-                        <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-none flex justify-center items-end"
+                        <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-lg flex justify-center items-end bg-cover bg-top bg-no-repeat hover:scale-110 active:scale-110 transition-transform duration-300"
                             style={{
                                 backgroundImage: `url(${makosir})`,
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'top',
-                                backgroundRepeat: 'no-repeat'
+                                
                             }}                        >
-                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-none text-center flex items-center justify-center">Makosir</p>
+                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Makosir</p>
                         </div>
-                        <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-none flex justify-center items-end"
+                        <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-lg flex justify-center items-end bg-cover bg-top bg-no-repeat hover:scale-110 active:scale-110 transition-transform duration-300"
                             style={{
                                 backgroundImage: `url(${rolf})`,
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'top',
-                                backgroundRepeat: 'no-repeat'
+                                
                             }}                        >
-                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-none text-center flex items-center justify-center">Rolf Kristian Larsen</p>
+                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Rolf Kristian Larsen</p>
                         </div>
-                        <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-none flex justify-center items-end"
+                        <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-lg flex justify-center items-end bg-cover bg-top bg-no-repeat hover:scale-110 active:scale-110 transition-transform duration-300"
                             style={{
                                 backgroundImage: `url(${mathilde})`,
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'top',
-                                backgroundRepeat: 'no-repeat'
+                                
                             }}                        >
-                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-none text-center flex items-center justify-center">Mathilde Storm</p>
+                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Mathilde Storm</p>
                         </div> 
-                        <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-none flex justify-center items-end"
+                        <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-lg flex justify-center items-end bg-cover bg-top bg-no-repeat hover:scale-110 active:scale-110 transition-transform duration-300"
                             style={{
                                 backgroundImage: `url(${synne})`,
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'top',
-                                backgroundRepeat: 'no-repeat'
+                                
                             }}                        >
-                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-none text-center flex items-center justify-center">Synne Vo</p>
+                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Synne Vo</p>
                         </div> 
-                        <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-none flex justify-center items-end"
+                        <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-lg flex justify-center items-end bg-cover bg-top bg-no-repeat hover:scale-110 active:scale-110 transition-transform duration-300"
                             style={{
                                 backgroundImage: `url(${polsa})`,
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'top',
-                                backgroundRepeat: 'no-repeat'
+                                
                             }}                        >
-                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-none text-center flex items-center justify-center">Øystein Pettersen</p>
+                            <p className="font-mina w-full min-w-full bg-white/50 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Øystein Pettersen</p>
                         </div>                                                 
                     </div>                       
                 </div>
