@@ -31,27 +31,27 @@ const Home = () => {
 
          
           
-          <div id="study" className="h-auto flex items-center justify-center backdrop-blur-lg pb-0 mb-0 lg:pb-8">
+          <div id="study" className="h-auto flex items-center justify-center backdrop-blur-lg  mb-0 lg:pb-16 border-t-[0px] border-pinky bg-white/5">
             <Study />
           </div>
           
-          <div id="intro" className="h-auto flex items-center justify-center backdrop-blur-lg pt-8 pb-16 mt-0">
+          <div id="intro" className="h-auto flex items-center justify-center backdrop-blur-lg pt-8 pb-16 mt-0 border-y-[0px] border-pinky ">
             <ElevPaCreate />
           </div>                                 
 
-          <div id="mentorer" className="h-auto flex items-center justify-center backdrop-blur-lg pt-8">
+          <div id="mentorer" className="h-auto flex items-center justify-center backdrop-blur-lg pt-8 border-b-[0px] border-pinky bg-white/5">
             <Mentorer />
           </div>    
 
-          <div id="admission" className="flex h-auto items-start justify-center backdrop-blur-lg pt-16 pb-16">
+          <div id="admission" className="flex h-auto items-start justify-center backdrop-blur-lg pt-16 pb-16 border-b-[0px] border-pinky">
             <Admission />
           </div>         
 
-          <div id="contact" className="flex lg:h-screen items-start justify-center backdrop-blur-lg pt-24">
+          <div id="contact" className="flex lg:h-screen items-start justify-center backdrop-blur-lg pt-24 bg-white/5">
             <Contact />
           </div>                       
 
-          <div className="w-screen h-auto uppercase flex flex-col justify-end items-start max-w-screen">
+          <div className="w-screen h-auto uppercase flex flex-col justify-end items-start max-w-screen border-t-[0px] border-pinky">
               <Footer/>
           </div>
          
