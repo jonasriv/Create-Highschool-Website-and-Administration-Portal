@@ -99,7 +99,20 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                     return appAdaptedDate >= fromAdaptedDate && appAdaptedDate <= toAdaptedDate;
                 });
             }
+            applications.sort((a: Application, b: Application) => {
+                const dateA = new Date(a.createdAt);
+                const dateB = new Date(b.createdAt);
             
+                // Sjekk om begge datoene er gyldige
+                if (isNaN(dateA.getTime()) || isNaN(dateB.getTime())) {
+                    console.error("Invalid date format for application:", a.createdAt, b.createdAt);
+                    return 0;
+                }
+            
+                // Sorter etter tid (nyeste først)
+                return dateB.getTime() - dateA.getTime();
+            });
+
             // Iterer gjennom hver applikasjon og prosesser Textract-resultatet
             applications.forEach((app: Application) => {
                 if (app.textractAnalysis) {
@@ -310,7 +323,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                     <h1 className="w-full text-center">Antall søknader: {applications.length}</h1>
                     {showDateFrom !== "" && <p className="w-full text-center">Viser søknader fra {showDateFrom} til {showDateTo} (YYYY-MM-DD)</p>}
                     <div className="flex w-full justify-center"> 
-                        <table ref={tbl} className="table-auto w-full mt-8 text-sm p-4 bg-slate-800 rounded-xl max-w-screen-md overflow-scroll">
+                        <table ref={tbl} className="table-auto w-full mt-8 text-sm p-4 bg-slate-800 rounded-xl max-w-screen-lg overflow-scroll">
                         <thead className="bg-slate-600">
                             <tr className="bg-slate-400-100">
                                 <th className="border px-[2px] break-words py-2">Navn</th>

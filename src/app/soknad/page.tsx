@@ -339,7 +339,7 @@ const Soknad = () => {
                                 ref={fileInputRef}
                                 type="file"
                                 id="resume"
-                                accept=".pdf,.doc,.docx,.jpeg,.png,.jpg,.webp,.tiff,.bmp,.gif"
+                                accept=".pdf,.doc,.docx,.jpeg,.png,.jpg,.webp,.heic,.heif,.avif,.dng"
                                 name="resume"
                                 onChange={(e) => setFormData({ ...formData, resume: e.target.files ? e.target.files[0] : null})}
                                 className="w-full p-4 border-2 border-pinky rounded-md text-white text-xl animate-highlight-fileinput bg-black/40"

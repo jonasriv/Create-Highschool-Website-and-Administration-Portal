@@ -79,6 +79,7 @@ const Contact = () => {
                             <p className="font-mina text-xl">
                                 2615 Lillehammer
                             </p>
+                            
                         </div>
                     </a>    
                     <div className="bg-black/40 mx-4 md:mx-0 rounded-xl p-2 font-mina mb-8 flex flex-col gap-2 md:h-80">
