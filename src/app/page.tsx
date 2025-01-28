@@ -7,6 +7,7 @@ const Admission = dynamic(() => import("./Admission"));
 const Contact = dynamic(() => import("./Contact"));
 const Footer = dynamic(() => import("./Footer"));
 const ElevPaCreate = dynamic(() => import("./ElevPaCreate"));
+const Mentorer = dynamic(() => import("./Mentorer"));
 
 const Home = () => {
   const externalBackground = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506363/background_no_logo_yhjwra.jpg";
@@ -27,14 +28,20 @@ const Home = () => {
           <div id="front" className="h-screen flex items-center justify-center">
             <Front />
           </div> 
+
+         
           
           <div id="study" className="h-auto flex items-center justify-center backdrop-blur-lg pb-0 mb-0 lg:pb-8">
             <Study />
           </div>
-
-          <div id="intro" className="h-auto flex items-center justify-center backdrop-blur-lg pt-8 pb-16 mt-0">
+          
+          <div id="elevpacreate" className="h-auto flex items-center justify-center backdrop-blur-lg pt-8 pb-16 mt-0">
             <ElevPaCreate />
-          </div>                       
+          </div>                                 
+
+          <div id="mentorer" className="h-auto flex items-center justify-center backdrop-blur-lg pt-8">
+            <Mentorer />
+          </div>    
 
           <div id="admission" className="flex h-auto items-start justify-center backdrop-blur-lg pt-16 pb-16">
             <Admission />
@@ -45,8 +52,8 @@ const Home = () => {
           </div>                       
 
           <div className="w-screen h-auto uppercase flex flex-col justify-end items-start max-w-screen">
-                <Footer/>
-            </div>
+              <Footer/>
+          </div>
          
       </main>
       

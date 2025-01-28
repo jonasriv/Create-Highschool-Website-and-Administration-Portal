@@ -31,6 +31,9 @@ const Navbar: React.FC<NavbarProps> = ({isOpen, onClose }) => {
                     <li onClick={() => { scrollToSection("intro"); onClose(); }} className="px-2 lg:px-0 flex items-center lg:items-start justify-between py-4 lg:text-xl lg:mx-4 hover:text-pinky">
                         <span>Elev på Create</span><CircleArrowRight  size={42} className="pr-2 lg:hidden"/>
                     </li>
+                    <li onClick={() => { scrollToSection("mentorer"); onClose(); }} className="px-2 lg:px-0 flex items-center lg:items-start justify-between py-4 lg:text-xl lg:mx-4 hover:text-pinky">
+                        <span>Mentorer</span><CircleArrowRight  size={42} className="pr-2 lg:hidden"/>
+                    </li>                    
                     <li onClick={() => { scrollToSection("admission"); onClose(); }} className="px-2 lg:px-0 flex items-center lg:items-start justify-between py-4 lg:text-xl lg:mx-4 hover:text-pinky">
                         <span>Opptak og info</span><CircleArrowRight  size={42} className="pr-2 lg:hidden"/>
                     </li>
