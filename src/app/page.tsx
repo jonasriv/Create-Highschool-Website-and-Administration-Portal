@@ -31,7 +31,7 @@ const Home = () => {
 
          
           
-          <div id="study" className="h-auto flex items-center justify-center backdrop-blur-lg  mb-0 lg:pb-16 border-t-[0px] border-pinky bg-white/5">
+          <div id="study" className="h-auto flex items-center justify-center backdrop-blur-lg pt-8 mb-0 lg:pb-16 border-t-[0px] border-pinky bg-white/5">
             <Study />
           </div>
           
@@ -43,7 +43,7 @@ const Home = () => {
             <Mentorer />
           </div>    
 
-          <div id="admission" className="flex h-auto items-start justify-center backdrop-blur-lg pt-16 pb-16 border-b-[0px] border-pinky">
+          <div id="admission" className="flex h-auto items-start justify-center backdrop-blur-lg pt-24 pb-16 border-b-[0px] border-pinky">
             <Admission />
           </div>         
 
