@@ -47,7 +47,7 @@ const Study: React.FC = () => {
 
     return (
         <div 
-        className="flex flex-col justify-center items-center w-screen h-auto mt-0"
+        className="flex flex-col justify-center items-center w-screen h-auto mt-0 pb-8"
         >
             <div className="w-screen h-auto lg:w-[1024px] text-white flex flex-col justify-start items-center box-border ...  no-scrollbar mt-0 overflow-hidden">
                 <div className="lg:bg-black/50 flex h-auto flex-col lg:rounded-xl w-full mt-16 md:mt-24 justify-start items-center md:gap-4">
