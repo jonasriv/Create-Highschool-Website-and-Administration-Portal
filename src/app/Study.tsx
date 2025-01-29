@@ -47,17 +47,17 @@ const Study: React.FC = () => {
 
     return (
         <div 
-        className="flex flex-col justify-center items-center w-screen h-auto mt-0 pb-8"
+        className="flex flex-col justify-center items-center w-screen h-auto mt-0 pb-0"
         >
-            <div className="w-screen h-auto lg:w-[1024px] text-white flex flex-col justify-start items-center box-border ...  no-scrollbar mt-0 overflow-hidden">
-                <div className="lg:bg-black/50 flex h-auto flex-col lg:rounded-xl w-full mt-16 md:mt-24 justify-start items-center md:gap-4">
-                    <h1 className="font-mina text-2xl md:text-3xl lg:text-4xl tracking-widest text-center text-white font-black mb-4 md:mb-8 md:pt-4">
+            <div className="w-screen h-auto xl:w-[1024px] text-white flex flex-col justify-start items-center box-border ...  no-scrollbar mt-0 overflow-hidden">
+                <div className="xl:bg-black/50 flex h-auto flex-col lg:rounded-xl w-full mt-16 md:mt-24 justify-start items-center md:gap-4">
+                    <h1 className="font-mina text-2xl md:text-3xl lg:text-4xl tracking-widest text-center text-white font-black mb-4 md:mb-4 md:pt-4">
                         Programfagene
                     </h1>
                     
                     <div id="subject_tabs" className="w-full">
                         <Tabs defaultValue="music_tab" className="w-full flex-col justify-center items-center ">
-                            <TabsList className="w-full md:bg-black/60 flex flex-row items-center justify-around h-22 md:mb-4 rounded-none gap-2 md:gap-4 lg:gap-8">
+                            <TabsList className="w-full xl:bg-black/60 flex flex-row items-center justify-around h-22 md:mb-4 rounded-none gap-2 md:gap-4 lg:gap-8">
                                 <TabsTrigger value="music_tab" className="opacity-100 p-2 lg:p-4 text-md md:text-xl lg:text-2xl"><Star size="12"/>&nbsp;Musikk&nbsp;<Star size="12"/></TabsTrigger>
                                 <TabsTrigger value="dance_tab" className="opacity-100 p-2 lg:p-4 text-md md:text-xl lg:text-2xl "><Star size="12"/>&nbsp;Dans&nbsp;<Star size="12"/></TabsTrigger>
                                 <TabsTrigger value="drama_tab" className="opacity-100 p-2 lg:p-4 text-md md:text-xl lg:text-2xl "><Star size="12"/>&nbsp;Drama&nbsp;<Star size="12"/></TabsTrigger>

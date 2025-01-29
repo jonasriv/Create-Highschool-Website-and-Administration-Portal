@@ -14,6 +14,7 @@ const Carousel = React.forwardRef<
     autoplay?: boolean;
     autoplayDelay?: number;
     showButtons?: boolean; // Prop for å vise/hide knappene
+    buttonsPosition?: string;
   }
 >(
   (
@@ -25,6 +26,7 @@ const Carousel = React.forwardRef<
       className,
       children,
       showButtons = false, // Standard: ikke vis knappene
+      buttonsPosition = "top-1/2", // Standard plassering
       ...props
     },
     ref
@@ -70,15 +72,21 @@ const Carousel = React.forwardRef<
           <>
             <button
               onClick={() => api?.scrollPrev()} // Gå til forrige slide
-              className="absolute top-1/3 left-3 transform -translate-y-1/2 bg-black/60 py-[11px] px-[12px] rounded-full md:hover:bg-gray-400"
+              className={cn(
+                "absolute left-3 transform -translate-y-1/2 bg-white/40 py-[11px] px-[12px] rounded-full md:hover:bg-white/20",
+                buttonsPosition
+              )}
             >
-              <ChevronLeft/>
+              <ChevronLeft color="black"/>
             </button>
             <button
               onClick={() => api?.scrollNext()} // Gå til neste slide
-              className="absolute top-1/3 right-3 transform -translate-y-1/2 bg-black/60 py-[11px] px-[12px] rounded-full md:hover:bg-gray-400"
+              className={cn(
+                "absolute right-3 transform -translate-y-1/2 bg-white/40 py-[11px] px-[12px] rounded-full md:hover:bg-white/20",
+                buttonsPosition
+              )}
             >
-              <ChevronRight/>
+              <ChevronRight color="black"/>
             </button>
           </>
         )}

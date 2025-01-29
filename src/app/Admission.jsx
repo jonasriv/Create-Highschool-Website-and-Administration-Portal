@@ -8,8 +8,8 @@ const Admission = () => {
         <div 
         className="flex flex-col justify-center items-center w-screen h-full overflow-y-scroll"
         >
-            <div className="w-full max-w-screen-lg text-white flex flex-col justify-start items-center box-border ... h-full">
-                <div className="flex flex-col lg:bg-black/50 lg:rounded-xl w-full overflow-hidden md:mt-8 min-h-[80%] md:mx-2">
+            <div className="w-full max-w-screen-xl text-white flex flex-col justify-start items-center box-border ... h-full">
+                <div className="flex flex-col xl:bg-black/50 xl:rounded-xl w-full overflow-hidden md:mt-8 min-h-[80%] md:mx-2">
                     <h1 className="font-mina text-2xl md:text-3xl lg:text-4xl tracking-widest text-center text-white font-black md:py-8">
                         Opptak og info
                     </h1>

@@ -28,9 +28,7 @@ const Home = () => {
           <div id="front" className="h-screen flex items-center justify-center">
             <Front />
           </div> 
-
          
-          
           <div id="study" className="h-auto flex items-center justify-center backdrop-blur-lg pt-8 mb-0 lg:pb-16 border-t-[0px] border-pinky bg-white/5">
             <Study />
           </div>
@@ -47,7 +45,7 @@ const Home = () => {
             <Admission />
           </div>         
 
-          <div id="contact" className="flex lg:h-screen items-start justify-center backdrop-blur-lg pt-24 bg-white/5">
+          <div id="contact" className="flex h-auto items-start justify-center backdrop-blur-lg pt-28 bg-white/5">
             <Contact />
           </div>                       
 
