@@ -24,7 +24,7 @@ const Admission = () => {
                             <TabsContent value="admission_tab" className="md:rounded-2xl w-full h-auto overflow-y-scroll">
                                 <div className="flex flex-col md:flex-row md:justify-between items-start md:pt-4">
                                     <div className="w-full pr-4 font-roboto-mono flex justify-center">
-                                        <div className="font-roboto text-lg md:text-2xl text-slate-300 leading-normal px-6 lg:px-16 pb-12 flex flex-col justify-center items-center max-w-[1024px] bg-blue-400">
+                                        <div className="font-roboto text-lg md:text-2xl text-slate-300 leading-normal px-6 lg:px-16 pb-12 flex flex-col justify-center items-center max-w-[1024px]">
                                             <GetTextContent contentKey="opptak" className="font-roboto-mono"/>
                                             <div className="w-full flex items-center justify-center pt-8 flex-col">
                                                 <img src={cityLife} alt="" className="w-full flex text-center h-56 md:h-80 object-cover mb-8 rounded-xl"></img>
