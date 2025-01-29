@@ -55,7 +55,7 @@ const Admission = () => {
 
                             <TabsContent value="about_tab" className="md:rounded-2xl w-full h-auto overflow-y-scroll">
                                 <div className="flex flex-col md:flex-row md:justify-between items-start mb-4 ">
-                                    <div className="w-full pr-4">
+                                    <div className="w-full pr-4 flex justify-center">
                                         <div className="font-roboto text-lg md:text-2xl text-slate-300 leading-normal px-6 lg:px-16 max-w-[1024px]">
                                             <GetTextContent contentKey="om_create" />
                                             <div className="w-full flex items-center justify-center pt-8">
