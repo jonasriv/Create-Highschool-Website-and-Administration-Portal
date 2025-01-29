@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/carousel";
 import React from 'react';
 import GetTextContent from './GetTextContent';
-import { ChevronRight, ChevronLeft } from 'lucide-react';
+
 
 
 const ElevPaCreate: React.FC = () => {
