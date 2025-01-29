@@ -323,7 +323,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                     <h1 className="w-full text-center">Antall søknader: {applications.length}</h1>
                     {showDateFrom !== "" && <p className="w-full text-center">Viser søknader fra {showDateFrom} til {showDateTo} (YYYY-MM-DD)</p>}
                     <div className="flex w-full justify-center"> 
-                        <table ref={tbl} className="table-auto w-full mt-8 text-sm p-4 bg-slate-800 rounded-xl max-w-screen-lg overflow-scroll">
+                        <table ref={tbl} className="table-auto w-full mt-8 text-sm p-4 bg-slate-800 rounded-xl max-w-screen-3xl overflow-scroll">
                         <thead className="bg-slate-600">
                             <tr className="bg-slate-400-100">
                                 <th className="border px-[2px] break-words py-2">Navn</th>
@@ -337,9 +337,9 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                 <th className="border px-[2px] break-words py-2 max-w-16">Prøve-spill</th>
                                 <th className="border px-[2px] break-words py-2">Bilde</th>
                                 <th className="border px-[2px] break-words py-2">Analyse</th>
-                                <th className="border px-[2px] break-words py-2">Gjennomsnitt</th>
+                                <th className="border px-[2px] break-words py-2">Snitt</th>
                                 <th className="border px-[2px] break-words py-2">Antall karakterer</th>
-                                <th className="border px-[2px] break-words py-2">Karaktersett</th>
+                                <th className="border px-[2px] break-words py-2">Karakter-sett</th>
                                 <th className="border px-[2px] break-words py-2">Behandlet?</th>
                                 <th className="border px-[2px] break-words py-2">Behandlet</th>
 
@@ -347,7 +347,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                         </thead>
                         <tbody>
                             {applications.map((app) => (
-                                <tr key={app._id} className={app.behandlet === 1 ? 'bg-green-500' : 'bg-slate-600'}>
+                                <tr key={app._id} className={app.behandlet === 1 ? 'bg-green-600' : 'bg-slate-600'}>
                                     <td className="border px-[2px] text-center py-2 break-words max-w-24">{app.name}</td>
                                     <td className="border px-[2px] text-center py-2 break-words max-w-24">{app.createdAt.slice(0, 10)}</td>
                                     <td className="border px-[2px] text-center py-2 break-words max-w-24">{app.email}</td>
