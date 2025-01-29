@@ -7,7 +7,7 @@ import tiktoklogo from '../../public/images/tiktok-white-icon.svg';
 const Contact = () => {
     
     return (
-        <div className="flex w-screen h-auto flex-col justify-end items-center lg:mb-16 tracking-widest">
+        <div className="flex w-screen h-auto flex-col justify-end items-center lg:mb-16 tracking-widest pb-16">
             <div className="flex flex-col justify-between items-center md:items-center w-full max-w-screen-lg h-full gap-12">
                 <h1 className="text-3xl font-mina font-black text-center flex">Kontakt</h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full w-full px-4 items-start">
