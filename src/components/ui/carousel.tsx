@@ -26,7 +26,7 @@ const Carousel = React.forwardRef<
       className,
       children,
       showButtons = false, // Standard: ikke vis knappene
-      buttonsPosition = "top-1/2", // Standard plassering
+      buttonsPosition = "top-1/3", // Standard plassering
       ...props
     },
     ref
