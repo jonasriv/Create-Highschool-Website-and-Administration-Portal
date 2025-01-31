@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Roboto, Roboto_Mono, Mina } from "next/font/google";
 import "./globals.css";
 import Head from 'next/head';
-
-
+import { Analytics } from "@vercel/analytics/react"
 
 const exo2 = Mina({
   variable: "--font-mina",
@@ -48,6 +47,7 @@ export default function RootLayout({
         className={`bg-black ${robotoMono.variable} ${robotoSans.variable} ${exo2.variable} antialiased`}
       >
         {children}
+        <Analytics/>
       </body>
     </html>
   );
