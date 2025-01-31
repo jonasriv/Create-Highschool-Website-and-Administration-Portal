@@ -1,0 +1,9 @@
+{
+    "redirects": [
+      {
+        "source": "/apply",
+        "destination": "/soknad",
+        "permanent": true
+      }
+    ]
+  }
