@@ -104,7 +104,7 @@ const Study: React.FC = () => {
                                     </Carousel>
                                 </div>
                                 <div className="w-full flex justify-center items-center">
-                                    <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal p-4 pt-0 md:pt-4 mx-4 md:mx-20 lg:mx-24 md:bg-black/80 md:rounded-xl max-w-[950px]">
+                                    <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal p-4 px-[2px] md:px-4 pt-0 md:pt-4 mx-4 md:mx-20 lg:mx-24 md:bg-black/80 md:rounded-xl max-w-[950px]">
                                         <GetTextContent contentKey="program_musikk" />
                                     </div>                                   
                                 </div>                                
@@ -153,7 +153,7 @@ const Study: React.FC = () => {
                                     </Carousel>
                                 </div>
                                 <div className="w-full flex justify-center items-center">
-                                    <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal p-4 pt-0 md:pt-4 mx-4 md:mx-20 lg:mx-24 md:bg-black/80 md:rounded-xl max-w-[950px]">
+                                    <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal p-4 px-[2px] md:px-4 pt-0 md:pt-4 mx-4 md:mx-20 lg:mx-24 md:bg-black/80 md:rounded-xl max-w-[950px]">
                                         <GetTextContent contentKey="program_dans" />
                                     </div>                                   
                                 </div>                                
@@ -196,7 +196,7 @@ const Study: React.FC = () => {
                                     </Carousel>
                                 </div>
                                 <div className="w-full flex justify-center items-center">
-                                    <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal p-4 pt-0 md:pt-4 mx-4 md:mx-20 lg:mx-24 md:bg-black/80 md:rounded-xl max-w-[950px]">
+                                    <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal p-4 px-[2px] md:px-4 pt-0 md:pt-4 mx-4 md:mx-20 lg:mx-24 md:bg-black/80 md:rounded-xl max-w-[950px]">
                                         <GetTextContent contentKey="program_drama" />
                                     </div>                                   
                                 </div>                                
