@@ -1,7 +1,7 @@
 'use client'
 import React from "react";
 import Image from "next/image"
-import { Instagram, Facebook, Mail, Phone} from 'lucide-react'
+import { Instagram, Facebook, Mail, Phone, MapIcon} from 'lucide-react'
 import tiktoklogo from '../../public/images/tiktok-white-icon.svg';
 
 const Contact = () => {
@@ -25,6 +25,13 @@ const Contact = () => {
                             <a href="tel:+4746787000"  target="_blank" className="flex flex-row gap-4">
                                 <Phone color="white" size={22} />
                                 <p>+47 467 87 000</p>
+                            </a>
+                        </div>
+
+                        <div className="font-mina text-xl p-2 hover:bg-pinky rounded-xl">    
+                            <a href="https://maps.app.goo.gl/awVbaaBz9H5Ehww3A" target="_blank" className="flex flex-row gap-4">
+                                <MapIcon color="white" size={22} />
+                                <p>Finn oss</p>
                             </a>
                         </div>
                     </div>
@@ -65,23 +72,23 @@ const Contact = () => {
                             </a>
                         </div>                        
                     </div>
-                    <a href="https://maps.app.goo.gl/awVbaaBz9H5Ehww3A">
+                    <div>
                         <div className="bg-black/40 mx-4 md:mx-0 rounded-xl p-2 pb-4 gap-4 font-mina md:h-72 flex flex-col justify-start items-start">
                             <h1 className="text-pinky pb-2 text-center w-full">
                                 Besøk oss:
                             </h1>
-                            <p className="font-mina text-xl">
+                            <p className="font-mina text-xl pl-[6px]">
                                 CREATE
                             </p>
-                            <p className="font-mina text-xl">
+                            <p className="font-mina text-xl pl-[6px]">
                                 Mesnakvartalet 20
                             </p>
-                            <p className="font-mina text-xl">
+                            <p className="font-mina text-xl pl-[6px]">
                                 2615 Lillehammer
                             </p>
                             
                         </div>
-                    </a>    
+                    </div>    
                     <div className="bg-black/40 mx-4 md:mx-0 rounded-xl p-2 font-mina mb-8 flex flex-col gap-4 h-auto">
                         <h1 className="text-pinky text-center">
                             Les mer:
