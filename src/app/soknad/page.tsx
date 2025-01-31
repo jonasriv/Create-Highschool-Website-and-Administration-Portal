@@ -187,7 +187,7 @@ const Soknad = () => {
                 <div className="font-roboto text-lg md:text-xl">
                     <GetTextContent contentKey="soknad_intro"/>
                 </div>
-                <p className="text-lg text-pinky mt-4">Søknadsfrist 1. mars</p>
+                <p className="text-lg text-white mt-4">Søknadsfrist 1. mars</p>
             </div>
             <h1 className="text-2xl font-bold mb-6 pt-8 font-mina w-full text-center">Søknadsskjema</h1>
             
@@ -326,11 +326,11 @@ const Soknad = () => {
             </div>                
     
             {/* CV opplasting */}
-            <div>
-                <button id="expand_button" className="border-2 border-transparent hover:bg-redpink rounded-lg bg-pinky p-2 font-mina text-xl mb-6" 
+            <div className="w-full">
+                <button id="expand_button" className="w-full border-2 border-transparent hover:bg-redpink rounded-lg bg-blue-500 p-2 font-mina font-normal text-xl mb-6" 
                     onClick={(event) => handleExpand(event)}
                 >
-                    <b>Last opp karakterkort</b>
+                    Last opp karakterkort
                 </button>
                         <div id="expand_div" ref={divRef} className="hidden mb-8 rounded-xl ">
 
