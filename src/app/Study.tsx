@@ -64,14 +64,9 @@ const Study: React.FC = () => {
                             </TabsList> 
                         <TabsContent value="music_tab" className="lg:rounded-xl w-full max-h-[800px] overflow-hidden">
                             <div className="flex flex-col lg:justify-between items-start mb-4 lg:p-4 lg:rounded-xl">
-                                <div className="w-full">
-                                    <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal px-4 md:px-20 lg:px-24">
-                                        <GetTextContent contentKey="program_musikk" />
-                                    </div>                                   
-                                </div>
                                 <div className="flex w-full justify-start items-center mt-4 lg:px-8 overflow-hidden">
                                 <Carousel autoplay={true} showButtons={true} opts={{ loop: true }} className="w-full flex justify-center items-center mb-4 no-scrollbar overflow-hidden">
-                                        <CarouselContent className="max-h-72 md:max-h-96">
+                                        <CarouselContent className="max-h-56 md:max-h-72 lg:max-h-96">
                                             <CarouselItem className="flex justify-center">
                                                 <Image src={Music0} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] w-full md:w-auto object-contain object-top "></Image>
                                             </CarouselItem>
@@ -108,19 +103,19 @@ const Study: React.FC = () => {
                                         </CarouselContent>
                                     </Carousel>
                                 </div>
+                                <div className="w-full flex justify-center items-center">
+                                    <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal p-4 pt-0 md:pt-4 mx-4 md:mx-20 lg:mx-24 md:bg-black/80 md:rounded-xl max-w-[950px]">
+                                        <GetTextContent contentKey="program_musikk" />
+                                    </div>                                   
+                                </div>                                
                             </div>
                         </TabsContent>    
 
-                        <TabsContent value="dance_tab" className="lg:rounded-xl w-full h-[800px] overflow-hidden">
-                            <div className="flex flex-col lg:justify-between items-start mb-4  lg:p-4 lg:rounded-xl">
-                                <div className="w-full">
-                                    <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal px-4  md:px-20 lg:px-24">
-                                        <GetTextContent contentKey="program_dans" />
-                                    </div>                                   
-                                </div>
-                                <div className="w-full justify-center items-center mt-4 lg:px-8">
-                                    <Carousel autoplay={true} showButtons={true} opts={{ loop: true }} className="w-full flex justify-center items-center mb-4 no-scrollbar pb-4 overflow-hidden">
-                                        <CarouselContent className="max-h-96">
+                        <TabsContent value="dance_tab" className="lg:rounded-xl w-full max-h-[800px] overflow-hidden">
+                            <div className="flex flex-col lg:justify-between items-start mb-4 lg:p-4 lg:rounded-xl">
+                                <div className="flex w-full justify-start items-center mt-4 lg:px-8 overflow-hidden">
+                                <Carousel autoplay={true} showButtons={true} opts={{ loop: true }} className="w-full flex justify-center items-center mb-4 no-scrollbar overflow-hidden">
+                                        <CarouselContent className="max-h-56 md:max-h-72 lg:max-h-96">
                                             <CarouselItem className="flex justify-center">
                                                 <Image src={Dance0} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] w-full object-contain object-top"></Image>
                                             </CarouselItem>
@@ -157,19 +152,19 @@ const Study: React.FC = () => {
                                         </CarouselContent>
                                     </Carousel>
                                 </div>
+                                <div className="w-full flex justify-center items-center">
+                                    <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal p-4 pt-0 md:pt-4 mx-4 md:mx-20 lg:mx-24 md:bg-black/80 md:rounded-xl max-w-[950px]">
+                                        <GetTextContent contentKey="program_dans" />
+                                    </div>                                   
+                                </div>                                
                             </div>
                         </TabsContent>    
 
-                        <TabsContent value="drama_tab" className="lg:rounded-xl w-full h-[800px] overflow-hidden">
+                        <TabsContent value="drama_tab" className="lg:rounded-xl w-full max-h-[800px] overflow-hidden">
                             <div className="flex flex-col lg:justify-between items-start mb-4 lg:p-4 lg:rounded-xl">
-                                <div className="w-full">
-                                    <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal px-4 md:px-20 lg:px-24">
-                                        <GetTextContent contentKey="program_drama" />
-                                    </div>                                   
-                                </div>
-                                <div className="w-full justify-center items-center mt-4 lg:px-8 mb-0 pb-0">
-                                <Carousel autoplay={true} showButtons={true} opts={{ loop: true }} className="w-full flex justify-center items-center mb-4 no-scrollbar pb-4 overflow-hidden">
-                                        <CarouselContent className="max-h-96">
+                                <div className="flex w-full justify-start items-center mt-4 lg:px-8 overflow-hidden">
+                                <Carousel autoplay={true} showButtons={true} opts={{ loop: true }} className="w-full flex justify-center items-center mb-4 no-scrollbar overflow-hidden">
+                                        <CarouselContent className="max-h-56 md:max-h-72 lg:max-h-96">
                                             <CarouselItem className="flex justify-center">
                                                 <Image src={Drama0} width={500} height={500} alt="" className="h-[24rem] md:h-[28rem] lg:h-[32rem] w-full object-contain object-top"></Image>
                                             </CarouselItem>
@@ -200,6 +195,11 @@ const Study: React.FC = () => {
                                         </CarouselContent>
                                     </Carousel>
                                 </div>
+                                <div className="w-full flex justify-center items-center">
+                                    <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal p-4 pt-0 md:pt-4 mx-4 md:mx-20 lg:mx-24 md:bg-black/80 md:rounded-xl max-w-[950px]">
+                                        <GetTextContent contentKey="program_drama" />
+                                    </div>                                   
+                                </div>                                
                             </div>
                         </TabsContent>                             
 
