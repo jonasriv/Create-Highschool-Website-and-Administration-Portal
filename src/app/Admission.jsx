@@ -15,11 +15,13 @@ const Admission = () => {
                     </h1>
                     <div id="subject_tabs" className="w-full flex flex-row pb-6 md:pb-14 lg:pb-16">
                         <Tabs defaultValue="admission_tab" className="w-full">
-                            <TabsList className="w-full rounded-none mt-4 md:mt-0 flex flex-row items-center justify-around h-22 gap-0 md:gap-8 bg-black/60 md:mb-12">
-                                <TabsTrigger value="admission_tab" className="font-mina opacity-100 p-2 md:p-4 text-md md:text-2xl">Opptak</TabsTrigger>                                
-                                <TabsTrigger value="future_tab" className="font-mina opacity-100 p-2 md:p-4 text-md md:text-2xl">Hva blir jeg?</TabsTrigger>
-                                <TabsTrigger value="about_tab" className="font-mina opacity-100 p-2 md:p-4 text-md md:text-2xl">Om Create</TabsTrigger>
-                            </TabsList> 
+                            <div className="w-full bg-black/60 flex justify-center items-center">
+                                <TabsList className="w-full max-w-[1150px] rounded-none mt-4 md:mt-0 flex flex-row items-center justify-around h-22 gap-0 md:gap-8 md:mb-12">
+                                    <TabsTrigger value="admission_tab" className="font-mina opacity-100 p-2 md:p-4 text-md md:text-2xl">Opptak</TabsTrigger>                                
+                                    <TabsTrigger value="future_tab" className="font-mina opacity-100 p-2 md:p-4 text-md md:text-2xl">Hva blir jeg?</TabsTrigger>
+                                    <TabsTrigger value="about_tab" className="font-mina opacity-100 p-2 md:p-4 text-md md:text-2xl">Om Create</TabsTrigger>
+                                </TabsList> 
+                            </div>
 
                             <TabsContent value="admission_tab" className="md:rounded-2xl w-full h-auto overflow-y-scroll">
                                 <div className="flex flex-col md:flex-row md:justify-between items-start md:pt-4">

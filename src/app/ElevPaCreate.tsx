@@ -31,7 +31,7 @@ const ElevPaCreate: React.FC = () => {
 
                         <div className="w-full justify-center xl:rounded-xl h-auto bg-black/60 flex items-center px-2">
                             
-                            <Carousel autoplay={true} autoplayDelay={9000} opts={{ loop: true }} showButtons={true} buttonsPosition={"top-8"} className="flex flex-row w-full justify-center xl:rounded-b-xl h-auto text-white pt-4 pb-2 md:pb-8 max-w-screen-md overflow-hidden cursor-grab">
+                            <Carousel autoplay={true} autoplayDelay={9000} opts={{ loop: false }} showButtons={true} buttonsPosition={"top-8"} className="flex flex-row w-full justify-center xl:rounded-b-xl h-auto text-white pt-4 pb-2 md:pb-8 max-w-screen-md overflow-hidden cursor-grab">
                                 <CarouselContent className="w-full flex flex-row mt-2 pt-0">
                                     <CarouselItem className="w-full min-w-full flex flex-row justify-center items-center text-lg md:text-2xl text-white pt-4">
                                     
@@ -64,7 +64,7 @@ const ElevPaCreate: React.FC = () => {
                         
                     </h1>
                     <div className="w-full justify-center xl:rounded-b-xl h-auto bg-black/60 flex items center px-2">
-                            <Carousel autoplay={true} autoplayDelay={10000} opts={{ loop: true }} showButtons={true} buttonsPosition={"top-8"} className="flex flex-row w-full justify-center xl:rounded-b-xl h-auto text-white pt-4 pb-2 md:pb-8 max-w-screen-md overflow-hidden cursor-grab">
+                            <Carousel autoplay={true} autoplayDelay={10000} opts={{ loop: false }} showButtons={true} buttonsPosition={"top-8"} className="flex flex-row w-full justify-center xl:rounded-b-xl h-auto text-white pt-4 pb-2 md:pb-8 max-w-screen-md overflow-hidden cursor-grab">
                                 <CarouselContent className="w-full flex flex-row mt-2 pt-0">
                                     <CarouselItem className="w-full min-w-full flex flex-row justify-center items-center text-lg md:text-2xl pt-4">
                                         <div className="w-full h-auto pt-6">
