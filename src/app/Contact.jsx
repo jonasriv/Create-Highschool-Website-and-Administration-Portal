@@ -92,7 +92,7 @@ const Contact = () => {
                         <a className="hover:bg-pinky p-2 rounded-xl" target="_blank" href="/publicfiles/inntaksreglement.pdf">
                             <p className="font-mina text-lg">Inntaksreglement</p>
                         </a>
-                        <a className="hover:bg-pinky p-2 rounded-xl" target="_blank" href="/publicfiles/CREATE_-_fag_og_timefordeling_2019 (1).pdf">
+                        <a className="hover:bg-pinky p-2 rounded-xl" target="_blank" href="/publicfiles/FagOgTimer.pdf">
                             <p className="font-mina text-lg">Fag- og timefordeling</p>
                         </a>
                         <a className="hover:bg-pinky p-2 rounded-xl" target="_blank" href="/publicfiles/Creates_læreplan__generell_del (1).pdf">
