@@ -18,7 +18,7 @@ const Admission = () => {
                             <div className="w-full bg-black/60 flex justify-center items-center">
                                 <TabsList className="w-full max-w-[1150px] rounded-none mt-4 md:mt-0 flex flex-row items-center justify-around h-22 gap-0 md:gap-8 md:mb-12">
                                     <TabsTrigger value="admission_tab" className="font-mina opacity-100 p-2 md:p-4 text-md md:text-2xl">Opptak</TabsTrigger>                                
-                                    <TabsTrigger value="future_tab" className="font-mina opacity-100 p-2 md:p-4 text-md md:text-2xl">Hva blir jeg?</TabsTrigger>
+                                    <TabsTrigger value="future_tab" className="font-mina opacity-100 p-2 md:p-4 text-md md:text-2xl">Etter Create</TabsTrigger>
                                     <TabsTrigger value="about_tab" className="font-mina opacity-100 p-2 md:p-4 text-md md:text-2xl">Om Create</TabsTrigger>
                                 </TabsList> 
                             </div>
