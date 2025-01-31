@@ -313,7 +313,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                         const fileDate = `${year}-${formattedMonth}-${formattedDay}(${formattedHour}.${formattedMinutes})`
                         const xlsxFileName = `SøknaderCreate_${fileDate}.xlsx`;
                         writeFileXLSX(wb, xlsxFileName);
-                    }}>Eksporter til excel<Download/></button>
+                    }}>Eksporter til excel <Download/></button>
 }
             </div>
             
