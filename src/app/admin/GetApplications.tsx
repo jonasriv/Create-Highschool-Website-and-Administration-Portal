@@ -140,7 +140,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                 karakterer.push(parseInt(trimmedMatch[0][0]));
                             });
                             
-                            if (karakterer.length > 10 && karakterer.length < 28) {
+                            if (karakterer.length > 9 && karakterer.length < 28) {
                                 app.karaktersett = karakterer;
                                 let samletSum: number = 0;
                                 let antallKarakterer: number = 0;
