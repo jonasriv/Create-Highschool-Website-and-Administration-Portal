@@ -12,9 +12,9 @@ const Front = () => {
             className="flex flex-col justify-center items-center w-screen max-w-screen h-screen"
         >          
             <div className="w-screen h-full gap-24 flex flex-col justify-center items-center max-w-screen pt-16 md:pt-0 pb-0 mb-12">
-                <div className="flex flex-col justify-around items-center w-full px-4 font-roboto text-lg gap-2 break-keep">
+                <div className="flex flex-col justify-around items-center w-full px-4 font-roboto text-lg gap-0 break-keep">
                     <Image alt="image" src={Logo} className="w-52 md:w-96 flex justify-center items-center"></Image>
-                    <h1 className="text-center text-[18px]  normal-case break-keep font-roboto">
+                    <h1 className="text-center text-[16px]  normal-case break-keep font-roboto">
                         Lillehammer kreative videregående skole
                     </h1>
                 </div>
