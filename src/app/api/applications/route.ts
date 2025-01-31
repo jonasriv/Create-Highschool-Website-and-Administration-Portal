@@ -102,16 +102,18 @@ export async function POST(req: Request) {
       to: [email, emailParent], // E-postadresse til administratoren
       subject: 'Søknad mottatt',
       text: `
-        Vi har mottatt en søknad fra deg. Her er detaljene:
+        Hei! Vi har mottatt en søknad fra deg. Her er detaljene:
         
         Navn: ${name}
         E-post: ${email}
-        E-post (forelder): ${emailParent}
+        E-post (foresatt): ${emailParent}
         Telefon: ${phone}
         Prioritet 1: ${priority1}
         Prioritet 2: ${priority2}
         Prioritet 3: ${priority3}
         Opptaksprøve: ${opptaksprove}
+
+        Mvh Create - Lillehammer kreative videregående skole
       `,
     };
 
