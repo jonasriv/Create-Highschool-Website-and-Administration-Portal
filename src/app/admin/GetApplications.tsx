@@ -323,52 +323,52 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                     <h1 className="w-full text-center">Antall søknader: {applications.length}</h1>
                     {showDateFrom !== "" && <p className="w-full text-center">Viser søknader fra {showDateFrom} til {showDateTo} (YYYY-MM-DD)</p>}
                     <div className="flex w-full justify-center"> 
-                        <table ref={tbl} className="table-auto w-full mt-8 text-sm p-4 bg-slate-800 rounded-xl max-w-screen-3xl overflow-scroll">
+                        <table ref={tbl} className="table-auto w-full mt-8 text-sm p-4 bg-slate-800 rounded-xl max-w-screen-3xl overflow-scroll border border-black border-collapse">
                         <thead className="bg-slate-600">
-                            <tr className="bg-slate-400-100">
-                                <th className="border px-[2px] break-words py-2">Navn</th>
-                                <th className="border px-[2px] break-words py-2">Søkt dato <span className="text-xs">(YYYY-MM-DD)</span></th>
-                                <th className="border px-[2px] break-words py-2">E-post</th>
-                                <th className="border px-[2px] break-words py-2">E-post foresatt</th>
-                                <th className="border px-[2px] break-words py-2">TLF</th>
-                                <th className="border px-[2px] break-words py-2">1. Pri</th>
-                                <th className="border px-[2px] break-words py-2">2. Pri</th>
-                                <th className="border px-[2px] break-words py-2">3. Pri</th>
-                                <th className="border px-[2px] break-words py-2 max-w-16">Prøve-spill</th>
-                                <th className="border px-[2px] break-words py-2">Bilde</th>
-                                <th className="border px-[2px] break-words py-2">Analyse</th>
-                                <th className="border px-[2px] break-words py-2">Snitt</th>
-                                <th className="border px-[2px] break-words py-2">Antall karakterer</th>
-                                <th className="border px-[2px] break-words py-2">Karakter-sett</th>
-                                <th className="border px-[2px] break-words py-2">Behandlet?</th>
-                                <th className="border px-[2px] break-words py-2">Behandlet</th>
+                            <tr className="bg-slate-400-100 border border-black">
+                                <th className="border border-black px-[2px] break-words py-2">Navn</th>
+                                <th className="border border-black px-[2px] break-words py-2">Søkt dato <span className="text-xs">(YYYY-MM-DD)</span></th>
+                                <th className="border border-black px-[2px] break-words py-2">E-post</th>
+                                <th className="border border-black px-[2px] break-words py-2">E-post foresatt</th>
+                                <th className="border border-black px-[2px] break-words py-2">TLF</th>
+                                <th className="border border-black px-[2px] break-words py-2">1. Pri</th>
+                                <th className="border border-black px-[2px] break-words py-2">2. Pri</th>
+                                <th className="border border-black px-[2px] break-words py-2">3. Pri</th>
+                                <th className="border border-black px-[2px] break-words py-2 max-w-16">Prøve-spill</th>
+                                <th className="border border-black px-[2px] break-words py-2">Bilde</th>
+                                <th className="border border-black px-[2px] break-words py-2">Analyse</th>
+                                <th className="border border-black px-[2px] break-words py-2">Snitt</th>
+                                <th className="border border-black px-[2px] break-words py-2">Antall karakterer</th>
+                                <th className="border border-black px-[2px] break-words py-2">Karakter-sett</th>
+                                <th className="border border-black px-[2px] break-words py-2">Behandlet?</th>
+                                <th className="border border-black px-[2px] break-words py-2">Behandlet</th>
 
                             </tr>
                         </thead>
                         <tbody>
                             {applications.map((app) => (
-                                <tr key={app._id} className={app.behandlet === 1 ? 'bg-green-600' : 'bg-slate-600'}>
-                                    <td className="border px-[2px] text-center py-2 break-words max-w-24">{app.name}</td>
-                                    <td className="border px-[2px] text-center py-2 break-words max-w-24">{app.createdAt.slice(0, 10)}</td>
-                                    <td className="border px-[2px] text-center py-2 break-words max-w-24">{app.email}</td>
-                                    <td className="border px-[2px] text-center py-2 break-words max-w-24">{app.emailParent}</td>
-                                    <td className="border px-[2px] text-center py-2 max-w-16">{app.phone}</td>
-                                    <td className="border px-[2px] text-center py-2">{app.priority1}</td>
-                                    <td className="border px-[2px] text-center py-2 break-words max-w-24">{app.priority2}</td>
-                                    <td className="border px-[2px] text-center py-2 break-words max-w-24">{app.priority3}</td>
-                                    <td className="border px-[2px] text-center py-2 break-words max-w-16">{app.opptaksprove}</td>
-                                    <td className="border text-center py-0 text-xs h-auto">
+                                <tr key={app._id} className={app.behandlet === 1 ? 'bg-green-200 text-gray-600 border border-black' : 'odd:bg-slate-200 even:bg-slate-100 text-black border border-black'}>
+                                    <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.name}</td>
+                                    <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.createdAt.slice(0, 10)}</td>
+                                    <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.email}</td>
+                                    <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.emailParent}</td>
+                                    <td className="border border-black px-[6px] py-2 max-w-16">{app.phone}</td>
+                                    <td className="border border-black px-[6px] py-2">{app.priority1}</td>
+                                    <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.priority2}</td>
+                                    <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.priority3}</td>
+                                    <td className="border border-black px-[6px] py-2 break-words max-w-16">{app.opptaksprove}</td>
+                                    <td className="border border-black text-center py-0 text-xs h-auto">
                                         {app.s3FileUrl ? (
                                         <div className="w-full h-full flex justify-center items-center">
                                             <a href={app.s3FileUrl} target="_blank" rel="noopener noreferrer">
-                                                <ImageDown size="24" className="bg-transparent p-[1px] rounded-lg hover:bg-blue-400"/>
+                                                <ImageDown size="24" color="blue" className="bg-transparent p-[1px] rounded-lg hover:bg-blue-400"/>
                                             </a>
                                         </div>    
                                         ) : (
                                             <span>Ingen fil</span>
                                         )}
                                         </td>
-                                    <td className="border px-[2px] text-center py-2">
+                                    <td className="border border-black px-[2px] text-center flex items-center justify-center h-full w-full border-none py-2">
                                     {
                                         app.textractAnalysis === "feilet" ? (
                                             <span className="flex flex-col bg-black/40">
@@ -381,22 +381,22 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                             </button>
                                         </span>
                                         ) : app.textractAnalysis && app.textractAnalysis.length > 10 ? (
-                                            <p className="text-green-400 bg-black/40 p-2 rounded-sm">Kjørt</p>
+                                            <p className="text-white bg-green-600 p-2 rounded-sm">Kjørt</p>
                                         ) : isLoading === app._id ? (
-                                            <p className="text-green-400 bg-black/40 p-2 rounded-sm">Kjører...</p>
+                                            <p className="text-orange-800 bg-blue-400 p-2 rounded-sm">Kjører...</p>
                                         ) : app.textractAnalysis === "" && isLoading !== app._id ? (
                                             <button 
-                                                className="bg-green-500 p-[2px] text-center py-2 text-md font-bold text-black rounded-md hover:bg-pinky"
+                                                className="bg-green-400 p-[2px] text-center py-2 text-md font-bold text-black rounded-md hover:bg-pinky"
                                                 onClick={(e) => handleTextract(e, app)}
                                             > 
                                                 KJØR!
                                             </button>
                                         ) : null}
                                     </td>
-                                    <td className="border px-[2px] text-center py-2">{app.gjennomsnitt?.toString().substring(0, 7)}</td>
-                                    <td className="border px-[2px] text-center py-2">{app.antallKarakterer}</td>
-                                    <td className="border px-[2px] text-center py-2 break-words max-w-2">{app.karaktersett}</td>
-                                    <td className="border px-[2px] text-center py-2 break-words">
+                                    <td className="border border-black px-[6px] py-2">{app.gjennomsnitt?.toString().substring(0, 7)}</td>
+                                    <td className="border border-black px-[6px] py-2">{app.antallKarakterer}</td>
+                                    <td className="border border-black px-[6px] py-2 break-words max-w-2">{app.karaktersett}</td>
+                                    <td className="border border-black px-[2px] text-center py-2 break-words">
                                         {
                                              <input 
                                              type="checkbox" 
@@ -406,7 +406,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                            
                                         }
                                     </td>
-                                    <td className="border px-[2px] text-center py-2 break-words">{
+                                    <td className="border border-black px-[2px] text-center py-2 break-words">{
                                         app.behandlet === 1 ? "ja" : "nei"
                                         }
                                     </td>
