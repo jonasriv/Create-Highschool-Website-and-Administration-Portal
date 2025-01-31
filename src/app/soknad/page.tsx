@@ -187,9 +187,9 @@ const Soknad = () => {
                 <div className="font-roboto text-lg md:text-xl">
                     <GetTextContent contentKey="soknad_intro"/>
                 </div>
-                <p className="text-lg text-red-400 mt-4">Søknadsfrist 1. mars</p>
+                <p className="text-lg text-pinky mt-4">Søknadsfrist 1. mars</p>
             </div>
-            <h1 className="text-2xl font-bold mb-6 pt-8 font-mina">Søknadsskjema</h1>
+            <h1 className="text-2xl font-bold mb-6 pt-8 font-mina w-full text-center">Søknadsskjema</h1>
             
             <form onSubmit={handleSubmit} className="space-y-4">
             {/* Fullt navn */}
