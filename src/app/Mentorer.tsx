@@ -4,7 +4,7 @@ const Mentorer = () => {
     const mona = 'https://res.cloudinary.com/dtg4y0rod/image/upload/v1738063126/mentor-mona_eof2rp.jpg';
     const rolf = 'https://res.cloudinary.com/dtg4y0rod/image/upload/v1738063126/mentor-rolf_uu6loe.jpg';
     const ellen = 'https://res.cloudinary.com/dtg4y0rod/image/upload/v1738063126/mentor-ellen_we1acg.jpg';
-    const onklP = 'https://res.cloudinary.com/dtg4y0rod/image/upload/v1738313189/IMG_3727_t4pe3u.jpg';
+    const onklP = 'https://res.cloudinary.com/dtg4y0rod/image/upload/v1738313485/IMG_3728_o0hla2.jpg';
     const makosir = 'https://res.cloudinary.com/dtg4y0rod/image/upload/v1738313068/Makosir_WMG2_qqtg0h_c_crop_w_2200_jhk6yh.jpg';
     const mathilde = 'https://res.cloudinary.com/dtg4y0rod/image/upload/v1738063340/storm_ubxp3f.png';
     const synne = 'https://res.cloudinary.com/dtg4y0rod/image/upload/v1738313128/Synnevo_Presseshoot_Robinboee-5680_y5oxzi_c_crop_w_1000_h_1200_nktmlp.jpg';
@@ -33,7 +33,7 @@ const Mentorer = () => {
                             }}>
                             <p className="font-mina w-full min-w-full bg-white/70 text-black text-lg md:text-xl min-h-8 md:min-h-12 rounded-b-lg text-center flex items-center justify-center">Ellen Andrea Wang</p>
                         </div>
-                        <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-lg flex justify-center items-end bg-cover bg-top bg-no-repeat"
+                        <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-lg flex justify-center items-end bg-cover bg-bottom bg-no-repeat"
                             style={{
                                 backgroundImage: `url(${onklP})`,
                                 }}>
