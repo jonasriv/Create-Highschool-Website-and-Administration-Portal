@@ -10,8 +10,8 @@ import GetTextContent from './GetTextContent';
 
 
 const ElevPaCreate: React.FC = () => {
-    const Create1 = 'https://res.cloudinary.com/dtg4y0rod/image/upload/v1737651744/Edit_863_en40np.jpg';
-    const Create2 = 'https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507028/IMG_9715-1_h6bj7f.jpg';
+    const Create1 = 'images/Edit_863_en40np.jpg';
+    const Create2 = 'images/IMG_9715-1_h6bj7f.jpg';
 
     return (
         <div className="flex flex-col justify-center items-center w-screen h-full mt-12 mb-8 rounded-xl">
@@ -22,6 +22,7 @@ const ElevPaCreate: React.FC = () => {
                     </h1>
                     <div className="flex flex-col justify-end items-center xl:rounded-xl w-full xl:w-[1024px] h-[480px] md:h-[600px] lg:h-[600px]"
                                     style={{
+                                        backgroundColor: 'black',
                                         backgroundImage: `url(${Create1})`, 
                                         backgroundSize: 'cover',
                                         backgroundPosition: 'center',
@@ -36,13 +37,17 @@ const ElevPaCreate: React.FC = () => {
                                     <CarouselItem className="w-full min-w-full flex flex-row justify-center items-center text-lg md:text-2xl text-white pt-4">
                                     
                                         <div className="w-full h-auto pt-6">
-                                            <GetTextContent contentKey="elev_4"/>   
+                                            <p>
+                                            På Create kan du velge fordypning i musikk, dans eller drama. I tillegg til de vanlige programfagene har vi vårt eget fag kulturentreprenørskap, og jobber med vanlige fag, slik at du får generell studiekompetanse. 
+                                            </p>
                                         </div>
 
                                     </CarouselItem>
                                     <CarouselItem className="w-full min-w-full flex flex-row justify-center items-center text-lg md:text-2xl text-white pt-4">
                                         <div className="w-full h-auto pt-6">
-                                            <GetTextContent contentKey="elev_1"/>   
+                                            <p>
+                                            Programfagene har kompetansemål med fokus på både samarbeid og utvikling av praktiske ferdigheter. Det blir ofte intense arbeidsperioder fram mot visninger, konserter og forestillinger. 
+                                            </p>
                                         </div>
                                     </CarouselItem>
                                 </CarouselContent>                            
@@ -54,6 +59,7 @@ const ElevPaCreate: React.FC = () => {
                     </h1>                    
                     <div className="flex flex-col justify-between items-center xl:rounded-xl w-full xl:w-[1024px] h-[480px] md:h-[600px] lg:h-[600px]"
                                     style={{
+                                        backgroundColor: 'black',
                                         backgroundImage: `url(${Create2})`, 
                                         backgroundSize: 'cover',
                                         backgroundPosition: 'center',
@@ -68,12 +74,16 @@ const ElevPaCreate: React.FC = () => {
                                 <CarouselContent className="w-full flex flex-row mt-2 pt-0">
                                     <CarouselItem className="w-full min-w-full flex flex-row justify-center items-center text-lg md:text-2xl pt-4">
                                         <div className="w-full h-auto pt-6">
-                                            <GetTextContent contentKey="elev_2"/>   
+                                            <p>
+                                            Velger du musikk, dans og drama bør du også like å arbeide med vanlige skolefag. I tillegg bør du ha en sterk interesse for det fagområdet du velger.           
+                                            </p>
                                         </div>
                                     </CarouselItem>
                                     <CarouselItem className="w-full min-w-full flex flex-row justify-center items-center text-lg md:text-2xl pt-4">
                                         <div className="w-full h-auto pt-6">
-                                            <GetTextContent contentKey="elev_3"/>   
+                                            <p>
+                                            Innenfor musikk skal du velge deg et hovedinstrument, som gjerne kan være sang eller musikkproduksjon. Dans er for deg som er interessert i dans og musikaler. Og velger du drama er det naturlig at du er interessert i teater og/eller film.       
+                                            </p>
                                         </div>
                                     </CarouselItem>
                                 </CarouselContent>   

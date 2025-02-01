@@ -1,5 +1,6 @@
 'use client'
 import dynamic from "next/dynamic";
+import internal from "stream";
 const Front = dynamic(() => import("./Front"));
 const Study = dynamic(() => import("./Study"));
 const Header = dynamic(() => import("./Header"));
@@ -10,12 +11,13 @@ const ElevPaCreate = dynamic(() => import("./ElevPaCreate"));
 const Mentorer = dynamic(() => import("./Mentorer"));
 
 const Home = () => {
-  const externalBackground = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506363/background_no_logo_yhjwra.jpg";
+  const internalBackground = "/images/background_no_logo.jpg";
   return (
     <div 
       className="flex flex-col h-screen w-screen bg-white/40"
       style={{
-        backgroundImage: `url(${externalBackground})`,
+        backgroundColor: 'black',
+        backgroundImage: `url(${internalBackground})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
