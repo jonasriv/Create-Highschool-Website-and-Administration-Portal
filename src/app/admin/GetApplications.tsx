@@ -47,8 +47,10 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
     const [secondDate, setSecondDate] = React.useState<Date>();
     const [showDateFrom, setShowDateFrom] = useState<string>("");
     const [showDateTo, setShowDateTo] = useState<string>("");
+    const [isFetching, setIsFetching] = useState<boolean>(false);
     
     const fetchApplications = async () => {
+        setIsFetching(true);
         setPressedButton(false);
         setApplications([]);
         setPressedButton(true);
@@ -165,6 +167,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
         } catch (err) {
             setError((err as Error).message);
         }
+        setIsFetching(false);
     };
 
     const handleCheckboxChange = async (e: ChangeEvent<HTMLInputElement>, app: Application) => {
@@ -234,7 +237,6 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
         }
     };
        
-            
 
     return (
         <div className="flex flex-col w-full min-h-screen justify-start items-start">
@@ -417,7 +419,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                     </div>
                 </div>
             ) : (
-                <div className="w-full">{pressedButton && <p className="text-center">No applications found</p>}</div>
+                <div className="w-full">{pressedButton && (isFetching ? <p className="text-center">Henter søknader...</p> : <p className="text-center">Ingen søknader funnet.</p>)}</div>
             )}
         </div>
     );
