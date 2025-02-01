@@ -5,9 +5,6 @@ import {
     CarouselItem,
 } from "@/components/ui/carousel";
 import React from 'react';
-import GetTextContent from './GetTextContent';
-
-
 
 const ElevPaCreate: React.FC = () => {
     const Create1 = 'images/Edit_863_en40np.jpg';
