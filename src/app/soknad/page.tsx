@@ -61,7 +61,9 @@ const Soknad = () => {
         setErrors(newErrors);
         return Object.values(newErrors).every((error) => !error);
     }
-    
+
+    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
     
@@ -72,6 +74,12 @@ const Soknad = () => {
     
         if (!formData.resume) {
             alert('Du må laste opp et karakterkort!');
+            return;
+        }
+
+        // 🛑 Sjekk filstørrelse før innsending
+        if ((formData.resume as File).size > MAX_FILE_SIZE) {
+            alert("Filen er for stor. Prøv igjen med et bilde som tar mindre plass (maks 5MB).");
             return;
         }
     

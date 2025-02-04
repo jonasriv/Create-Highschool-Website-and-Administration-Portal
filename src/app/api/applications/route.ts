@@ -6,6 +6,8 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { Upload } from "@aws-sdk/lib-storage";
 import nodemailer from 'nodemailer';
 
+export const maxDuration = 60; // This function can run for a maximum of 60 seconds
+
 // Konfigurer S3-klienten
 const s3 = new S3Client({
     region: process.env.AWS_REGION,
@@ -41,12 +43,23 @@ export async function POST(req: Request) {
     const behandlet = 0 as number;
     
 
+    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
     if (!file) {
       return NextResponse.json(
         { error: "Filen mangler." },
         { status: 400 }
       );
     }
+    
+    // Sjekk filstørrelse
+    if (file.size > MAX_FILE_SIZE) {
+      return NextResponse.json(
+        { error: "Filen er for stor. Prøv igjen med et bilde som tar mindre plass, eller ta kontakt på mail@create.no." },
+        { status: 400 }
+      );
+    }
+    
 
     // Generer en unik filnavn for opplastingen
     const filename = `${Date.now()}-${file.name}`;
@@ -138,7 +151,7 @@ export async function POST(req: Request) {
   } catch (error) {
     console.error("Error:", error);
     return NextResponse.json(
-      { error: "Kunne ikke sende inn søknaden." },
+      { error: "Kunne ikke sende inn søknaden. Prøv igjen med et mindre bilde, eller ta kontakt på mail@create.no" },
       { status: 500 }
     );
   }
