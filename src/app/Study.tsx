@@ -102,8 +102,8 @@ const Study: React.FC = () => {
                                         </CarouselContent>
                                     </Carousel>
                                 </div>
-                                <div className="w-full flex justify-center items-center">
-                                    <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal p-4 px-[2px] md:px-4 pt-0 md:pt-4 mx-4 md:mx-20 lg:mx-24 md:bg-black/80 md:rounded-xl max-w-[950px]">
+                                <div className="w-full flex justify-center items-center ">
+                                    <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal p-4 px-[2px] md:px-4 pt-0 md:pt-4 mx-4 md:mx-20 lg:mx-24 md:bg-black/80 md:rounded-lg max-w-[950px]">
                                         <p>
                                         På Create Musikk er vi åpne for alle former for musikk: klassisk, jazz og popmusikk. Noen spiller klassisk klarinett, andre bruker Mac&apos;en til å produsere musikk og noen spiller dårlig gitar men skriver fantastiske låter. Alle slags musikkutøvere hører hjemme på Create. 
                                         </p>
@@ -154,7 +154,7 @@ const Study: React.FC = () => {
                                     </Carousel>
                                 </div>
                                 <div className="w-full flex justify-center items-center">
-                                    <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal p-4 px-[2px] md:px-4 pt-0 md:pt-4 mx-4 md:mx-20 lg:mx-24 md:bg-black/80 md:rounded-xl max-w-[950px]">
+                                    <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal p-4 px-[2px] md:px-4 pt-0 md:pt-4 mx-4 md:mx-20 lg:mx-24 md:bg-black/80 md:rounded-lg max-w-[950px]">
                                         <p>
                                             På Create Dans er vi åpne for alle former for dans. Noen liker klassisk ballett, andre hip hop, og noen elsker musikaler. Alle typer dansere hører hjemme på Create.
                                         </p>
@@ -199,7 +199,7 @@ const Study: React.FC = () => {
                                     </Carousel>
                                 </div>
                                 <div className="w-full flex justify-center items-center">
-                                    <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal p-4 px-[2px] md:px-4 pt-0 md:pt-4 mx-4 md:mx-20 lg:mx-24 md:bg-black/80 md:rounded-xl max-w-[950px]">
+                                    <div className="font-roboto text-lg md:text-xl lg:text-2xl text-slate-300 leading-normal p-4 px-[2px] md:px-4 pt-0 md:pt-4 mx-4 md:mx-20 lg:mx-24 md:bg-black/80 md:rounded-lg max-w-[950px]">
                                         <p>
                                         På Create Drama arbeider vi både med scenisk teater og film og musikal. Både innen teater og film arbeider vi med hele spekteret av en produksjon. Tekst og manus, scenografi, regi og lyddesign, og ikke minst rollen som skuespiller. 
                                         </p>

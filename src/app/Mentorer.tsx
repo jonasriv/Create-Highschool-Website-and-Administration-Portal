@@ -16,10 +16,10 @@ const Mentorer = () => {
             
             className="flex flex-col justify-center items-center w-screen max-w-screen h-auto"
         >          
-            <div className="w-screen h-full gap-20 flex flex-col justify-center items-center max-w-screen pt-16">
-                <div className="flex flex-col justify-center items-center w-full px-4 font-black gap-2 mt-4 break-keep">
+            <div className="w-screen h-full gap-20 flex flex-col justify-center items-center max-w-screen pt-16 ">
+                <div className="flex flex-col justify-center items-center w-full px-4 font-black gap-2 mt-4 break-keep xl:bg-black/40 xl:max-w-screen-lg xl:rounded-xl xl:pb-12">
                     <h1 className="pb-4 text-2xl md:text-4xl font-mina">Noen av våre mentorer:</h1>
-                    <div className="w-auto h-auto max-w-screen-sm lg:max-w-screen-lg grid grid-cols-2 md:grid-cols-4 gap-4 ">
+                    <div className="w-auto h-auto max-w-screen-sm lg:max-w-screen-lg grid grid-cols-2 md:grid-cols-4 gap-4 xl:gap-8">
                         <div className="h-48 w-42 lg:h-56 lg:w-56 rounded-lg flex justify-center items-end bg-cover bg-top bg-no-repeat"
                             style={{
                                 backgroundImage: `url(${mona})`,

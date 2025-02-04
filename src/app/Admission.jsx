@@ -1,6 +1,5 @@
 'use client';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import GetTextContent from "./GetTextContent";
 import Link from "next/link";
 const Admission = () => {
     const cityLife = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736805160/create_dolajazz_qzbnpl.png";
@@ -8,14 +7,14 @@ const Admission = () => {
         <div 
         className="flex flex-col justify-center items-center w-screen h-full overflow-y-scroll"
         >
-            <div className="w-full max-w-screen-xl text-white flex flex-col justify-start items-center box-border ... h-full">
+            <div className="w-full max-w-screen-lg text-white flex flex-col justify-start items-center box-border ... h-full">
                 <div className="flex flex-col xl:bg-black/50 xl:rounded-xl w-full overflow-hidden md:mt-8 min-h-[80%] md:mx-2">
                     <h1 className="font-mina text-2xl md:text-3xl lg:text-4xl tracking-widest text-center text-white font-black pb-4 md:py-8">
                         Opptak og info
                     </h1>
                     <div id="subject_tabs" className="w-full flex flex-row pb-6 md:pb-14 lg:pb-16">
                         <Tabs defaultValue="admission_tab" className="w-full">
-                            <div className="w-full bg-black/60 flex justify-center h-22 items-center md:mb-12">
+                            <div className="w-full bg-black/40 flex justify-center h-22 items-center md:mb-12">
                                 <TabsList className="w-full max-w-[1150px] rounded-none flex flex-row items-center justify-around h-full gap-0 md:gap-8 ">
                                     <TabsTrigger value="admission_tab" className="font-mina opacity-100 p-2 md:p-4 text-md md:text-2xl ">Opptak</TabsTrigger>                                
                                     <TabsTrigger value="future_tab" className="font-mina opacity-100 p-2 md:p-4 text-md md:text-2xl">Etter create</TabsTrigger>
