@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { utils, writeFileXLSX } from "xlsx";
 import React, { ChangeEvent } from "react";
 import { format } from "date-fns"
@@ -48,6 +48,10 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
     const [showDateFrom, setShowDateFrom] = useState<string>("");
     const [showDateTo, setShowDateTo] = useState<string>("");
     const [isFetching, setIsFetching] = useState<boolean>(false);
+    const [openTo, setOpenTo] = React.useState(false);
+    const [openFrom, setOpenFrom] = React.useState(false);
+    const [searchTerm, setSearchTerm] = useState<string>("");
+    const [filteredApplications, setFilteredApplications] = useState<Application[]>([]);
     
     const fetchApplications = async () => {
         setIsFetching(true);
@@ -74,9 +78,9 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                 s3FileUrl: app.s3FileUrl || null,
             }));
 
-            if (date && secondDate) {
+            if (date) {
                 const fromDate = new Date(date);
-                const toDate = new Date(secondDate);
+                const toDate = secondDate ? new Date(secondDate) : new Date();
             
                 const fromAdaptedYear = fromDate.getFullYear();
                 const fromAdaptedMonth = (fromDate.getMonth() + 1).toString().padStart(2, '0'); // Ensures two-digit month
@@ -202,7 +206,19 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
             console.error('Error updating application:', err);
         }
     };
-    
+
+    const handleRemoveFromdate = async () => {
+        setDate(undefined);
+        setShowDateFrom("");
+        setSecondDate(undefined);
+        setShowDateTo("");
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => {
+        fetchApplications();
+    }, [date, secondDate]); //     
+
     const handleTextract = async (e: React.MouseEvent<HTMLButtonElement>, app: Application) => {
         const sentFilename: string = app.filename;
         app.textractAnalysis = "";
@@ -235,95 +251,152 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
             setIsLoading("");
         }
     };
-       
+
+    const handleFilterApplications = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value.toLowerCase();
+        setSearchTerm(value);
+
+        const filtered = applications.filter((app) => 
+            app.name.toLowerCase().includes(value) ||
+            app.email.toLowerCase().includes(value) ||
+            app.emailParent.toLowerCase().includes(value) ||
+            app.phone.includes(value)
+        );
+
+        setFilteredApplications(filtered);
+    };
+
+    const displayApplications = filteredApplications.length > 0 ? filteredApplications : applications;
 
     return (
         <div className="flex flex-col w-full min-h-screen justify-start items-start">
-            <div className="flex flex-row w-full h-full gap-8 justify-center ml-8 items-center">
-            <Popover>
-                    <PopoverTrigger asChild>
-                        <Button
-                            variant={"outline"}
-                            className={cn(
-                                "w-[280px] justify-start text-left text-black font-normal",
-                                !date && "text-muted-foreground"
-                            )}
+            <div className="flex flex-row w-full h-full gap-8 justify-center items-center">
+                <div className="w-full mx-8 flex flex-row items-center justify-between">    
+                    <div className="flex flex-row gap-8">
+                        <Popover open={openFrom} onOpenChange={setOpenFrom}>
+                            <PopoverTrigger asChild>
+                                    <Button
+                                        variant={"outline"}
+                                        className={cn(
+                                            "w-[280px] flex flex-row justify-between text-left text-black font-normal",
+                                            !date && "text-muted-foreground"
+                                        )}
+                                    >
+                                        <span className="flex flex-row">
+                                            <CalendarIcon className="mr-2 h-4 w-4" />
+                                            {date ? format(date, "PPP") : <span>Fra-dato</span>}
+                                        </span>
+                                    </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                                <Calendar
+                                    mode="single"
+                                    selected={date}
+                                    onSelect={(selectedDate) => {
+                                        setDate(selectedDate);
+                                        setOpenFrom(false);
+                                    }}
+                                    initialFocus
+                                />
+                                
+                            </PopoverContent>
+                        </Popover>
+                        <Popover open={openTo} onOpenChange={setOpenTo}>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant={"outline"}
+                                    className={cn(
+                                        "w-[280px] justify-between flex flex-row text-left text-black font-normal",
+                                        !secondDate && "text-muted-foreground"
+                                    )}
+                                >
+                                    <span className="flex flex-row">
+                                        <CalendarIcon className="mr-2 h-4 w-4" />
+                                        {secondDate ? format(secondDate, "PPP") : <span>Til-dato</span>}
+                                    </span>
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                                <Calendar
+                                    mode="single"
+                                    selected={secondDate}
+                                    onSelect={(selectedDate) => {
+                                        setSecondDate(selectedDate);
+                                        setOpenTo(false);
+                                    }}
+                                    initialFocus
+                                />
+                            </PopoverContent>
+                        </Popover>   
+
+                        {showDateFrom !== "" &&                         
+                                <div className="p-[2px] flex justify-center items-center rounded-xl text-lg border-2 border-white w-36 bg-white/10 cursor-pointer hover:bg-white/60 hover:text-black text-center"
+                                     onClick={handleRemoveFromdate}
+                                >
+                                    Nullstill datoer
+                                </div>
+                            }                                 
+                    </div>
+
+                    <div className="flex flex-row gap-8">
+                        <button
+                            className="p-[2px] flex justify-center items-center rounded-xl text-lg border-2 border-white w-52 bg-white/20 cursor-pointer hover:bg-blue-400"
+                            onClick={fetchApplications}
                         >
-                            <CalendarIcon className="mr-2 h-4 w-4" />
-                            {date ? format(date, "PPP") : <span>FRA-DATO</span>}
-                        </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0">
-                        <Calendar
-                            mode="single"
-                            selected={date}
-                            onSelect={setDate}
-                            initialFocus
-                        />
-                    </PopoverContent>
-                </Popover>
-                <Popover>
-                    <PopoverTrigger asChild>
-                        <Button
-                            variant={"outline"}
-                            className={cn(
-                                "w-[280px] justify-start text-left text-black font-normal",
-                                !secondDate && "text-muted-foreground"
+                            {pressedButton && (
+                                <span>Oppdater søknader</span>
+                                
                             )}
-                        >
-                            <CalendarIcon className="mr-2 h-4 w-4" />
-                            {secondDate ? format(secondDate, "PPP") : <span>TIL-DATO</span>}
-                        </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0">
-                        <Calendar
-                            mode="single"
-                            selected={secondDate}
-                            onSelect={setSecondDate}
-                            initialFocus
-                        />
-                    </PopoverContent>
-                </Popover>            
-                <button
-                    className="p-[2px] flex justify-center items-center rounded-xl text-lg border-2 border-white w-52 bg-pinky cursor-pointer hover:bg-fuchsia-950"
-                    onClick={fetchApplications}
-                >
-                    {pressedButton && (
-                        <span>Oppdater søknader</span>
-                        
-                    )}
-                    {!pressedButton && (
-                        <span>Hent søknader</span>
-                    )}
-                </button>
-    
-                {pressedButton && 
-                    <button className="p-[2px] flex justify-center items-center rounded-xl text-lg border-2 border-white w-64 bg-pinky cursor-pointer hover:bg-fuchsia-950" 
-                    onClick={() => {
-                        const wb = utils.table_to_book(tbl.current);
-                        const nowDate = new Date();
-                        const year = nowDate.getFullYear();
-                        const month = nowDate.getMonth() + 1;
-                        const day = nowDate.getDate();
-                        const hour = nowDate.getHours();
-                        const minutes = nowDate.getMinutes();
-                        const formattedMonth = month.toString().padStart(2, '0');
-                        const formattedDay = day.toString().padStart(2, '0');
-                        const formattedHour = hour.toString().padStart(2, '0');
-                        const formattedMinutes = minutes.toString().padStart(2, '0');
-                        const fileDate = `${year}-${formattedMonth}-${formattedDay}(${formattedHour}.${formattedMinutes})`
-                        const xlsxFileName = `SøknaderCreate_${fileDate}.xlsx`;
-                        writeFileXLSX(wb, xlsxFileName);
-                    }}>Eksporter til excel <Download/></button>
-}
+                            {!pressedButton && (
+                                <span>Hent søknader</span>
+                            )}
+                        </button>
+                    
+                        {pressedButton && 
+                            <button className="p-[2px] flex justify-center items-center rounded-xl text-lg border-2 border-white w-52 bg-white/20 cursor-pointer hover:bg-blue-400" 
+                            onClick={() => {
+                                const wb = utils.table_to_book(tbl.current);
+                                const nowDate = new Date();
+                                const year = nowDate.getFullYear();
+                                const month = nowDate.getMonth() + 1;
+                                const day = nowDate.getDate();
+                                const hour = nowDate.getHours();
+                                const minutes = nowDate.getMinutes();
+                                const formattedMonth = month.toString().padStart(2, '0');
+                                const formattedDay = day.toString().padStart(2, '0');
+                                const formattedHour = hour.toString().padStart(2, '0');
+                                const formattedMinutes = minutes.toString().padStart(2, '0');
+                                const fileDate = `${year}-${formattedMonth}-${formattedDay}(${formattedHour}.${formattedMinutes})`
+                                const xlsxFileName = `SøknaderCreate_${fileDate}.xlsx`;
+                                writeFileXLSX(wb, xlsxFileName);
+                            }}><span className="flex items-center justify-between gap-4"><span>Eksporter til excel</span><span><Download/></span></span></button>
+                        }
+                    </div>
+                </div>
             </div>
             
             {error && <p className="text-red-500 mt-4">{error}</p>}
-            {applications.length > 0 ? (
+            {isFetching && 
+                <div className="w-full flex justify-center items-center h-52">
+                    <div className="mt-[2px] w-24 h-24 border-b-8 border-t-8 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div>
+                </div>
+            }
+            
+            {displayApplications.length > 0 ? (
                 <div className="flex flex-col w-full overflow-scroll justify-center items-start px-8 pt-8">
+                    
                     <h1 className="w-full text-center">Antall søknader: {applications.length}</h1>
-                    {showDateFrom !== "" && <p className="w-full text-center">Viser søknader fra {showDateFrom} til {showDateTo} (YYYY-MM-DD)</p>}
+                    
+                    {showDateFrom !== "" && <p className="w-full text-center">Viser søknader fra {showDateFrom} til {showDateTo} (år-måned-dag)</p>}
+                    <input 
+                        type="text" 
+                        value={searchTerm}
+                        placeholder="Søk..." 
+                        className="p-2 text-lg rounded-md w-96 text-black"
+                        onChange={(e) => {handleFilterApplications(e)}}
+                    ></input>
                     <div className="flex w-full justify-center"> 
+
                         <table ref={tbl} className="table-auto w-full mt-8 text-sm p-4 bg-slate-800 rounded-xl max-w-screen-3xl overflow-scroll border border-black border-collapse">
                         <thead className="bg-slate-600">
                             <tr className="bg-slate-400-100 border border-black">
@@ -345,7 +418,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {applications.map((app) => (
+                            {displayApplications.map((app) => (
                                 <tr key={app._id} className={app.behandlet === 1 ? 'bg-green-200 text-gray-600 border border-black' : 'odd:bg-slate-200 even:bg-slate-100 text-black border border-black'}>
                                     <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.name}</td>
                                     <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.createdAt.slice(0, 10)}</td>
@@ -448,7 +521,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                     </div>
                 </div>
             ) : (
-                <div className="w-full">{pressedButton && (isFetching ? <div className="w-full h-52 flex justify-center items-center"><div className="mt-24 w-24 h-24 border-b-6 border-t-6 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div></div> : <p className="text-center">Ingen søknader funnet.</p>)}</div>
+                <div className="w-full">{pressedButton && (isFetching ? <div className="w-full h-full bg-flex justify-center items-center"><div className="mt-24 w-24 h-24 border-b-6 border-t-6 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div></div> : <p className="text-center">Ingen søknader funnet.</p>)}</div>
             )}
         </div>
     );
