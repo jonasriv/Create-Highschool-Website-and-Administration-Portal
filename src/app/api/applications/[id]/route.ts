@@ -13,7 +13,7 @@ const textract = new TextractClient({
   },
 });
 
-export const maxDuration = 45; // Sett maksimal varighet til 60 sekunder
+export const maxDuration = 60; 
 
 async function analyzeDocument(fileKey: string) {
   try {

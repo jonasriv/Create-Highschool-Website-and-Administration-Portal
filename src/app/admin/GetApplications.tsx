@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { utils, writeFileXLSX } from "xlsx";
 import React, { ChangeEvent } from "react";
 import { format } from "date-fns"
-import { CalendarIcon, ImageDown, Download } from "lucide-react"
+import { CalendarIcon, ImageDown, Download, Repeat, CirclePlay } from "lucide-react"
  
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -142,7 +142,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                 karakterer.push(parseInt(trimmedMatch[0][0]));
                             });
                             
-                            if (karakterer.length > 9 && karakterer.length < 28) {
+                            if (karakterer.length > 0 && karakterer.length < 100) {
                                 app.karaktersett = karakterer;
                                 let samletSum: number = 0;
                                 let antallKarakterer: number = 0;
@@ -205,6 +205,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
     
     const handleTextract = async (e: React.MouseEvent<HTMLButtonElement>, app: Application) => {
         const sentFilename: string = app.filename;
+        app.textractAnalysis = "";
         
         try {
             // Start loading state
@@ -223,9 +224,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                 const responseData = await response.json(); // Hent serverens feilmelding
                 throw new Error(responseData.message || 'Textract mislyktes');
             }
-    
-            // Håndter vellykket svar her (f.eks. oppdatere UI eller vise melding)
-            // Oppdater den spesifikke søknaden i staten
+
             fetchApplications();
 
             console.log('Textract analyse fullført og dataene er oppdatert.');
@@ -329,22 +328,20 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                         <thead className="bg-slate-600">
                             <tr className="bg-slate-400-100 border border-black">
                                 <th className="border border-black px-[2px] break-words py-2">Navn</th>
-                                <th className="border border-black px-[2px] break-words py-2">Søkt dato <span className="text-xs">(YYYY-MM-DD)</span></th>
+                                <th className="border border-black px-[2px] text-xs break-words py-2">Søkt dato <span className="text-xs">(Y-M-D)</span></th>
                                 <th className="border border-black px-[2px] break-words py-2">E-post</th>
                                 <th className="border border-black px-[2px] break-words py-2">E-post foresatt</th>
                                 <th className="border border-black px-[2px] break-words py-2">TLF</th>
                                 <th className="border border-black px-[2px] break-words py-2">1. Pri</th>
                                 <th className="border border-black px-[2px] break-words py-2">2. Pri</th>
                                 <th className="border border-black px-[2px] break-words py-2">3. Pri</th>
-                                <th className="border border-black px-[2px] break-words py-2 max-w-16">Prøve-spill</th>
+                                <th className="border border-black px-[2px] break-words py-2 max-w-16">Prøve?</th>
                                 <th className="border border-black px-[2px] break-words py-2">Bilde</th>
                                 <th className="border border-black px-[2px] break-words py-2">Analyse</th>
                                 <th className="border border-black px-[2px] break-words py-2">Snitt</th>
-                                <th className="border border-black px-[2px] break-words py-2">Antall karakterer</th>
+                                <th className="border border-black px-[2px] break-words py-2">Ant. karakterer</th>
                                 <th className="border border-black px-[2px] break-words py-2">Karakter-sett</th>
                                 <th className="border border-black px-[2px] break-words py-2">Behandlet?</th>
-                                <th className="border border-black px-[2px] break-words py-2">Behandlet</th>
-
                             </tr>
                         </thead>
                         <tbody>
@@ -352,8 +349,8 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                 <tr key={app._id} className={app.behandlet === 1 ? 'bg-green-200 text-gray-600 border border-black' : 'odd:bg-slate-200 even:bg-slate-100 text-black border border-black'}>
                                     <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.name}</td>
                                     <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.createdAt.slice(0, 10)}</td>
-                                    <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.email}</td>
-                                    <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.emailParent}</td>
+                                    <td className="border border-black px-[6px] py-2 text-xs break-words max-w-24">{app.email}</td>
+                                    <td className="border border-black px-[6px] py-2 text-xs break-words max-w-24">{app.emailParent}</td>
                                     <td className="border border-black px-[6px] py-2 max-w-16">{app.phone}</td>
                                     <td className="border border-black px-[6px] py-2">{app.priority1}</td>
                                     <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.priority2}</td>
@@ -373,43 +370,75 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                     <td className="border border-black px-[2px] text-center flex items-center justify-center h-full w-full border-none py-2">
                                     {
                                         app.textractAnalysis === "feilet" ? (
-                                            <span className="flex flex-col bg-black/40">
-                                                <p className="text-red-400">Feilet</p>
-                                            <button 
-                                                className="bg-black/60 px-[2px] text-center py-[2px] text-xs rounded-sm hover:bg-pinky "
-                                                onClick={(e) => handleTextract(e, app)}
-                                            > 
-                                                Kjør!
-                                            </button>
-                                        </span>
+                                            <span className="flex flex-col items-center justify-start h-full w-full">
+                                                <p className="text-red-700 font-mina">Feilet</p>
+                                                <button 
+                                                    className="bg-orange-500 text-center text-[10px] p-[5px] flex justify-center items-center text-black rounded-sm hover:bg-orange-400"
+                                                    onClick={(e) => handleTextract(e, app)}
+                                                > 
+                                                    <Repeat size="12"/>
+                                                </button>                                                
+                                            </span>
+
                                         ) : app.textractAnalysis && app.textractAnalysis.length > 10 ? (
-                                            <p className="text-white bg-green-600 p-2 rounded-sm">Kjørt</p>
+                                            <span className="flex flex-col items-center justify-start h-full w-full">
+                                                <p className="text-green-700 text-xs font-mina">KJØRT</p>
+                                                <button 
+                                                    className="bg-orange-500 text-center text-[10px] p-[5px] flex justify-center items-center text-black rounded-sm hover:bg-orange-400"
+                                                    onClick={(e) => handleTextract(e, app)}
+                                                > 
+                                                    <Repeat size="12"/>
+                                                </button>                                                
+                                            </span>
+                                            
                                         ) : isLoading === app._id ? (
-                                            <p className="text-orange-800 bg-blue-400 p-2 rounded-sm">Kjører...</p>
+                                            //<p className="text-orange-800 bg-blue-400 p-2 rounded-sm">Kjører...</p>
+                                            <div className="mt-[2px] w-6 h-6 border-b-4 border-t-4 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div>
                                         ) : app.textractAnalysis === "" && isLoading !== app._id ? (
                                             <button 
-                                                className="bg-green-400 p-[2px] text-center py-2 text-md font-bold text-black rounded-md hover:bg-pinky"
+                                                className="bg-blue-500 p-[4px] text-center text-xs font-bold text-black rounded-md hover:bg-blue-400"
                                                 onClick={(e) => handleTextract(e, app)}
                                             > 
-                                                KJØR!
+                                                <CirclePlay size="20" color="white"/>
                                             </button>
                                         ) : null}
                                     </td>
-                                    <td className="border border-black px-[6px] py-2">{app.gjennomsnitt?.toString().substring(0, 7)}</td>
-                                    <td className="border border-black px-[6px] py-2">{app.antallKarakterer}</td>
-                                    <td className="border border-black px-[6px] py-2 break-words max-w-2">{app.karaktersett}</td>
+                                    <td className="border border-black px-[6px] py-2">
+                                        {app.antallKarakterer && app.antallKarakterer > 11 && app.antallKarakterer < 15 ? 
+                                            (
+                                                <span className="text-green-700">{app.gjennomsnitt?.toString().substring(0, 7)}</span>
+                                            ) 
+                                        : (
+                                            app.antallKarakterer ? 
+                                            <span className="flex flex-row items-center justify-between"><span className="text-red-700">{app.gjennomsnitt?.toString().substring(0, 7)}</span></span>
+                                            : ""
+                                        )}
+                                    </td>                                    
+                                    <td className="border border-black px-[6px] py-2">
+                                        {app.antallKarakterer && app.antallKarakterer > 11 && app.antallKarakterer < 15 ? 
+                                            (
+                                                <span className="text-green-700">{app.antallKarakterer}</span>
+                                            ) 
+                                        : (
+                                            app.antallKarakterer ? 
+                                            <span className="flex flex-row items-center justify-between"><span className="text-red-700">{app.antallKarakterer}</span><span className="text-end right-0 text-red-700"> *sjekk bilde</span></span>
+                                            : ""
+                                        )}
+                                    </td>
+                                    <td className="border border-black px-[6px] py-2 text-xs break-words max-w-2">{app.karaktersett}</td>
                                     <td className="border border-black px-[2px] text-center py-2 break-words">
                                         {
+                                             <span className="flex justify-around items-center">
                                              <input 
                                              type="checkbox" 
                                              checked={app.behandlet === 1} 
                                              onChange={(e) => handleCheckboxChange(e, app)} // Hvis du trenger å håndtere endringer
                                            />
+                                           {
+                                                <span className="">{app.behandlet === 1 ? "(ja)" : "(nei)"}</span>
+                                            }
+                                           </span>
                                            
-                                        }
-                                    </td>
-                                    <td className="border border-black px-[2px] text-center py-2 break-words">{
-                                        app.behandlet === 1 ? "ja" : "nei"
                                         }
                                     </td>
                                 </tr>
@@ -419,7 +448,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                     </div>
                 </div>
             ) : (
-                <div className="w-full">{pressedButton && (isFetching ? <p className="text-center">Henter søknader...</p> : <p className="text-center">Ingen søknader funnet.</p>)}</div>
+                <div className="w-full">{pressedButton && (isFetching ? <div className="w-full h-52 flex justify-center items-center"><div className="mt-24 w-24 h-24 border-b-6 border-t-6 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div></div> : <p className="text-center">Ingen søknader funnet.</p>)}</div>
             )}
         </div>
     );
