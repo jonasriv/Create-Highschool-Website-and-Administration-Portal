@@ -261,7 +261,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
             app.emailParent.toLowerCase().includes(value) ||
             app.phone.includes(value)
         );
-        if (value !== "") setUseFilter(true);
+        if (value !== "" && !useFilter) setUseFilter(true);
         setFilteredApplications(filtered);
     };
 
