@@ -205,6 +205,38 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
         }
     };
 
+    const handleApplicationChange = async (e: ChangeEvent<HTMLInputElement>, app: Application, field: string) => {
+        const value = e.target.value;
+
+        
+        try {
+            const response = await fetch(`/api/applications/${app._id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({ [field]: value }),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to update application');
+            }
+    
+        // Oppdater listen med applikasjoner med riktig felt
+        setApplications((prevApplications) =>
+            prevApplications.map((application) =>
+                application._id === app._id
+                    ? { ...application, [field]: value }
+                    : application
+            )
+        );
+    
+        } catch (err) {
+            console.error('Error updating application:', err);
+        }
+    };
+
     const handleRemoveFromdate = async () => {
         setDate(undefined);
         setSecondDate(undefined);      
@@ -427,9 +459,30 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                 <tr key={app._id} className={app.behandlet === 1 ? 'bg-green-200 text-gray-600 border border-black' : 'odd:bg-slate-200 even:bg-slate-100 text-black border border-black'}>
                                     <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.name}</td>
                                     <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.createdAt.slice(0, 10)}</td>
-                                    <td className="border border-black px-[6px] py-2 text-xs break-words max-w-24">{app.email}</td>
-                                    <td className="border border-black px-[6px] py-2 text-xs break-words max-w-24">{app.emailParent}</td>
-                                    <td className="border border-black px-[6px] py-2 max-w-16">{app.phone}</td>
+                                    <td className="border border-black px-[6px] py-2 text-xs break-words max-w-24">
+                                        <input 
+                                            type="text"
+                                            value={app.email}
+                                            onChange={(e) => handleApplicationChange(e, app, "email")}
+                                            className="bg-white h-full w-full break-words rounded-sm border border-gray-400 px-1 py-1"
+                                        />
+                                    </td>
+                                    <td className="border border-black px-[6px] py-2 text-xs break-words max-w-24">
+                                    <input 
+                                            type="text"
+                                            value={app.emailParent}
+                                            onChange={(e) => handleApplicationChange(e, app, "emailParent")}
+                                            className="bg-white h-full w-full break-words rounded-sm border border-gray-400 px-1 py-1"
+                                        />
+                                    </td>
+                                    <td className="border border-black px-[6px] py-2 max-w-16">
+                                    <input 
+                                            type="text"
+                                            value={app.phone}
+                                            onChange={(e) => handleApplicationChange(e, app, "phone")}
+                                            className="bg-white h-full w-full break-words rounded-sm border border-gray-400 px-1 py-1"
+                                        />
+                                    </td>
                                     <td className="border border-black px-[6px] py-2">{app.priority1}</td>
                                     <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.priority2}</td>
                                     <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.priority3}</td>

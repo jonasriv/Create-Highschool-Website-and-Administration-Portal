@@ -92,23 +92,25 @@ export default function AdminPage() {
             </div>
             <div className="w-full overflow-auto">
             {!token ? (
-                <div className="flex flex-col gap-12 w-full max-w-screen-sm min-h-96 items-center bg-black/60 p-12 md:rounded-2xl mt-16 ">
-                    {error && <p style={{color:"red" }}>{error}</p>}
-                    <input  
-                        type="text"
-                        placeholder="Username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        className="text-black text-2xl p-2 rounded-lg w-96"
-                    />
-                    <input  
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="text-black text-2xl p-2 rounded-lg w-96"
-                    />                    
-                    <button className="p-4 rounded-xl text-2xl border-2 border-purple-500 w-96 hover:bg-pinky" onClick={handleLogin}>Login</button>
+                <div className="w-full flex justify-center items-center">
+                    <div className="flex flex-col gap-12 w-full max-w-screen-sm min-h-96 items-center justify-center bg-black/60 p-12 md:rounded-2xl mt-16 ">
+                        {error && <p style={{color:"red" }}>{error}</p>}
+                        <input  
+                            type="text"
+                            placeholder="Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            className="text-black text-2xl p-2 rounded-lg w-96"
+                        />
+                        <input  
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="text-black text-2xl p-2 rounded-lg w-96"
+                        />                    
+                        <button className="p-4 rounded-xl text-2xl border-2 border-purple-500 w-96 hover:bg-pinky" onClick={handleLogin}>Login</button>
+                    </div>
                 </div>
             ) : (
                 
