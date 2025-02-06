@@ -215,7 +215,9 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
+        setIsFetching(true);
         fetchApplications();
+        setIsFetching(false);
     }, [date, secondDate]); //     
 
     const handleTextract = async (e: React.MouseEvent<HTMLButtonElement>, app: Application) => {
