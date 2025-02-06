@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { utils, writeFileXLSX } from "xlsx";
 import React, { ChangeEvent } from "react";
 import { format } from "date-fns"
-import { CalendarIcon, ImageDown, Download, Repeat, CirclePlay } from "lucide-react"
+import { CalendarIcon, ImageDown, Download, Repeat, CirclePlay, Edit } from "lucide-react"
  
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -51,6 +51,13 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
     const [openFrom, setOpenFrom] = React.useState(false);
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [useFilter, setUseFilter] = useState<boolean>(false);
+    const [editingApplication, setEditingApplication] = useState<Application | null>(null);
+    const [editedFields, setEditedFields] = useState<Record<string, string>>({
+        name: "",
+        email: "",
+        emailParent: "",
+        phone: "",
+    });
     
     const fetchApplications = useCallback(async () => {
         setIsFetching(true);
@@ -207,8 +214,6 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
 
     const handleApplicationChange = async (e: ChangeEvent<HTMLInputElement>, app: Application, field: string) => {
         const value = e.target.value;
-
-        
         try {
             const response = await fetch(`/api/applications/${app._id}`, {
                 method: 'PATCH',
@@ -429,9 +434,6 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                         </div>
                     }
                     
-                    
-
-
                     <div className="flex w-full justify-center"> 
 
                         <table ref={tbl} className="table-auto w-full mt-8 text-sm p-4 bg-slate-800 rounded-xl max-w-screen-3xl overflow-scroll border border-black border-collapse">
@@ -452,6 +454,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                 <th className="border border-black px-[2px] break-words py-2">Ant. karakterer</th>
                                 <th className="border border-black px-[2px] break-words py-2">Karakter-sett</th>
                                 <th className="border border-black px-[2px] break-words py-2">Behandlet?</th>
+                                <th className="border-none px-[2px] break-words py-2 text-center flex items-center justify-center"><Edit size="16"/></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -460,28 +463,13 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                     <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.name}</td>
                                     <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.createdAt.slice(0, 10)}</td>
                                     <td className="border border-black px-[6px] py-2 text-xs break-words max-w-24">
-                                        <input 
-                                            type="text"
-                                            value={app.email}
-                                            onChange={(e) => handleApplicationChange(e, app, "email")}
-                                            className="bg-white h-full w-full break-words rounded-sm border border-gray-400 px-1 py-1"
-                                        />
+                                        {app.email}
                                     </td>
                                     <td className="border border-black px-[6px] py-2 text-xs break-words max-w-24">
-                                    <input 
-                                            type="text"
-                                            value={app.emailParent}
-                                            onChange={(e) => handleApplicationChange(e, app, "emailParent")}
-                                            className="bg-white h-full w-full break-words rounded-sm border border-gray-400 px-1 py-1"
-                                        />
+                                        {app.emailParent}
                                     </td>
                                     <td className="border border-black px-[6px] py-2 max-w-16">
-                                    <input 
-                                            type="text"
-                                            value={app.phone}
-                                            onChange={(e) => handleApplicationChange(e, app, "phone")}
-                                            className="bg-white h-full w-full break-words rounded-sm border border-gray-400 px-1 py-1"
-                                        />
+                                        {app.phone}
                                     </td>
                                     <td className="border border-black px-[6px] py-2">{app.priority1}</td>
                                     <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.priority2}</td>
@@ -491,13 +479,13 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                         {app.s3FileUrl ? (
                                         <div className="w-full h-full flex justify-center items-center">
                                             <a href={app.s3FileUrl} target="_blank" rel="noopener noreferrer">
-                                                <ImageDown size="24" color="blue" className="bg-transparent p-[1px] rounded-lg hover:bg-blue-400"/>
+                                                <ImageDown size="24" color="purple" className="bg-transparent p-[1px] rounded-lg hover:bg-blue-400"/>
                                             </a>
                                         </div>    
                                         ) : (
                                             <span>Ingen fil</span>
                                         )}
-                                        </td>
+                                    </td>
                                     <td className="border border-black px-[2px] text-center flex items-center justify-center h-full w-full border-none py-2">
                                     {
                                         app.textractAnalysis === "feilet" ? (
@@ -572,10 +560,84 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                            
                                         }
                                     </td>
+                                    <td className="w-full h-full flex justify-center items-center border-none">
+                                        <button
+                                            onClick={() => {
+                                                setEditingApplication(app);
+                                                setEditedFields({
+                                                    name: app.name,
+                                                    email: app.email,
+                                                    emailParent: app.emailParent,
+                                                    phone: app.phone,
+                                                });
+                                            }}
+                                            className="bg-blue-800 p-2 rounded-md flex mt-2 mb-2"
+                                        >
+                                            <Edit size="16" color="white"/>
+                                        </button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
+                    {editingApplication && (
+                        <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-60 z-50">
+                            <div className="bg-black/80 p-6 rounded-lg shadow-lg z-60 flex flex-col text-white font-bold">
+                                <h2 className="text-xl">Endre søknad</h2>
+                                <form
+                                    className="flex flex-col w-96 mt-8"
+                                    onSubmit={(e) => {
+                                        e.preventDefault();
+                                        Object.keys(editedFields).forEach((field) => {
+                                            handleApplicationChange(
+                                                { target: { value: editedFields[field] } } as ChangeEvent<HTMLInputElement>,
+                                                editingApplication,
+                                                field
+                                            );
+                                        });
+                                        setEditingApplication(null);
+                                    }}
+                                >
+                                    <label>Navn:</label>
+                                    <input
+                                        type="text"
+                                        value={editedFields.name}
+                                        onChange={(e) => setEditedFields({ ...editedFields, name: e.target.value })}
+                                        className="mb-4 rounded-md mt-2 h-8 text-black text-sm font-normal p-2"
+                                    />
+                                    <label>E-post:</label>
+                                    <input
+                                        type="email"
+                                        value={editedFields.email}
+                                        onChange={(e) => setEditedFields({ ...editedFields, email: e.target.value })}
+                                        className="mb-4 rounded-md mt-2 h-8 text-black text-sm font-normal p-2"
+                                    />
+                                    <label>E-post foresatt:</label>
+                                    <input
+                                        type="email"
+                                        value={editedFields.email}
+                                        onChange={(e) => setEditedFields({ ...editedFields, email: e.target.value })}
+                                        className="mb-4 rounded-md mt-2 h-8 text-black text-sm font-normal p-2"
+                                    />                                    
+                                    <label>Phone:</label>
+                                    <input
+                                        type="tel"
+                                        value={editedFields.phone}
+                                        onChange={(e) => setEditedFields({ ...editedFields, phone: e.target.value })}
+                                        className="mb-4 rounded-md mt-2 h-8 text-black text-sm font-normal p-2"
+                                    />
+                                    {/* Add other fields here */}
+                                    <div className="flex flex-row justify-between items-center">
+                                        <button className="bg-blue-500 rounded-md p-2" type="submit">Lagre</button>
+                                        <button className="bg-red-500 rounded-md p-2" type="button" onClick={() => setEditingApplication(null)}>
+                                            Avbryt
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    )}
+
                     </div>
                 </div>
             ) : (
