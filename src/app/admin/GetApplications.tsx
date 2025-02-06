@@ -51,6 +51,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
     const [openFrom, setOpenFrom] = React.useState(false);
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [filteredApplications, setFilteredApplications] = useState<Application[]>([]);
+    const [useFilter, setUseFilter] = useState<boolean>(false);
     
     const fetchApplications = async () => {
         setIsFetching(true);
@@ -260,11 +261,11 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
             app.emailParent.toLowerCase().includes(value) ||
             app.phone.includes(value)
         );
-
+        if (value !== "") setUseFilter(true);
         setFilteredApplications(filtered);
     };
 
-    const displayApplications = filteredApplications.length > 0 ? filteredApplications : applications;
+    const displayApplications = filteredApplications ? filteredApplications : applications;
 
     return (
         <div className="flex flex-col w-full min-h-screen justify-start items-start">
