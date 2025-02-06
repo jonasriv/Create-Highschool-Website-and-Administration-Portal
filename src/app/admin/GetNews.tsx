@@ -126,7 +126,7 @@ const GetNews: React.FC<GetNewsItemProps> = ({ token }) => {
     }
 
     return (
-        <div className="flex flex-col w-full min-h-screen justify-start items-center ">
+        <div className="flex flex-col w-full min-h-screen justify-start items-center">
 
             {error && <p className="text-red-500 mt-4">{error}</p>}
             <div className="flex flex-col w-full overflow-scroll justify-center items-start max-w-[1000px]">
