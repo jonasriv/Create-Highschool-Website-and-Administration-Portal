@@ -13,9 +13,11 @@ export default function AdminPage() {
     const [password, setPassword] = useState("");
     const [token, setToken] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false);
 
     const handleLogin = useCallback(async () => {
         setError(null);
+        setIsLoggingIn(true);
         
         if (!username || !password) {
             setError("Both username and password are required.");
@@ -47,6 +49,7 @@ export default function AdminPage() {
                 setError("An unknown error occurred");
             }
         }
+        setIsLoggingIn(false);
     }, [username, password]);    
 
     const handleLogout = () => {   
@@ -91,7 +94,17 @@ export default function AdminPage() {
 
             </div>
             <div className="w-full overflow-auto">
+
+            
             {!token ? (
+                <span>
+                {isLoggingIn && 
+                    <div className="fixed inset-0 flex items-center justify-center backdrop-blur-sm z-50">
+                        <div className="w-screen h-screen flex justify-center items-start mt-[550px]">
+                            <div className="w-36 h-36 border-b-8 border-t-8 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div>
+                        </div>
+                    </div>
+                }
                 <div className="w-full flex justify-center items-center">
                     <div className="flex flex-col gap-12 w-full max-w-screen-sm min-h-96 items-center justify-center bg-black/60 p-12 md:rounded-2xl mt-16 ">
                         {error && <p style={{color:"red" }}>{error}</p>}
@@ -112,6 +125,7 @@ export default function AdminPage() {
                         <button className="p-4 rounded-xl text-2xl border-2 border-purple-500 w-96 hover:bg-pinky" onClick={handleLogin}>Login</button>
                     </div>
                 </div>
+                </span>
             ) : (
                 
                 <div id="subject_tabs" className="w-full h-auto pb-12 lg:pb-16 bg-black/80 overflow-auto">
