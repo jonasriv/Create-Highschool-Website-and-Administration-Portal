@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { utils, writeFileXLSX } from "xlsx";
 import React, { ChangeEvent } from "react";
 import { format } from "date-fns"
@@ -50,10 +50,9 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
     const [openTo, setOpenTo] = React.useState(false);
     const [openFrom, setOpenFrom] = React.useState(false);
     const [searchTerm, setSearchTerm] = useState<string>("");
-    const [filteredApplications, setFilteredApplications] = useState<Application[]>([]);
     const [useFilter, setUseFilter] = useState<boolean>(false);
     
-    const fetchApplications = async () => {
+    const fetchApplications = useCallback(async () => {
         setIsFetching(true);
         setPressedButton(false);
         setApplications([]);
@@ -171,7 +170,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
             setError((err as Error).message);
         }
         setIsFetching(false);
-    };
+    }, [token, date, secondDate]);
 
     const handleCheckboxChange = async (e: ChangeEvent<HTMLInputElement>, app: Application) => {
         const checked = e.target.checked;
@@ -208,15 +207,12 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
 
     const handleRemoveFromdate = async () => {
         setDate(undefined);
-        setShowDateFrom("");
-        setSecondDate(undefined);
-        
+        setSecondDate(undefined);      
     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         fetchApplications();
-    }, [date, secondDate]); //     
+    }, [date, secondDate, fetchApplications]);
 
     const handleTextract = async (e: React.MouseEvent<HTMLButtonElement>, app: Application) => {
         const sentFilename: string = app.filename;
@@ -254,19 +250,19 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
     const handleFilterApplications = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value.toLowerCase();
         setSearchTerm(value);
-
-        const filtered = applications.filter((app) => 
-            app.name.toLowerCase().includes(value) ||
-            app.email.toLowerCase().includes(value) ||
-            app.emailParent.toLowerCase().includes(value) ||
-            app.phone.includes(value)
-        );
-
-        setFilteredApplications(filtered);
         setUseFilter(true);
     };
 
-    const displayApplications = useFilter ? filteredApplications : applications;
+    const displayApplications = useFilter 
+        ? 
+            applications.filter((app) => 
+            app.name.toLowerCase().includes(searchTerm) ||
+            app.email.toLowerCase().includes(searchTerm) ||
+            app.emailParent.toLowerCase().includes(searchTerm) ||
+            app.phone.includes(searchTerm)
+            ) 
+        : 
+        applications;
 
     return (
         <div className="flex flex-col w-full min-h-screen justify-start items-start">
