@@ -148,7 +148,7 @@ const GetNews: React.FC<GetNewsItemProps> = ({ token }) => {
                                 <div className="w-full flex justify-end items-center">
                                     <button 
                                         onClick={(e) => {handleDelete(e, newsitem._id)}}
-                                        className="bg-red-500 text-lg px-4 py-2 rounded-lg"
+                                        className="bg-red-500 text-lg px-4 py-2 rounded-lg hover:bg-red-400"
                                     >
                                         Slett nyhet
                                     </button>

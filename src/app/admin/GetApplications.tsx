@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { utils, writeFileXLSX } from "xlsx";
 import React, { ChangeEvent } from "react";
 import { format } from "date-fns"
-import { CalendarIcon, ImageDown, Download, Repeat, CirclePlay, Edit } from "lucide-react"
+import { CalendarIcon, ImageDown, Download, Repeat, Play, Pencil, X } from "lucide-react"
  
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -58,6 +58,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
         emailParent: "",
         phone: "",
     });
+    const [hidingTreatedApps, setHidingTreatedApps] = useState<boolean>(false);
     
     const fetchApplications = useCallback(async () => {
         setIsFetching(true);
@@ -290,16 +291,26 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
         setUseFilter(true);
     };
 
-    const displayApplications = useFilter 
+    const hideTreatedApps = () => {
+        setHidingTreatedApps((prev) => !prev);
+    };
+    
+
+    const filteredApplications = useFilter 
         ? 
             applications.filter((app) => 
-            app.name.toLowerCase().includes(searchTerm) ||
-            app.email.toLowerCase().includes(searchTerm) ||
-            app.emailParent.toLowerCase().includes(searchTerm) ||
-            app.phone.includes(searchTerm)
+                app.name.toLowerCase().includes(searchTerm) ||
+                app.email.toLowerCase().includes(searchTerm) ||
+                app.emailParent.toLowerCase().includes(searchTerm) ||
+                app.phone.includes(searchTerm)
             ) 
+            
         : 
         applications;
+
+        const displayApplications = hidingTreatedApps 
+        ? filteredApplications.filter((app) => app.behandlet === 0)  // Behold kun ubehandlede
+        : filteredApplications;
 
     return (
         <div className="flex flex-col w-full min-h-screen justify-start items-start">
@@ -422,13 +433,22 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                     {!isFetching && 
                         <div className="w-full flex justify-start items-center">
                             <div className="w-full flex flex-row items-center justify-between gap-8">
-                            <input 
+                            <div className="flex flex-row gap-4">
+                                <input 
                                     type="text" 
                                     value={searchTerm}
                                     placeholder="Finn søker..." 
-                                    className="p-[6px] text-lg rounded-md w-96 text-black"
+                                    className="p-[6px] text-lg rounded-md w-80 text-black"
                                     onChange={(e) => {handleFilterApplications(e)}}
                                 ></input>
+                                <div 
+                                    className="p-[2px] flex justify-center items-center rounded-xl text-lg border-2 border-white w-64 bg-white/20 cursor-pointer hover:bg-blue-400"
+                                    onClick={hideTreatedApps}    
+                                >
+                                    {hidingTreatedApps && <span>Vis behandlede søknader</span>}
+                                    {!hidingTreatedApps && <span>Skjul behandlede søknader</span>}
+                                </div>
+                            </div>
                                 <h1 className="text-xl">Antall søknader: {displayApplications.length}</h1>
                             </div>
                         </div>
@@ -454,12 +474,12 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                 <th className="border border-black px-[2px] break-words py-2">Ant. karakterer</th>
                                 <th className="border border-black px-[2px] break-words py-2">Karakter-sett</th>
                                 <th className="border border-black px-[2px] break-words py-2">Behandlet?</th>
-                                <th className="border-none px-[2px] break-words py-2 text-center flex items-center justify-center"><Edit size="16"/></th>
+                                <th className="border-none px-[2px] break-words py-2 text-center flex items-center justify-center"><Pencil size="16"/></th>
                             </tr>
                         </thead>
                         <tbody>
                             {displayApplications.map((app) => (
-                                <tr key={app._id} className={app.behandlet === 1 ? 'bg-green-200 text-gray-600 border border-black' : 'odd:bg-slate-200 even:bg-slate-100 text-black border border-black'}>
+                                <tr key={app._id} className={app.behandlet === 1 ? 'bg-green-300 text-gray-600 border border-black' : 'odd:bg-slate-200 even:bg-slate-100 text-black border border-black'}>
                                     <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.name}</td>
                                     <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.createdAt.slice(0, 10)}</td>
                                     <td className="border border-black px-[6px] py-2 text-xs break-words max-w-24">
@@ -486,41 +506,46 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                             <span>Ingen fil</span>
                                         )}
                                     </td>
-                                    <td className="border border-black px-[2px] text-center flex items-center justify-center h-full w-full border-none py-2">
-                                    {
-                                        app.textractAnalysis === "feilet" ? (
-                                            <span className="flex flex-col items-center justify-start h-full w-full">
-                                                <p className="text-red-700 font-mina">Feilet</p>
-                                                <button 
-                                                    className="bg-orange-500 text-center text-[10px] p-[5px] flex justify-center items-center text-black rounded-sm hover:bg-orange-400"
-                                                    onClick={(e) => handleTextract(e, app)}
-                                                > 
-                                                    <Repeat size="12"/>
-                                                </button>                                                
-                                            </span>
+                                    <td className="text-center border-none ">
+                                        
+                                            {
+                                            app.textractAnalysis === "feilet" ? (
+                                                <span className="flex flex-col items-center justify-start h-full w-full">
+                                                    <p className="text-red-700 font-mina">Feilet</p>
+                                                    <button 
+                                                        className="bg-orange-500 text-center text-[10px] p-[5px] flex justify-center items-center text-black rounded-sm hover:bg-orange-400"
+                                                        onClick={(e) => handleTextract(e, app)}
+                                                    > 
+                                                        <Repeat size="12"/>
+                                                    </button>                                                
+                                                </span>
 
-                                        ) : app.textractAnalysis && app.textractAnalysis.length > 10 ? (
-                                            <span className="flex flex-col items-center justify-start h-full w-full">
-                                                <p className="text-green-700 text-xs font-mina">KJØRT</p>
+                                            ) : app.textractAnalysis && app.textractAnalysis.length > 10 ? (
+                                                <span className="flex flex-col items-center justify-center ">
+                                                    <p className="text-green-700 text-xs font-mina">KJØRT</p>
+                                                    <button 
+                                                        className="bg-orange-500 text-center text-[10px] p-[5px] flex justify-center items-center text-black rounded-sm hover:bg-orange-400"
+                                                        onClick={(e) => handleTextract(e, app)}
+                                                    > 
+                                                        <Repeat size="12"/>
+                                                    </button>                                                
+                                                </span>
+                                                
+                                            ) : isLoading === app._id ? (
+                                                //<p className="text-orange-800 bg-blue-400 p-2 rounded-sm">Kjører...</p>
+                                                <div className="w-full h-full flex justify-center items-center"> 
+                                                    <div className="mt-[2px] w-6 h-6 border-b-4 border-t-4 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div>
+                                                </div>
+                                            ) : app.textractAnalysis === "" && isLoading !== app._id ? (
                                                 <button 
-                                                    className="bg-orange-500 text-center text-[10px] p-[5px] flex justify-center items-center text-black rounded-sm hover:bg-orange-400"
+                                                    className="bg-blue-500 p-2 text-center text-xs font-bold text-black rounded-full hover:bg-blue-400"
                                                     onClick={(e) => handleTextract(e, app)}
                                                 > 
-                                                    <Repeat size="12"/>
-                                                </button>                                                
-                                            </span>
-                                            
-                                        ) : isLoading === app._id ? (
-                                            //<p className="text-orange-800 bg-blue-400 p-2 rounded-sm">Kjører...</p>
-                                            <div className="mt-[2px] w-6 h-6 border-b-4 border-t-4 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div>
-                                        ) : app.textractAnalysis === "" && isLoading !== app._id ? (
-                                            <button 
-                                                className="bg-blue-500 p-[4px] text-center text-xs font-bold text-black rounded-md hover:bg-blue-400"
-                                                onClick={(e) => handleTextract(e, app)}
-                                            > 
-                                                <CirclePlay size="20" color="white"/>
-                                            </button>
-                                        ) : null}
+                                                    <Play size="20" color="white"/>
+                                                </button>
+                                            ) : null
+                                            }
+                                        
                                     </td>
                                     <td className="border border-black px-[6px] py-2">
                                         {app.antallKarakterer && app.antallKarakterer > 11 && app.antallKarakterer < 15 ? 
@@ -547,43 +572,53 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                     <td className="border border-black px-[6px] py-2 text-xs break-words max-w-2">{app.karaktersett}</td>
                                     <td className="border border-black px-[2px] text-center py-2 break-words">
                                         {
-                                             <span className="flex justify-around items-center">
+                                             <span className="flex justify-center items-center">
                                              <input 
                                              type="checkbox" 
+                                             className="size-6"
                                              checked={app.behandlet === 1} 
                                              onChange={(e) => handleCheckboxChange(e, app)} // Hvis du trenger å håndtere endringer
                                            />
                                            {
-                                                <span className="">{app.behandlet === 1 ? "(ja)" : "(nei)"}</span>
+                                                <span className="text-transparent  text-[2px]">{app.behandlet === 1 ? "ja" : "nei"}</span>
                                             }
                                            </span>
                                            
                                         }
                                     </td>
-                                    <td className="w-full h-full flex justify-center items-center border-none">
-                                        <button
-                                            onClick={() => {
-                                                setEditingApplication(app);
-                                                setEditedFields({
-                                                    name: app.name,
-                                                    email: app.email,
-                                                    emailParent: app.emailParent,
-                                                    phone: app.phone,
-                                                });
-                                            }}
-                                            className="bg-blue-800 p-2 rounded-md flex mt-2 mb-2"
-                                        >
-                                            <Edit size="16" color="white"/>
-                                        </button>
+                                    <td className="flex h-16 w-full justify-center items-center border-none">
+                                        <div className="w-full h-full flex justify-center items-center ">
+                                            <button
+                                                onClick={() => {
+                                                    setEditingApplication(app);
+                                                    setEditedFields({
+                                                        name: app.name,
+                                                        email: app.email,
+                                                        emailParent: app.emailParent,
+                                                        phone: app.phone,
+                                                    });
+                                                }}
+                                                className="bg-blue-500 p-2 rounded-full flex flex-row justify-center items-center"
+                                            >
+                                                <Pencil size="18" color="white"/>
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                     {editingApplication && (
-                        <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-60 z-50">
+                        <div className="fixed inset-0 flex items-center justify-center bg-white/40 z-50">
                             <div className="bg-black/80 p-6 rounded-lg shadow-lg z-60 flex flex-col text-white font-bold">
-                                <h2 className="text-xl">Endre søknad</h2>
+                                <div className="flex flex-row justify-between items-center">
+                                    <h2 className="text-xl">Endre søknad</h2>
+                                    <div className="rounded-full bg-transparent p-2 hover:bg-white/60"
+                                        onClick={() => setEditingApplication(null)}
+                                    >
+                                        <X/>
+                                    </div>
+                                </div>
                                 <form
                                     className="flex flex-col w-96 mt-8"
                                     onSubmit={(e) => {
@@ -615,8 +650,8 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                     <label>E-post foresatt:</label>
                                     <input
                                         type="email"
-                                        value={editedFields.email}
-                                        onChange={(e) => setEditedFields({ ...editedFields, email: e.target.value })}
+                                        value={editedFields.emailParent}
+                                        onChange={(e) => setEditedFields({ ...editedFields, emailParent: e.target.value })}
                                         className="mb-4 rounded-md mt-2 h-8 text-black text-sm font-normal p-2"
                                     />                                    
                                     <label>Phone:</label>
