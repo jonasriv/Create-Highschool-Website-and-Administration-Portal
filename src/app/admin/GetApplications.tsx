@@ -215,9 +215,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
-        setIsFetching(true);
         fetchApplications();
-        setIsFetching(false);
     }, [date, secondDate]); //     
 
     const handleTextract = async (e: React.MouseEvent<HTMLButtonElement>, app: Application) => {
@@ -341,6 +339,11 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                     </div>
 
                     <div className="flex flex-row gap-8">
+                        {isFetching && 
+                            
+                                <div className="w-8 h-8 border-b-4 border-t-4 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div>
+                            
+                        }
                         <button
                             className="p-[2px] flex justify-center items-center rounded-xl text-lg border-2 border-white w-52 bg-white/20 cursor-pointer hover:bg-blue-400"
                             onClick={fetchApplications}
@@ -399,11 +402,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                     }
                     
                     
-                    {isFetching && 
-                        <div className="w-full flex justify-center items-center h-32">
-                            <div className="w-24 h-24 border-b-8 border-t-8 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div>
-                        </div>
-                    }
+
 
                     <div className="flex w-full justify-center"> 
 
