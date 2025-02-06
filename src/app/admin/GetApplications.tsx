@@ -261,11 +261,12 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
             app.emailParent.toLowerCase().includes(value) ||
             app.phone.includes(value)
         );
-        if (value !== "" && !useFilter) setUseFilter(true);
+
         setFilteredApplications(filtered);
+        setUseFilter(true);
     };
 
-    const displayApplications = filteredApplications ? filteredApplications : applications;
+    const displayApplications = useFilter ? filteredApplications : applications;
 
     return (
         <div className="flex flex-col w-full min-h-screen justify-start items-start">
@@ -377,7 +378,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
             {error && <p className="text-red-500 mt-4">{error}</p>}
 
             
-            {displayApplications.length > 0 ? (
+            {displayApplications.length > 0 || useFilter ? (
                 <div className="flex flex-col w-full overflow-scroll justify-center items-start px-8 pt-8 overflow-y-scroll">
                     
                     {!isFetching && 
