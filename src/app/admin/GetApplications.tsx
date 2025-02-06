@@ -376,18 +376,22 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
             </div>
             
             {error && <p className="text-red-500 mt-4">{error}</p>}
-            {isFetching && 
-                <div className="w-full flex justify-center items-center h-52">
-                    <div className="mt-[2px] w-24 h-24 border-b-8 border-t-8 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div>
-                </div>
-            }
+
             
             {displayApplications.length > 0 ? (
                 <div className="flex flex-col w-full overflow-scroll justify-center items-start px-8 pt-8">
                     
-                    <h1 className="w-full text-center">Antall søknader: {applications.length}</h1>
+                    {!isFetching && 
+                        <h1 className="w-full text-center">Antall søknader: {applications.length}</h1>
+                    }
                     
-                    {showDateFrom !== "" && <p className="w-full text-center">Viser søknader fra {showDateFrom} til {showDateTo} (år-måned-dag)</p>}
+                    
+                    {isFetching && 
+                        <div className="w-full flex justify-center items-center h-32">
+                            <div className="mt-[2px] w-24 h-24 border-b-8 border-t-8 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div>
+                        </div>
+                    }
+                    {!isFetching && showDateFrom !== "" && <p className="w-full text-center">Viser søknader fra {showDateFrom} til {showDateTo} (år-måned-dag)</p>}
                     <input 
                         type="text" 
                         value={searchTerm}
