@@ -46,7 +46,6 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
     const [date, setDate] = React.useState<Date>();
     const [secondDate, setSecondDate] = React.useState<Date>();
     const [showDateFrom, setShowDateFrom] = useState<string>("");
-    const [showDateTo, setShowDateTo] = useState<string>("");
     const [isFetching, setIsFetching] = useState<boolean>(false);
     const [openTo, setOpenTo] = React.useState(false);
     const [openFrom, setOpenFrom] = React.useState(false);
@@ -100,7 +99,6 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                     const appAdaptedDate = `${appAdaptedYear}${appAdaptedMonth}${appAdaptedDay}`; // Format: YYYYMMDD
             
                     setShowDateFrom(`${appAdaptedYear}-${appAdaptedMonth}-${appAdaptedDay}`); // Formatting to YYYY-MM-DD for display
-                    setShowDateTo(`${toAdaptedYear}-${toAdaptedMonth}-${toAdaptedDay}`); // Formatting to YYYY-MM-DD for display
                     
                     return appAdaptedDate >= fromAdaptedDate && appAdaptedDate <= toAdaptedDate;
                 });
@@ -211,7 +209,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
         setDate(undefined);
         setShowDateFrom("");
         setSecondDate(undefined);
-        setShowDateTo("");
+        
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -379,26 +377,30 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
 
             
             {displayApplications.length > 0 ? (
-                <div className="flex flex-col w-full overflow-scroll justify-center items-start px-8 pt-8">
+                <div className="flex flex-col w-full overflow-scroll justify-center items-start px-8 pt-8 overflow-y-scroll">
                     
                     {!isFetching && 
-                        <h1 className="w-full text-center">Antall søknader: {applications.length}</h1>
+                        <div className="w-full flex justify-start items-center">
+                            <div className="w-full flex flex-row items-center justify-between gap-8">
+                            <input 
+                                    type="text" 
+                                    value={searchTerm}
+                                    placeholder="Finn søker..." 
+                                    className="p-[6px] text-lg rounded-md w-96 text-black"
+                                    onChange={(e) => {handleFilterApplications(e)}}
+                                ></input>
+                                <h1 className="text-xl">Antall søknader: {displayApplications.length}</h1>
+                            </div>
+                        </div>
                     }
                     
                     
                     {isFetching && 
                         <div className="w-full flex justify-center items-center h-32">
-                            <div className="mt-[2px] w-24 h-24 border-b-8 border-t-8 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div>
+                            <div className="w-24 h-24 border-b-8 border-t-8 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div>
                         </div>
                     }
-                    {!isFetching && showDateFrom !== "" && <p className="w-full text-center">Viser søknader fra {showDateFrom} til {showDateTo} (år-måned-dag)</p>}
-                    <input 
-                        type="text" 
-                        value={searchTerm}
-                        placeholder="Søk..." 
-                        className="p-2 text-lg rounded-md w-96 text-black"
-                        onChange={(e) => {handleFilterApplications(e)}}
-                    ></input>
+
                     <div className="flex w-full justify-center"> 
 
                         <table ref={tbl} className="table-auto w-full mt-8 text-sm p-4 bg-slate-800 rounded-xl max-w-screen-3xl overflow-scroll border border-black border-collapse">

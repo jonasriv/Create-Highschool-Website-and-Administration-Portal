@@ -69,7 +69,7 @@ export default function AdminPage() {
     }, [username, password, handleLogin, token]);
 
     return (
-        <div className="flex flex-col w-screen h-screen box-border bg-fuchsia-black justify-start items-center" 
+        <div className="fixed flex flex-col w-screen h-screen box-border bg-fuchsia-black justify-start items-center overflow-y-visible" 
 
         style={{
           backgroundImage: `url(${externalBackground})`,
@@ -78,7 +78,7 @@ export default function AdminPage() {
           backgroundRepeat: 'no-repeat',
           //filter: 'brightness(80%)',
       }}>
-                <div className="flex flex-row gap-4 items-center justify-between w-full bg-slate-950 px-8 text-sm md:text-lg font-bold font-roboto min-h-16">
+                <div className="sticky flex flex-row gap-4 items-center justify-between w-full bg-slate-950 px-8 text-sm md:text-lg font-bold font-roboto min-h-16">
                     <div>
                         <h1 className="w-full p-4 text-center font-black font-mina">Create VGS Admin Panel</h1>
                     </div>
