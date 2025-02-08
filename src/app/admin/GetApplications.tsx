@@ -41,7 +41,6 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
     const tbl = useRef(null);
     const [applications, setApplications] = useState<Application[]>([]);
     const [error, setError] = useState<string | null>(null);
-    const [pressedButton, setPressedButton] = useState(false);
     const [isLoading, setIsLoading] = useState<string>("");
     const [date, setDate] = React.useState<Date>();
     const [secondDate, setSecondDate] = React.useState<Date>();
@@ -63,9 +62,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
     
     const fetchApplications = useCallback(async () => {
         setIsFetching(true);
-        setPressedButton(false);
         setApplications([]);
-        setPressedButton(true);
         if (!token) return;
 
         setError(null);
@@ -380,7 +377,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                         </Popover>   
 
                         {showDateFrom !== "" &&                         
-                                <div className="p-[2px] flex justify-center items-center rounded-xl text-lg border-2 border-white w-36 bg-white/10 cursor-pointer hover:bg-white/60 hover:text-black text-center"
+                                <div className="p-[2px] flex justify-center bg-white/20 items-center rounded-xl text-lg border-2 border-white w-36 cursor-pointer hover:bg-white/10 text-center"
                                      onClick={handleRemoveFromdate}
                                 >
                                     Nullstill datoer
@@ -395,20 +392,14 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                             
                         }
                         <button
-                            className="p-[2px] flex justify-center items-center rounded-xl text-lg border-2 border-white w-52 bg-white/20 cursor-pointer hover:bg-blue-400"
+                            className="p-[2px] flex justify-center items-center rounded-xl text-lg border-2 border-white w-52 bg-white/20 cursor-pointer hover:bg-white/10"
                             onClick={fetchApplications}
                         >
-                            {pressedButton && (
-                                <span>Oppdater søknader</span>
-                                
-                            )}
-                            {!pressedButton && (
-                                <span>Hent søknader</span>
-                            )}
+                            Oppdater søknader
                         </button>
                     
-                        {pressedButton && 
-                            <button className="p-[2px] flex justify-center items-center rounded-xl text-lg border-2 border-white w-52 bg-white/20 cursor-pointer hover:bg-blue-400" 
+
+                            <button className="p-[2px] flex justify-center items-center rounded-xl text-lg border-2 border-white w-52 bg-white/20 cursor-pointer hover:bg-white/10" 
                             onClick={() => {
                                 const wb = utils.table_to_book(tbl.current);
                                 const nowDate = new Date();
@@ -425,40 +416,38 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                 const xlsxFileName = `SøknaderCreate_${fileDate}.xlsx`;
                                 writeFileXLSX(wb, xlsxFileName);
                             }}><span className="flex items-center justify-between gap-4"><span>Eksporter til excel</span><span><Download/></span></span></button>
-                        }
                     </div>
                 </div>
             </div>
-            
             {error && <p className="text-red-500 mt-4">{error}</p>}
+            <div className="w-full flex justify-start items-center px-8 pt-4 mb-4">
+                <div className="w-full flex flex-row items-center justify-between gap-8">
+                <div className="flex flex-row gap-4">
+                    <input 
+                        type="text" 
+                        value={searchTerm}
+                        placeholder="Finn søker..." 
+                        className="p-[6px] text-lg rounded-md w-80 text-black"
+                        onChange={(e) => {handleFilterApplications(e)}}
+                    ></input>
+                    <div 
+                        className="p-[2px] flex justify-center items-center rounded-xl text-lg border-2 border-white w-64 bg-white/20 cursor-pointer hover:bg-white/10"
+                        onClick={hideTreatedApps}    
+                    >
+                        {hidingTreatedApps && <span>Vis behandlede søknader</span>}
+                        {!hidingTreatedApps && <span>Skjul behandlede søknader</span>}
+                    </div>
+                </div>
+                {!isFetching && 
+                    <h1 className="text-xl">Antall søknader: {displayApplications.length}</h1>
+                }
+                </div>
+            </div>
 
-            
             {displayApplications.length > 0 || useFilter ? (
                 <div className="flex flex-col w-full overflow-scroll justify-center items-start px-8 pt-8 overflow-y-scroll">
+
                     
-                    {!isFetching && 
-                        <div className="w-full flex justify-start items-center">
-                            <div className="w-full flex flex-row items-center justify-between gap-8">
-                            <div className="flex flex-row gap-4">
-                                <input 
-                                    type="text" 
-                                    value={searchTerm}
-                                    placeholder="Finn søker..." 
-                                    className="p-[6px] text-lg rounded-md w-80 text-black"
-                                    onChange={(e) => {handleFilterApplications(e)}}
-                                ></input>
-                                <div 
-                                    className="p-[2px] flex justify-center items-center rounded-xl text-lg border-2 border-white w-64 bg-white/20 cursor-pointer hover:bg-blue-400"
-                                    onClick={hideTreatedApps}    
-                                >
-                                    {hidingTreatedApps && <span>Vis behandlede søknader</span>}
-                                    {!hidingTreatedApps && <span>Skjul behandlede søknader</span>}
-                                </div>
-                            </div>
-                                <h1 className="text-xl">Antall søknader: {displayApplications.length}</h1>
-                            </div>
-                        </div>
-                    }
                     
                     <div className="flex w-full justify-center"> 
 
@@ -757,7 +746,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                     </div>
                 </div>
             ) : (
-                <div className="w-full">{pressedButton && (isFetching ? <div className="w-full h-full bg-flex justify-center items-center"><div className="mt-24 w-24 h-24 border-b-6 border-t-6 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div></div> : <p className="text-center">Ingen søknader funnet.</p>)}</div>
+                <div className="w-full">{(isFetching ? <div className="w-full h-full bg-flex justify-center items-center"><div className="mt-24 w-24 h-24 border-b-6 border-t-6 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div></div> : <p className="text-center">Ingen søknader funnet.</p>)}</div>
             )}
         </div>
     );
