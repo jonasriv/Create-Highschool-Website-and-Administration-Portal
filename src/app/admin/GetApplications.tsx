@@ -600,7 +600,9 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                                 {/* Ytre div (bakgrunn) */}
                                                 <div className="w-10 h-5 bg-gray-300 peer-checked:bg-gray-500 rounded-full transition-all duration-300"></div>
                                                 {/* Indre div (sirkelen) */}
-                                                <div className={`w-4 h-4 bg-white absolute top-0.5 left-0.5 ${isChecking === app._id ? 'translate-x-[0.625rem]' : ''} peer-checked:translate-x-5 rounded-full transition-all duration-300 shadow-md`}></div>
+                                                <div className={`w-4 h-4 bg-white absolute top-0.5 left-0.5 ${isChecking === app._id ? 'translate-x-[0.625rem]' : ''} peer-checked:translate-x-5 rounded-full transition-all duration-300 shadow-md`}>
+                                                    <p className="hidden">{app.behandlet ? 'ja' : 'nei'}</p>
+                                                </div>
                                             </label>
                                         </div>  
                                     </td>
