@@ -141,11 +141,11 @@ export default function AdminPage() {
                 }
                 {username === "admin" &&
                     <Tabs defaultValue="applications_tab" className="w-full h-full flex flex-col justify-center">
-                        <div className="w-full flex justify-center bg-slate-950">
-                            <TabsList className="w-full rounded-none h-16 p-4 mb-4 flex flex-row justify-between md:w-8/12">
-                                <TabsTrigger value="news_tab" className="opacity-100 bg-white/20 p-2 text-white text-sm md:text-md lg:text-lg">Nyheter</TabsTrigger>
-                                <TabsTrigger value="applications_tab" className="opacity-100 bg-white/40 p-2 text-white text-sm md:text-md lg:text-lg">Søknader</TabsTrigger>
-                                <TabsTrigger value="content_tab" className="opacity-100 p-2 bg-white/20 text-sm text-white md:text-md lg:text-lg">Web-innhold</TabsTrigger>
+                        <div className="w-full flex justify-center items-center bg-slate-800 opacity-80">
+                            <TabsList className="w-full rounded-none h-full p-4 flex flex-row justify-between md:w-8/12">
+                                <TabsTrigger value="news_tab" className="opacity-100 bg-white/10 p-2 w-48 text-white text-sm md:text-md lg:text-xl">Nyheter</TabsTrigger>
+                                <TabsTrigger value="applications_tab" className="opacity-100 bg-white/10 w-48 p-2 text-white text-sm md:text-md lg:text-xl">Søknader</TabsTrigger>
+                                <TabsTrigger value="content_tab" className="opacity-100 p-2 bg-white/10 w-48 text-sm text-white md:text-md lg:text-xl">Web-innhold</TabsTrigger>
                             </TabsList> 
                         </div>
 

@@ -479,7 +479,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                         </thead>
                         <tbody>
                             {displayApplications.map((app) => (
-                                <tr key={app._id} className={app.behandlet === 1 ? 'bg-green-300 text-gray-600 border border-black' : 'odd:bg-slate-200 even:bg-slate-100 text-black border border-black'}>
+                                <tr key={app._id} className={app.behandlet === 1 ? 'bg-gray-400 text-gray-600 border border-black' : 'odd:bg-sky-200 even:bg-sky-100 text-black border border-black'}>
                                     <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.name}</td>
                                     <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.createdAt.slice(0, 10)}</td>
                                     <td className="border border-black px-[6px] py-2 text-xs break-words max-w-24">
@@ -499,7 +499,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                         {app.s3FileUrl ? (
                                         <div className="w-full h-full flex justify-center items-center">
                                             <a href={app.s3FileUrl} target="_blank" rel="noopener noreferrer">
-                                                <ImageDown size="24" color="purple" className="bg-transparent p-[1px] rounded-lg hover:bg-blue-400"/>
+                                                <ImageDown size="32" color={app.behandlet === 1 ? 'gray' : 'purple'} className="bg-transparent p-[2px] rounded-lg hover:bg-blue-400"/>
                                             </a>
                                         </div>    
                                         ) : (
@@ -515,6 +515,10 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                                     <button 
                                                         className="bg-orange-500 text-center text-[10px] p-[5px] flex justify-center items-center text-black rounded-sm hover:bg-orange-400"
                                                         onClick={(e) => handleTextract(e, app)}
+                                                        disabled={app.behandlet === 1}
+                                                        style={{
+                                                            backgroundColor: app.behandlet === 1 ? 'grey' : '',
+                                                        }}                                                        
                                                     > 
                                                         <Repeat size="12"/>
                                                     </button>                                                
@@ -524,8 +528,12 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                                 <span className="flex flex-col items-center justify-center ">
                                                     <p className="text-green-700 text-xs font-mina">KJØRT</p>
                                                     <button 
-                                                        className="bg-orange-500 text-center text-[10px] p-[5px] flex justify-center items-center text-black rounded-sm hover:bg-orange-400"
+                                                        className={` text-center text-[10px] p-[5px] flex justify-center items-center text-black rounded-sm hover:bg-orange-400 ${app.behandlet === 1 || isLoading ? 'bg-gray-400 cursor-not-allowed pointer-events-none' : 'bg-orange-500'}`}
                                                         onClick={(e) => handleTextract(e, app)}
+                                                        disabled={app.behandlet === 1}
+                                                        style={{
+                                                            backgroundColor: app.behandlet === 1 ? 'grey' : '',
+                                                        }}                                                        
                                                     > 
                                                         <Repeat size="12"/>
                                                     </button>                                                
@@ -534,12 +542,15 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                             ) : isLoading === app._id ? (
                                                 //<p className="text-orange-800 bg-blue-400 p-2 rounded-sm">Kjører...</p>
                                                 <div className="w-full h-full flex justify-center items-center"> 
-                                                    <div className="mt-[2px] w-6 h-6 border-b-4 border-t-4 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div>
+                                                    <div className="mt-[2px] w-6 h-6 border-b-4 border-t-4 border-pinky border-t-blue-500  rounded-2xl animate-spin-fast"></div>
                                                 </div>
                                             ) : app.textractAnalysis === "" && isLoading !== app._id ? (
                                                 <button 
-                                                    className="bg-blue-500 p-2 text-center text-xs font-bold text-black rounded-full hover:bg-blue-400"
+                                                    className={`bg-blue-500 p-2 text-center text-xs font-bold text-black rounded-full hover:bg-blue-400 ${app.behandlet === 1 || isLoading ? 'bg-gray-400 text-gray-600 cursor-not-allowed pointer-events-none' : 'bg-blue-500 text-white hover:bg-blue-400'}`}
                                                     onClick={(e) => handleTextract(e, app)}
+                                                    style={{
+                                                        backgroundColor: app.behandlet === 1 || isLoading ? 'grey' : '',
+                                                    }}
                                                 > 
                                                     <Play size="20" color="white"/>
                                                 </button>
@@ -571,21 +582,23 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                     </td>
                                     <td className="border border-black px-[6px] py-2 text-xs break-words max-w-2">{app.karaktersett}</td>
                                     <td className="border border-black px-[2px] text-center py-2 break-words">
-                                        {
-                                             <span className="flex justify-center items-center">
-                                             <input 
-                                             type="checkbox" 
-                                             className="size-6"
-                                             checked={app.behandlet === 1} 
-                                             onChange={(e) => handleCheckboxChange(e, app)} // Hvis du trenger å håndtere endringer
-                                           />
-                                           {
-                                                <span className="text-transparent  text-[2px]">{app.behandlet === 1 ? "ja" : "nei"}</span>
-                                            }
-                                           </span>
-                                           
-                                        }
+                                        <div className="w-full flex items-center justify-center">
+                                            <label className="relative flex cursor-pointer items-center">
+                                                {/* Skjult checkbox */}
+                                                <input 
+                                                    type="checkbox" 
+                                                    className="sr-only peer"
+                                                    checked={app.behandlet === 1} 
+                                                    onChange={(e) => handleCheckboxChange(e, app)} 
+                                                />
+                                                {/* Ytre div (bakgrunn) */}
+                                                <div className="w-10 h-5 bg-gray-300 peer-checked:bg-gray-500 rounded-full transition-all duration-300"></div>
+                                                {/* Indre div (sirkelen) */}
+                                                <div className="w-4 h-4 bg-white absolute top-0.5 left-0.5 peer-checked:translate-x-5 rounded-full transition-all duration-300 shadow-md"></div>
+                                            </label>
+                                        </div>  
                                     </td>
+
                                     <td className="flex h-16 w-full justify-center items-center border-none">
                                         <div className="w-full h-full flex justify-center items-center ">
                                             <button
@@ -596,9 +609,17 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                                         email: app.email,
                                                         emailParent: app.emailParent,
                                                         phone: app.phone,
+                                                        opptaksprove: app.opptaksprove,
+                                                        priority1: app.priority1,
+                                                        priority2: app.priority2,
+                                                        priority3: app.priority3,
                                                     });
                                                 }}
-                                                className="bg-blue-500 p-2 rounded-full flex flex-row justify-center items-center"
+                                                disabled={app.behandlet === 1}
+                                                className="bg-blue-500 p-2 rounded-full flex flex-row justify-center items-center hover:bg-blue-400"
+                                                style={{
+                                                    backgroundColor: app.behandlet === 1 ? 'gray' : '',
+                                                }}
                                             >
                                                 <Pencil size="18" color="white"/>
                                             </button>
@@ -661,8 +682,60 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                         onChange={(e) => setEditedFields({ ...editedFields, phone: e.target.value })}
                                         className="mb-4 rounded-md mt-2 h-8 text-black text-sm font-normal p-2"
                                     />
-                                    {/* Add other fields here */}
-                                    <div className="flex flex-row justify-between items-center">
+                                    <label>Opptaksprøve?</label>
+                                    <select
+                                        id="opptaksprove"
+                                        name="opptaksprove"
+                                        value={editedFields.opptaksprove}
+                                        onChange={(e) => setEditedFields({ ...editedFields, opptaksprove: e.target.value })}
+                                        className="w-full p-2 border border-gray-300 rounded-md text-slate-700 font-normal mt-2 mb-2" 
+                                    >
+                                        <option value="ja">Ja</option>
+                                        <option value="nei">Nei</option>
+                                    </select>                                    
+                                    <label>Pri 1:</label>
+                                    <select
+                                        id="prority1"
+                                        name="prority1"
+                                        value={editedFields.priority1}
+                                        onChange={(e) => setEditedFields({ ...editedFields, priority1: e.target.value })}
+                                        className="w-full p-2 border border-gray-300 rounded-md text-slate-700 font-normal mt-2 mb-2" 
+                                    >
+                                        <option value="" disabled>Velg</option>
+                                        <option value="musikk">Musikk</option>
+                                        <option value="dans">Dans</option>
+                                        <option value="drama">Drama</option>
+                                    </select>
+                                    <label>Pri 2:</label>
+                                    <select
+                                        id="prority2"
+                                        name="prority2"
+                                        value={editedFields.priority2}
+                                        onChange={(e) => setEditedFields({ ...editedFields, priority2: e.target.value })}
+                                        className="w-full p-2 border border-gray-300 rounded-md text-slate-700 font-normal mt-2 mb-2" 
+                                    >
+                                        <option value="" disabled>Velg</option>
+                                        <option value="musikk">Musikk</option>
+                                        <option value="dans">Dans</option>
+                                        <option value="drama">Drama</option>
+                                        <option value="onsker_ikke_2">Ønsker ikke andrevalg</option>
+                                    </select>     
+                                    <label>Pri 3:</label>
+                                    <select
+                                        id="prority3"
+                                        name="prority3"
+                                        value={editedFields.priority3}
+                                        onChange={(e) => setEditedFields({ ...editedFields, priority3: e.target.value })}
+                                        className="w-full p-2 border border-gray-300 rounded-md text-slate-700 font-normal mt-2 mb-2" 
+                                    >
+                                        <option value="" disabled>Velg</option>
+                                        <option value="musikk">Musikk</option>
+                                        <option value="dans">Dans</option>
+                                        <option value="drama">Drama</option>
+                                        <option value="onsker_ikke_2">Ønsker ikke tredjevalg</option>
+                                    </select>      
+
+                                    <div className="flex flex-row justify-between items-center mt-4">
                                         <button className="bg-blue-500 rounded-md p-2" type="submit">Lagre</button>
                                         <button className="bg-red-500 rounded-md p-2" type="button" onClick={() => setEditingApplication(null)}>
                                             Avbryt
