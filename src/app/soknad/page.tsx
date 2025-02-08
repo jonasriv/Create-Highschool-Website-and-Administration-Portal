@@ -2,7 +2,6 @@
 import React, { useState, useRef } from "react";
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import GetTextContent from "../GetTextContent";
 const Header = dynamic(() => import("./HeaderSoknad"));
 
 const Soknad = () => {
