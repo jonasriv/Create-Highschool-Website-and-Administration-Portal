@@ -420,7 +420,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                 </div>
             </div>
             {error && <p className="text-red-500 mt-4">{error}</p>}
-            <div className="w-full flex justify-start items-center px-8 pt-4 mb-4">
+            <div className="w-full flex justify-start items-center px-8 pt-6 mb-4">
                 <div className="w-full flex flex-row items-center justify-between gap-8">
                 <div className="flex flex-row gap-4">
                     <input 
