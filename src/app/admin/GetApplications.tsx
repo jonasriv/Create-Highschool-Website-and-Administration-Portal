@@ -445,7 +445,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
             </div>
 
             {displayApplications.length > 0 || useFilter ? (
-                <div className="flex flex-col w-full overflow-scroll justify-center items-start px-8 pt-8 overflow-y-scroll">
+                <div className="flex flex-col w-full overflow-scroll justify-center items-start px-8 overflow-y-scroll">
 
                     
                     
