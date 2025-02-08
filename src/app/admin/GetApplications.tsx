@@ -59,6 +59,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
         phone: "",
     });
     const [hidingTreatedApps, setHidingTreatedApps] = useState<boolean>(false);
+    const [isChecking, setIsChecking] = useState<Application['_id'] | null>(null);
     
     const fetchApplications = useCallback(async () => {
         setIsFetching(true);
@@ -181,6 +182,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
     }, [token, date, secondDate]);
 
     const handleCheckboxChange = async (e: ChangeEvent<HTMLInputElement>, app: Application) => {
+        setIsChecking(app._id);
         const checked = e.target.checked;
         const updatedBehandlet = checked ? 1 : 0; // Sett behandlet til 1 hvis checked, ellers 0
         
@@ -196,6 +198,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
     
             if (!response.ok) {
                 throw new Error('Failed to update application');
+                setIsChecking(null);
             }
     
             // Oppdater listen med applikasjoner med ny behandlet-verdi
@@ -207,10 +210,13 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
             });
     
             setApplications(updatedApplications);
+            setIsChecking(null);
     
         } catch (err) {
             console.error('Error updating application:', err);
+            setIsChecking(null);
         }
+        
     };
 
     const handleApplicationChange = async (e: ChangeEvent<HTMLInputElement>, app: Application, field: string) => {
@@ -594,7 +600,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                                 {/* Ytre div (bakgrunn) */}
                                                 <div className="w-10 h-5 bg-gray-300 peer-checked:bg-gray-500 rounded-full transition-all duration-300"></div>
                                                 {/* Indre div (sirkelen) */}
-                                                <div className="w-4 h-4 bg-white absolute top-0.5 left-0.5 peer-checked:translate-x-5 rounded-full transition-all duration-300 shadow-md"></div>
+                                                <div className={`w-4 h-4 bg-white absolute top-0.5 left-0.5 ${isChecking === app._id ? 'translate-x-4' : ''} peer-checked:translate-x-2 rounded-full transition-all duration-300 shadow-md`}></div>
                                             </label>
                                         </div>  
                                     </td>
