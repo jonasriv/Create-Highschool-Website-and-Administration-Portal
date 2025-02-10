@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from "@/lib/mongoose";
 import Application from '@/models/application'; // Juster banen til din modell
 import { TextractClient, StartDocumentTextDetectionCommand, GetDocumentTextDetectionCommand } from "@aws-sdk/client-textract";
+import { verifyToken } from '@/app/admin/verifyToken';
 
 const bucketName = process.env.AWS_BUCKET_NAME!;
 const textract = new TextractClient({
@@ -15,7 +16,24 @@ const textract = new TextractClient({
 
 export const maxDuration = 60; 
 
-async function analyzeDocument(fileKey: string) {
+async function analyzeDocument(req: NextRequest, fileKey: string) {
+  // Verifiser token med verifyToken funksjonen
+  const authResult = verifyToken(req);  // Bruk NextRequest her
+  if (authResult.error) {
+    throw new Error("Unauthorized: Invalid token");
+  }
+
+  const { decoded } = authResult;
+
+  // Sjekk at decoded faktisk er et objekt og inneholder isAdmin
+  if (!decoded || typeof decoded !== "object" || !("isAdmin" in decoded)) {
+    throw new Error("Token inneholder ikke nødvendig informasjon.");
+  }
+
+  if (!decoded.isAdmin) {
+    throw new Error("Du har ikke tilgang til denne ressursen");
+  }
+
   try {
     const startCommand = new StartDocumentTextDetectionCommand({
       DocumentLocation: {
@@ -66,6 +84,22 @@ async function analyzeDocument(fileKey: string) {
 
 // PATCH-metoden for delvis oppdatering
 export async function PATCH(req: NextRequest) {
+  
+  const authResult = verifyToken(req);
+  if (authResult.error) {
+    return NextResponse.json({ error: authResult.error }, { status: authResult.status });
+  }
+
+  const { decoded } = authResult;
+  // Sjekk at decoded faktisk er et objekt og inneholder isAdmin
+  if (!decoded || typeof decoded !== "object" || !("isAdmin" in decoded)) {
+    return NextResponse.json({ error: "Token inneholder ikke nødvendig informasjon." }, { status: 403 });
+  }
+
+  if (!decoded.isAdmin) {
+    return NextResponse.json({error: "Du har ikke tilgang til denne ressursen."}, { status: 403 });
+  };
+
   const id: string = req.nextUrl.pathname.split('/').pop()!; // Hent 'id' fra URL
 
   try {
@@ -81,7 +115,7 @@ export async function PATCH(req: NextRequest) {
         );  
 
         const textractAnalysis = await Promise.race([
-          analyzeDocument(updates.fileKey),
+          analyzeDocument(req, updates.fileKey),
           timeout,
         ]);
         

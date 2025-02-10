@@ -29,8 +29,7 @@ const GetContent: React.FC<GetContentProps> = ({ token }) => {
     
     const fetchContent = async () => {
         pressedButton.current = true;
-        if (!token) return;
-
+ 
         setError(null);
         try {
             const response = await fetch("/api/content", {

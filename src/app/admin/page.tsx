@@ -5,8 +5,6 @@ import GetContent from "./GetContent";
 import GetNews from "./GetNews";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-
-
 export default function AdminPage() {
     const externalBackground = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506363/background_no_logo_yhjwra.jpg";
     const [username, setUsername] = useState("");
@@ -14,7 +12,7 @@ export default function AdminPage() {
     const [token, setToken] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false);
-
+ 
     const handleLogin = useCallback(async () => {
         setError(null);
         setIsLoggingIn(true);

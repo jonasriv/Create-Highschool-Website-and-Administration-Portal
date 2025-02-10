@@ -1,9 +1,25 @@
 import dbConnect from "@/lib/mongoose";
 import Content from "@/models/content";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
+import { verifyToken } from "@/app/admin/verifyToken";
 
-export async function POST(req: Request) {
-    
+export async function POST(req: NextRequest) {
+  
+  const authResult = verifyToken(req);
+  if (authResult.error) {
+    return NextResponse.json({ error: authResult.error }, { status: authResult.status });
+  }
+
+  const { decoded } = authResult;
+  // Sjekk at decoded faktisk er et objekt og inneholder isAdmin
+  if (!decoded || typeof decoded !== "object" || !("isAdmin" in decoded)) {
+    return NextResponse.json({ error: "Token inneholder ikke nødvendig informasjon." }, { status: 403 });
+  }
+
+  if (!decoded.isAdmin) {
+    return NextResponse.json({error: "Du har ikke tilgang til denne ressursen."}, { status: 403 });
+  };
+
   try {
     // Parse forespørselen som JSON
     const formData = await req.formData();
@@ -62,6 +78,7 @@ export async function POST(req: Request) {
 }
 
 export async function GET() {
+
   try {
     // Koble til databasen
     await dbConnect();

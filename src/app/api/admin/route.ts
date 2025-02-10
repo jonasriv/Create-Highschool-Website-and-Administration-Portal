@@ -40,7 +40,8 @@ export async function POST(req: Request) {
     if (JWT_SECRET) {
       const token = jwt.sign({ 
           id: admin._id, 
-          username: admin.username 
+          username: admin.username ,
+          isAdmin: admin.isAdmin
           
         }, JWT_SECRET, {
         expiresIn: "2h",
