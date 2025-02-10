@@ -316,7 +316,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
         : filteredApplications;
 
     return (
-        <div className="flex flex-col w-full min-h-screen justify-start items-start">
+        <div className="flex flex-col w-full min-h-screen justify-start h-auto items-start overflow-auto">
             <div className="flex flex-row w-full h-full gap-8 justify-center items-center">
                 <div className="w-full mx-8 flex flex-row items-center justify-between">    
                     <div className="flex flex-row gap-8">

@@ -70,7 +70,7 @@ export default function AdminPage() {
     }, [username, password, handleLogin, token]);
 
     return (
-        <div className="fixed flex flex-col w-screen h-screen box-border bg-fuchsia-black justify-start items-center " 
+        <div className="sticky flex flex-col w-screen h-auto min-h-screen box-border bg-fuchsia-black justify-start items-center " 
 
         style={{
           backgroundImage: `url(${externalBackground})`,
@@ -79,7 +79,7 @@ export default function AdminPage() {
           backgroundRepeat: 'no-repeat',
           //filter: 'brightness(80%)',
       }}>
-            <div className="sticky top-0 flex flex-row gap-4 items-center justify-between w-full bg-slate-950 px-8 text-sm md:text-lg font-bold font-roboto min-h-16 z-50">
+            <div className="sticky top-0 flex flex-row gap-4 items-center justify-between w-full bg-slate-950 px-8 text-sm md:text-lg font-bold font-roboto min-h-16 h-16 z-50">
                 <div>
                     <h1 className="w-full p-4 text-center font-black font-mina">Create VGS Admin Panel</h1>
                 </div>
@@ -131,7 +131,7 @@ export default function AdminPage() {
                     <div className="w-full h-full flex flex-col justify-center">
                         <div className="w-full h-auto min-h-screen">
                             <h1 className="text-center text-2xl p-8 w-full bg-black/40">Nyheter</h1>
-                            <div className="w-full mb-4 p-4">
+                            <div className="w-full mb-4 p-4 overflow-auto">
                                 <GetNews token={token}/>
                             </div>
                         </div>  
