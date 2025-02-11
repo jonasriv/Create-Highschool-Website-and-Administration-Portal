@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// GET: Hent søknader 
+// GET: Hent nyheter 
 export async function GET() {
     
   try {

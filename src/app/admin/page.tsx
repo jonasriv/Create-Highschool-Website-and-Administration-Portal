@@ -4,6 +4,13 @@ import GetApplications from "./GetApplications";
 import GetContent from "./GetContent";
 import GetNews from "./GetNews";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { jwtDecode } from "jwt-decode";
+
+interface MyToken {
+    name: string;
+    exp: number;
+    isAdmin: boolean;
+}
 
 export default function AdminPage() {
     const externalBackground = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506363/background_no_logo_yhjwra.jpg";
@@ -54,6 +61,33 @@ export default function AdminPage() {
         setToken(null);
         location.reload();
     }
+
+    const decoded = token ? jwtDecode<MyToken>(token) : null;
+
+    useEffect(() => {
+        const checkTokenExpiration = () => {
+            if (decoded && decoded.exp * 1000 < Date.now()) {
+                alert("Sesjonen har utløpt. Logg inn på nytt.");
+                handleLogout();
+            }
+        };
+    
+        const interval = setInterval(checkTokenExpiration, 10000); // Sjekker hvert tiende sekund
+    
+        return () => clearInterval(interval); // Rydder opp når komponenten unmountes
+    }, [decoded, handleLogout]);
+
+    useEffect(() => {
+
+        if (!decoded && token && !isLoggingIn) {
+            alert("Logg inn på nytt!");
+            handleLogout();
+        }
+        if (decoded && !decoded.isAdmin && !isLoggingIn) {
+            alert("Logg inn som admin-bruker!");
+        }
+
+    }, [token, decoded, isLoggingIn, handleLogout]);
 
     useEffect(() => {
         const handleKeyPress = (event: KeyboardEvent) => {
