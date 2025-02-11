@@ -5,7 +5,7 @@ import GetContent from "./GetContent";
 import GetNews from "./GetNews";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { jwtDecode } from "jwt-decode";
-
+import { LogOut } from 'lucide-react';
 interface MyToken {
     name: string;
     exp: number;
@@ -114,20 +114,19 @@ export default function AdminPage() {
           //filter: 'brightness(80%)',
       }}>
             <div className="sticky top-0 flex flex-row gap-4 items-center justify-between w-full bg-slate-950 md:px-8 text-sm md:text-lg font-bold font-roboto min-h-16 h-16 z-50">
-                <div>
-                    <h1 className="w-full p-4 text-center font-black font-mina">Create VGS Admin Panel</h1>
+                <div className="flex items-center h-full">
+                    <h1 className="w-full p-4 text-center md:text-xl font-black font-mina">Create VGS Admin <span className="hidden md:inline-block">Panel</span></h1>
                 </div>
                 {token &&
-                    <div className="flex flex-row gap-4 md:gap-8 items-center">
+                    <div className="flex flex-row gap-4 h-full md:gap-8 items-center">
                         <p>Logget inn som <span className="text-red-700">{username}</span></p>
-                        <button onClick={handleLogout} className="rounded-xl px-2 md:px-4 my-2 py-[2px] bg-red-400 hover:bg-red-500">Logg ut</button>
+                        <button onClick={handleLogout} className="rounded-xl px-2 md:px-2 py-[4px] mr-2 md:mr-0 bg-red-500 hover:bg-red-500"><LogOut size="18"/></button>
                     </div>
                 }
 
             </div>
             <div className="w-full overflow-auto">
 
-            
             {!token ? (
                 <span>
                 {isLoggingIn && 
@@ -137,8 +136,8 @@ export default function AdminPage() {
                         </div>
                     </div>
                 }
-                <div className="w-full flex justify-center items-center">
-                    <div className="flex flex-col gap-12 w-full max-w-screen-sm min-h-96 items-center justify-center bg-black/60 p-12 md:rounded-2xl mt-16 ">
+                <div className="w-full flex md:justify-center md:items-center">
+                    <div className="flex flex-col gap-12 w-full max-w-screen-sm min-h-96 items-center justify-center bg-black/60 p-12 md:rounded-2xl md:mt-16 ">
                         {error && <p style={{color:"red" }}>{error}</p>}
                         <input  
                             type="text"
@@ -154,7 +153,7 @@ export default function AdminPage() {
                             onChange={(e) => setPassword(e.target.value)}
                             className="text-black text-2xl p-2 rounded-lg w-96"
                         />                    
-                        <button className="p-4 rounded-xl text-2xl border-2 border-purple-500 w-96 hover:bg-pinky" onClick={handleLogin}>Login</button>
+                        <button className="p-4 rounded-xl text-2xl border-2 border-purple-500 w-auto md:w-96 hover:bg-pinky" onClick={handleLogin}>Login</button>
                     </div>
                 </div>
                 </span>
