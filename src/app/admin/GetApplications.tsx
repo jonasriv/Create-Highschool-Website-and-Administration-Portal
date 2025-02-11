@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { utils, writeFileXLSX } from "xlsx";
 import React, { ChangeEvent } from "react";
 import { format } from "date-fns"
-import { CalendarIcon, ImageDown, Download, Repeat, Play, Pencil, X } from "lucide-react"
+import { CalendarIcon, ImageDown, Download, Repeat, Play, Pencil, X, RefreshCw } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -318,8 +318,8 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
     return (
         <div className="flex flex-col w-full min-h-screen justify-start h-auto items-start overflow-auto">
             <div className="flex flex-row w-full h-full gap-8 justify-center items-center">
-                <div className="w-full mx-8 flex flex-row items-center justify-between">    
-                    <div className="flex flex-row gap-8">
+                <div className="w-full md:mx-8 flex flex-row items-center justify-between">    
+                    <div className="hidden md:flex flex-row gap-8">
                         <Popover open={openFrom} onOpenChange={setOpenFrom}>
                             <PopoverTrigger asChild>
                                     <Button
@@ -387,19 +387,15 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
 
                     <div className="flex flex-row gap-8">
                         {isFetching && 
-                            
-                                <div className="w-8 h-8 border-b-4 border-t-4 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div>
-                            
+                                <div className="hidden md:block w-8 h-8 border-b-4 border-t-4 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div>
                         }
                         <button
-                            className="p-[2px] flex justify-center items-center rounded-xl text-lg border-2 border-white w-52 bg-white/20 cursor-pointer hover:bg-white/10"
+                            className="hidden md:flex p-[2px] justify-center items-center rounded-xl text-lg border-2 border-white w-auto md:w-52 bg-white/20 cursor-pointer hover:bg-white/10"
                             onClick={fetchApplications}
                         >
-                            Oppdater søknader
+                            <span className="hidden md:inline-block">Oppdater søknader &nbsp;</span><RefreshCw/>
                         </button>
-                    
-
-                            <button className="p-[2px] flex justify-center items-center rounded-xl text-lg border-2 border-white w-52 bg-white/20 cursor-pointer hover:bg-white/10" 
+                            <button className="hidden md:flex p-[2px] justify-center items-center rounded-md md:rounded-xl text-lg border-2 border-white w-auto md:w-52 bg-white/20 cursor-pointer hover:bg-white/10" 
                             onClick={() => {
                                 const wb = utils.table_to_book(tbl.current);
                                 const nowDate = new Date();
@@ -415,14 +411,49 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                 const fileDate = `${year}-${formattedMonth}-${formattedDay}(${formattedHour}.${formattedMinutes})`
                                 const xlsxFileName = `SøknaderCreate_${fileDate}.xlsx`;
                                 writeFileXLSX(wb, xlsxFileName);
-                            }}><span className="flex items-center justify-between gap-4"><span>Eksporter til excel</span><span><Download/></span></span></button>
+                            }}><span className="flex items-center justify-between gap-4"><span className="hidden md:inline-block">Eksporter til excel</span><span><Download/></span></span></button>
+                        
+                        {/*MOBILE MENU*/}
+                        <div className="flex md:hidden flex-col h-22">
+                            <div className="flex md:hidden flex-row gap-2 mx-2">
+                                <input 
+                                    type="text" 
+                                    value={searchTerm}
+                                    placeholder="Finn søker..." 
+                                    className="p-[2px] text-md rounded-md w-40 text-black"
+                                    onChange={(e) => {handleFilterApplications(e)}}
+                                ></input>
+                                <div 
+                                    className="p-[2px] flex justify-center items-center rounded-xl text-md border-2 border-white w-36 bg-white/20 cursor-pointer hover:bg-white/10"
+                                    onClick={hideTreatedApps}    
+                                >
+                                    {hidingTreatedApps && <span>Vis behandlede</span>}
+                                    {!hidingTreatedApps && <span>Skjul behandlede</span>}
+                                </div>
+                                <button
+                                    className="flex md:hidden p-2 justify-center items-center rounded-full text-lg border-2 border-white w-auto md:w-52 bg-white/20 cursor-pointer hover:bg-white/10"
+                                    onClick={fetchApplications}
+                                >
+                                    <RefreshCw size="14" color="lightgreen"/>
+                                </button>
+                            </div>
+                            <div className="flex flex-row mt-2 w-full justify-center items-center">
+                                <div>
+                                    {!isFetching && 
+                                        <h1 className="text-xl  md:hidden">Antall søknader: {displayApplications.length}</h1>
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+                        {/* END MOBILE MENU */}
                     </div>
                 </div>
             </div>
             {error && <p className="text-red-500 mt-4">{error}</p>}
-            <div className="w-full flex justify-start items-center px-8 pt-6 mb-4">
+            <div className="w-full flex justify-start items-center px-8 md:pt-6 mb-4">
                 <div className="w-full flex flex-row items-center justify-between gap-8">
-                <div className="flex flex-row gap-4">
+                <div className="hidden md:flex flex-row gap-4">
                     <input 
                         type="text" 
                         value={searchTerm}
@@ -439,17 +470,40 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                     </div>
                 </div>
                 {!isFetching && 
-                    <h1 className="text-xl">Antall søknader: {displayApplications.length}</h1>
+                    <h1 className="text-xl hidden md:block">Antall søknader: {displayApplications.length}</h1>
                 }
                 </div>
             </div>
-
+            
+            
             {displayApplications.length > 0 || useFilter ? (
-                <div className="flex flex-col w-full overflow-scroll justify-center items-start px-8 overflow-y-scroll">
+                <div className="flex flex-col w-full overflow-scroll justify-center items-start md:px-8 overflow-y-scroll">
 
-                    
-                    
-                    <div className="flex w-full justify-center"> 
+            {/* MOBIL TABLE */}
+                    <div className="flex md:hidden w-full justify-center">
+                        <table ref={tbl} className="table-auto w-full text-sm bg-slate-800 overflow-scroll border border-black border-collapse">
+                            <thead className="bg-slate-600">
+                                <tr className="bg-slate-400-100 border border-black">
+                                    <th className="border border-black px-[2px] break-words py-2">Navn</th>
+                                    <th className="border border-black px-[2px] text-xs break-words py-2">Søkt dato</th>
+                                    <th className="border border-black px-[2px] break-words py-2">TLF</th>
+                                    <th className="border border-black px-[2px] break-words py-2">1. pri</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {displayApplications.map((app) => (
+                                <tr key={app._id} className={app.behandlet === 1 ? 'bg-gray-400 text-gray-600 border border-black' : 'odd:bg-sky-200 even:bg-sky-100 text-black border border-black'}>
+                                    <td className="border border-black px-[6px] py-2 text-xs break-words max-w-24">{app.name}</td>
+                                    <td className="border border-black px-[6px] py-2 text-xs break-words max-w-24">{app.createdAt.slice(0, 10)}</td>
+                                    <td className="border border-black px-[6px] py-2 text-xs break-words max-w-24">{app.email}</td>
+                                    <td className="border border-black px-[6px] py-2 text-xs break-words max-w-24">{app.phone}</td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </div>
+                {/* DESKTOP TABLE */}
+                    <div className="hidden md:flex w-full justify-center"> 
 
                         <table ref={tbl} className="table-auto w-full mt-8 text-sm p-4 bg-slate-800 rounded-xl max-w-screen-3xl overflow-scroll border border-black border-collapse">
                         <thead className="bg-slate-600">

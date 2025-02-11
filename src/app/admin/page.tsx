@@ -113,7 +113,7 @@ export default function AdminPage() {
           backgroundRepeat: 'no-repeat',
           //filter: 'brightness(80%)',
       }}>
-            <div className="sticky top-0 flex flex-row gap-4 items-center justify-between w-full bg-slate-950 px-8 text-sm md:text-lg font-bold font-roboto min-h-16 h-16 z-50">
+            <div className="sticky top-0 flex flex-row gap-4 items-center justify-between w-full bg-slate-950 md:px-8 text-sm md:text-lg font-bold font-roboto min-h-16 h-16 z-50">
                 <div>
                     <h1 className="w-full p-4 text-center font-black font-mina">Create VGS Admin Panel</h1>
                 </div>
@@ -188,7 +188,7 @@ export default function AdminPage() {
                         </TabsContent>                      
 
                         <TabsContent value="applications_tab" className="w-auto h-auto min-h-screen">
-                            <div className="flex flex-col md:flex-row justify-center items-start mb-4 p-4">
+                            <div className="flex flex-col md:flex-row justify-center items-start mb-4 md:p-4">
                                 <GetApplications token={token}/>
                             </div>
                         </TabsContent>                             
