@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { utils, writeFileXLSX } from "xlsx";
 import React, { ChangeEvent } from "react";
 import { format } from "date-fns"
-import { CalendarIcon, ImageDown, Download, Repeat, Play, Pencil, X, RefreshCw } from "lucide-react"
+import { CalendarIcon, ImageDown, Download, Repeat, Play, Pencil, X, RefreshCw, Save } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -59,6 +59,8 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
     });
     const [hidingTreatedApps, setHidingTreatedApps] = useState<boolean>(false);
     const [isChecking, setIsChecking] = useState<Application['_id'] | null>(null);
+    const [isAddingGrades, setIsAddingGrades] = useState<Application['_id'] | null>(null);
+    const [addedGrades, setAddedGrades] = useState<string | null>("");
     
     const fetchApplications = useCallback(async () => {
         setIsFetching(true);
@@ -246,10 +248,42 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
         }
     };
 
+    const handleGradesRegister = async (e: React.MouseEvent<HTMLButtonElement>, app: Application) => {
+        e.preventDefault();
+        const field = 'textractAnalysis';
+        if (addedGrades && isAddingGrades === app._id) {
+            const originalValue = addedGrades;
+            const value = originalValue 
+            ? JSON.stringify([...originalValue.split(""), "manueltregistrert"])
+                : "";
+            try {
+                const response = await fetch(`/api/applications/${app._id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({ [field]: value }),
+                });
+        
+                if (!response.ok) {
+                    throw new Error('Failed to update application');
+                }
+
+                setIsAddingGrades(null);
+                setAddedGrades("");
+                await fetchApplications(); // Kjører etter at oppdatering er bekreftet
+            } catch (err) {
+                console.error('Error updating application:', err);
+            }
+        }
+    };
+
     const handleRemoveFromdate = async () => {
         setDate(undefined);
         setSecondDate(undefined);      
     }
+
 
     useEffect(() => {
         fetchApplications();
@@ -619,14 +653,46 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                         )}
                                     </td>                                    
                                     <td className="border border-black px-[6px] py-2">
-                                        {app.antallKarakterer && app.antallKarakterer > 11 && app.antallKarakterer < 15 ? 
+                                        {app.antallKarakterer && app.antallKarakterer > 11 && app.antallKarakterer < 15 && !app.textractAnalysis?.includes("manueltregistrert")? 
                                             (
                                                 <span className="text-green-700">{app.antallKarakterer}</span>
                                             ) 
                                         : (
                                             app.antallKarakterer ? 
-                                            <span className="flex flex-row items-center justify-between"><span className="text-red-700">{app.antallKarakterer}</span><span className="text-end right-0 text-red-700"> *sjekk bilde</span></span>
-                                            : ""
+                                                isAddingGrades === app._id ? 
+                                                    <span className="flex flex-row w-full justify-end items-center px-[4px] gap-2">
+                                                        <input
+                                                            type="text"
+                                                            placeholder="Skriv inn karakterene her"
+                                                            className="h-8 rounded-md text-black text-xs px-[2px] w-40"
+                                                            onChange={((e) => setAddedGrades(e.target.value))}
+                                                        >
+                                                        
+                                                        </input>
+                                                        <span className="flex flex-row gap-2">
+                                                            <button 
+                                                                onClick={((e) => handleGradesRegister(e, app))}
+                                                                className=" p-[4px] bg-green-500 hover:bg-green-400 rounded-full"><Save size="16" color="white"/></button>
+                                                            <button 
+                                                                onClick={(() => setIsAddingGrades(null))}
+                                                                className=" p-[4px] bg-red-400 hover:bg-red-500 rounded-full"><X size="16" color="white"/></button>
+                                                        </span>
+                                                    </span>
+                                                : 
+                                                    <span className="flex flex-row items-center justify-between">
+                                                        <span>
+                                                            <span className="text-red-700">{app.antallKarakterer}</span>
+                                                            {app.textractAnalysis && app.textractAnalysis.includes("manueltregistrert") && 
+                                                            <span className="text-red-700"> (manuelt oppgitt)</span>}
+                                                        </span>
+                                                        <button 
+                                                            onClick={(() => setIsAddingGrades(app._id))}
+                                                            className="bg-red-300 hover:bg-red-400 text-xs p-[4px] rounded-md border-white border-[2px]">
+                                                                {app.textractAnalysis && app.textractAnalysis.includes("manueltregistrert") ? <span>Endre</span> : <span>Legg inn karakterer manuelt</span>}
+                                                        </button>
+                                                    </span>
+                                            : 
+                                                ""
                                         )}
                                     </td>
                                     <td className="border border-black px-[6px] py-2 text-xs break-words max-w-2">{app.karaktersett}</td>
