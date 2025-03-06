@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { utils, writeFileXLSX } from "xlsx";
 import React, { ChangeEvent } from "react";
 import { format } from "date-fns"
-import { CalendarIcon, ImageDown, Download, Repeat, Play, Pencil, X, RefreshCw, Save } from "lucide-react"
+import { CalendarIcon, ImageDown, Download, Repeat, Play, Pencil, X, RefreshCw, Save, MessageCircleMore } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -35,6 +35,9 @@ interface Application {
     gjennomsnitt?: number,
     antallKarakterer?: number,
     behandlet?: number,
+    logg?: string,
+    hovedinstrument?: string,
+    skoleaar?: string,
 }
 
 const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
@@ -61,6 +64,10 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
     const [isChecking, setIsChecking] = useState<Application['_id'] | null>(null);
     const [isAddingGrades, setIsAddingGrades] = useState<Application['_id'] | null>(null);
     const [addedGrades, setAddedGrades] = useState<string | null>("");
+    const [isLogging, setIsLogging] = useState<Application['_id'] | null>(null);
+    const [isAverage, setIsAverage] = useState<boolean>(false);
+    const [isDateSorted, setIsDateSorted] = useState<boolean>(false);
+    const [addedLog, setAddedLog] = useState<string | null>("");
     
     const fetchApplications = useCallback(async () => {
         setIsFetching(true);
@@ -196,8 +203,8 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
             });
     
             if (!response.ok) {
-                throw new Error('Failed to update application');
                 setIsChecking(null);
+                throw new Error('Failed to update application');
             }
     
             // Oppdater listen med applikasjoner med ny behandlet-verdi
@@ -279,6 +286,46 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
         }
     };
 
+    const handleLogRegister = async (e: React.MouseEvent<HTMLButtonElement>, app: Application) => {
+        e.preventDefault();
+        const field = 'logg';
+        const today = new Date();
+        const logDate = today.getFullYear() + (today.getMonth() +1).toString().padStart(2, '0') + today.getDate().toString().padStart(2, '0');
+        const newLog = addedLog ? app.logg ? app.logg + "_loggpause_" + logDate + addedLog : logDate + addedLog : null;
+        
+        if (addedLog && isLogging === app._id) {
+            try {
+                console.log("Sending log:", addedLog);  // Logg før sending
+                const response = await fetch(`/api/applications/${app._id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({ [field]: newLog }),  // Send logg som newLog
+                });
+    
+                const data = await response.json();
+                if (data) console.log("data");
+    
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error("Feil ved oppdatering:", errorText);
+                    throw new Error(`Failed to update application: ${errorText}`);
+                }
+    
+                setIsLogging(null);
+                setAddedLog("");
+                await fetchApplications();
+                console.log("Oppdatering fullført!");
+            } catch (err) {
+                console.error('Error updating application log:', err);
+                alert("Noe feil!");
+            }
+        }
+    };
+    
+    
     const handleRemoveFromdate = async () => {
         setDate(undefined);
         setSecondDate(undefined);      
@@ -333,12 +380,14 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
     };
     
 
+
     const filteredApplications = useFilter 
         ? 
             applications.filter((app) => 
                 app.name.toLowerCase().includes(searchTerm) ||
                 app.email.toLowerCase().includes(searchTerm) ||
                 app.emailParent.toLowerCase().includes(searchTerm) ||
+                app.priority1.toLowerCase().includes(searchTerm) ||
                 app.phone.includes(searchTerm)
             ) 
             
@@ -348,6 +397,38 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
         const displayApplications = hidingTreatedApps 
         ? filteredApplications.filter((app) => app.behandlet === 0)  // Behold kun ubehandlede
         : filteredApplications;
+
+    const handleSortAverage = () => {
+        setIsAverage(!isAverage);
+        setIsDateSorted(false);
+        let sortedApps = filteredApplications;
+        if(!isAverage) {
+            sortedApps = [...filteredApplications].sort((a, b) => (b.gjennomsnitt || 0) - (a.gjennomsnitt || 0));
+        } else {
+            sortedApps = [...filteredApplications].sort((a, b) => (a.gjennomsnitt || 0) - (b.gjennomsnitt || 0));
+        }
+        setApplications(sortedApps);
+    };
+
+    const handleSortDate = () => {
+        setIsDateSorted(!isDateSorted);
+        setIsAverage(false);  // Resetter gjennomsnittssortering
+        const sortedApps = [...filteredApplications].sort((a, b) => {
+            const dateA = new Date(a.createdAt.slice(0, 10));
+            const dateB = new Date(b.createdAt.slice(0, 10));
+    
+            if (!isDateSorted) {
+                return dateB.getTime() - dateA.getTime();  // Nyeste først
+            } else {
+                return dateA.getTime() - dateB.getTime();  // Eldste først
+            }
+        });
+    
+        setApplications(sortedApps);
+    };
+    
+    
+
 
     return (
         <div className="flex flex-col w-full min-h-screen justify-start h-auto items-start overflow-auto">
@@ -518,6 +599,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                         <table ref={tbl} className="table-auto w-full text-sm bg-slate-800 overflow-scroll border border-black border-collapse">
                             <thead className="bg-slate-600">
                                 <tr className="bg-slate-400-100 border border-black">
+                                    <th className="border border-black px-[2px] break-words py-2">#</th>
                                     <th className="border border-black px-[2px] break-words py-2">Navn</th>
                                     <th className="border border-black px-[2px] text-xs break-words py-2">Søkt dato</th>
                                     <th className="border border-black px-[2px] break-words py-2">TLF</th>
@@ -530,7 +612,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                     <td className="border border-black px-[6px] py-2 text-xs break-words max-w-24">{app.name}</td>
                                     <td className="border border-black px-[6px] py-2 text-xs break-words max-w-24">{app.createdAt.slice(0, 10)}</td>
                                     <td className="border border-black px-[6px] py-2 text-xs break-words max-w-24">{app.email}</td>
-                                    <td className="border border-black px-[6px] py-2 text-xs break-words max-w-24">{app.phone}</td>
+                                    <td className="border border-black px-[6px] py-2 text-xs break-words max-w-24">{app.priority1}</td>
                                 </tr>
                             ))}
                             </tbody>
@@ -538,24 +620,35 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                     </div>
                 {/* DESKTOP TABLE */}
                     <div className="hidden md:flex w-full justify-center"> 
-
                         <table ref={tbl} className="table-auto w-full mt-8 text-sm p-4 bg-slate-800 rounded-xl max-w-screen-3xl overflow-scroll border border-black border-collapse">
                         <thead className="bg-slate-600">
                             <tr className="bg-slate-400-100 border border-black">
                                 <th className="border border-black px-[2px] break-words py-2">Navn</th>
-                                <th className="border border-black px-[2px] text-xs break-words py-2">Søkt dato <span className="text-xs">(Y-M-D)</span></th>
+                                <th className="border border-black px-[2px] text-xs break-words py-2">
+                                    <span onClick={handleSortDate} className="border-[1px] border-slate-400 rounded-lg px-2 py-[2px] bg-slate-700 hover:bg-red-300 cursor-pointer">
+                                        Søkt dato <span className="text-xs">(YMD)</span>
+                                    </span>
+                                    
+                                </th>
                                 <th className="border border-black px-[2px] break-words py-2">E-post</th>
-                                <th className="border border-black px-[2px] break-words py-2">E-post foresatt</th>
+                                <th className="border border-black px-[2px] break-words py-2">E-post fores.</th>
                                 <th className="border border-black px-[2px] break-words py-2">TLF</th>
-                                <th className="border border-black px-[2px] break-words py-2">1. Pri</th>
-                                <th className="border border-black px-[2px] break-words py-2">2. Pri</th>
-                                <th className="border border-black px-[2px] break-words py-2">3. Pri</th>
+                                <th className="border border-black px-[2px] break-words py-2">ÅR</th>
+                                <th className="border border-black px-[2px] break-words py-2">Pri 1</th>
+                                <th className="border border-black px-[2px] break-words py-2">Pri 2</th>
+                                <th className="border border-black px-[2px] break-words py-2">Pri 3</th>
+                                <th className="border border-black px-[2px] break-words py-2">Instr</th>
                                 <th className="border border-black px-[2px] break-words py-2 max-w-16">Prøve?</th>
                                 <th className="border border-black px-[2px] break-words py-2">Bilde</th>
                                 <th className="border border-black px-[2px] break-words py-2">Analyse</th>
-                                <th className="border border-black px-[2px] break-words py-2">Snitt</th>
+                                <th className="border border-black px-[2px] break-words py-2">
+                                    <span onClick={handleSortAverage} className="border-[1px] border-slate-400 rounded-lg px-2 py-[2px] bg-slate-700 hover:bg-red-300 cursor-pointer">
+                                        Snitt
+                                    </span>
+                                </th>
                                 <th className="border border-black px-[2px] break-words py-2">Ant. karakterer</th>
-                                <th className="border border-black px-[2px] break-words py-2">Karakter-sett</th>
+                                <th className="border border-black px-[2px] break-words py-2">Karakterer</th>
+                                <th className="border border-black px-[2px] break-words py-2">Logg</th>
                                 <th className="border border-black px-[2px] break-words py-2">Behandlet?</th>
                                 <th className="border-none px-[2px] break-words py-2 text-center flex items-center justify-center"><Pencil size="16"/></th>
                             </tr>
@@ -571,12 +664,14 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                     <td className="border border-black px-[6px] py-2 text-xs break-words max-w-24">
                                         {app.emailParent}
                                     </td>
-                                    <td className="border border-black px-[6px] py-2 max-w-16">
+                                    <td className="border border-black px-[6px] py-2 text-xs max-w-16">
                                         {app.phone}
                                     </td>
-                                    <td className="border border-black px-[6px] py-2">{app.priority1}</td>
-                                    <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.priority2}</td>
-                                    <td className="border border-black px-[6px] py-2 break-words max-w-24">{app.priority3}</td>
+                                    <td className="border border-black px-[6px] text-xs py-2">{app.skoleaar}</td>
+                                    <td className="border border-black px-[6px] text-xs py-2">{app.priority1}</td>
+                                    <td className="border border-black px-[6px] text-xs py-2 break-words max-w-24">{app.priority2}</td>
+                                    <td className="border border-black px-[6px] text-xs py-2 break-words max-w-24">{app.priority3}</td>
+                                    <td className="border border-black px-[6px] py-2 break-words text-xs max-w-24">{app.hovedinstrument}</td>
                                     <td className="border border-black px-[6px] py-2 break-words max-w-16">{app.opptaksprove}</td>
                                     <td className="border border-black text-center py-0 text-xs h-auto">
                                         {app.s3FileUrl ? (
@@ -655,7 +750,29 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                     <td className="border border-black px-[6px] py-2">
                                         {app.antallKarakterer && app.antallKarakterer > 11 && app.antallKarakterer < 15 && !app.textractAnalysis?.includes("manueltregistrert")? 
                                             (
-                                                <span className="text-green-700">{app.antallKarakterer}</span>
+                                                <div className="flex flex-row justify-between">
+                                                    {app.textractAnalysis && !app.textractAnalysis.includes("manueltregistrert") &&    
+                                                    <span className="text-green-700">
+                                                        {app.antallKarakterer}
+                                                    </span>
+                                                    }
+                                                    <span className="flex flex-row items-center justify-between">
+                                                        <span>
+                                                            
+                                                            {app.textractAnalysis && app.textractAnalysis.includes("manueltregistrert") && 
+                                                            <span>
+                                                                <span className="text-red-700">{app.antallKarakterer}</span>
+                                                                <span className="text-red-700"> (manuelt oppgitt)</span>
+                                                            </span>
+                                                            }
+                                                        </span>
+                                                        <button 
+                                                            onClick={(() => setIsAddingGrades(app._id))}
+                                                            className="bg-transparent hover:bg-red-400 text-xs p-[4px] rounded-md border-white border-[2px]">
+                                                                {app.textractAnalysis && app.textractAnalysis.includes("manueltregistrert") ? <span>Endre</span> : <span>Legg inn manuelt</span>}
+                                                        </button>
+                                                    </span>
+                                                </div>
                                             ) 
                                         : (
                                             app.antallKarakterer ? 
@@ -687,15 +804,89 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                                         </span>
                                                         <button 
                                                             onClick={(() => setIsAddingGrades(app._id))}
-                                                            className="bg-red-300 hover:bg-red-400 text-xs p-[4px] rounded-md border-white border-[2px]">
-                                                                {app.textractAnalysis && app.textractAnalysis.includes("manueltregistrert") ? <span>Endre</span> : <span>Legg inn karakterer manuelt</span>}
+                                                            className="bg-red-100 hover:bg-red-400 text-xs p-[4px] rounded-md border-white border-[2px]">
+                                                                {app.textractAnalysis && app.textractAnalysis.includes("manueltregistrert") ? <span>Endre</span> : <span>Legg inn manuelt</span>}
                                                         </button>
                                                     </span>
                                             : 
-                                                ""
+                                            isAddingGrades === app._id ? 
+                                            <span className="flex flex-row w-full justify-end items-center px-[4px] gap-2">
+                                                <input
+                                                    type="text"
+                                                    placeholder="Skriv inn karakterene her"
+                                                    className="h-8 rounded-md text-black text-xs px-[2px] w-40"
+                                                    onChange={((e) => setAddedGrades(e.target.value))}
+                                                >
+                                                
+                                                </input>
+                                                <span className="flex flex-row gap-2">
+                                                    <button 
+                                                        onClick={((e) => handleGradesRegister(e, app))}
+                                                        className=" p-[4px] bg-green-500 hover:bg-green-400 rounded-full"><Save size="16" color="white"/></button>
+                                                    <button 
+                                                        onClick={(() => setIsAddingGrades(null))}
+                                                        className=" p-[4px] bg-red-400 hover:bg-red-500 rounded-full"><X size="16" color="white"/></button>
+                                                </span>
+                                            </span>
+                                        : 
+                                            <span className="flex flex-row items-center justify-between">
+                                                <span>
+                                                    <span className="text-red-700">{app.antallKarakterer}</span>
+                                                    {app.textractAnalysis && app.textractAnalysis.includes("manueltregistrert") && 
+                                                    <span className="text-red-700"> (manuelt oppgitt)</span>}
+                                                </span>
+                                                <button 
+                                                    onClick={(() => setIsAddingGrades(app._id))}
+                                                    className="bg-red-100 hover:bg-red-400 text-xs p-[4px] rounded-md border-white border-[2px]">
+                                                        {app.textractAnalysis && app.textractAnalysis.includes("manueltregistrert") ? <span>Endre</span> : <span>Legg inn manuelt</span>}
+                                                </button>
+                                            </span>
                                         )}
                                     </td>
                                     <td className="border border-black px-[6px] py-2 text-xs break-words max-w-2">{app.karaktersett}</td>
+                                    <td className="border border-black px-[6px] py-2 text-xs break-words min-w-40 max-w-40">
+                                        <span className="flex flex-col">
+                                            <span className="font-thin">
+                                                <ul className="mb-2">{app.logg && app.logg.split('_loggpause_').map((loggEntry, index) => (
+                                                    <li className="text-[10px] bg-black/20" key={index}>
+                                                        {loggEntry.substring(0, 4)}.{loggEntry.substring(4, 6)}.{loggEntry.substring(6, 8)}: {loggEntry.substring(8)}
+                                                    </li>
+                                                ))}
+                                                </ul>
+                                                {
+                                                    isLogging === app._id ? 
+                                                    <span className="flex flex-row w-full justify-end items-center px-[4px] gap-2">
+                                                        <textarea
+                                                            placeholder="Ny logg her"
+                                                            className="h-6 rounded-md text-black text-[10px] px-[2px] w-40"
+                                                            onChange={((e) => setAddedLog(e.target.value))}
+                                                        >
+                                                        
+                                                        </textarea>
+                                                        <span className="flex flex-row gap-2">
+                                                            <button 
+                                                                onClick={((e) => handleLogRegister(e, app))}
+                                                                className=" p-[4px] bg-green-500 hover:bg-green-400 rounded-full"><Save size="10" color="white"/></button>
+                                                            <button 
+                                                                onClick={(() => setIsLogging(null))}
+                                                                className=" p-[4px] bg-red-400 hover:bg-red-500 rounded-full"><X size="10" color="white"/></button>
+                                                        </span>
+                                                    </span>
+                                                : 
+                                                    <span className="flex flex-row items-center justify-between">
+                                                        <span>
+
+                                                        </span>
+                                                        <button 
+                                                            onClick={(() => setIsLogging(app._id))}
+                                                            className="bg-white hover:bg-red-400 text-xs rounded-2xl p-[2px]">
+                                                                <MessageCircleMore size="16" color="#e6410a"/>
+                                                        </button>
+                                                    </span>
+                                                }
+                                            </span>
+                                        </span>
+                                    </td>
                                     <td className="border border-black px-[2px] text-center py-2 break-words">
                                         <div className="w-full flex items-center justify-center">
                                             <label className="relative flex cursor-pointer items-center">

@@ -101,11 +101,12 @@ export async function PATCH(req: NextRequest) {
   };
 
   const id: string = req.nextUrl.pathname.split('/').pop()!; // Hent 'id' fra URL
-
+  
   try {
     const updates = await req.json(); // Hent oppdateringer fra forespørselen
 
     await dbConnect();
+
 
     // Hvis forespørselen inneholder en filnøkkel, kjør Textract-analyse
     if (updates.fileKey) {
@@ -129,14 +130,19 @@ export async function PATCH(req: NextRequest) {
 
     try {
       // Oppdater databasen
-      const updatedApplication = await Application.findByIdAndUpdate(
-        id,
-        { $set: updates },
-        { new: true, runValidators: true }
-      );
+
+      const updatedApplication = 
+        await Application.findByIdAndUpdate(
+          id,
+          { $set: updates },
+          { new: true, runValidators: true }
+        );
+
 
       if (!updatedApplication) {
         return NextResponse.json({ message: "Application not found" }, { status: 404 });
+      } else {
+        console.log("Updated application: ", updatedApplication);
       }
 
       return NextResponse.json({ message: "Application updated", application: updatedApplication });

@@ -40,6 +40,8 @@ export async function POST(req: Request) {
     const priority2 = formData.get("priority2") as string;
     const priority3 = formData.get("priority3") as string;
     const opptaksprove = formData.get("opptaksprove") as string;
+    const hovedinstrument = formData.get("hovedinstrument") as string;
+    const skoleaar = formData.get("skoleaar") as string;
     const file = formData.get("resume") as File;
     const behandlet = 0 as number;
     
@@ -95,6 +97,8 @@ export async function POST(req: Request) {
       priority1,
       priority2,
       priority3,
+      hovedinstrument,
+      skoleaar,
       filename: fileUrl, // Lagre S3-URL i databasen
       textractAnalysis: "",  // Lagre Textract-resultatet (kan være null hvis analysen feiler)
       behandlet,  //setter status til ubehandlet
@@ -119,12 +123,14 @@ export async function POST(req: Request) {
         Hei! Vi har mottatt en søknad fra deg. Her er detaljene:
         
         Navn: ${name}
+        Skoleår: ${skoleaar}
         E-post: ${email}
         E-post (foresatt): ${emailParent}
         Telefon: ${phone}
         Prioritet 1: ${priority1}
         Prioritet 2: ${priority2}
         Prioritet 3: ${priority3}
+        Hovedinstrument: ${hovedinstrument}
         Opptaksprøve: ${opptaksprove}
 
         Mvh Create - Lillehammer kreative videregående skole

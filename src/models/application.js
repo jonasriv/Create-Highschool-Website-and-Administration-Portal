@@ -1,4 +1,3 @@
-// models/Application.js
 import mongoose from "mongoose";
 
 const ApplicationSchema = new mongoose.Schema({
@@ -15,6 +14,10 @@ const ApplicationSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  logg: { type: String, required: false},
+  hovedinstrument: { type: String, required: false },  
+  skoleaar: { type: String, required: false },  
+  status: { type: String, required: false },  
   behandlet: { type: Number, required: false },  
   createdAt: { type: Date, default: Date.now },
 });

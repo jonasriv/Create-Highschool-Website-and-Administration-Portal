@@ -1,0 +1,3 @@
+name;email;phone;priority1;priority2;priority3;file
+Kasper Brandshaug;brandshaugk@gmail.com;95021580;Drama;Dans;Musikk;
+

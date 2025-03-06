@@ -16,6 +16,8 @@ const Soknad = () => {
         priority2: string;
         priority3: string;
         opptaksprove: string;
+        hovedinstrument: string;
+        skoleaar: string;
         resume: File | null;
     }
     const [ formData, setFormData ] = useState<FormData>({
@@ -27,6 +29,8 @@ const Soknad = () => {
         priority2: '',
         priority3: '',
         opptaksprove: '',
+        hovedinstrument: '',
+        skoleaar: 'VG1',
         resume: null,
     });
 
@@ -39,6 +43,8 @@ const Soknad = () => {
         priority2: '',
         priority3: '',
         opptaksprove: '',
+        hovedinstrument: '',
+        skoleaar: '',
         resume: '',
     })
 
@@ -54,8 +60,10 @@ const Soknad = () => {
             priority1: formData.priority1 ? '' : 'Du må velge en førsteprioritet',
             priority2: formData.priority2 ? '' : 'Du må velge en andreprioritet',
             priority3: formData.priority3 ? '' : 'Du må velge en tredjeprioritet',
-            opptaksprove: formData.priority3 ? '' : 'Du må velge om ønsker frivillig opptaksprøve',
+            opptaksprove: formData.opptaksprove ? '' : 'Du må velge om ønsker frivillig opptaksprøve',
+            hovedinstrument: (formData.priority1 === 'musikk' || formData.priority2 === 'musikk' || formData.priority3 === 'musikk') && !formData.hovedinstrument ? 'Du må velge et hovedinstrument' : '',
             resume: formData.resume ? '' : 'Du må laste opp en karakterutskrift',
+            skoleaar: formData.skoleaar ? '' : 'Du må velge et skoleår',
         };
         setErrors(newErrors);
         return Object.values(newErrors).every((error) => !error);
@@ -93,7 +101,9 @@ const Soknad = () => {
                 formDataToSend.append('priority1', formData.priority1); 
                 formDataToSend.append('priority2', formData.priority2); 
                 formDataToSend.append('priority3', formData.priority3); 
+                formDataToSend.append('hovedinstrument', formData.hovedinstrument); 
                 formDataToSend.append('opptaksprove', formData.opptaksprove); 
+                formDataToSend.append('skoleaar', formData.skoleaar); 
                 formDataToSend.append('resume', formData.resume as File); 
     
                 const response = await fetch('api/applications', {
@@ -121,6 +131,8 @@ const Soknad = () => {
                     priority2: '',
                     priority3: '',
                     opptaksprove: '',
+                    hovedinstrument: '',
+                    skoleaar: '',
                     resume: null,
                 });
     
@@ -214,6 +226,21 @@ const Soknad = () => {
                 className="w-full p-2 border border-gray-300 rounded-md text-slate-700"
                 />
                 {errors.fullName && <p className="text-red-500 text-sm md:text-lg">{errors.fullName}</p>}
+            </div>
+            {/* Skoleår */}
+            <div>
+            <label htmlFor="skoleaar" className="block text-sm md:text-lg font-semibold">Hvilket skoleår søker du for?</label>
+                <select
+                    id="skoleaar"
+                    name="skoleaar"
+                    value={formData.skoleaar}  // Sørg for at denne verdien er i tråd med formData
+                    onChange={(e) => setFormData({ ...formData, skoleaar: e.target.value })}
+                    className="w-full p-2 border border-gray-300 rounded-md text-slate-700"
+                >
+                    <option value="VG1">VG1</option>
+                    <option value="VG2">VG2</option>
+                </select>
+                {errors.skoleaar && <p className="text-red-500 text-sm md:text-lg">{errors.skoleaar}</p>}
             </div>
     
             {/* E-post */}
@@ -316,7 +343,24 @@ const Soknad = () => {
                     <option value="onsker_ikke_3">Ønsker ikke tredjevalg</option>
                 </select>
                 {errors.priority3 && <p className="text-red-500 text-sm md:text-lg">{errors.priority3}</p>}
-            </div>      
+            </div>
+            {(formData.priority1 === "musikk" || formData.priority2 === "musikk" || formData.priority3 === "musikk") && 
+                <div>
+                    <label htmlFor="hovedinstrument" className="block text-sm md:text-lg font-semibold">Hovedinstrument:</label>
+                    <input
+                    type="text"
+                    placeholder="Hovedinstrument"
+                    id="hovedinstrument"
+                    name="hovedinstrument"
+                    value={formData.hovedinstrument}
+                    onChange={(e) => setFormData({ ...formData, hovedinstrument: e.target.value})}
+                    className="w-full p-2 border border-gray-300 rounded-md text-slate-700"
+                    />
+                    {errors.hovedinstrument && <p className="text-red-500 text-sm md:text-lg">{errors.hovedinstrument}</p>}
+                </div>
+            }
+
+
             <div>
                 <label htmlFor="opptaksprove" className="block text-sm md:text-lg font-semibold">Ønsker du frivillig opptaksprøve? Kan gi ekstra poeng.</label>
                 <select
