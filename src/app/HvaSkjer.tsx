@@ -15,6 +15,8 @@ interface NewsItem {
 }
 
 const HvaSkjer = () => {
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
     const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -51,12 +53,14 @@ const HvaSkjer = () => {
     if (error) {
         return <div>{error}</div>;
     }
-
+    if (!mounted) return null;
     return (
-        <div className="flex flex-col justify-center items-center w-screen h-full mt-0 rounded-xl">
-            <div className="w-screen h-full lg:w-[1024px] text-white flex flex-col justify-center items-center box-border ...  no-scrollbar mt-0 ">
-                <div className="flex h-full flex-col lg:rounded-2xl w-full justify-center items-center px-4">
-                    <h1 className="font-mina text-xl md:text-3xl lg:text-4xl tracking-widest text-center text-white font-black mb-8 mt-0">
+        <div 
+        className="flex flex-col justify-center items-center w-screen h-auto mt-0 pb-0"
+        >
+            <div className="w-screen h-auto xl:w-[1024px] text-white flex flex-col justify-start items-center box-border ...  no-scrollbar mt-0 overflow-hidden">
+                <div className="xl:bg-black/50 pb-12 flex h-auto flex-col lg:rounded-xl w-full mt-16 md:mt-24 justify-start items-center md:gap-4">
+                    <h1 className="font-mina text-2xl md:text-3xl lg:text-4xl tracking-widest text-center text-white font-black mb-4 md:mb-4 md:pt-4">
                         Hva skjer på Create?
                     </h1>
                     <div className="flex lg:justify-between items-start rounded-xl bg-white/40 w-full md:w-[600px] lg:w-[800px] h-[480px] md:h-[600px] lg:h-[600px]">

@@ -10,6 +10,12 @@ const ApplicationSchema = new mongoose.Schema({
   priority3: { type: String, required: true },
   opptaksprove: { type: String, required: false },
   filename: { type: String, required: true },
+  fakturanavn: { type: String, required: true },
+  fakturaepost: { type: String, required: true },
+  fakturagateadresse: { type: String, required: true },
+  fakturapostnummer: { type: String, required: true },
+  fakturapoststed: { type: String, required: true },
+  fakturaland: { type: String, required: false, default: "Norge" },
   textractAnalysis: {
     type: String,
     required: false,

@@ -4,7 +4,7 @@ import { NextResponse, NextRequest } from "next/server";
 import { verifyToken } from "@/app/admin/verifyToken";
 
 export async function POST(req: NextRequest) {
-  const authResult = verifyToken(req);
+  const authResult = await verifyToken(req);
   if (authResult.error) {
     return NextResponse.json({ error: authResult.error }, { status: authResult.status });
   }

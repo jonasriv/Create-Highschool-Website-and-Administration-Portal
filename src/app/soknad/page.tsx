@@ -2,10 +2,10 @@
 import React, { useState, useRef } from "react";
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-const Header = dynamic(() => import("./HeaderSoknad"));
+const Header = dynamic(() => import("./HeaderSoknad"), {ssr:false});
 
 const Soknad = () => {
-    const divRef = useRef<HTMLDivElement | null>(null);
+    const divRef = useRef<HTMLDivElement | null>(null);
     const externalBackground = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506363/background_no_logo_yhjwra.jpg"; 
     type FormData = {
         fullName: string;
@@ -19,6 +19,13 @@ const Soknad = () => {
         hovedinstrument: string;
         skoleaar: string;
         resume: File | null;
+        fakturanavn: string;
+        fakturaepost: string;
+        fakturagateadresse: string;
+        fakturapostnummer: string;
+        fakturapoststed: string;
+        fakturaland?: string;    
+        sprakvalg: string;    
     }
     const [ formData, setFormData ] = useState<FormData>({
         fullName: '',
@@ -32,6 +39,13 @@ const Soknad = () => {
         hovedinstrument: '',
         skoleaar: 'VG1',
         resume: null,
+        fakturanavn: "",
+        fakturaepost: "",
+        fakturagateadresse: "",
+        fakturapostnummer: "",
+        fakturapoststed: "",
+        fakturaland: "",        
+        sprakvalg: "",        
     });
 
     const [ errors, setErrors ] = useState({
@@ -46,6 +60,13 @@ const Soknad = () => {
         hovedinstrument: '',
         skoleaar: '',
         resume: '',
+        fakturanavn: "",
+        fakturaepost: "",
+        fakturagateadresse: "",
+        fakturapostnummer: "",
+        fakturapoststed: "",
+        fakturaland: "",
+        sprakvalg: "",
     })
 
     const [loading, setLoading] = useState(false);  // Legg til loading state
@@ -64,6 +85,13 @@ const Soknad = () => {
             hovedinstrument: (formData.priority1 === 'musikk' || formData.priority2 === 'musikk' || formData.priority3 === 'musikk') && !formData.hovedinstrument ? 'Du må velge et hovedinstrument' : '',
             resume: formData.resume ? '' : 'Du må laste opp en karakterutskrift',
             skoleaar: formData.skoleaar ? '' : 'Du må velge et skoleår',
+            fakturanavn: formData.fakturanavn ? '' : 'Du må skrive inn et navn for fakturamottaker',
+            fakturaepost: formData.fakturanavn ? '' : 'Du må oppgi epostadresse til fakturamottaker',
+            fakturagateadresse: formData.fakturanavn ? '' : 'Du må oppgi gateadresse til fakturamottaker',
+            fakturapostnummer: formData.fakturanavn ? '' : 'Du må oppgi postnummer til fakturamottaker',
+            fakturapoststed: formData.fakturanavn ? '' : 'Du må oppgi poststed til fakturamottaker',
+            fakturaland: formData.fakturanavn ? '' : 'Du må oppgi fakturaland',
+            sprakvalg: formData.sprakvalg ? '' : 'Du må velge fremmedspråk',
         };
         setErrors(newErrors);
         return Object.values(newErrors).every((error) => !error);
@@ -105,6 +133,13 @@ const Soknad = () => {
                 formDataToSend.append('opptaksprove', formData.opptaksprove); 
                 formDataToSend.append('skoleaar', formData.skoleaar); 
                 formDataToSend.append('resume', formData.resume as File); 
+                formDataToSend.append('fakturanavn', formData.fakturanavn); 
+                formDataToSend.append('fakturaepost', formData.fakturaepost); 
+                formDataToSend.append('fakturagateadresse', formData.fakturagateadresse); 
+                formDataToSend.append('fakturapostnummer', formData.fakturapostnummer); 
+                formDataToSend.append('fakturapoststed', formData.fakturapoststed); 
+                formDataToSend.append('fakturaland', formData.fakturaland || ''); 
+                formDataToSend.append('sparkvalg', formData.sprakvalg); 
     
                 const response = await fetch('api/applications', {
                     method: 'POST', 
@@ -134,6 +169,13 @@ const Soknad = () => {
                     hovedinstrument: '',
                     skoleaar: '',
                     resume: null,
+                    fakturanavn: "",
+                    fakturaepost: "",
+                    fakturagateadresse: "",
+                    fakturapostnummer: "",
+                    fakturapoststed: "",
+                    fakturaland: "",                       
+                    sprakvalg: "",                       
                 });
     
                 if (fileInputRef.current) {
@@ -156,7 +198,7 @@ const Soknad = () => {
         event.preventDefault(); 
         setRequirements(1);
 
-      };
+    };
 
     const handleGetIt = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -164,19 +206,19 @@ const Soknad = () => {
         if (divRef.current) {
             divRef.current.classList.remove("hidden");
             document.getElementById("expand_button")?.classList.toggle("hidden");
-          } 
+        } 
     };
     
-      return (
-        <div 
-        className="flex flex-col overflow-y-scroll h-screen w-screen bg-black "
-        style={{
-          backgroundImage: `url(${externalBackground})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          //filter: 'brightness(80%)',
-      }}  >
+    return (
+    <div 
+    className="flex flex-col overflow-y-scroll h-screen w-screen bg-black "
+    style={{
+        backgroundImage: `url(${externalBackground})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        //filter: 'brightness(80%)',
+    }}  >
             <Header/>
             {loading && (
               <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 z-50 flex-col gap-12">
@@ -213,6 +255,7 @@ const Soknad = () => {
             <h1 className="text-2xl font-bold mb-6 pt-8 font-mina w-full text-center">Søknadsskjema</h1>
             
             <form onSubmit={handleSubmit} className="space-y-4">
+            <h1 className="font-mina text-2xl pt-4">Personalia:</h1>                
             {/* Fullt navn */}
             <div>
                 <label htmlFor="fullName" className="block text-sm md:text-lg font-semibold">Fullt navn:</label>
@@ -235,7 +278,7 @@ const Soknad = () => {
                     name="skoleaar"
                     value={formData.skoleaar}  // Sørg for at denne verdien er i tråd med formData
                     onChange={(e) => setFormData({ ...formData, skoleaar: e.target.value })}
-                    className="w-full p-2 border border-gray-300 rounded-md text-slate-700"
+                    className="w-full p-2 h-10 border border-gray-300 rounded-md text-slate-700"
                 >
                     <option value="VG1">VG1</option>
                     <option value="VG2">VG2</option>
@@ -287,9 +330,100 @@ const Soknad = () => {
                 />
                 {errors.phone && <p className="text-red-500 text-sm md:text-lg">{errors.phone}</p>}
             </div>
-    
+            
+            {/* Fakturaadresse */}
+            <h1 className="font-mina text-2xl pt-4">Fakturaadresse:</h1>
+            {/* Fakturaadresse navn*/}
+            <div>
+                <label htmlFor="fakturanavn" className="block text-sm md:text-lg font-semibold">Navn på fakturamottaker:</label>
+                <input
+                type="text"
+                placeholder="Fullt navn på fakturamottaker"
+                id="fakturanavn"
+                name="fakturanavn"
+                value={formData.fakturanavn}
+                onChange={(e) => setFormData({ ...formData, fakturanavn: e.target.value})}
+                className="w-full p-2 border border-gray-300 rounded-md text-slate-700"
+                />
+                {errors.fakturanavn && <p className="text-red-500 text-sm md:text-lg">{errors.fakturanavn}</p>}
+            </div>
+            
+            {/* Fakturaadresse epost */}
+            <div>
+                <label htmlFor="fakturaepost" className="block text-sm md:text-lg font-semibold">Epost-adresse til fakturamottaker:</label>
+                <input
+                type="text"
+                placeholder="Epost-adresse til fakturamottaker"
+                id="fakturaepost"
+                name="fakturaepost"
+                value={formData.fakturaepost}
+                onChange={(e) => setFormData({ ...formData, fakturaepost: e.target.value})}
+                className="w-full p-2 border border-gray-300 rounded-md text-slate-700"
+                />
+                {errors.fakturaepost && <p className="text-red-500 text-sm md:text-lg">{errors.fakturaepost}</p>}
+            </div>  
+
+            {/* Fakturaadresse postadresse (gateadresse) */}
+            <div>
+                <label htmlFor="fakturagateadresse" className="block text-sm md:text-lg font-semibold">Postadresse (gateadresse) til fakturamottaker:</label>
+                <input
+                type="text"
+                placeholder="Post-/gateadresse til fakturamottaker"
+                id="fakturagateadresse"
+                name="fakturagateadresse"
+                value={formData.fakturagateadresse}
+                onChange={(e) => setFormData({ ...formData, fakturagateadresse: e.target.value})}
+                className="w-full p-2 border border-gray-300 rounded-md text-slate-700"
+                />
+                {errors.fakturagateadresse && <p className="text-red-500 text-sm md:text-lg">{errors.fakturagateadresse}</p>}
+            </div>    
+
+            {/* Fakturaadresse postnummer*/}
+            <div>
+                <label htmlFor="fakturapostnummer" className="block text-sm md:text-lg font-semibold">Postnummer:</label>
+                <input
+                type="number"
+                placeholder="Postnummer"
+                id="fakturapostnummer"
+                name="fakturapostnummer"
+                value={formData.fakturapostnummer}
+                onChange={(e) => setFormData({ ...formData, fakturapostnummer: e.target.value})}
+                className="w-full p-2 border border-gray-300 rounded-md text-slate-700"
+                />
+                {errors.fakturapostnummer && <p className="text-red-500 text-sm md:text-lg">{errors.fakturapostnummer}</p>}
+            </div>  
+
+            {/* Fakturaadresse postnummer*/}
+            <div>
+                <label htmlFor="fakturapoststed" className="block text-sm md:text-lg font-semibold">Sted:</label>
+                <input
+                type="text"
+                placeholder="Poststed"
+                id="fakturapoststed"
+                name="fakturapoststed"
+                value={formData.fakturapoststed}
+                onChange={(e) => setFormData({ ...formData, fakturapoststed: e.target.value})}
+                className="w-full p-2 border border-gray-300 rounded-md text-slate-700"
+                />
+                {errors.fakturapoststed && <p className="text-red-500 text-sm md:text-lg">{errors.fakturapoststed}</p>}
+            </div>   
+
+            {/* Fakturaadresse postnummer*/}
+            <div>
+                <label htmlFor="fakturaland" className="block text-sm md:text-lg font-semibold">Land:</label>
+                <input
+                type="text"
+                placeholder="Norge"
+                id="fakturaland"
+                name="fakturaland"
+                value={formData.fakturaland}
+                onChange={(e) => setFormData({ ...formData, fakturaland: e.target.value})}
+                className="w-full p-2 border border-gray-300 rounded-md text-slate-700"
+                />
+                {errors.fakturaland && <p className="text-red-500 text-sm md:text-lg">{errors.fakturaland}</p>}
+            </div>                         
             {/* Prioritering */}
-            <h1 className="font-mina text-2xl pt-4">Prioritering:</h1>
+            <h1 className="font-mina text-2xl pt-4">Prioritering og valg:</h1>
             <div>
                 <label htmlFor="priority1" className="block text-sm md:text-lg font-semibold">Førstevalg:</label>
                 <select
@@ -297,7 +431,7 @@ const Soknad = () => {
                 name="prority1"
                 value={formData.priority1}
                 onChange={(e) => setFormData({ ...formData, priority1: e.target.value})}
-                className="w-full p-2 border border-gray-300 rounded-md text-slate-700"
+                className="w-full h-10 p-2 border border-gray-300 rounded-md text-slate-700"
                 
                 >
                     <option value="" disabled>Velg</option>
@@ -315,7 +449,7 @@ const Soknad = () => {
                 name="prority2"
                 value={formData.priority2}
                 onChange={(e) => setFormData({ ...formData, priority2: e.target.value})}
-                className="w-full p-2 border border-gray-300 rounded-md text-slate-700"
+                className="w-full h-10 p-2 border border-gray-300 rounded-md text-slate-700"
                 
                 >
                     <option value="" disabled>Velg</option>
@@ -334,7 +468,7 @@ const Soknad = () => {
                 name="prority3"
                 value={formData.priority3}
                 onChange={(e) => setFormData({ ...formData, priority3: e.target.value})}
-                className="w-full p-2 border border-gray-300 rounded-md text-slate-700"
+                className="w-full h-10 p-2 border border-gray-300 rounded-md text-slate-700"
                 >
                     <option value="" disabled>Velg</option>
                     <option value="musikk">Musikk</option>
@@ -354,13 +488,32 @@ const Soknad = () => {
                     name="hovedinstrument"
                     value={formData.hovedinstrument}
                     onChange={(e) => setFormData({ ...formData, hovedinstrument: e.target.value})}
-                    className="w-full p-2 border border-gray-300 rounded-md text-slate-700"
+                    className="w-full h-10 p-2 border border-gray-300 rounded-md text-slate-700"
                     />
                     {errors.hovedinstrument && <p className="text-red-500 text-sm md:text-lg">{errors.hovedinstrument}</p>}
                 </div>
             }
 
-
+            <div>
+                <label htmlFor="sprakvalg" className="block text-sm md:text-lg font-semibold">Valg av fremmedspråk:</label>
+                <select
+                id="sprakvalg"
+                name="sprakvalg"
+                value={formData.sprakvalg}
+                onChange={(e) => setFormData({ ...formData, sprakvalg: e.target.value})}
+                className="w-full h-10 p-2 border border-gray-300 rounded-md text-slate-700"
+                
+                >
+                    <option value="" disabled>Velg</option>
+                    <option value="fransk1">Fransk 1 (hadde ikke fransk på ungdomsskolen)</option>
+                    <option value="fransk2">Fransk 2 (hadde fransk på ungdomsskolen)</option>
+                    <option value="spansk1">Spansk 1 (hadde ikke spansk på ungdomsskolen)</option>
+                    <option value="spansk2">Spansk 2 (hadde ikke spansk på ungdomsskolen)</option>
+                    <option value="tysk1">Tysk 1 (hadde ikke tysk på ungdomsskolen)</option>
+                    <option value="tysk2">Tysk 2 (hadde ikke tysk på ungdomsskolen)</option>
+                </select>
+                {errors.sprakvalg && <p className="text-red-500 text-sm md:text-lg">{errors.sprakvalg}</p>}
+            </div>
             <div>
                 <label htmlFor="opptaksprove" className="block text-sm md:text-lg font-semibold">Ønsker du frivillig opptaksprøve? Kan gi ekstra poeng.</label>
                 <select
@@ -368,7 +521,7 @@ const Soknad = () => {
                 name="opptaksprove"
                 value={formData.opptaksprove}
                 onChange={(e) => setFormData({ ...formData, opptaksprove: e.target.value})}
-                className="w-full p-2 border border-gray-300 rounded-md text-slate-700"
+                className="w-full h-10 p-2 border border-gray-300 rounded-md text-slate-700"
                 >
                     <option value="" disabled>Velg</option>
                     <option value="ja">Ja, jeg ønsker opptaksprøve.</option>
@@ -379,8 +532,8 @@ const Soknad = () => {
             </div>                
     
             {/* CV opplasting */}
-            <div className="w-full">
-                <button id="expand_button" className="w-full border-2 border-transparent hover:bg-redpink rounded-lg bg-blue-500 p-2 font-mina font-normal text-xl mb-6" 
+            <div className="w-full pt-8">
+                <button id="expand_button" className="w-full border-2 border-transparent hover:bg-redpink rounded-lg bg-blue-500 p-2 font-mina font-normal text-2xl mb-6" 
                     onClick={(event) => handleExpand(event)}
                 >
                     Last opp karakterkort

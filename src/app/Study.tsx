@@ -7,10 +7,11 @@ import {
   } from "@/components/ui/carousel";
 import Image from "next/image";
 import { Star } from "lucide-react";
+import { useEffect, useState } from "react";
 
 
 const Study: React.FC = () => {    
-
+    const [mounted, setMounted]= useState(false);
     const Music0 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1737621589/studioMag1_gp0nw6.jpg";
     const Music1 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736805178/nymusikk3_zlu67s.png";
     const Music2 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1737036140/ingvild_bass_pimif6.jpg";
@@ -44,6 +45,13 @@ const Study: React.FC = () => {
     const Drama8 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736805160/Nydrama3_lxvq8y.png";
     const Drama9 = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507021/IMG_0005-1_pbfdyo.jpg";
 
+    useEffect(() => {
+        setMounted(true);
+    }, [])
+
+    if (!mounted) {
+        return <div className="h-[24rem] md:h-[28rem] lg:h-[32rem]" />; // placeholder
+    }
     return (
         <div 
         className="flex flex-col justify-center items-center w-screen h-auto mt-0 pb-0"

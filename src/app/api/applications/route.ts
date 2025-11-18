@@ -44,7 +44,12 @@ export async function POST(req: Request) {
     const skoleaar = formData.get("skoleaar") as string;
     const file = formData.get("resume") as File;
     const behandlet = 0 as number;
-    
+    const fakturanavn = formData.get("fakturanavn") as string;
+    const fakturaepost = formData.get("fakturaepost") as string;
+    const fakturagateadresse = formData.get("fakturagateadresse") as string;
+    const fakturapostnummer = formData.get("fakturapostnummer") as string;
+    const fakturapoststed = formData.get("fakturapoststed") as string;    
+    const fakturaland = formData.get("fakturaland") as string || "Norge";    
 
     const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
@@ -103,6 +108,11 @@ export async function POST(req: Request) {
       textractAnalysis: "",  // Lagre Textract-resultatet (kan være null hvis analysen feiler)
       behandlet,  //setter status til ubehandlet
       opptaksprove,
+      fakturanavn,
+      fakturaepost,
+      fakturagateadresse,
+      fakturapostnummer,
+      fakturapoststed,
     });
     // Nodemailer-konfigurasjon
     const transporter = nodemailer.createTransport({
@@ -132,6 +142,9 @@ export async function POST(req: Request) {
         Prioritet 3: ${priority3}
         Hovedinstrument: ${hovedinstrument}
         Opptaksprøve: ${opptaksprove}
+        Fakturamottaker: ${fakturanavn}
+        Faktura-epost: ${fakturaepost}
+        Faktura-adresse: ${fakturagateadresse}, ${fakturapostnummer} ${fakturapoststed} (${fakturaland}) 
 
         Mvh Create - Lillehammer kreative videregående skole
       `,

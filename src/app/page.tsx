@@ -3,7 +3,8 @@ import dynamic from "next/dynamic";
 const Front = dynamic(() => import("./Front"));
 const Study = dynamic(() => import("./Study"));
 const Header = dynamic(() => import("./Header"));
-const Admission = dynamic(() => import("./Admission"));
+const Hvaskjer = dynamic(() => import("./HvaSkjer"));
+const Admission = dynamic(() => import("./Admission"), {ssr: false});
 const Contact = dynamic(() => import("./Contact"));
 const Footer = dynamic(() => import("./Footer"));
 const ElevPaCreate = dynamic(() => import("./ElevPaCreate"));
@@ -29,7 +30,11 @@ const Home = () => {
           <div id="front" className="h-screen flex items-center justify-center">
             <Front />
           </div> 
-         
+
+          <div id="hvaskjer" className="h-auto flex items-center justify-center backdrop-blur-lg pt-8 mb-0 lg:pb-16 border-t-[0px] border-pinky">
+            <Hvaskjer />
+          </div>        
+
           <div id="study" className="h-auto flex items-center justify-center backdrop-blur-lg pt-8 mb-0 lg:pb-16 border-t-[0px] border-pinky bg-white/5">
             <Study />
           </div>

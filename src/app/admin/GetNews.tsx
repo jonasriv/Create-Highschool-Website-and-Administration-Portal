@@ -43,6 +43,7 @@ const GetNews: React.FC<GetNewsItemProps> = ({ token }) => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
                 },
                 body: JSON.stringify({
                     news_title: newsTitle,
@@ -109,6 +110,8 @@ const GetNews: React.FC<GetNewsItemProps> = ({ token }) => {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                    
                 },
                 body: JSON.stringify({id: delete_me})
             })

@@ -38,6 +38,12 @@ interface Application {
     logg?: string,
     hovedinstrument?: string,
     skoleaar?: string,
+    fakturaepost?: string;
+    fakturanavn?: string;
+    fakturagateadresse?: string;
+    fakturapostnummer?: string;
+    fakturapoststed?: string;
+    fakturaland?: string;       
 }
 
 const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
@@ -493,7 +499,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
 
                         {showDateFrom !== "" &&                         
                                 <div className="p-[2px] flex justify-center bg-white/20 items-center rounded-xl text-lg border-2 border-white w-36 cursor-pointer hover:bg-white/10 text-center"
-                                     onClick={handleRemoveFromdate}
+                                    onClick={handleRemoveFromdate}
                                 >
                                     Nullstill datoer
                                 </div>
@@ -634,6 +640,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                 <th className="border border-black px-[2px] break-words py-2">E-post fores.</th>
                                 <th className="border border-black px-[2px] break-words py-2">TLF</th>
                                 <th className="border border-black px-[2px] break-words py-2">ÅR</th>
+                                <th className="border border-black px-[2px] break-words py-2">Faktura</th>
                                 <th className="border border-black px-[2px] break-words py-2">Pri 1</th>
                                 <th className="border border-black px-[2px] break-words py-2">Pri 2</th>
                                 <th className="border border-black px-[2px] break-words py-2">Pri 3</th>
@@ -668,6 +675,13 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                         {app.phone}
                                     </td>
                                     <td className="border border-black px-[6px] text-xs py-2">{app.skoleaar}</td>
+                                    {/* fakturaadresse */}
+                                    <td className="border border-black px-[6px] text-[9px] py-2">
+                                        <p>{app.fakturanavn}</p>
+                                        <p>{app.fakturaepost}</p>
+                                        <p>{app.fakturagateadresse}</p>
+                                        <p>{app.fakturapostnummer} {app.fakturapoststed} </p>
+                                    </td>
                                     <td className="border border-black px-[6px] text-xs py-2">{app.priority1}</td>
                                     <td className="border border-black px-[6px] text-xs py-2 break-words max-w-24">{app.priority2}</td>
                                     <td className="border border-black px-[6px] text-xs py-2 break-words max-w-24">{app.priority3}</td>
