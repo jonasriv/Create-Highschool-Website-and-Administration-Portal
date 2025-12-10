@@ -36,7 +36,7 @@ const Front = () => {
                             <ChevronDown size="56"/>
                         </div>
                     </div> 
-                </div>
+                </div> 
             </div>  
         </div>
     )
