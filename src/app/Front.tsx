@@ -21,7 +21,7 @@ const Front = () => {
                 <div className="flex flex-col w-96 items-center justify-around gap-6">
                     
                     <Link href="/soknad">
-                        <button className="bg-pinky w-42 h-14 flex justify-center items-center text-2xl py-4 px-8 rounded-3xl font-black text-slate-200 border-2 border-transparent hover:border-white hover:text-white">
+                        <button className="bg-[#7C352C] w-42 h-14 flex justify-center items-center text-2xl py-4 px-8 rounded-3xl font-black text-slate-200 border-2 border-transparent hover:border-white hover:text-white">
                             Søk nå!
                         </button>
                     </Link>
