@@ -8,6 +8,14 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 // POST: Autentisering
 export async function POST(req: Request) {
+    if (!JWT_SECRET) {
+    console.error("JWT_SECRET mangler i miljøvariablene");
+    return NextResponse.json(
+      { error: "Serverkonfigurasjon mangler (JWT_SECRET)" },
+      { status: 500 }
+    );
+  }
+
   await dbConnect();
 
   const { username, password } = await req.json();
