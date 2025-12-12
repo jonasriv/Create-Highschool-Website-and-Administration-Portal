@@ -6,9 +6,6 @@ import bcrypt from "bcrypt";
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-if (!JWT_SECRET) {
-  throw new Error("Token er ikke definert!");
-}
 // POST: Autentisering
 export async function POST(req: Request) {
   await dbConnect();
