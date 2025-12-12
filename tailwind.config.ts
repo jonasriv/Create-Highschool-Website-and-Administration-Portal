@@ -87,6 +87,8 @@ export default {
 			lightbrowny: 'var(--lightbrowny)',
 			darkbrowny: 'var(--darkbrowny)',
 			redish: 'var(--redish)',
+			moreredish: 'var(--moreredish)',
+			evenmoreredish: 'var(--evenmoreredish)',
 			orangy: 'var(--orangy)',
 			orangest: 'var(--orangest)',
 			yallow: 'var(--yallow)',

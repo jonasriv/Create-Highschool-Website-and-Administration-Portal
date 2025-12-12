@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 const Front = dynamic(() => import("./Front"));
 const Study = dynamic(() => import("./Study"));
 const Header = dynamic(() => import("./Header"));
-// const Hvaskjer = dynamic(() => import("./HvaSkjer"));
+const Hvaskjer = dynamic(() => import("./HvaSkjer"));
 const Admission = dynamic(() => import("./Admission"), {ssr: false});
 const Contact = dynamic(() => import("./Contact"));
 const Footer = dynamic(() => import("./Footer"));
@@ -11,7 +11,7 @@ const ElevPaCreate = dynamic(() => import("./ElevPaCreate"));
 const Mentorer = dynamic(() => import("./Mentorer"));
 
 const Home = () => {
-  const internalBackground = "/images/background_no_logo.jpg";
+  const internalBackground = "/images/fakebackground.png";
   return (
     <div 
       className="flex flex-col h-screen w-screen bg-white/40"
@@ -31,9 +31,9 @@ const Home = () => {
             <Front />
           </div> 
 
-          {/* <div id="hvaskjer" className="h-auto flex items-center justify-center backdrop-blur-lg pt-8 mb-0 lg:pb-16 border-t-[0px] border-pinky">
+          <div id="hvaskjer" className="h-auto flex items-center justify-center backdrop-blur-lg pt-8 mb-0 lg:pb-16 border-t-[0px] border-pinky">
             <Hvaskjer />
-          </div>         */}
+          </div>        
 
           <div id="study" className="h-auto flex items-center justify-center backdrop-blur-lg pt-8 mb-0 lg:pb-16 border-t-[0px] border-pinky bg-white/5">
             <Study />

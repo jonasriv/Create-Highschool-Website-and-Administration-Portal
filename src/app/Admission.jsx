@@ -32,7 +32,7 @@ const Admission = () => {
                                             <div className="w-full flex items-center justify-center pt-8 flex-col">
                                                 <img src={cityLife} alt="" className="w-full flex text-center h-56 md:h-80 object-cover mb-8 rounded-xl"></img>
                                                 <Link href="/soknad">
-                                                <button className="bg-pinky w-36 h-14 flex justify-center items-center text-xl px-4 rounded-3xl font-black uppercase text-slate-200 border-2 border-transparent hover:border-white hover:text-white">Søk nå</button>
+                                                <button className="bg-white/30 w-36 h-14 flex justify-center items-center text-xl px-4 rounded-3xl font-black uppercase text-slate-200 border-2 border-transparent hover:border-white hover:text-white">Søk nå</button>
                                                 </Link>
                                             </div>    
                                                                                     
@@ -50,7 +50,7 @@ const Admission = () => {
                                             </p>
                                             <div className="w-full flex items-center justify-center pt-8">
                                                 <Link href="/soknad">
-                                                <button className="bg-pinky w-36 h-14 flex justify-center items-center text-xl px-4 rounded-3xl font-black uppercase text-slate-200 border-2 border-transparent hover:border-white hover:text-white">Søk nå</button>
+                                                <button className="bg-white/30 w-36 h-14 flex justify-center items-center text-xl px-4 rounded-3xl font-black uppercase text-slate-200 border-2 border-transparent hover:border-white hover:text-white">Søk nå</button>
                                                 </Link>
                                             </div>                                            
                                         </div>                                   
@@ -73,7 +73,7 @@ const Admission = () => {
                                             </p>
                                             <div className="w-full flex items-center justify-center pt-8">
                                                 <Link href="/soknad">
-                                                <button className="bg-pinky w-36 h-14 flex justify-center items-center text-xl px-4 rounded-3xl font-black uppercase text-slate-200 border-2 border-transparent hover:border-white hover:text-white">Søk nå</button>
+                                                <button className="bg-white/30 w-36 h-14 flex justify-center items-center text-xl px-4 rounded-3xl font-black uppercase text-slate-200 border-2 border-transparent hover:border-white hover:text-white">Søk nå</button>
                                                 </Link>
                                             </div>
                                         </div>                                   
