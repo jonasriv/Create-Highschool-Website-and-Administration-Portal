@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-
+import tailwindcssAnimate from "tailwindcss-animate"
 export default {
     darkMode: ["class"],
     content: [
@@ -60,7 +60,7 @@ export default {
 			'spin': {
 				'0%': { transform: 'rotate(0deg)' },
 				'100%': { transform: 'rotate(360deg)' },
-	  
+
 			},
 			'highlight-fileinput': {
 				'0%': { borderColor: 'white' },
@@ -78,9 +78,9 @@ export default {
 			roboto: ["var(--font-roboto-sans)", "sans-serif"],
 			robotoMono: ["var(--font-roboto-mono)", "monospace"],
 			supermercado: ["var(--font-koulen)", "sans-serif"],
-		  },
-  		colors: {
-  			pinky: 'var(--pinky)',
+		},
+		colors: {
+			pinky: 'var(--pinky)',
 			superpinky: 'var(--superpinky)',
 			redpink: 'var(--redpink)',
 			browny: 'var(--browny)',
@@ -140,5 +140,5 @@ export default {
   		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
 } satisfies Config;
