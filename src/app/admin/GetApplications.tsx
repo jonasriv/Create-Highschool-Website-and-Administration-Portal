@@ -44,6 +44,7 @@ interface Application {
     fakturapostnummer?: string;
     fakturapoststed?: string;
     fakturaland?: string;       
+    leie_mac?: string;       
 }
 
 const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
@@ -646,6 +647,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                 <th className="border border-black px-[2px] break-words py-2">Pri 3</th>
                                 <th className="border border-black px-[2px] break-words py-2">Instr</th>
                                 <th className="border border-black px-[2px] break-words py-2 max-w-16">Prøve?</th>
+                                <th className="border border-black px-[2px] break-words py-2 max-w-16">Mac?</th>
                                 <th className="border border-black px-[2px] break-words py-2">Bilde</th>
                                 <th className="border border-black px-[2px] break-words py-2">Analyse</th>
                                 <th className="border border-black px-[2px] break-words py-2">
@@ -687,6 +689,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                     <td className="border border-black px-[6px] text-xs py-2 break-words max-w-24">{app.priority3}</td>
                                     <td className="border border-black px-[6px] py-2 break-words text-xs max-w-24">{app.hovedinstrument}</td>
                                     <td className="border border-black px-[6px] py-2 break-words max-w-16">{app.opptaksprove}</td>
+                                    <td className="border border-black px-[6px] py-2 break-words max-w-16">{app.leie_mac}</td>
                                     <td className="border border-black text-center py-0 text-xs h-auto">
                                         {app.s3FileUrl ? (
                                         <div className="w-full h-full flex justify-center items-center">

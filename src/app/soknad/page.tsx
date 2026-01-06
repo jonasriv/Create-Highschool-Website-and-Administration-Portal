@@ -26,6 +26,7 @@ const Soknad = () => {
         fakturapoststed: string;
         fakturaland?: string;    
         sprakvalg: string;    
+        leiemac: string;    
     }
     const [ formData, setFormData ] = useState<FormData>({
         fullName: '',
@@ -44,8 +45,9 @@ const Soknad = () => {
         fakturagateadresse: "",
         fakturapostnummer: "",
         fakturapoststed: "",
-        fakturaland: "",        
+        fakturaland: "Norge",        
         sprakvalg: "",        
+        leiemac: "",        
     });
 
     const [ errors, setErrors ] = useState({
@@ -67,6 +69,7 @@ const Soknad = () => {
         fakturapoststed: "",
         fakturaland: "",
         sprakvalg: "",
+        leiemac: "",
     })
 
     const [loading, setLoading] = useState(false);  // Legg til loading state
@@ -86,12 +89,13 @@ const Soknad = () => {
             resume: formData.resume ? '' : 'Du må laste opp en karakterutskrift',
             skoleaar: formData.skoleaar ? '' : 'Du må velge et skoleår',
             fakturanavn: formData.fakturanavn ? '' : 'Du må skrive inn et navn for fakturamottaker',
-            fakturaepost: formData.fakturanavn ? '' : 'Du må oppgi epostadresse til fakturamottaker',
-            fakturagateadresse: formData.fakturanavn ? '' : 'Du må oppgi gateadresse til fakturamottaker',
-            fakturapostnummer: formData.fakturanavn ? '' : 'Du må oppgi postnummer til fakturamottaker',
-            fakturapoststed: formData.fakturanavn ? '' : 'Du må oppgi poststed til fakturamottaker',
-            fakturaland: formData.fakturanavn ? '' : 'Du må oppgi fakturaland',
+            fakturaepost: formData.fakturaepost ? '' : 'Du må oppgi epostadresse til fakturamottaker',
+            fakturagateadresse: formData.fakturagateadresse ? '' : 'Du må oppgi gateadresse til fakturamottaker',
+            fakturapostnummer: formData.fakturapostnummer ? '' : 'Du må oppgi postnummer til fakturamottaker',
+            fakturapoststed: formData.fakturapoststed ? '' : 'Du må oppgi poststed til fakturamottaker',
+            fakturaland: formData.fakturaland ? '' : 'Du må oppgi fakturaland',
             sprakvalg: formData.sprakvalg ? '' : 'Du må velge fremmedspråk',
+            leiemac: formData.leiemac ? '' : 'Du må velge om du vil leie mac',
         };
         setErrors(newErrors);
         return Object.values(newErrors).every((error) => !error);
@@ -139,7 +143,8 @@ const Soknad = () => {
                 formDataToSend.append('fakturapostnummer', formData.fakturapostnummer); 
                 formDataToSend.append('fakturapoststed', formData.fakturapoststed); 
                 formDataToSend.append('fakturaland', formData.fakturaland || ''); 
-                formDataToSend.append('sparkvalg', formData.sprakvalg); 
+                formDataToSend.append('sprakvalg', formData.sprakvalg); 
+                formDataToSend.append('leiemac', formData.leiemac); 
     
                 const response = await fetch('api/applications', {
                     method: 'POST', 
@@ -176,6 +181,7 @@ const Soknad = () => {
                     fakturapoststed: "",
                     fakturaland: "",                       
                     sprakvalg: "",                       
+                    leiemac: "",                       
                 });
     
                 if (fileInputRef.current) {
@@ -526,8 +532,24 @@ const Soknad = () => {
                     <option value="nei">Nei, jeg ønsker ikke opptaksprøve. </option>
 
                 </select>
-                {errors.priority3 && <p className="text-red-500 text-sm md:text-lg">{errors.priority3}</p>}
-            </div>                
+                {errors.opptaksprove && <p className="text-red-500 text-sm md:text-lg">{errors.opptaksprove}</p>}
+            </div>     
+            <div>
+                <label htmlFor="leiemac" className="block text-sm md:text-lg font-semibold">Ønsker du å leie mac (pc) av skolen?</label>
+                <select
+                id="leiemac"
+                name="leiemac"
+                value={formData.leiemac}
+                onChange={(e) => setFormData({ ...formData, leiemac: e.target.value})}
+                className="w-full h-10 p-2 border border-gray-300 rounded-md text-slate-700"
+                >
+                    <option value="" disabled>Velg</option>
+                    <option value="ja">Ja, jeg ønsker å leie mac av skolen.</option>
+                    <option value="nei">Nei takk. </option>
+
+                </select>
+                {errors.leiemac && <p className="text-red-500 text-sm md:text-lg">{errors.leiemac}</p>}
+            </div>                         
     
             {/* CV opplasting */}
             <div className="w-full pt-8">

@@ -24,6 +24,7 @@ const ApplicationSchema = new mongoose.Schema({
   hovedinstrument: { type: String, required: false },  
   skoleaar: { type: String, required: false },  
   status: { type: String, required: false },  
+  leie_mac: { type: String, required: false },  
   behandlet: { type: Number, required: false },  
   createdAt: { type: Date, default: Date.now },
 });

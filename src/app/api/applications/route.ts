@@ -50,6 +50,7 @@ export async function POST(req: Request) {
     const fakturapostnummer = formData.get("fakturapostnummer") as string;
     const fakturapoststed = formData.get("fakturapoststed") as string;    
     const fakturaland = formData.get("fakturaland") as string || "Norge";    
+    const leie_mac = formData.get("leiemac") as string || "";    
 
     const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
@@ -113,6 +114,7 @@ export async function POST(req: Request) {
       fakturagateadresse,
       fakturapostnummer,
       fakturapoststed,
+      leie_mac
     });
     // Nodemailer-konfigurasjon
     const transporter = nodemailer.createTransport({
