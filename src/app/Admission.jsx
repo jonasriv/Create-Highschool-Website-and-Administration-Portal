@@ -27,7 +27,7 @@ const Admission = () => {
                                     <div className="w-full pr-4 font-roboto-mono flex justify-center">
                                         <div className="font-roboto text-lg md:text-2xl text-slate-300 leading-normal px-6 lg:px-16 pb-12 flex flex-col justify-center items-center max-w-[1024px]">
                                             <p>
-                                                Create tar imot søkere fra hele landet. I 2025 tar vi hovedsaklig inn elever til VG1. Det er også mulig å søke på VG2 og VG3, der vi vil ta inn elever etter ledig kapasitet. Det går fint å søke på flere forskjellige skoler. Du bestemmer selv hvilken skole du vil gå på etter at du har fått tilbud om skoleplass. Opptaket starter 15. mars. Det koster 28.000 kr per skoleår å gå på Create.
+                                                Create tar imot søkere fra hele landet. I 2026 tar vi hovedsaklig inn elever til VG1. Det er også mulig å søke på VG2 og VG3, der vi vil ta inn elever etter ledig kapasitet. Det går fint å søke på flere forskjellige skoler. Du bestemmer selv hvilken skole du vil gå på etter at du har fått tilbud om skoleplass. Opptaket starter 15. mars. Det koster 28.000 kr per skoleår å gå på Create.
                                             </p>
                                             <div className="w-full flex items-center justify-center pt-8 flex-col">
                                                 <img src={cityLife} alt="" className="w-full flex text-center h-56 md:h-80 object-cover mb-8 rounded-xl"></img>
