@@ -505,12 +505,10 @@ const Soknad = () => {
                 
                 >
                     <option value="" disabled>Velg</option>
-                    <option value="fransk1">Fransk 1 (hadde ikke fransk på ungdomsskolen)</option>
                     <option value="fransk2">Fransk 2 (hadde fransk på ungdomsskolen)</option>
-                    <option value="spansk1">Spansk 1 (hadde ikke spansk på ungdomsskolen)</option>
-                    <option value="spansk2">Spansk 2 (hadde ikke spansk på ungdomsskolen)</option>
+                    <option value="spansk2">Spansk 2 (hadde spansk på ungdomsskolen)</option>
                     <option value="tysk1">Tysk 1 (hadde ikke tysk på ungdomsskolen)</option>
-                    <option value="tysk2">Tysk 2 (hadde ikke tysk på ungdomsskolen)</option>
+                    <option value="tysk2">Tysk 2 (hadde tysk på ungdomsskolen)</option>
                 </select>
                 {errors.sprakvalg && <p className="text-red-500 text-sm md:text-lg">{errors.sprakvalg}</p>}
             </div>
