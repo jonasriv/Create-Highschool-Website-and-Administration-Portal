@@ -553,7 +553,7 @@ const Soknad = () => {
     
             {/* CV opplasting */}
             <div className="w-full pt-8">
-                <button id="expand_button" className="w-full border-2 border-transparent hover:bg-redpink rounded-lg bg-blue-500 p-2 font-mina font-normal text-2xl mb-6" 
+                <button id="expand_button" className="w-full border-2 border-transparent hover:bg-blue-400 rounded-lg bg-blue-500 p-2 font-mina font-normal text-2xl mb-6" 
                     onClick={(event) => handleExpand(event)}
                 >
                     Last opp karakterkort
@@ -568,7 +568,7 @@ const Soknad = () => {
                                 accept=".pdf,.doc,.docx,.jpeg,.png,.jpg,.webp,.heic,.heif,.avif,.dng,.vsd,.vsdx,.pages,.tiff,.bmp"
                                 name="resume"
                                 onChange={(e) => setFormData({ ...formData, resume: e.target.files ? e.target.files[0] : null})}
-                                className="w-full p-4 border-2 border-pinky rounded-md text-white text-xl animate-highlight-fileinput bg-black/40"
+                                className="w-full p-4 border-2 border-moreredish rounded-md text-white text-xl animate-highlight-fileinput bg-black/40"
                             />
                             {errors.resume && <p className="text-red-500 text-sm md:text-lg">{errors.resume}</p>}
                         </div>
@@ -576,7 +576,7 @@ const Soknad = () => {
                     <div>
                         <button
                         type="submit"
-                        className="w-full p-2 bg-pinky text-white rounded-md text-2xl font-mina border-2 border-transparent hover:bg-redpink"
+                        className="w-full p-2 bg-moreredish text-white rounded-md text-2xl font-mina border-2 border-transparent hover:bg-redish"
                         >
                         Send søknad
                         </button>

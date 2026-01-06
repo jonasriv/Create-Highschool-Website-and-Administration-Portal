@@ -64,7 +64,7 @@ export default {
 			},
 			'highlight-fileinput': {
 				'0%': { borderColor: 'white' },
-				'50%': { borderColor: '#d500f9' },
+				'50%': { borderColor: '#E74f2e' },
 				'100%': { borderColor: 'white' },
 			},			
 		},				
