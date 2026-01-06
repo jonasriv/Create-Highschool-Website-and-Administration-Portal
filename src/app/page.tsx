@@ -11,7 +11,7 @@ const ElevPaCreate = dynamic(() => import("./ElevPaCreate"));
 const Mentorer = dynamic(() => import("./Mentorer"));
 
 const Home = () => {
-  const internalBackground = "/images/fakebackground.png";
+  const internalBackground = "/images/iStock-1151424994.jpg";
   return (
     <div 
       className="flex flex-col h-screen w-screen bg-white/40"
@@ -25,7 +25,7 @@ const Home = () => {
     }}  
     >
       <Header />
-      <main className="bg-black/65 h-screen w-screen scroll-smooth overflow-x-hidden no-scrollbar mt-22 md:pt-28">  
+      <main className="bg-black/70 h-screen w-screen scroll-smooth overflow-x-hidden no-scrollbar mt-22 md:pt-28">  
 
           <div id="front" className="h-screen flex items-center justify-center">
             <Front />

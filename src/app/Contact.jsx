@@ -103,7 +103,7 @@ const Contact = () => {
                             <p className="font-mina text-lg">Fag- og timefordeling</p>
                         </a>
                         <a className="hover:bg-moreredish p-2 rounded-xl" target="_blank" href="/publicfiles/Creates_læreplan__generell_del (1).pdf">
-                            <p className="font-mina text-lg">Læreplan og godkjennelse</p>
+                            <p className="font-mina text-lg">Læreplan</p>
                         </a>
                     </div>
                 </div>
