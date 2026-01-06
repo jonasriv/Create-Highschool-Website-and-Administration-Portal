@@ -11,7 +11,7 @@ const ElevPaCreate = dynamic(() => import("./ElevPaCreate"));
 const Mentorer = dynamic(() => import("./Mentorer"));
 
 const Home = () => {
-  const internalBackground = "/images/iStock-1151424994.jpg";
+  const internalBackground = "/images/iStock-1151424994_compressed3.jpg";
   return (
     <div 
       className="flex flex-col h-screen w-screen bg-white/40"
