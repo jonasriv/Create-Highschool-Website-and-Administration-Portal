@@ -9,7 +9,7 @@ const Soknad = () => {
     const Year = date.getFullYear();
     
     const divRef = useRef<HTMLDivElement | null>(null);
-    const externalBackground = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506363/background_no_logo_yhjwra.jpg"; 
+    const externalBackground = "images/iStock-1069853936_compressed3.jpg"; 
     type FormData = {
         fullName: string;
         email: string;
