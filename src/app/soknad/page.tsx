@@ -5,6 +5,9 @@ import Link from 'next/link';
 const Header = dynamic(() => import("./HeaderSoknad"), {ssr:false});
 
 const Soknad = () => {
+    const date = new Date();
+    const Year = date.getFullYear();
+    
     const divRef = useRef<HTMLDivElement | null>(null);
     const externalBackground = "https://res.cloudinary.com/dtg4y0rod/image/upload/v1736506363/background_no_logo_yhjwra.jpg"; 
     type FormData = {
@@ -253,7 +256,7 @@ const Soknad = () => {
                 </h1>
                 <div className="font-roboto text-lg md:text-xl">
                     <p>
-                        Create tar imot søkere fra hele landet. I 2026 tar vi hovedsaklig inn elever til VG1. Det er også mulig å søke på VG2 og VG3, der vi vil ta inn elever etter ledig kapasitet. Det går fint å søke på flere forskjellige skoler. Du bestemmer selv hvilken skole du vil gå på etter at du har fått tilbud om skoleplass. Opptaket starter 15. mars. Det koster 28.000 kroner per skoleår å gå på Create.
+                        Create tar imot søkere fra hele landet. I {2026} tar vi hovedsaklig inn elever til VG1. Det er også mulig å søke på VG2 og VG3, der vi vil ta inn elever etter ledig kapasitet. Det går fint å søke på flere forskjellige skoler. Du bestemmer selv hvilken skole du vil gå på etter at du har fått tilbud om skoleplass. Opptaket starter 15. mars. Det koster 28.000 kroner per skoleår å gå på Create.
                     </p>
                 </div>
                 <p className="text-lg text-white mt-4">Søknadsfrist 1. mars</p>
