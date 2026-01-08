@@ -29,7 +29,6 @@ const Soknad = () => {
         fakturapoststed: string;
         fakturaland?: string;    
         sprakvalg: string;    
-        leiemac: string;    
     }
     const [ formData, setFormData ] = useState<FormData>({
         fullName: '',
@@ -50,7 +49,6 @@ const Soknad = () => {
         fakturapoststed: "",
         fakturaland: "Norge",        
         sprakvalg: "",        
-        leiemac: "",        
     });
 
     const [ errors, setErrors ] = useState({
@@ -72,7 +70,6 @@ const Soknad = () => {
         fakturapoststed: "",
         fakturaland: "",
         sprakvalg: "",
-        leiemac: "",
     })
 
     const [loading, setLoading] = useState(false);  // Legg til loading state
@@ -98,7 +95,6 @@ const Soknad = () => {
             fakturapoststed: formData.fakturapoststed ? '' : 'Du må oppgi poststed til fakturamottaker',
             fakturaland: formData.fakturaland ? '' : 'Du må oppgi fakturaland',
             sprakvalg: formData.sprakvalg ? '' : 'Du må velge fremmedspråk',
-            leiemac: formData.leiemac ? '' : 'Du må velge om du vil leie mac',
         };
         setErrors(newErrors);
         return Object.values(newErrors).every((error) => !error);
@@ -147,7 +143,6 @@ const Soknad = () => {
                 formDataToSend.append('fakturapoststed', formData.fakturapoststed); 
                 formDataToSend.append('fakturaland', formData.fakturaland || ''); 
                 formDataToSend.append('sprakvalg', formData.sprakvalg); 
-                formDataToSend.append('leiemac', formData.leiemac); 
     
                 const response = await fetch('api/applications', {
                     method: 'POST', 
@@ -184,7 +179,6 @@ const Soknad = () => {
                     fakturapoststed: "",
                     fakturaland: "",                       
                     sprakvalg: "",                       
-                    leiemac: "",                       
                 });
     
                 if (fileInputRef.current) {
@@ -259,7 +253,8 @@ const Soknad = () => {
                         Create tar imot søkere fra hele landet. I {Year} tar vi hovedsaklig inn elever til VG1. Det er også mulig å søke på VG2 og VG3, der vi vil ta inn elever etter ledig kapasitet. Det går fint å søke på flere forskjellige skoler. Du bestemmer selv hvilken skole du vil gå på etter at du har fått tilbud om skoleplass. Opptaket starter 15. mars. Det koster 28.000 kroner per skoleår å gå på Create.
                     </p>
                 </div>
-                <p className="text-lg text-white mt-4">Søknadsfrist 1. mars</p>
+                <p className="font-roboto md:text-xl text-lg text-white mt-4"><b>PC: </b>Alle elever må ha egen PC. Dersom du skal gå musikk på Create må du ha en bærbar Mac. På drama og dans kan du velge mellom Windows-PC og Mac. </p>
+                <p className="text-lg font-roboto md:text-xl text-white mt-4">Søknadsfrist 1. mars</p>
             </div>
             <h1 className="text-2xl font-bold mb-6 pt-8 font-mina w-full text-center">Søknadsskjema</h1>
             
@@ -537,22 +532,6 @@ const Soknad = () => {
                 </select>
                 {errors.opptaksprove && <p className="text-red-500 text-sm md:text-lg">{errors.opptaksprove}</p>}
             </div>     
-            <div>
-                <label htmlFor="leiemac" className="block text-sm md:text-lg font-semibold">Ønsker du å leie mac (pc) av skolen?</label>
-                <select
-                id="leiemac"
-                name="leiemac"
-                value={formData.leiemac}
-                onChange={(e) => setFormData({ ...formData, leiemac: e.target.value})}
-                className="w-full h-10 p-2 border border-gray-300 rounded-md text-slate-700"
-                >
-                    <option value="" disabled>Velg</option>
-                    <option value="ja">Ja, jeg ønsker å leie mac av skolen.</option>
-                    <option value="nei">Nei takk. </option>
-
-                </select>
-                {errors.leiemac && <p className="text-red-500 text-sm md:text-lg">{errors.leiemac}</p>}
-            </div>                         
     
             {/* CV opplasting */}
             <div className="w-full pt-8">
