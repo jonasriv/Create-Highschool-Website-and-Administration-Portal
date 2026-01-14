@@ -5,12 +5,13 @@ import {
     CarouselItem,
 } from "@/components/ui/carousel";
 import { useEffect, useState } from "react";
-
+import { ArrowRight } from "lucide-react";
 interface NewsItem {
     _id: string;
     news_title: string;
     news_content: string;
     news_image: string;
+    link?: string;
     createdAt: string;
 }
 
@@ -46,6 +47,8 @@ const HvaSkjer = () => {
         fetchNews(); // Kall funksjonen for å hente nyheter
     }, []); // Kjør kun ved første rendering
 
+    const showArrowButtons = newsItems.length > 1;
+
     if (loading) {
         return <div>Laster nyheter...</div>;
     }
@@ -63,8 +66,8 @@ const HvaSkjer = () => {
                     <h1 className="font-mina text-2xl md:text-3xl lg:text-4xl tracking-widest text-center text-white font-black mb-4 md:mb-4 md:pt-4">
                         Hva skjer på Create?
                     </h1>
-                    <div className="flex lg:justify-between items-start rounded-xl bg-white/40 w-full md:w-[600px] lg:w-[800px] h-[480px] md:h-[600px] lg:h-[600px]">
-                        <Carousel autoplay={true} autoplayDelay={10000} showButtons={true} opts={{ loop: true }} className="flex flex-row overflow-hidden w-full h-full rounded-xl">
+                    <div className="flex lg:justify-between items-start lg:rounded-xl bg-white/40 w-full md:w-[600px] lg:w-[800px] h-[480px] md:h-[600px] lg:h-[600px]">
+                        <Carousel autoplay={true} autoplayDelay={10000} showButtons={showArrowButtons} opts={{ loop: true }} className="flex flex-row overflow-hidden w-full h-full lg:rounded-xl">
                             <CarouselContent className="w-full flex flex-row ">{newsItems.length > 0 ? (
                                 newsItems.map((newsItem) => (
                                     
@@ -76,11 +79,21 @@ const HvaSkjer = () => {
                                         backgroundRepeat: 'no-repeat',
                                     }}
                                     >
-                                    <div className="font-mina text-md lg:text-2xl bg-black/60 p-4 min-w-full flex flex-col justify-start items-start">
-                                        <h1 className="font-mina text-lg md:text-2xl">{newsItem.news_title} </h1>
-                                        <p className="font-roboto text-md md:text-lg lg:text-xl md:mt-2">
-                                            {newsItem.news_content}
-                                        </p>
+                                        <div className="font-mina bg-black/70 p-4 min-w-full flex flex-col justify-start items-start">
+                                            <h3 className="font-mina  font-bold text-sm md:text-2xl text-white drop-shadow-[0_0_6px_rgba(255,255,255,0.4)]">
+                                                {newsItem.news_title}
+                                            </h3>
+
+                                        <div className="flex flex-row">
+                                            <p className="font-roboto text-md md:text-md lg:text-lg md:mt-2">
+                                                {newsItem.news_content}
+                                            </p>
+                                            <a href={newsItem.link} target="_blank" className="p-1 border-[#E74f2e] border-2 items-center rounded-lg flex bg-black/80 justify-center transitionn-all duration-500 hover:bg-[#E74f2e]"> 
+                                                <p className="font-roboto text-sm flex flex-row items-center px-2 gap-1 font-bold">
+                                                Les mer <ArrowRight size="32"/>
+                                                </p>
+                                            </a>
+                                        </div>
                                     </div>
                                 </CarouselItem>
                                     

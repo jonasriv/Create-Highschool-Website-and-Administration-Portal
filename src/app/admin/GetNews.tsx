@@ -14,6 +14,7 @@ interface NewsItem {
     news_content: string;
     news_image: string;
     createdAt: string;
+    link?: string;
 }
 
 const GetNews: React.FC<GetNewsItemProps> = ({ token }) => {
@@ -27,16 +28,15 @@ const GetNews: React.FC<GetNewsItemProps> = ({ token }) => {
     const [error, setError] = useState<string | null>(null);
     const [newsTitle, setNewsTitle] = useState<string>("");
     const [newsContent, setNewsContent] = useState<string>("");
+    const [linkContent, setLinkContent] = useState<string>("");
     
     const saveContent = async () => {
         if (!newsTitle || !newsContent) {
             alert("Tittel og Innhold på fylles ut!");
             return;
         }
-        if (!selectedImage) {
-            alert("Du må velge et bilde!");
-            return;
-        }        
+        const imageToSave = selectedImage || '';
+        const linkToSave = linkContent.trim() || '';
 
         try {
             const response = await fetch("/api/news", {
@@ -48,7 +48,8 @@ const GetNews: React.FC<GetNewsItemProps> = ({ token }) => {
                 body: JSON.stringify({
                     news_title: newsTitle,
                     news_content: newsContent,
-                    news_image: selectedImage,
+                    news_image: imageToSave,
+                    link: linkToSave,
                 }),
             });
 
@@ -59,10 +60,12 @@ const GetNews: React.FC<GetNewsItemProps> = ({ token }) => {
             const result = await response.json();
             alert("Nyheten ble lagret!");
             console.log(result);
+
             fetchNews();
             setNewsContent("");
             setNewsTitle("");
-            setSelectedImage("");
+            setSelectedImage(null);
+            setLinkContent("");
 
         } catch (error) {
             console.error("Feil", error);
@@ -119,7 +122,6 @@ const GetNews: React.FC<GetNewsItemProps> = ({ token }) => {
             if (!response.ok) {
                 throw new Error("Noe gikk galt med slettingen");
             }
-
             alert("Nyheten ble slettet");
             fetchNews();
         } catch (e) {
@@ -147,6 +149,7 @@ const GetNews: React.FC<GetNewsItemProps> = ({ token }) => {
                             <div className="bg-white/80 min-w-full min-h-1/4 rounded-b-xl p-2">
                                 <p className="text-lg font-bold text-black">{newsitem.news_title}</p>
                                 <p className="text-md text-black">{newsitem.news_content}</p>
+                                <p className="text-md text-black">{newsitem.link || ''}</p>
                                 <p className="text-black">{newsitem.createdAt.substring(0, 10)}</p>
                                 <div className="w-full flex justify-end items-center">
                                     <button 
@@ -177,16 +180,26 @@ const GetNews: React.FC<GetNewsItemProps> = ({ token }) => {
                     maxLength={30}
                     value={newsTitle}
                     onChange={(e) => setNewsTitle(e.target.value)}
-                    className="text-black rounded-md h-12"
+                    className="text-black rounded-md h-12 p-2"
                 />
                 <h2 className="font-black">Innhold (max 400 tegn):</h2>
                 <textarea
                     value={newsContent}
                     onChange={(e) => setNewsContent(e.target.value)}
                     maxLength={400}
-                    className="text-black rounded-md"
+                    className="text-black rounded-md p-2"
                     rows={4}
                 ></textarea>
+                <h2 className="font-black">Link:</h2>                
+                <input
+                    placeholder="http://create.no/"
+                    type="url"
+                    name="link"
+                    maxLength={300}
+                    value={linkContent}
+                    onChange={(e) => setLinkContent(e.target.value)}
+                    className="text-black rounded-md h-12 p-2"
+                />                
                 <div className="flex justify-center items-center h-auto text-white font-bold w-full flex-col">
                     <div className="w-full flex flex-row justify-between items-center pb-4">
                         <div className="w-5/12">

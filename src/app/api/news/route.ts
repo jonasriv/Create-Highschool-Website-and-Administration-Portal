@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
 
   try {
     // Parse forespørselen som JSON
-    const { news_title, news_content, news_image } = await req.json();
+    const { news_title, news_content, news_image, link } = await req.json();
 
     if (!news_title || !news_content || !news_image) {
         return NextResponse.json(
@@ -38,6 +38,7 @@ export async function POST(req: NextRequest) {
       news_title,
       news_content,
       news_image,
+      link,
 
     });
     

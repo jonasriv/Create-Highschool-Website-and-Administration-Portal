@@ -17,6 +17,10 @@ const NewsSchema = new mongoose.Schema(
       required: false, // Kan gjøres obligatorisk hvis ønskelig
       default: "https://via.placeholder.com/300https://res.cloudinary.com/dtg4y0rod/image/upload/v1736507024/IMG_8533-1_cuqh4v.jpg", // Standardbilde hvis ingen er oppgitt
     },
+    link: {
+      type: String,
+      required: false, 
+    },    
   },
   { timestamps: true }
 );
