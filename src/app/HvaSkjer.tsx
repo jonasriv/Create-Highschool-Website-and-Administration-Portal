@@ -71,7 +71,7 @@ const HvaSkjer = () => {
                             <CarouselContent className="w-full flex flex-row ">{newsItems.length > 0 ? (
                                 newsItems.map((newsItem) => (
                                     
-                                <CarouselItem key={newsItem._id} className="w-full min-w-full flex flex-col justify-end items-center" 
+                                <CarouselItem key={newsItem._id} className="w-full min-w-full flex flex-col justify-center items-center" 
                                     style={{
                                         backgroundImage: `url(${newsItem.news_image})`, 
                                         backgroundSize: 'cover',
@@ -79,7 +79,7 @@ const HvaSkjer = () => {
                                         backgroundRepeat: 'no-repeat',
                                     }}
                                     >
-                                        <div className="font-mina bg-black/70 p-4 min-w-full flex flex-col justify-start items-start">
+                                        <div className="font-mina bg-black/70 backdrop-blur-sm p-4 min-w-full flex flex-col justify-start items-start">
                                             <h3 className="font-mina  font-bold text-sm md:text-2xl text-white drop-shadow-[0_0_6px_rgba(255,255,255,0.4)]">
                                                 {newsItem.news_title}
                                             </h3>
@@ -88,7 +88,7 @@ const HvaSkjer = () => {
                                             <p className="font-roboto text-md md:text-md lg:text-lg md:mt-2">
                                                 {newsItem.news_content}
                                             </p>
-                                            <a href={newsItem.link} target="_blank" className="p-1 border-[#E74f2e] border-2 items-center rounded-lg flex bg-black/80 justify-center transitionn-all duration-500 hover:bg-[#E74f2e]"> 
+                                            <a href={newsItem.link} target="_blank" className="p-1 border-[#E74f2e] border-2 items-center rounded-lg flex bg-black/80 justify-center transitionn-all duration-500 hover:bg-[#E74f2e] cursor-pointer"> 
                                                 <p className="font-roboto text-sm flex flex-row items-center px-2 gap-1 font-bold">
                                                 Les mer <ArrowRight size="32"/>
                                                 </p>
