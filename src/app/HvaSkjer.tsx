@@ -62,7 +62,7 @@ const HvaSkjer = () => {
                     <h1 className="font-mina text-2xl md:text-3xl lg:text-4xl tracking-widest text-center text-white font-black mb-4 md:mb-4 md:pt-4">
                         Hva skjer på Create?
                     </h1>
-                    <div className="flex lg:justify-between items-start lg:rounded-xl bg-white/40 w-full md:w-[600px] lg:w-[800px] h-[480px] md:h-[600px] lg:h-[600px]">
+                    <div className="flex lg:justify-between items-start lg:rounded-xl bg-transparent w-full md:w-[600px] lg:w-[800px] h-[480px] md:h-[600px] lg:h-[600px]">
                         
                         {loading && <p>Laster nyheter...</p>}
                         <Carousel autoplay={true} autoplayDelay={10000} showButtons={showArrowButtons} opts={{ loop: true }} className="flex flex-row overflow-hidden w-full h-full lg:rounded-xl">
@@ -97,7 +97,7 @@ const HvaSkjer = () => {
                                     
                                     ))
                                 ) : (
-                                    <div className="text-center text-white">Ingen nyheter tilgjengelig.</div>
+                                    <div className="text-center text-white"></div>
                                 )}
                             </CarouselContent>                            
                         </Carousel>
