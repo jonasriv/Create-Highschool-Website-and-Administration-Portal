@@ -35,7 +35,7 @@ const Home = () => {
             <Hvaskjer />
           </div>         
 
-          <div id="study" className="h-auto flex items-center justify-center backdrop-blur-lg pt-8 mb-0 lg:pb-16 border-t-[0px] border-pinky bg-white/5">
+          <div id="study" className="h-auto flex items-center justify-center backdrop-blur-lg pt-8 mb-0 lg:pb-16 border-t-[0px] border-pinky ">
             <Study />
           </div>
           
@@ -43,7 +43,7 @@ const Home = () => {
             <ElevPaCreate />
           </div>                                 
 
-          <div id="mentorer" className="h-auto flex items-center justify-center backdrop-blur-lg pt-8 border-b-[0px] border-pinky bg-white/5">
+          <div id="mentorer" className="h-auto flex items-center justify-center backdrop-blur-lg pt-8 border-b-[0px] border-pinky ">
             <Mentorer />
           </div>    
 
@@ -51,7 +51,7 @@ const Home = () => {
             <Admission />
           </div>         
 
-          <div id="contact" className="flex h-auto items-start justify-center backdrop-blur-lg pt-28 bg-white/5">
+          <div id="contact" className="flex h-auto items-start justify-center backdrop-blur-lg pt-28 ">
             <Contact />
           </div>                       
 
