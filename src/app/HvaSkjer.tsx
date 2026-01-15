@@ -49,10 +49,6 @@ const HvaSkjer = () => {
 
     const showArrowButtons = newsItems.length > 1;
 
-    if (loading) {
-        return <div>Laster nyheter...</div>;
-    }
-
     if (error) {
         return <div>{error}</div>;
     }
@@ -67,6 +63,8 @@ const HvaSkjer = () => {
                         Hva skjer på Create?
                     </h1>
                     <div className="flex lg:justify-between items-start lg:rounded-xl bg-white/40 w-full md:w-[600px] lg:w-[800px] h-[480px] md:h-[600px] lg:h-[600px]">
+                        
+                        {loading && <p>Laster nyheter...</p>}
                         <Carousel autoplay={true} autoplayDelay={10000} showButtons={showArrowButtons} opts={{ loop: true }} className="flex flex-row overflow-hidden w-full h-full lg:rounded-xl">
                             <CarouselContent className="w-full flex flex-row ">{newsItems.length > 0 ? (
                                 newsItems.map((newsItem) => (
