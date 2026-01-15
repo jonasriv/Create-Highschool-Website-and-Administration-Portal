@@ -64,7 +64,11 @@ const HvaSkjer = () => {
                     </h1>
                     <div className="flex lg:justify-between items-start lg:rounded-xl bg-transparent w-full md:w-[600px] lg:w-[800px] h-[480px] md:h-[600px] lg:h-[600px]">
                         
-                        {loading && <p>Laster nyheter...</p>}
+                        {loading && 
+                            <div className="w-full h-full flex justify-center items-center">
+                                <p>Laster nyheter...</p>
+                            </div>
+                        }
                         <Carousel autoplay={true} autoplayDelay={10000} showButtons={showArrowButtons} opts={{ loop: true }} className="flex flex-row overflow-hidden w-full h-full lg:rounded-xl">
                             <CarouselContent className="w-full flex flex-row ">{newsItems.length > 0 ? (
                                 newsItems.map((newsItem) => (
