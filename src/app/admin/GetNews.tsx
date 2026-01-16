@@ -1,8 +1,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import React from "react";
-import UploadButton from "@/components/ui/UploadButton"; 
-import MediaLibrary from "@/components/ui/MediaLibrary";
+import BlobMediaLibrary from "@/components/ui/BlobMediaLibrary";
 
 
 interface GetNewsItemProps {
@@ -37,7 +36,7 @@ const GetNews: React.FC<GetNewsItemProps> = ({ token }) => {
             return;
         }
         const imageToSave = selectedImage || '';
-        const linkToSave = linkContent.trim() || '';
+        const linkToSave = linkContent.trim() || '';
 
         try {
             const response = await fetch("/api/news", {
@@ -131,6 +130,25 @@ const GetNews: React.FC<GetNewsItemProps> = ({ token }) => {
         }
     }
 
+    const uploadNewsImage = async (file: File) => {
+    const fd = new FormData();
+    fd.append("file", file);
+
+    const res = await fetch("/api/news/upload-image", {
+        method: "POST",
+        headers: {
+        Authorization: `Bearer ${token}`,
+        },
+        body: fd,
+    });
+
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data?.error || "Opplasting feilet");
+
+    setSelectedImage(data.url); // <-- dette blir news_image som du lagrer
+    };
+
+
     return (
         <div className="flex flex-col w-full min-h-screen justify-start items-center overflow-auto">
 
@@ -204,14 +222,28 @@ const GetNews: React.FC<GetNewsItemProps> = ({ token }) => {
                 <div className="flex justify-center items-center h-auto text-white font-bold w-full flex-col">
                     <div className="w-full flex flex-row justify-between items-center pb-4">
                         <div className="w-5/12">
-                            <MediaLibrary onImageSelected={handleImageSelected}/>
+                            <BlobMediaLibrary
+                                token={token}
+                                onImageSelected={handleImageSelected}
+                                buttonClassName="bg-orange-500 hover:bg-orange-600 text-white text-sm md:text-md font-bold py-2 px-4 rounded-lg w-full"
+                            />
                         </div>
-                        <UploadButton
-                            signatureEndpoint="/api/sign-cloudinary-params"
-                            className="bg-orange-500 hover:bg-blue-700 text-white text-sm md:text-md font-bold py-2 px-4 rounded-lg w-5/12"
-                        >
-                                Last opp et nytt bilde
-                        </UploadButton>                    
+                        <input
+                        type="file"
+                        accept="image/*"
+                        placeholder="LAst opp fil"
+                        onChange={async (e) => {
+                            const f = e.target.files?.[0];
+                            if (!f) return;
+                            try {
+                            await uploadNewsImage(f);
+                            } catch (err) {
+                            alert(err instanceof Error ? err.message : "Kunne ikke laste opp bilde");
+                            }
+                        }}
+                        className="bg-orange-500 hover:bg-blue-700 text-white text-sm md:text-md font-bold py-2 px-4 rounded-lg w-5/12"
+                        />
+               
                     </div>
                     {selectedImage && (
                         <div className="flex w-full flex-row p-2 bg-blue-400 rounded-lg">

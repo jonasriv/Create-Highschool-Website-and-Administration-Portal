@@ -90,11 +90,14 @@ const HvaSkjer = () => {
                                             <p className="font-roboto text-md md:text-md lg:text-lg md:mt-2">
                                                 {newsItem.news_content}
                                             </p>
-                                            <a href={newsItem.link} target="_blank" className="p-1 border-[#E74f2e] border-2 items-center rounded-lg flex bg-black/80 justify-center transitionn-all duration-500 hover:bg-[#E74f2e] cursor-pointer"> 
-                                                <p className="font-roboto text-sm flex flex-row items-center px-2 gap-1 font-bold">
-                                                Les mer <ArrowRight size="32"/>
-                                                </p>
+                                            {newsItem.link && newsItem.link.length > 5 && (
+                                                <a href={newsItem.link} target="_blank" className="p-1 border-[#E74f2e] border-2 items-center rounded-lg flex bg-black/80 justify-center transitionn-all duration-500 hover:bg-[#E74f2e] cursor-pointer"> 
+                                                    <p className="font-roboto text-sm flex flex-row items-center px-2 gap-1 font-bold">
+                                                        Les mer <ArrowRight size="32"/>
+                                                    </p>
                                             </a>
+                                            )}
+                                            
                                         </div>
                                     </div>
                                 </CarouselItem>
