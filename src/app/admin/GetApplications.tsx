@@ -682,6 +682,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                         <p>{app.fakturaepost}</p>
                                         <p>{app.fakturagateadresse}</p>
                                         <p>{app.fakturapostnummer} {app.fakturapoststed} </p>
+                                        <p>{app.fakturaland}</p>
                                     </td>
                                     <td className="border border-black px-[6px] text-xs py-2">{app.priority1}</td>
                                     <td className="border border-black px-[6px] text-xs py-2 break-words max-w-24">{app.priority2}</td>
