@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { utils, writeFileXLSX } from "xlsx";
 import React, { ChangeEvent } from "react";
 import { format } from "date-fns"
-import { CalendarIcon, ImageDown, Download, Repeat, Play, Pencil, X, RefreshCw, Save, MessageCircleMore } from "lucide-react"
+import { CalendarIcon, ImageDown, Download, Repeat, Play, Pencil, X, RefreshCw, Save, MessageCircleMore, Trash } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -61,6 +61,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [useFilter, setUseFilter] = useState<boolean>(false);
     const [editingApplication, setEditingApplication] = useState<Application | null>(null);
+    const [deletingApplication, setDeletingApplication] = useState<Application | null>(null);
     const [editedFields, setEditedFields] = useState<Record<string, string>>({
         name: "",
         email: "",
@@ -262,6 +263,40 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
         }
     };
 
+    const handleDeleteApplication = async () => {
+        if (!deletingApplication) {
+            alert("Ingen søknad er valgt");
+            return;
+        }
+        const ok = window.confirm("Slette søknaden til " + deletingApplication.name + " permanent? Opplastet vedlegg slettes også");
+        if (!ok) {
+            setDeletingApplication(null);
+            return;
+        } 
+        const deleteMe = deletingApplication._id;
+        
+        try {
+            const res = await fetch(`/api/applications/${deleteMe}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`, 
+                },
+            });
+
+            const data = await res.json().catch(() => ({}));
+
+            if (!res.ok) {
+                throw new Error(data?.error || data?.message || "Kunne ikke slette søknaden");
+            }    
+            
+            setApplications((prev) => prev.filter((a) => a._id !== deleteMe));
+            setDeletingApplication(null)
+        } catch (err) {
+            console.error(err);
+            alert(err instanceof Error ? err.message : "Noe gikk galt");
+        }
+    };
+
     const handleGradesRegister = async (e: React.MouseEvent<HTMLButtonElement>, app: Application) => {
         e.preventDefault();
         const field = 'textractAnalysis';
@@ -386,7 +421,6 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
         setHidingTreatedApps((prev) => !prev);
     };
     
-
 
     const filteredApplications = useFilter 
         ? 
@@ -672,7 +706,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                     <td className="border border-black px-[6px] py-2 text-xs break-words max-w-24">
                                         {app.emailParent}
                                     </td>
-                                    <td className="border border-black px-[6px] py-2 text-xs max-w-16">
+                                    <td className="border border-black break-words px-[6px] py-2 text-xs max-w-16">
                                         {app.phone}
                                     </td>
                                     <td className="border border-black px-[6px] text-xs py-2">{app.skoleaar}</td>
@@ -903,7 +937,7 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                             </span>
                                         </span>
                                     </td>
-                                    <td className="border border-black px-[2px] text-center py-2 break-words">
+                                    <td className="border border-black text-center py-2 break-words">
                                         <div className="w-full flex items-center justify-center">
                                             <label className="relative flex cursor-pointer items-center">
                                                 {/* Skjult checkbox */}
@@ -923,8 +957,8 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                         </div>  
                                     </td>
 
-                                    <td className="flex h-16 w-full justify-center items-center border-none">
-                                        <div className="w-full h-full flex justify-center items-center ">
+                                    <td className="h-16 w-auto justify-center items-center border-none flex-col">
+                                        <div className="w-full h-full flex flex-col py-4 px-1 justify-between items-start ">
                                             <button
                                                 onClick={() => {
                                                     setEditingApplication(app);
@@ -947,12 +981,58 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                                             >
                                                 <Pencil size="18" color="white"/>
                                             </button>
+                                            {/* Knapp for å åpne slette-modal */}
+                                            <button 
+                                                className="bg-red-500 p-2 rounded-full flex flex-row justify-center items-center hover:bg-red-400 mt-2"
+                                                onClick={() => setDeletingApplication(app)}
+                                            >
+                                                <Trash size="16" color="white"/>
+                                            </button>
                                         </div>
+
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
+                    {deletingApplication && (
+                        <div className="fixed inset-0 flex backdrop-blur-sm items-center justify-center bg-white/40 z-50">
+                            <div className="bg-black/80  p-4 rounded-lg shadow-lg w-96 z-60 flex flex-col text-white font-bold">
+                                <div className="flex flex-row justify-between items-center">
+                                    <h3 className="text-white text-xl">Slette søknad?</h3>
+                                    <button 
+                                        className="bg-redish hover:bg-moreredish p-1 rounded-lg cursor-pointer"
+                                        onClick={() => {
+                                            setDeletingApplication(null)
+                                            setDeletingApplication(null);
+                                        }}
+                                    >
+                                        <X/>
+                                    </button>
+                                </div>
+                                <div className="mt-4 font-sans text-sm">
+                                    <p><b>Søkernavn</b>: {deletingApplication.name}</p>
+                                    <p><b>Søkt dato</b>: {deletingApplication.createdAt.split("T")[0] || 'no date'} {deletingApplication.createdAt.split("T")[1].split(".")[0] || 'no time' }</p>
+                                </div>
+                                <div className="mt-4 font-sans text-sm flex flex-row justify-between items-center">
+                                    <button 
+                                        className="border-moreredish rounded-md border-2 hover:bg-red-400 p-2"
+                                        onClick={() => {
+                                            handleDeleteApplication()
+                                        }}
+                                    >
+                                        Slett søknad
+                                    </button>
+                                    <button 
+                                        className="border-blue-400 rounded-md border-2 hover:bg-blue-400 p-2"
+                                        onClick={() => setDeletingApplication(null)}
+                                    >
+                                        Gå tilbake
+                                    </button>                                    
+                                </div>
+                            </div>
+                        </div>
+                    )}
                     {editingApplication && (
                         <div className="fixed inset-0 flex items-center justify-center bg-white/40 z-50">
                             <div className="bg-black/80 p-6 rounded-lg shadow-lg z-60 flex flex-col text-white font-bold">

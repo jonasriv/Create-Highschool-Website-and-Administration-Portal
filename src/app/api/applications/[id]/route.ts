@@ -4,8 +4,20 @@ import dbConnect from "@/lib/mongoose";
 import Application from '@/models/application'; // Juster banen til din modell
 import { TextractClient, StartDocumentTextDetectionCommand, GetDocumentTextDetectionCommand } from "@aws-sdk/client-textract";
 import { verifyToken } from '@/app/admin/verifyToken';
+import { S3Client, DeleteObjectCommand } from "@aws-sdk/client-s3";
 
 const bucketName = process.env.AWS_BUCKET_NAME!;
+const s3 = 
+  bucketName && process.env.AWS_REGION 
+    ? new S3Client({
+      region: process.env.AWS_REGION,
+      credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+      },
+    })
+    : null;
+
 const textract = new TextractClient({
   region: process.env.AWS_REGION,
   credentials: {
@@ -155,3 +167,46 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ message: "Feil ved behandling av forespørsel" }, { status: 500 });
   }
 };
+
+export async function DELETE(req: NextRequest) {
+  const authResult = verifyToken(req);
+  if (authResult.error) {
+    return NextResponse.json({ error: authResult.error }, { status: authResult.status });
+  }
+
+  const { decoded } = authResult;
+  if (!decoded || typeof decoded !== "object" || !("isAdmin" in decoded)) {
+    return NextResponse.json({ error: "Token inneholder ikke nødvendig informasjon." }, { status: 403 });
+  }
+  if (!decoded.isAdmin) {
+    return NextResponse.json({ error: "Du har ikke tilgang til denne ressursen." }, { status: 403 });
+  }
+
+  const id: string = req.nextUrl.pathname.split("/").pop()!;
+
+  try {
+    await dbConnect();
+
+    const existing = await Application.findById(id);
+    if (!existing) {
+      return NextResponse.json({ message: "Application not found" }, { status: 404 });
+    }
+
+    const key = existing.filename as string | undefined;
+
+    if (key && s3) {
+      try {
+        await s3.send(new DeleteObjectCommand({ Bucket: bucketName, Key: key }));
+      } catch (err) {
+        console.error("Kunne ikke slette S3-fil:", { id, key, err });
+      }
+    }
+
+    await Application.findByIdAndDelete(id);
+
+    return NextResponse.json({ message: "Application deleted", deletedId: id }, { status: 200 });
+  } catch (error) {
+    console.error("Error deleting application:", error);
+    return NextResponse.json({ message: "Server error" }, { status: 500 });
+  }
+}
