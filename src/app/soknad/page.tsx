@@ -2,6 +2,8 @@
 import React, { useState, useRef } from "react";
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import { X } from "lucide-react";
+
 const Header = dynamic(() => import("./HeaderSoknad"), {ssr:false});
 
 const Soknad = () => {
@@ -72,7 +74,8 @@ const Soknad = () => {
         sprakvalg: "",
     })
 
-    const [loading, setLoading] = useState(false);  // Legg til loading state
+    const [loading, setLoading] = useState(false);  // oading state for innsending
+    const [approvedApplication, setApprovedApplication] = useState(false);  // oading state for innsending
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const validateForm = () => {
@@ -156,9 +159,9 @@ const Soknad = () => {
                 }
     
                 const data = await response.json();
-                alert(data.message || 'Søknaden ble sendt inn!');
-                console.log('Søknaden ble sendt inn', data);
                 setLoading(false);
+                setApprovedApplication(true);
+                console.log('Søknaden ble sendt inn', data);
     
                 setFormData({
                     fullName: '',
@@ -185,7 +188,6 @@ const Soknad = () => {
                     fileInputRef.current.value = '';
                 }
     
-                window.location.href = '/';
             } catch (error) {
                 console.error('Error:', error);
                 alert('Kunne ikke sende inn søknaden. Prøv igjen senere.');
@@ -224,7 +226,7 @@ const Soknad = () => {
     }}  >
             <Header/>
             {loading && (
-              <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 z-50 flex-col gap-12">
+              <div className="fixed backdrop-blur-sm inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 z-50 flex-col gap-12">
                 <div className="w-24 h-24 border-b-8 border-t-8 border-pinky border-t-blue-500 rounded-full animate-spin-fast"></div>
                 <p className="text-2xl">Vent mens opplastingen behandles...</p>
               </div>
@@ -242,7 +244,24 @@ const Soknad = () => {
                         <button onClick={(e) => {handleGetIt(e)}} className="p-4 w-full bg-blue-600 hover:bg-blue-500 cursor-pointer rounded-lg">Jeg skjønner!</button>
                     </div>    
                 </div>
-            )}            
+            )}    
+            {approvedApplication && (
+                <div className="fixed backdrop-blur-md inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 z-50 flex-col gap-12">
+                    <div className="w-full md:w-[400px] bg-white/70 h-96 md:rounded-sm flex flex-col p-2">
+                        <div className="w-full h-8 flex flex-row justify-between items-between ">
+                            <h2 className="text-2xl font-bold text-moreredish font-mina">Søknaden ble sendt inn!</h2>
+                            <Link href="/" className="hover:bg-redish cursor-pointer p-1 rounded-md"><X color="black"/></Link>
+                        </div>
+                        <p className="mt-12 text-lg font-bold text-black">Du vil om kort tid motta en e-post som bekrefter søknaden. </p>
+                        <p className="mt-12 text-lg font-bold text-black">Dersom du har spørsmål, ta kontakt på <a className="text-white hover:bg-moreredish bg-redish p-1 px-2 rounded-md" href="mailto:mail@create.no">mail@create.no</a> </p>
+                        
+                        <Link href="/" className="border-2 border-redish mt-20 text-xl p-2 rounded-lg text-black text-center hover:bg-redish font-bold">Lukk dette vinduet</Link>
+
+                        
+
+                    </div>
+                </div>
+            )}
             <div className="max-w-screen-lg mt-20 mb-8 w-11/12 mx-auto p-6 bg-slate-600 bg-opacity-95 rounded-lg flex flex-col">
             <div className="">
                 <h1 className="font-mina text-2xl md:text-3xl mb-4">
@@ -254,7 +273,7 @@ const Soknad = () => {
                     </p>
                 </div>
                 <p className="font-roboto md:text-xl text-lg text-white mt-4"><b>PC: </b>Alle elever må ha egen PC. Dersom du skal gå musikk på Create må du ha en bærbar Mac. På drama og dans kan du velge mellom Windows-PC og Mac. </p>
-                <p className="text-lg font-roboto md:text-xl text-white mt-4">Søknadsfrist 1. mars</p>
+                <p className="text-lg font-roboto md:text-xl text-white mt-4 font-bold">Søknadsfrist 1. mars</p>
             </div>
             <h1 className="text-2xl font-bold mb-6 pt-8 font-mina w-full text-center">Søknadsskjema</h1>
             
@@ -264,6 +283,7 @@ const Soknad = () => {
             <div>
                 <label htmlFor="fullName" className="block text-sm md:text-lg font-semibold">Fullt navn:</label>
                 <input
+                suppressHydrationWarning
                 type="text"
                 placeholder="Ditt fulle navn"
                 id="fullName"

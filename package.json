@@ -21,7 +21,7 @@
     "@radix-ui/react-tabs": "^1.1.13",
     "@tanstack/react-table": "^8.20.6",
     "@vercel/analytics": "^1.4.1",
-    "aws-sdk": "^2.1692.0",
+    "@vercel/blob": "^0.0.2",
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.1",

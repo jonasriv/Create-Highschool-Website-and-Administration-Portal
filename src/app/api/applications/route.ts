@@ -11,7 +11,7 @@ export const maxDuration = 60; // This function can run for a maximum of 60 seco
 
 // Konfigurer S3-klienten
 const s3 = new S3Client({
-    region: process.env.AWS_REGION,
+    region: process.env.AWS_REGION || 'us-east-2',
     credentials: {
       accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
@@ -112,7 +112,8 @@ export async function POST(req: Request) {
       fakturaepost,
       fakturagateadresse,
       fakturapostnummer,
-      fakturapoststed
+      fakturapoststed,
+      fakturaland
     });
     // Nodemailer-konfigurasjon
     const transporter = nodemailer.createTransport({
