@@ -59,8 +59,8 @@ const ElevHeader = ({ user }: HeaderProps) => {
                                 </>
                                 ) : (
                                     <>
-                                    <div className='flex flex-row justify-center items-center'>Logg inn med feide
-                                        <button onClick={() => signIn("feide", { callbackUrl: "/elev" })} className='bg-green-600 p-1 rounded-full ml-2'>
+                                    <div onClick={() => signIn("feide", { callbackUrl: "/elev" })} className='flex flex-row justify-center items-center'>Logg inn med feide
+                                        <button className='bg-green-600 p-1 rounded-full ml-2'>
                                             <LogInIcon size="14"/>
                                         </button>
                                     </div>
