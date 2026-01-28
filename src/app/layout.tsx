@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Roboto, Roboto_Mono, Mina } from "next/font/google";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./globals.css";
 import Head from 'next/head';
 import { Analytics } from "@vercel/analytics/react"
