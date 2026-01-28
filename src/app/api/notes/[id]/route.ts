@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import dbConnect from "@/lib/mongoose";
 import Note from "@/models/Note";
-import { getUserIdOrThrow } from "../../auth/getCurrentUserOrThrow";
+import { getUserIdOrThrow } from "@/lib/auth/getUserIdOrThrow";
 
 export const runtime = "nodejs";
 
@@ -9,13 +9,17 @@ function isValidObjectId(id: string) {
   return /^[a-f\d]{24}$/i.test(id);
 }
 
+async function unwrapParams<T>(params: T): Promise<T> {
+  // await funker også når params ikke er en Promise (Promise.resolve)
+  return await (params as any);
+}
+
 export async function GET(
-  _req: Request,
-  { params }: { params: Promise<{ id: string }> }
+  _req: NextRequest,
+  context: { params: { id: string } }
 ) {
   const userId = await getUserIdOrThrow();
-  const { id: noteId } = await params;
-
+  const { id: noteId } = await unwrapParams(context.params);
 
   if (!isValidObjectId(noteId)) {
     return NextResponse.json({ error: "bad_id" }, { status: 400 });
@@ -30,7 +34,7 @@ export async function GET(
     note: {
       _id: String(note._id),
       title: note.title,
-      content: note.content,
+      content: note.content ?? "",
       createdAt: note.createdAt,
       updatedAt: note.updatedAt,
     },
@@ -38,17 +42,17 @@ export async function GET(
 }
 
 export async function PUT(
-  _req: Request,
-  { params }: { params: Promise<{ id: string }> }
+  req: NextRequest,
+  context: { params: { id: string } }
 ) {
   const userId = await getUserIdOrThrow();
-  const { id: noteId } = await params;
+  const { id: noteId } = await unwrapParams(context.params);
 
   if (!isValidObjectId(noteId)) {
     return NextResponse.json({ error: "bad_id" }, { status: 400 });
   }
 
-  const body = await _req.json().catch(() => ({}));
+  const body = await req.json().catch(() => ({}));
   const title =
     typeof body?.title === "string" ? body.title.trim().slice(0, 120) : undefined;
   const content =
@@ -71,16 +75,19 @@ export async function PUT(
     note: {
       _id: String(note._id),
       title: note.title,
-      content: note.content,
+      content: note.content ?? "",
       createdAt: note.createdAt,
       updatedAt: note.updatedAt,
     },
   });
 }
 
-export async function DELETE(_: Request, { params }: { params: { id: string } }) {
+export async function DELETE(
+  _req: NextRequest,
+  context: { params: { id: string } }
+) {
   const userId = await getUserIdOrThrow();
-  const noteId = params.id;
+  const { id: noteId } = await unwrapParams(context.params);
 
   if (!isValidObjectId(noteId)) {
     return NextResponse.json({ error: "bad_id" }, { status: 400 });
