@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextResponse, type NextRequest } from "next/server";
 import dbConnect from "@/lib/mongoose";
 import Note from "@/models/Note";
-import { getUserIdOrThrow } from "@/lib/auth/getUserIdOrThrow";
+import { getUserIdOrThrow } from "../../auth/getCurrentUserOrThrow";
 
 export const runtime = "nodejs";
 
