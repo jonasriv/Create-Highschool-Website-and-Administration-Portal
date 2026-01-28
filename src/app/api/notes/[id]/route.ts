@@ -10,17 +10,11 @@ function isValidObjectId(id: string) {
   return /^[a-f\d]{24}$/i.test(id);
 }
 
-async function unwrapParams<T>(params: T): Promise<T> {
-  // await funker også når params ikke er en Promise (Promise.resolve)
-  return await (params as any);
-}
+type Ctx = { params: Promise<{ id: string }> };
 
-export async function GET(
-  _req: NextRequest,
-  context: { params: { id: string } }
-) {
+export async function Get(req: NextRequest, ctx: Ctx) {
   const userId = await getUserIdOrThrow();
-  const { id: noteId } = await unwrapParams(context.params);
+  const { id: noteId } = await ctx.params;
 
   if (!isValidObjectId(noteId)) {
     return NextResponse.json({ error: "bad_id" }, { status: 400 });
@@ -42,12 +36,9 @@ export async function GET(
   });
 }
 
-export async function PUT(
-  req: NextRequest,
-  context: { params: { id: string } }
-) {
+export async function PUT(req: NextRequest, ctx: Ctx) {
   const userId = await getUserIdOrThrow();
-  const { id: noteId } = await unwrapParams(context.params);
+  const { id: noteId } = await ctx.params;
 
   if (!isValidObjectId(noteId)) {
     return NextResponse.json({ error: "bad_id" }, { status: 400 });
@@ -83,12 +74,10 @@ export async function PUT(
   });
 }
 
-export async function DELETE(
-  _req: NextRequest,
-  context: { params: { id: string } }
-) {
+export async function DELETE(_req: NextRequest, ctx: Ctx) {
   const userId = await getUserIdOrThrow();
-  const { id: noteId } = await unwrapParams(context.params);
+  const { id: noteId } = await ctx.params;
+
 
   if (!isValidObjectId(noteId)) {
     return NextResponse.json({ error: "bad_id" }, { status: 400 });
