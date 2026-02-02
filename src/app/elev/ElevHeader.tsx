@@ -5,7 +5,8 @@ import { useState, useEffect } from "react";
 import logo from '../../../public/images/logo-header.svg';
 import HamburgerMenu from "@/components/ui/hamburgermenu";
 import Navbar from './ui/Navbar';
-import { User, LogOutIcon, LogInIcon, Calendar } from 'lucide-react';
+import { User, LogOutIcon, LogInIcon } from 'lucide-react';
+// import { Calendar } from 'lucide-react';
 import { signOut, signIn } from "next-auth/react";
 
 type HeaderProps = {
@@ -18,6 +19,7 @@ type HeaderProps = {
 
 const ElevHeader = ({ user }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [msConnected, setMsConnected] = useState(false);
 
   useEffect(() => {
@@ -35,15 +37,15 @@ const ElevHeader = ({ user }: HeaderProps) => {
     frontSection?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const scrollToCalendar = () => {
-    const cal = document.getElementById("calendar");
-    cal?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
+  // const scrollToCalendar = () => {
+  //   const cal = document.getElementById("calendar");
+  //   cal?.scrollIntoView({ behavior: "smooth", block: "start" });
+  // };
 
   return (
     <header>
       <div
-        className='flex flex-row gap-1 justify-center items-center w-screen max-w-screen bg-black/60 h-24 lg:h-24 p-4 z-50 backdrop-blur-2xl'
+        className='flex flex-row gap-1 justify-center items-center w-screen max-w-screen bg-black/60 h-24 lg:h-24 p-4 z-50 backdrop-blur-2xl border-white border-b'
       >
         <div className="flex justify-between items-center w-screen h-full">
           <div className="cursor-pointer flex flex-col gap-2 w-20 justify-center items-center">
@@ -66,7 +68,7 @@ const ElevHeader = ({ user }: HeaderProps) => {
                     <span className="text-sm">{user?.name ?? user?.email ?? ""}</span>
 
                     {/* Microsoft connect / status */}
-                    {!msConnected ? (
+                    {/* {!msConnected ? (
                       <button
                          onClick={() =>
                             signIn("azure-ad", {
@@ -88,7 +90,7 @@ const ElevHeader = ({ user }: HeaderProps) => {
                         <Calendar size={14} />
                         Kalender
                       </button>
-                    )}
+                    )} */}
 
                     {/* logout */}
                     <button

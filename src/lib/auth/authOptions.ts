@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { NextAuthOptions } from "next-auth";
-import AzureADProvider from "next-auth/providers/azure-ad";
+// import AzureADProvider from "next-auth/providers/azure-ad";
 import dbConnect from "@/lib/mongoose";
 import MsAccount from "@/models/MsAccount";
 
@@ -32,18 +32,18 @@ export const authOptions: NextAuthOptions = {
       },
     },
 
-    AzureADProvider({
-      id: "azure-ad",
-      tenantId: process.env.AZURE_AD_TENANT_ID!,
-      clientId: process.env.AZURE_AD_CLIENT_ID!,
-      clientSecret: process.env.AZURE_AD_CLIENT_SECRET!,
-      authorization: {
-        params: {
-          scope: "openid profile email offline_access Calendars.Read",
-          prompt: "consent",
-        },
-      },
-    }),
+    // AzureADProvider({
+    //   id: "azure-ad",
+    //   tenantId: process.env.AZURE_AD_TENANT_ID!,
+    //   clientId: process.env.AZURE_AD_CLIENT_ID!,
+    //   clientSecret: process.env.AZURE_AD_CLIENT_SECRET!,
+    //   authorization: {
+    //     params: {
+    //       scope: "openid profile email offline_access Calendars.Read",
+    //       prompt: "consent",
+    //     },
+    //   },
+    // }),
   ],
 
   session: { strategy: "jwt" },

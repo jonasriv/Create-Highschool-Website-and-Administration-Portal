@@ -12,7 +12,7 @@ function isValidObjectId(id: string) {
 
 type Ctx = { params: Promise<{ id: string }> };
 
-export async function Get(req: NextRequest, ctx: Ctx) {
+export async function GET(req: NextRequest, ctx: Ctx) {
   const userId = await getUserIdOrThrow();
   const { id: noteId } = await ctx.params;
 

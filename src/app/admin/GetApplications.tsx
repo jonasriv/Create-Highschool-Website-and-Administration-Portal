@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { utils, writeFileXLSX } from "xlsx";
 import React, { ChangeEvent } from "react";
 import { format } from "date-fns"
 import { CalendarIcon, ImageDown, Download, Repeat, Play, Pencil, X, RefreshCw, Save, MessageCircleMore, Trash } from "lucide-react"
@@ -77,6 +76,31 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
     const [isDateSorted, setIsDateSorted] = useState<boolean>(false);
     const [addedLog, setAddedLog] = useState<string | null>("");
     
+    // Hjelpefunsjoner for csv-eksport: 
+    function csvEscape(value: unknown) {
+        const s = String(value ?? "");
+        const needsQuotes = /[;"\n\r]/.test(s);
+        const escaped = s.replace(/"/g, '""');
+        return needsQuotes ? `"${escaped}"`: escaped;
+    }
+
+    function downloadTextFile(filename: string, content: string, mime = "text/csv;charset=utf-8") {
+        const blob = new Blob([content], { type: mime});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+    }
+
+    function formatFileDate(d: Date) {
+        const pad = (n:number) => String(n).padStart(2, "0");
+        return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}(${pad(d.getHours())}.${pad(d.getMinutes())})`;
+    }
+
     const fetchApplications = useCallback(async () => {
         setIsFetching(true);
         setApplications([]);
@@ -194,6 +218,70 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
         }
         setIsFetching(false);
     }, [token, date, secondDate]);
+
+    function makeApplicationsCsv(apps: Application[]) {
+    const sep = ";";
+    const header = [
+        "Navn",
+        "Søkt dato",
+        "E-post",
+        "E-post foresatt",
+        "TLF",
+        "ÅR",
+        "Fakturanavn",
+        "Fakturaepost",
+        "Fakturagateadresse",
+        "Fakturapostnummer",
+        "Fakturapoststed",
+        "Fakturaland",
+        "Pri 1",
+        "Pri 2",
+        "Pri 3",
+        "Instr",
+        "Prøve?",
+        "Behandlet?",
+        "Snitt",
+        "Ant. karakterer",
+        "Karakterer",
+        "Logg",
+    ];
+
+    const lines: string[] = [];
+    lines.push(`sep=${sep}`); // Excel auto-separator
+    lines.push(header.map(csvEscape).join(sep));
+
+    for (const app of apps) {
+        lines.push(
+        [
+            app.name,
+            (app.createdAt ?? "").slice(0, 10),
+            app.email,
+            app.emailParent,
+            app.phone,
+            app.skoleaar,
+            app.fakturanavn,
+            app.fakturaepost,
+            app.fakturagateadresse,
+            app.fakturapostnummer,
+            app.fakturapoststed,
+            app.fakturaland,
+            app.priority1,
+            app.priority2,
+            app.priority3,
+            app.hovedinstrument,
+            app.opptaksprove,
+            app.behandlet === 1 ? "Ja" : "Nei",
+            app.gjennomsnitt ?? "",
+            app.antallKarakterer ?? "",
+            Array.isArray(app.karaktersett) ? app.karaktersett.join(", ") : "",
+            app.logg ?? "",
+        ].map(csvEscape).join(sep)
+        );
+    }
+
+    return lines.join("\r\n");
+    }
+
 
     const handleCheckboxChange = async (e: ChangeEvent<HTMLInputElement>, app: Application) => {
         setIsChecking(app._id);
@@ -551,23 +639,26 @@ const GetApplications: React.FC<GetApplicationsProps> = ({ token }) => {
                         >
                             <span className="hidden md:inline-block">Oppdater søknader &nbsp;</span><RefreshCw/>
                         </button>
-                            <button className="hidden md:flex p-[2px] justify-center items-center rounded-md md:rounded-xl text-lg border-2 border-white w-auto md:w-52 bg-white/20 cursor-pointer hover:bg-white/10" 
+                        <button className="hidden md:flex p-[2px] justify-center items-center rounded-md md:rounded-xl text-lg border-2 border-white w-auto md:w-52 bg-white/20 cursor-pointer hover:bg-white/10" 
                             onClick={() => {
-                                const wb = utils.table_to_book(tbl.current);
-                                const nowDate = new Date();
-                                const year = nowDate.getFullYear();
-                                const month = nowDate.getMonth() + 1;
-                                const day = nowDate.getDate();
-                                const hour = nowDate.getHours();
-                                const minutes = nowDate.getMinutes();
-                                const formattedMonth = month.toString().padStart(2, '0');
-                                const formattedDay = day.toString().padStart(2, '0');
-                                const formattedHour = hour.toString().padStart(2, '0');
-                                const formattedMinutes = minutes.toString().padStart(2, '0');
-                                const fileDate = `${year}-${formattedMonth}-${formattedDay}(${formattedHour}.${formattedMinutes})`
-                                const xlsxFileName = `SøknaderCreate_${fileDate}.xlsx`;
-                                writeFileXLSX(wb, xlsxFileName);
-                            }}><span className="flex items-center justify-between gap-4"><span className="hidden md:inline-block">Eksporter til excel</span><span><Download/></span></span></button>
+                            const now = new Date();
+                            const fileDate = formatFileDate(now);
+                            const filename = `SoknaderCreate_${fileDate}.csv`;
+
+                            const csv = makeApplicationsCsv(displayApplications); // eller applications
+                            downloadTextFile(filename, csv);
+                            }}
+
+                        >
+                            <span className="flex items-center justify-between gap-4">
+                                <span className="hidden md:inline-block">
+                                    Eksporter til excel
+                                </span>
+                                <span>
+                                    <Download/>
+                                </span>
+                            </span>
+                        </button>
                         
                         {/*MOBILE MENU*/}
                         <div className="flex md:hidden flex-col h-22">

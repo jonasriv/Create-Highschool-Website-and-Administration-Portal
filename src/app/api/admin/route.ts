@@ -2,7 +2,7 @@ import dbConnect from "@/lib/mongoose";
 import Admin from "@/models/admin";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -35,7 +35,7 @@ export async function POST(req: Request) {
   try {
     const isPasswordValid = await bcrypt.compare(password, admin.password);
 
-    console.log("Is password valid: ", isPasswordValid); // Legg til logging av resultatet fra bcrypt.compare()
+    
 
     if (!isPasswordValid) {
       return NextResponse.json({ error: "Invalid username or password" }, { status: 401 });

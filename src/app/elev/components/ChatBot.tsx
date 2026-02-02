@@ -104,39 +104,36 @@ function stop() {
 }
 
 return (
-    <div className="w-full bg-transparent text-white tracking-wide h-[800px] max-h-[800px] overflow-scroll">
+    <div className="w-full bg-black/60 rounded-lg p-1 text-white tracking-wide h-[800px] max-h-[800px] overflow-y-scroll backdrop-blur-2xl">
     <div className="rounded-md bg-transparent shadow-sm overflow-hidden">
-        <div className="p-2 border-b mb-2">
-        <div className="font-semibold font-mina">Create læringsassistent</div>
-        <div className="text-sm opacity-70 font-mina p-2">
-            Jeg gir ikke fasit – men hjelper deg gjerne med spørsmål, hint og tilbakemelding.
-        </div>
+        <div className=" p-2 border-b mb-2">
+            <div className="font-semibold font-mina uppercase">Create GPT læringsassistent</div>
+            <div className="text-sm opacity-90 font-mina font-italic">
+                Jeg gir ikke fasit – men hjelper deg gjerne med spørsmål, hint og tilbakemelding.
+            </div>
         </div>
 
-        <div className="p-4 space-y-3 max-h-[65vh] overflow-auto text-black ">
-        {messages.map((m, idx) => (
-            <div
-            key={idx}
-            className={`w-full flex  ${m.role === "user" ? "justify-end" : "justify-start"}`}
-            >
-            <div
-                className={`whitespace-pre-wrap rounded-lg px-4 py-2 text-md font-exo2 tracking-wider font-sans ${
-                m.role === "user"
-                    ? "bg-black border-1 border-white text-primary-foreground"
-                    : "bg-muted text-foreground"
-                }`}
-            >
-                {m.content}
-            </div>
-            </div>
-        ))}
-        
-        {isSending && (
-            <div className="bg-pink-400">  <Spinner/>           
-            </div>
-        )}
-                    
+        <div className="p-2 space-y-3 max-h-[65vh] overflow-auto text-sm font-semibold text-black ">
+            {messages.map((m, idx) => {
+            return (
+                <div
+                key={idx}
+                className={`w-full flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
+                >
+                <div
+                    className={`whitespace-pre-wrap rounded-lg px-4 py-2 text-md font-exo2 tracking-wider font-sans ${
+                    m.role === "user"
+                        ? "bg-black border-1 border-white text-primary-foreground"
+                        : "bg-muted text-foreground"
+                    }`}
+                >
+                    {m.content.trim().length > 0 ? m.content : <Spinner/>}
 
+
+                </div>
+                </div>
+            );
+            })}
         <div ref={endRef} />
         </div>
 
@@ -159,14 +156,14 @@ return (
             <button
             onClick={send}
             disabled={isSending || !input.trim()}
-            className="rounded-xl px-4 py-2 text-sm bg-primary text-primary-foreground disabled:opacity-50"
+            className="rounded-xl px-4 py-2 text-sm bg-white text-moreredish font-bold disabled:opacity-50"
             >
             Send
             </button>
             <button
             onClick={stop}
             disabled={!isSending}
-            className="rounded-xl px-4 py-2 text-sm border disabled:opacity-50"
+            className="rounded-xl px-4 py-2 text-sm border disabled:opacity-50 bg-white/60"
             >
             Stopp
             </button>
@@ -174,8 +171,8 @@ return (
         </div>
     </div>
 
-    <div className="text-xs opacity-60 mt-3">
-        Tips: Lim inn oppgaveteksten + ditt eget forsøk. Jeg kan hjelpe med struktur, hint og sjekkpunkter.
+    <div className="text-sm opacity-80 mt-3 px-2 mx-2 text-red-600 shadow-sm shadow-white bg-white rounded-md py-1">
+        <b>NB</b>: Ikke gi chatboten personsensitiv informasjon, kontonummer, epost etc. 
     </div>
     </div>
 );
