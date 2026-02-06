@@ -46,7 +46,7 @@
     "mammoth": "^1.9.0",
     "mongodb": "^6.21.0",
     "mongoose": "^8.9.5",
-    "next": "^16.0.7",
+    "next": "^16.1.6",
     "next-auth": "^4.24.13",
     "next-cloudinary": "^6.16.0",
     "nodemailer": "^7.0.10",
@@ -87,8 +87,5 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   },
-  "overrides": {
-    "fast-xml-parser": "^5.3.4",
-    "postcss": "8.5.6"
-  }
+  "overrides": {}
 }
