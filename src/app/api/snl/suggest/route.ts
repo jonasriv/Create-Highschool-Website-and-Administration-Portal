@@ -24,7 +24,7 @@ export async function GET(req: Request) {
   const data = await r.json();
   
   const results = data;
-  
+  // console.log("RAW RESULT: ", results);
   const suggestions = results
     .map((x: any) => ({
       headword: x?.headword,
@@ -37,6 +37,7 @@ export async function GET(req: Request) {
       title: x?.title,
       first_image_url: x?.first_image_url,
       first_image_licence: x?.first_image_licence,     
+      article_url: x?.article_url,      
     }))
     .filter((s: any) => s.title);
     

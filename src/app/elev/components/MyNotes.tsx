@@ -2,7 +2,9 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { X, Pencil } from "lucide-react";
+import { X, Pencil, RefreshCw, PlusCircle, MinusCircle } from "lucide-react";
+import { useElevStore } from "../store";
+
 
 type NoteListItem = {
 _id: string;
@@ -23,16 +25,24 @@ function fmt(dt: string) {
 
 export default function MyNotes() {
     const [notes, setNotes] = useState<NoteListItem[]>([]);
-    const [filteredNotes, setFilteredNotes] = useState<NoteListItem[]>([]);
     const [activeId, setActiveId] = useState<string | null>(null);
     const [active, setActive] = useState<NoteFull | null>(null);
     const [searchString, setSearchString] = useState("");
     const [isLoading, setIsLoading] = useState(true);
+    const [showingAllNotes, setShowingAllNotes] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     const saveTimer = useRef<number | null>(null);
     const lastSaved = useRef<{ title: string; content: string } | null>(null);
+
+    const notesOpen = useElevStore((s) => s.panelsOpen.notes);
+
+    useEffect(() => {
+        if (!notesOpen) return;
+        loadList();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [notesOpen]);
 
     async function loadList() {
         setIsLoading(true);
@@ -63,11 +73,6 @@ export default function MyNotes() {
         setError(e?.message ?? "Noe gikk galt");
         }
     }
-
-    useEffect(() => {
-        loadList();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     useEffect(() => {
         if (activeId) loadNote(activeId);
@@ -153,23 +158,24 @@ export default function MyNotes() {
         }, 800);
     }
     
-    useEffect(() => {
-        setFilteredNotes(searchString ? 
-            notes.filter(note => note.title.toLowerCase().includes(searchString))
-        : notes) 
-    }, [searchString, notes]);
+    const filteredNotes = useMemo(() => {
+        const q = searchString.trim().toLowerCase();
+        if (!q) return notes;
+        return notes.filter((n) => (n.title ?? "").toLowerCase().includes(q))
+    }, [notes, searchString]);
 
     const canEdit = !!active && typeof active.title === "string" && typeof active.content === "string";
 
     const left = useMemo(() => {
         return (
-        <div className="w-full rounded-md overflow-hidden  text-white">
-            <div className="p-3 flex items-center justify-between gap-2">
-                <div className="font-semibold font-mina uppercase">Mine notater</div>
+        <div className="w-full overflow-hidden text-white border-b border-redish pb-3">
+            <div className="py-3 px-1 flex items-center justify-between gap-2 border-redish ">
+                
                 <input 
-                    className="p-1 rounded-lg h-7 text-black text-sm"
+                    className="p-2 w-[90%] rounded-md h-7 text-black text-sm shadow-md"
                     type="text"
                     placeholder="Søk..."
+                    value={searchString}
                     onChange={(e) => {setSearchString(e.target.value)}}
                 />
                 <button
@@ -180,21 +186,21 @@ export default function MyNotes() {
                 </button>
             </div>
 
-            <div className="h-28 overflow-scroll border-2 rounded-sm border-white">
+            <div className={`transition-all duration-400 ${showingAllNotes ? "opacity-100 h-48 overflow-scroll border-white mt-4 bg-white/90 text-black rounded-sm border-black/20 border" : "h-0 opacity-0 forbidden disabled"}`}>
                 {notes.length === 0 && !isLoading && (
                     <div className="p-3 text-sm opacity-70">Ingen notater ennå. Trykk “Nytt”.</div>
                 )}
-
+                
                 {filteredNotes.map((n) => (
                     <button
                         key={n._id}
                         onClick={() => setActiveId(n._id)}
-                        className={`w-full text-left flex flex-row h-8 justify-between items-center px-3 border-b border-white hover:bg-black/20 text-slate-60 ${
-                            n._id === activeId ? "bg-white/20 text-white" : ""
-                        }`}
+                        className={`w-full text-left flex flex-row h-8 justify-between items-center px-2 border-b border-white hover:bg-black/20 text-black text-sm font-notable font-normal ${
+                            n._id === activeId ? "text-moreredish" : ""
+                        } odd:bg-black/5`}
                     >
                         <div className="flex flex-row justify-start items-end gap-2">
-                            <div className="font-medium text-sm truncate ">{n.title || "Uten tittel"}</div>
+                            <div className={`truncate ${n._id === activeId ? "font-black" : "font-thin"}`} >{n.title || "Uten tittel"}</div>
                             <div className="text-xs opacity-70 ">{fmt(n.updatedAt).split(",")[0]} <span className="text-[10px]">{fmt(n.updatedAt).split(",")[1]}</span></div>
                         </div>
 
@@ -207,46 +213,70 @@ export default function MyNotes() {
                                 e.stopPropagation();
                                 if (confirm("Slette notatet?")) deleteNote(n._id);
                             }}
-                            className="text-xs cursor-pointer bg-white/60 border border-white hover:bg-redish rounded-full p-1 mt-1"
+                            className="text-xs cursor-pointer bg-moreredish hover:bg-redish rounded-full p-1 mt-1"
                             >
-                            <X size="12" color="red"/>
+                            <X size="12" color="white"/>
                             </span>
                         </div>
                     </button>
                 ))}
+                
             </div>
+
         </div>
         );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [notes, isLoading, activeId]);
+    }, [filteredNotes, isLoading, activeId, showingAllNotes]);
 
     return (
-        <div className="w-full bg-black/40 mx-auto md:p-4 grid grid-cols-1 rounded-md backdrop-blur-2xl gap-4 font-bungee text-black">
+    <div className="elev_component_div">
+        <div className="rounded-md bg-transparent overflow-hidden">
+            <div className="p-2 border-b border-redish mb-2">
+                <div className="elev_component_header">Mine notater</div>
+                    <div className="text-sm opacity-90 font-mina font-italic">
+                        Skriv og søk i notater
+                    </div>
+            </div>
+        </div>
         {left}
-
-            <div className="rounded-md overflow-hidden text-white">
-                <div className="p-3 border-b border-white flex items-center gap-3">
-                    <div className="font-normal">Rediger <i>{active?.title ?? "notat"}</i></div>
+            <div className="w-full text-center flex flex-row justify-between items-center pt-2 text-redish px-2">
+                {showingAllNotes ? (
+                    <div onClick={() => setShowingAllNotes(false)}  className="px-2 py-1 text-sm shadow-md bg-white/90 flex flex-row justify-center items-center cursor-pointer hover:bg-black/20 rounded-full">
+                        <MinusCircle size={16}/>  &nbsp;Skjul alle notater
+                    </div>
+                ) : 
+                (
+                    <div onClick={() => setShowingAllNotes(true)} className="px-2 shadow-md text-sm py-1 bg-white/90 flex flex-row justify-center items-center cursor-pointer hover:bg-black/20 rounded-full">
+                    <PlusCircle size={16}/> &nbsp;  Vis alle notater 
+                    </div>
+                )
+                }
+                
+                <div onClick={loadList} className="p-1  shadow-md bg-white/90 flex flex-row justify-center items-center cursor-pointer hover:bg-black/20 rounded-full">
+                    <RefreshCw size={16}/>
+                </div>
+                
+            </div>
+            <div className="rounded-md overflow-hidden mt-3">
+                
+                <div className="p-2 flex items-center gap-3">
+                    
+                    <div className="font-normal text-md">Rediger &quot;{active?.title ?? "notat"}&quot;</div>
                     <div className="text-xs opacity-70">
                         {isSaving ? "Lagrer…" : active ? `${fmt(active.updatedAt)}` : "Velg et notat"}
                     </div>
                     <div className="flex-1" />
-                        <button
-                            onClick={loadList}
-                            className="px-3 py-1.5 rounded-xl border text-sm text-white border-redish hover:bg-redish cursor-pointer"
-                        >
-                            Oppdater liste
-                        </button>
+
                     </div>
 
-                    {error && <div className="p-3 text-sm text-destructive border-b">{error}</div>}
+                    {error && <div className="p-2 text-sm text-destructive border-redish border-b">{error}</div>}
 
                     {!canEdit ? (
                         <div className="p-4 text-sm opacity-70">
                             Velg et notat over, eller trykk “Nytt”.
                         </div>
                     ) : (
-                        <div className="p-4 space-y-3 text-black">
+                        <div className="p-2 space-y-3 text-black">
                             <input
                                 value={active.title ?? ""}
                                 onChange={(e) => {
@@ -272,10 +302,6 @@ export default function MyNotes() {
                                 className="w-full h-28 min-h-28 border rounded-xl p-3 text-sm"
                                 placeholder="Skriv notater her…"
                             />
-
-                            <div className="text-xs opacity-70 text-white">
-                                Tips: skriv et eget forsøk her, og lim inn i chatbot for feedback.
-                            </div>
                         </div>
                     )}
             </div>

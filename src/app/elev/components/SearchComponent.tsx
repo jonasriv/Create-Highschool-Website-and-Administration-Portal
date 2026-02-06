@@ -1,21 +1,34 @@
+"use client";
+
 import { useEffect, useState, useRef } from "react"
 import Spinner from "@/components/ui/Spinner";
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { useElevStore } from "../store";
 
 type Suggestion = {
-      headword:string;
-      permalink:string;
-      clarification:string;
-      rank:string;
-      snippet:string;
-      taxonomy_id:string;
-      licence:string;
-      title:string;
-      first_image_url:string;
-      first_image_licence:string;
-}
+  // felles
+  source?: "snl" | "ndla" | "news";
+  title: string;
+  permalink: string;
+  snippet?: string;
+  licence?: string;
+
+  // SNL-spesifikt
+  headword?: string;
+  clarification?: string;
+  rank?: string;
+  taxonomy_id?: string;
+  first_image_url?: string;
+  first_image_licence?: string;
+  article_url?: string;
+
+  // NYHETER-spesifikt
+  provider?: string;     
+  publishedAt?: string;  // ISO string
+};
+
 
 export default function SearchComponent() {
     const [searchString, setSearchString] = useState("");
@@ -23,6 +36,9 @@ export default function SearchComponent() {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const [activeIndex, setActiveIndex] = useState(-1);
+    const [source, setSource] = useState<"snl" | "ndla" | "news">("snl");
+    const lookupEvent = useElevStore((s) => s.lookupEvent);
+    const clearLookup = useElevStore((s) => s.actions.clearLookup)
 
     const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -43,7 +59,10 @@ export default function SearchComponent() {
         const t = window.setTimeout(async () => {
             try {
                 setLoading(true);
-                const res = await fetch(`/api/snl/suggest?q=${encodeURIComponent(q)}`);
+                const endpoint = source === "ndla" ? "/api/ndla/suggest" 
+                    : source === "snl" ? "/api/snl/suggest" 
+                    : "/api/nyheter/suggest";
+                const res = await fetch(`${endpoint}?q=${encodeURIComponent(q)}`);
                 const data = await res.json();
                 setSuggestions(Array.isArray(data?.suggestions) ? data.suggestions : []);
                 setOpen(true);
@@ -58,20 +77,40 @@ export default function SearchComponent() {
         }, 300);
 
         return () => window.clearTimeout(t);
-    }, [searchString]);
+    }, [searchString, source]);
 
-    function selectSuggestion(s: Suggestion) {
-        alert("Du har valgt" + s.title);
-    }
+    useEffect(() => {
+        if (!lookupEvent) {
+            return;
+        }
+        setSearchString(lookupEvent.term.split(",")[0]);
+        inputRef.current?.focus();
+
+        const t = window.setTimeout(() => clearLookup(), 0)
+        return () => window.clearTimeout(t);
+    }, [lookupEvent?.id, clearLookup])
+
+    useEffect(() => {
+        setSuggestions([]);
+        setActiveIndex(-1);
+        setOpen(false); // evt true hvis du vil holde åpent
+        }, [source]);
 
     return(
-        <div className="w-full bg-black/40 min-h-96 items-start justify-start mx-auto md:p-4 grid grid-cols-1 rounded-md backdrop-blur-2xl gap-4 font-bungee text-white">
+        <div className="elev_component_div">
             <div className="flex flex-col items-start justify-between gap-2">
-                <h2 className="font-semibold font-mina uppercase">Temasøk</h2>
-                <div className="flex flex-row gap-1 items-center justify-between border-b-2! border-white! w-full ">
+                <div className="rounded-md bg-transparent  overflow-hidden ">
+                    <div className="p-2 border-b border-redish mb-2">
+                        <div className="elev_component_header">Temasøk</div>
+                            <div className="text-sm opacity-90 font-mina font-italic">
+                                Tema, nøkkelord, personer 
+                            </div>
+                        </div>
+                    </div>
+                <div className="flex flex-row gap-1 items-center justify-between w-full ">
                     <input 
                         ref={inputRef}
-                        className="px-2 py-3 rounded-md h-8 tracking-wider text-black font-roboto text-md w-11/12 items-center"
+                        className="px-2 py-3 bg-gray-100 border-[0.5px] border-gray-500 rounded-md h-8 tracking-wider text-black font-roboto text-md w-11/12 items-center"
                         type="text"
                         placeholder="Søk..."
                         value={searchString}
@@ -93,71 +132,102 @@ export default function SearchComponent() {
                             } else if (e.key === "Enter") {
                                 if (activeIndex >= 0 && suggestions[activeIndex]) {
                                     e.preventDefault();
-                                    selectSuggestion(suggestions[activeIndex]);
                                 }
                             } else if (e.key === "Escape") {
                                 setOpen(false);
                                 setActiveIndex(-1);
                             }
-
                         }}
                     />
                                 {/* status */}
                     <div className="text-xs font-sans opacity-80 h-12 min-h-12 flex flex-row justify-center items-center ">
                         {loading ? <Spinner/> : searchString.trim().length < 3 ? "" : ""}
                     </div>
+  
+                </div>                  
+                <div className="flex gap-2 mb-2 ">
+                    <button
+                        type="button"
+                        onClick={() => setSource("snl")}
+                        className={`px-3 py-1 shadow-md border border-black/10 uppercase text-sm font-thin rounded ${source === "snl" ? "bg-redish text-white" : "bg-gray-300 text-black"}`}
+                    >
+                        SNL
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => setSource("ndla")}
+                        className={`px-3 py-1 shadow-md border border-black/10 uppercase text-sm font-thin rounded ${source === "ndla" ? "bg-redish text-white" : "bg-gray-300 text-black"}`}
+                    >
+                    NDLA
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => setSource("news")}
+                        className={`px-3 py-1 shadow-md border border-black/10 uppercase text-sm font-thin rounded ${source === "news" ? "bg-redish text-white" : "bg-gray-300 text-black"}`}
+                    >
+                    Nyheter
+                    </button>                    
                 </div>
             </div>
-                    
             {/* dropdown */}
-            <h2 className="w-full text-center p-1 uppercase font-mina font-bold tracking-wider">
-                {suggestions.length > 1 ? "Resultater" : searchString.length < 3 ? "Skriv inn et søk..." : "Juster søket"}
+            <h2 className="w-full text-left text-sm p-1 font-mina font-normal tracking-wider">
+                {suggestions.length > 0 ? "" : searchString.length < 3 ? "Skriv inn et søk..." : "Juster søket"}
                 
             </h2>
-            <div className="mt-1 flex flex-col p-2 rounded-md text-black shadow-lg border-black/10 overflow-hidden h-96">
-                <ul className="max-h-60 grid grid-cols-1 gap-2 overflow-auto text-sm text-black">
+            <div className="mt-1 flex flex-col p-2 rounded-md border-redish overflow-hidden">
+                <ul className="grid grid-cols-1 gap-2 overflow-auto text-sm text-black">
                     {suggestions.map((s, idx) => {
                         const active = idx === activeIndex;
                         return (
                             <li 
                                 key={`#{s.title}-${idx}`}
-                                className={`rounded-md bg-white gap-4 flex flex-row justify-between items-start px-3 py-2 h-auto cursor-pointer ${active ? "bg-black/10" : "hover:bg-black/5"} odd:bg-white/20`}
-                                onMouseDown={(e) => {
-                                    e.preventDefault();
-                                    selectSuggestion(s);                                }}
+                                className={`rounded-md bg-white shadow-md gap-4 flex flex-row justify-between items-start px-3 py-2 h-auto cursor-pointer ${active ? "" : ""} odd:bg-white even:bg-white/90`}
                             >
-                                <div className="w-8/12 max-w-8/12">
-                                    <div className="capitalise text.md font-bold mb-2">{s.headword}</div> 
+                                <div className="w-8/12 max-w-10/12">
+                                    <div className="capitalize text.md font-bold mb-2">
+                                        {s.title} 
+                                        {source !== "news" && <span className="uppercase text-xs"> ({source})</span>}
+                                        {source === "news" && <span className="uppercase text-xs"> ({s.provider})</span>}
+                                    </div> 
                                     <div>
-                                        [...] &nbsp;
-                                        {s.snippet && stripTags(s.snippet)}
-                                        [...]&nbsp;
-                                        <Link href={s.permalink} className="hover:underline flex flex-row justify-end text-xs items-center mr-2 text-moreredish  rounded-md p-1 w-full text-right">
-                                            Les mer på snl.no <ChevronRight size="14"/>
-                                        </Link>
+                                        
+                                        <p>
+                                            {source !== "news" &&<span className="text-gray-500">. . .</span> }
+                                            {s.snippet && stripTags(s.snippet).substring(0, 200)}... 
+                                        </p>
                                     </div>
                                 </div>
-                                <div className="w-4/12 min-2-4/12 h-full flex flex-row">
-                                    {s.first_image_url && 
-                                        <div className=" flex flex-row justify-end items-start mt-2 rounded-md">
-                                            <Image
-                                                alt={s.title}
-                                                width={300}
-                                                height={300}
-                                                src={s.first_image_url}
-                                                className="object-cover rounded-md min-w-12!  object-right"
-                                                quality={75}      
-                                            />
-                                        </div>
-                                        
-                                    }
+                                <div className="w-4/12 gap-2 min-2/12 h-full flex flex-col">
+                                    <div className="flex flex-row justify-end items-start mt-2 rounded-md">
+                                        {s.first_image_url && 
+                                                <Image
+                                                    alt={s.title}
+                                                    width={200}
+                                                    height={100}
+                                                    src={s.first_image_url}
+                                                    className="object-cover rounded-md min-w-12!  object-right"
+                                                    quality={50}      
+                                                />
+                                            }
+                                    </div>        
+                                    <Link target="_blank" href={source === "news" ? s.permalink || "" : source === "snl" ? s.article_url || "" : s.permalink || ""}>
+                                        <span className="bg-redish text-white text-xs font-bold flex flex-row items-center px-2 py-1 rounded-md justify-between rounded-tr-3xl pl-4">
+                                            {source === "ndla" && "NDLA.NO"}
+                                            {source === "snl" && "snl.no"}
+                                            
+                                            {source === "news" && <>{s.permalink.split("/")[2]}</>}
+                                            {/* <Globe size="12"/> */}
+                                            <ChevronRight size="12"/>
+                                        </span>                                    
+                                    </Link>
                                 </div>
+                                   
                                 
                             </li>
                         )
                     })}
                 </ul>
-            </div>
+            </div>    
         </div>
     )
 }

@@ -4,10 +4,11 @@ import Image from 'next/image';
 import { useState, useEffect } from "react";
 import logo from '../../../public/images/logo-header.svg';
 import HamburgerMenu from "@/components/ui/hamburgermenu";
-import Navbar from './ui/Navbar';
 import { User, LogOutIcon, LogInIcon } from 'lucide-react';
 // import { Calendar } from 'lucide-react';
 import { signOut, signIn } from "next-auth/react";
+import { useElevStore } from './store';
+import DarkSlider from '@/components/ui/DarkSlider';
 
 type HeaderProps = {
   user?: {
@@ -18,9 +19,10 @@ type HeaderProps = {
 };
 
 const ElevHeader = ({ user }: HeaderProps) => {
-  const [isOpen, setIsOpen] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [msConnected, setMsConnected] = useState(false);
+  const showingNavbar = useElevStore((s) => s.showingNavbar);
+  const toggleNavbar = useElevStore((s)=> s.actions.toggleNavbar);
 
   useEffect(() => {
     if (!user) return;
@@ -30,7 +32,6 @@ const ElevHeader = ({ user }: HeaderProps) => {
       setMsConnected(Boolean(data.connected));
     })();
   }, [user]);
-  const toggleMenu = () => setIsOpen(!isOpen);
 
   const scrollToFront = () => {
     const frontSection = document.getElementById("front");
@@ -45,23 +46,24 @@ const ElevHeader = ({ user }: HeaderProps) => {
   return (
     <header>
       <div
-        className='flex flex-row gap-1 justify-center items-center w-screen max-w-screen bg-black/60 h-24 lg:h-24 p-4 z-50 backdrop-blur-2xl border-white border-b'
+        className='flex flex-row gap-1 justify-center items-center w-screen max-w-screen bg-black/60 h-24 lg:h-24 p-4 z-50 backdrop-blur-2xl '
       >
         <div className="flex justify-between items-center w-screen h-full">
-          <div className="cursor-pointer flex flex-col gap-2 w-20 justify-center items-center">
+          <div className="cursor-pointer flex flex-row gap-2 w-32 justify-center items-start mx-2">
             <Image
               src={logo}
               alt="Create logo..."
               id="logo"
               onClick={scrollToFront}
             />
-            <h3 className="text-moreredish font-semibold tracking-tighter">ELEVSIDER</h3>
-          </div>
+            <h3 className="text-moreredish font-semibold tracking-wider">ELEVHUB</h3>
+          </div> 
 
           <div className="flex flex-row gap-4 lg:gap-12 m-4 justify-between items-center">
             {/* user box */}
-            <div className='flex flex-row justify-start items-center gap-2 p-2 bg-white/40 rounded-md'>
-              <User size={14} />
+            <DarkSlider/>
+            <div className='flex flex-row justify-start items-center gap-2 p-2 bg-white/70 text-black rounded-md'>
+              <User color="white" size={16} />
               <div className='w-auto flex flex-row justify-center items-center gap-2'>
                 {user ? (
                   <>
@@ -98,7 +100,7 @@ const ElevHeader = ({ user }: HeaderProps) => {
                       className='bg-evenmoreredish p-1 rounded-full'
                       title="Logg ut"
                     >
-                      <LogOutIcon size={14} />
+                      <LogOutIcon color="white" size={14} />
                     </button>
                   </>
                 ) : (
@@ -118,13 +120,9 @@ const ElevHeader = ({ user }: HeaderProps) => {
               </div>
             </div>
 
-            {user && <HamburgerMenu isOpen={isOpen} toggleMenu={toggleMenu} />}
+            {user && <HamburgerMenu isOpen={showingNavbar} toggleMenu={toggleNavbar} />}
           </div>
         </div>
-      </div>
-
-      <div className="absolute top-20 lg:top-24 z-50">
-        {user && <Navbar isOpen={isOpen} onClose={toggleMenu} />}
       </div>
     </header>
   );

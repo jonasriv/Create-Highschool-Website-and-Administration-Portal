@@ -16,7 +16,7 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ isOpen, toggleMenu }) => 
                 {/*Top Line*/}
                 <div
                 className={`h-2 w-7 bg-slate-200 transition-all duration-600 origin-center ${
-                isOpen ? "rotate-45 absolute top-1/2 transform -translate-y-1/2" : ""
+                isOpen ? "rotate-45 absolute top-1/2 transform -translate-y-1/2 h-1" : ""
                 }`}
                 ></div>
                 {/*Middle Line*/}
@@ -28,7 +28,7 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ isOpen, toggleMenu }) => 
                 {/*Bottom Line*/}
                 <div
                     className={`h-2 w-7 bg-slate-200 transition-all duration-300 origin-center ${
-                    isOpen ? "-rotate-45 absolute top-1/2 transform -translate-y-1/2" : ""
+                    isOpen ? "-rotate-45 absolute top-1/2 transform -translate-y-1/2 h-1" : ""
                     }`}
                     ></div>
                 </button>

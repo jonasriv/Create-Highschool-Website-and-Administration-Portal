@@ -232,3 +232,12 @@ body {
   display:none
 }
 
+/* /elev styles */
+
+.elev_component_div {
+  @apply w-full p-2 tracking-wide h-[600px] overflow-scroll backdrop-blur-2xl rounded-xl ;
+}
+
+.elev_component_header {
+  @apply font-bold mb-2 tracking-widest uppercase font-notable;
+}

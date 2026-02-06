@@ -8,7 +8,7 @@ export async function getUserIdOrThrow() {
 
   // Debug i dev (kan fjernes senere)
   if (process.env.NODE_ENV !== "production") {
-    console.log("API session:", session?.user);
+    // console.log("API session:", session?.user);
   }
 
   const id = (session?.user as any)?.id as string | undefined;

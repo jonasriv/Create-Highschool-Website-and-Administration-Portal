@@ -2,11 +2,12 @@ import type { Config } from "tailwindcss";
 import tailwindcssAnimate from "tailwindcss-animate"
 export default {
     darkMode: ["class"],
-    content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+	content: [
+	"./app/**/*.{js,ts,jsx,tsx,mdx}",
+	"./pages/**/*.{js,ts,jsx,tsx,mdx}",
+	"./components/**/*.{js,ts,jsx,tsx,mdx}",
+	"./src/**/*.{js,ts,jsx,tsx,mdx}",
+	],
   theme: {
   	extend: {
 		backgroundSize: {
@@ -41,9 +42,14 @@ export default {
 			'flash-border2': 'flash-border2 5s infinite',
 			'flash-border3': 'flash-border3 5s infinite',
 			'spin-fast': 'spin 1s linear infinite',
-			'highlight-fileinput': 'highlight-fileinput 3s infinite'
+			'highlight-fileinput': 'highlight-fileinput 3s infinite',
+			"bounce-low": "bounce-low 3s infinite",
 		},		
 		keyframes: {
+			"bounce-low": {
+			"0%, 100%": { transform: "translateY(-1px)" },
+			"50%": { transform: "translateY(-2px)" }, // prøv -2px til -6px
+			},			
 			'flash-border1': {
 				'0%, 30%': { color: 'white' },
 				'35%, 100%': { color: 'lightGrey'},
