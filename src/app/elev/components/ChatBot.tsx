@@ -148,7 +148,7 @@ export default function ChatBot() {
                             className={`shadow-md whitespace-pre-wrap rounded-lg px-2 py-2 text-md font-exo2 tracking-wider font-sans ${
                             m.role === "user"
                                 ? "bg-redish border-1  text-primary-foreground"
-                                : "bg-slate-300 text-foreground"
+                                : "bg-slate-100 text-foreground"
                             }`}
                         >
                         {cleanMessage(m.content).trim().length > 0 ? cleanMessage(m.content) : <Spinner/>}

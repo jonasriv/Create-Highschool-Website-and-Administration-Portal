@@ -98,11 +98,11 @@ export default function SearchComponent() {
 
     return(
         <div className="elev_component_div">
-            <div className="flex flex-col items-start justify-between gap-2">
-                <div className="rounded-md bg-transparent  overflow-hidden ">
-                    <div className="p-2 border-b border-redish mb-2">
+            <div className="flex flex-col items-start justify-between gap-2 w-full">
+                <div className="rounded-md bg-transparent overflow-hidden w-full">
+                    <div className="p-2 border-b border-redish mb-2 w-full">
                         <div className="elev_component_header">Temasøk</div>
-                            <div className="text-sm opacity-90 font-mina font-italic">
+                            <div className="text-sm font-mina font-italic">
                                 Tema, nøkkelord, personer 
                             </div>
                         </div>

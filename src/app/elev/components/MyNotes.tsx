@@ -168,8 +168,8 @@ export default function MyNotes() {
 
     const left = useMemo(() => {
         return (
-        <div className="w-full overflow-hidden text-white border-b border-redish pb-3">
-            <div className="py-3 px-1 flex items-center justify-between gap-2 border-redish ">
+        <div className="w-full overflow-hidden text-white  border-redish">
+            <div className="py-3 flex items-center justify-between gap-2 border-redish ">
                 
                 <input 
                     className="p-2 w-[90%] rounded-md h-7 text-black text-sm shadow-md"
@@ -182,7 +182,7 @@ export default function MyNotes() {
                     onClick={createNote}
                     className="p-2 rounded-full bg-moreredish text-primary-foreground text-sm"
                 >
-                    <Pencil size="16" color="white"/>
+                    <Pencil size="14" color="white"/>
                 </button>
             </div>
 
@@ -195,13 +195,13 @@ export default function MyNotes() {
                     <button
                         key={n._id}
                         onClick={() => setActiveId(n._id)}
-                        className={`w-full text-left flex flex-row h-8 justify-between items-center px-2 border-b border-white hover:bg-black/20 text-black text-sm font-notable font-normal ${
+                        className={`w-full text-left flex flex-row h-8 justify-between items-center px-2 border-b border-white hover:bg-black/20 text-black text-[10px] font-roboto font-thin ${
                             n._id === activeId ? "text-moreredish" : ""
-                        } odd:bg-black/5`}
+                        } odd:bg-gray-200`}
                     >
-                        <div className="flex flex-row justify-start items-end gap-2">
-                            <div className={`truncate ${n._id === activeId ? "font-black" : "font-thin"}`} >{n.title || "Uten tittel"}</div>
-                            <div className="text-xs opacity-70 ">{fmt(n.updatedAt).split(",")[0]} <span className="text-[10px]">{fmt(n.updatedAt).split(",")[1]}</span></div>
+                        <div className="flex flex-row justify-start items-center gap-2">
+                            <div title={n.title} className={`truncate ${n._id === activeId ? "font-black" : "font-thin"}`} >{n.title.slice(0, 9) || ""}...</div>
+                            <div className="text-[10px] opacity-70 ">{fmt(n.updatedAt).split(",")[0]} <span className="text-[10px]">{fmt(n.updatedAt).split(",")[1]}</span></div>
                         </div>
 
                         <div className="mt-1 mb-2 flex gap-2 ">
@@ -239,31 +239,31 @@ export default function MyNotes() {
             </div>
         </div>
         {left}
-            <div className="w-full text-center flex flex-row justify-between items-center pt-2 text-redish px-2">
+            <div className="w-full text-center flex flex-row justify-between items-center text-redish">
                 {showingAllNotes ? (
-                    <div onClick={() => setShowingAllNotes(false)}  className="px-2 py-1 text-sm shadow-md bg-white/90 flex flex-row justify-center items-center cursor-pointer hover:bg-black/20 rounded-full">
+                    <div onClick={() => setShowingAllNotes(false)}  className="px-2 py-1 text-sm shadow-md bg-white/90 flex flex-row justify-center items-center cursor-pointer hover:bg-black/20 rounded-md">
                         <MinusCircle size={16}/>  &nbsp;Skjul alle notater
                     </div>
                 ) : 
                 (
-                    <div onClick={() => setShowingAllNotes(true)} className="px-2 shadow-md text-sm py-1 bg-white/90 flex flex-row justify-center items-center cursor-pointer hover:bg-black/20 rounded-full">
-                    <PlusCircle size={16}/> &nbsp;  Vis alle notater 
+                    <div onClick={() => setShowingAllNotes(true)} className="px-2 shadow-md text-xs py-1 bg-white/90 flex flex-row justify-center items-center cursor-pointer hover:bg-black/20 rounded-md">
+                    <PlusCircle size={14}/> &nbsp;  Vis alle notater 
                     </div>
                 )
                 }
                 
                 <div onClick={loadList} className="p-1  shadow-md bg-white/90 flex flex-row justify-center items-center cursor-pointer hover:bg-black/20 rounded-full">
-                    <RefreshCw size={16}/>
+                    <RefreshCw size={14}/>
                 </div>
                 
             </div>
-            <div className="rounded-md overflow-hidden mt-3">
+            <div className="overflow-hidden mt-3">
                 
-                <div className="p-2 flex items-center gap-3">
+                <div className="py-2 flex items-center gap-3 w-full border-b border-redish">
                     
-                    <div className="font-normal text-md">Rediger &quot;{active?.title ?? "notat"}&quot;</div>
-                    <div className="text-xs opacity-70">
-                        {isSaving ? "Lagrer…" : active ? `${fmt(active.updatedAt)}` : "Velg et notat"}
+                    <div className="w-full  font-normal text-sm">Rediger &quot;{active?.title ?? "notat"}&quot;</div>
+                    <div className="text-[8px] opacity-70">
+                        {isSaving ? "Lagrer…" : active ? `${fmt(active.updatedAt).split(",")[0]}` : "Velg et notat"}
                     </div>
                     <div className="flex-1" />
 
@@ -276,7 +276,7 @@ export default function MyNotes() {
                             Velg et notat over, eller trykk “Nytt”.
                         </div>
                     ) : (
-                        <div className="p-2 space-y-3 text-black">
+                        <div className="py-2 space-y-3 text-black">
                             <input
                                 value={active.title ?? ""}
                                 onChange={(e) => {
@@ -286,7 +286,7 @@ export default function MyNotes() {
                                     setActive(next);
                                     scheduleSave(next);
                                 }}
-                                className="w-full border rounded-xl p-3 text-sm"
+                                className="w-full border rounded-md p-1 text-sm"
                                 placeholder="Tittel…"
                                 maxLength={120}
                             />
@@ -299,8 +299,8 @@ export default function MyNotes() {
                                     setActive(next);
                                     scheduleSave(next);
                                 }}
-                                className="w-full h-28 min-h-28 border rounded-xl p-3 text-sm"
-                                placeholder="Skriv notater her…"
+                                className="w-full h-28 min-h-28 border rounded-md p-3 text-sm"
+                                placeholder="Skriv notatet her…"
                             />
                         </div>
                     )}
