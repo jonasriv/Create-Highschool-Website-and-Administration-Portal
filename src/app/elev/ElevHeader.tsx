@@ -24,6 +24,7 @@ const ElevHeader = ({ user }: HeaderProps) => {
   const showingNavbar = useElevStore((s) => s.showingNavbar);
   const toggleNavbar = useElevStore((s)=> s.actions.toggleNavbar);
 
+
   useEffect(() => {
     if (!user) return;
     (async () => {

@@ -37,7 +37,7 @@ export const useElevStore = create<ElevState>()((set) => ({
   activePanel: "chat",
   lookupEvent: null,
   showingNavbar: false,
-  dark: true,
+  dark: false,
 
   actions: {
     togglePanel: (name) =>
