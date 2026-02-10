@@ -132,7 +132,7 @@ export default function ChatBot() {
         <div className="rounded-md bg-transparent overflow-hidden">
             <div className="p-2 border-b border-redish mb-2">
                 <div className="elev_component_header">Create GPT</div>
-                <div className="text-sm opacity-90 font-mina font-italic">
+                <div className="hidden md:block text-sm opacity-90 font-mina font-italic">
                     Hjelp, hint og tilbakemeldinger.
                 </div>
             </div>
@@ -145,7 +145,7 @@ export default function ChatBot() {
                     className={`w-full flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
                     >
                         <div
-                            className={`shadow-md whitespace-pre-wrap rounded-lg px-2 py-2 text-md font-exo2 tracking-wider font-sans ${
+                            className={`shadow-md whitespace-pre-wrap rounded-md px-2 py-2 text-md font-exo2 tracking-wider font-sans ${
                             m.role === "user"
                                 ? "bg-redish border-1  text-primary-foreground"
                                 : "bg-slate-100 text-foreground"
@@ -182,7 +182,7 @@ export default function ChatBot() {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Hva jobber du med?"
-                    className="w-9/11 flex-1 shadow-md resize-none rounded-xl border p-3 text-xs outline-none focus:ring-2 focus:ring-primary/30"
+                    className="w-9/11 flex-1 shadow-md resize-none rounded-md border p-3 text-xs outline-none focus:ring-2 focus:ring-primary/30"
                     rows={2}
                     onKeyDown={(e) => {
                     if (e.key === "Enter" && !e.shiftKey) {
@@ -196,14 +196,14 @@ export default function ChatBot() {
                     <button
                     onClick={send}
                     disabled={isSending || !input.trim()}
-                    className="shadow-md rounded-lg flex flex-row justify-center items-center p-2 text-sm bg-white text-emerald-500 font-bold opacity-100"
+                    className="shadow-md rounded-md flex flex-row justify-center items-center p-2 text-sm bg-white text-emerald-500 font-bold opacity-100"
                     >
                     <Send size="16" />
                     </button>
                     <button
                     onClick={stop}
                     disabled={!isSending}
-                    className="shadow-md rounded-lg flex flex-row justify-center items-center p-2 text-sm border opacity-100 bg-white text-redish font-bold"
+                    className="shadow-md rounded-md flex flex-row justify-center items-center p-2 text-sm border opacity-100 bg-white text-redish font-bold"
                     >
                     <Ban size="16"/>
                     </button>

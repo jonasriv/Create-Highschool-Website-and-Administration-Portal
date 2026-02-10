@@ -5,7 +5,7 @@ export default function ElevNavbar() {
     const togglePanel = useElevStore((s) => s.actions.togglePanel);
 
     return (
-         <div style={{right: "0rem", top:"6rem"}} className="z-50 fixed h-56 max-h-56 right-3 w-40 bg-black/40 backdrop-blur-2xl p-4 rounded-bl-xl text-redish">
+         <div style={{right: "0rem", top:"5rem"}} className="z-50 fixed h-56 max-h-44 right-3 w-40 bg-black/50 backdrop-blur-2xl p-4 rounded-bl-xl text-white">
                     <ul className="flex flex-col w-full h-full justify-center items-center text-md font-bold tracking-widest font-mina rounded-bl-md gap-2">
                         <li
                             className={`p-2 transition-all duration-300 w-full h-10 flex flex-row justify-between items-center cursor-pointer hover:bg-white/20 rounded-md 

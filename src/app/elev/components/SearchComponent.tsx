@@ -102,7 +102,7 @@ export default function SearchComponent() {
                 <div className="rounded-md bg-transparent overflow-hidden w-full">
                     <div className="p-2 border-b border-redish mb-2 w-full">
                         <div className="elev_component_header">Temasøk</div>
-                            <div className="text-sm font-mina font-italic">
+                            <div className="hidden md:block text-sm font-mina font-italic">
                                 Tema, nøkkelord, personer 
                             </div>
                         </div>
@@ -202,16 +202,16 @@ export default function SearchComponent() {
                                         {s.first_image_url && 
                                                 <Image
                                                     alt={s.title}
-                                                    width={200}
+                                                    width={100}
                                                     height={100}
                                                     src={s.first_image_url}
-                                                    className="object-cover rounded-md min-w-12!  object-right"
+                                                    className="object-contain rounded-md min-w-12!  object-right"
                                                     quality={50}      
                                                 />
                                             }
                                     </div>        
                                     <Link target="_blank" href={source === "news" ? s.permalink || "" : source === "snl" ? s.article_url || "" : s.permalink || ""}>
-                                        <span className="bg-redish text-white text-xs font-bold flex flex-row items-center px-2 py-1 rounded-md justify-between rounded-tr-3xl pl-4">
+                                        <span className="bg-redish text-white text-xs font-bold flex flex-row items-center px-2 py-1 rounded-md justify-between rounded-r-3xl pl-4">
                                             {source === "ndla" && "NDLA.NO"}
                                             {source === "snl" && "snl.no"}
                                             

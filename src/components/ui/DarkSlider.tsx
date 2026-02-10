@@ -20,9 +20,9 @@ const DarkSlider: React.FC = () => {
         <div 
             title="Dark mode"
             onClick={() => handleClick()}
-            className={`w-7 h-7 bg-white/40 rounded-full flex items-center justify-center cursor-pointer ${spinning && "animate-spin animation-duration:0.1s] [animation-timing-function:linear]"} `}
+            className={`w-7 h-7 ${dark ? "bg-white/20" : "bg-black/20"}  rounded-full flex items-center justify-center cursor-pointer ${spinning && "animate-spin animation-duration:0.1s] [animation-timing-function:linear]"} `}
         >
-        {dark === true ? <Moon color="lightblue" size="14"/> : <SunDim color="gold" size="16"/>}
+        {dark === true ? <Moon color="gold" size="14"/> : <SunDim color="gold" size="16"/>}
         </div>
     )
 }

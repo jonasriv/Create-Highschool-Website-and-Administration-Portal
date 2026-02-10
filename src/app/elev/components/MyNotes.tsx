@@ -174,7 +174,7 @@ export default function MyNotes() {
                 <input 
                     className="p-2 w-[90%] rounded-md h-7 text-black text-sm shadow-md"
                     type="text"
-                    placeholder="Søk..."
+                    placeholder="Søk i notater..."
                     value={searchString}
                     onChange={(e) => {setSearchString(e.target.value)}}
                 />
@@ -200,7 +200,7 @@ export default function MyNotes() {
                         } odd:bg-gray-200`}
                     >
                         <div className="flex flex-row justify-start items-center gap-2">
-                            <div title={n.title} className={`truncate ${n._id === activeId ? "font-black" : "font-thin"}`} >{n.title.slice(0, 9) || ""}...</div>
+                            <div title={n.title} className={`w-24 font-mina truncate ${n._id === activeId ? "font-black" : "font-thin"}`} >{n.title.slice(0, 20) || ""}...</div>
                             <div className="text-[10px] opacity-70 ">{fmt(n.updatedAt).split(",")[0]} <span className="text-[10px]">{fmt(n.updatedAt).split(",")[1]}</span></div>
                         </div>
 
@@ -233,20 +233,20 @@ export default function MyNotes() {
         <div className="rounded-md bg-transparent overflow-hidden">
             <div className="p-2 border-b border-redish mb-2">
                 <div className="elev_component_header">Mine notater</div>
-                    <div className="text-sm opacity-90 font-mina font-italic">
+                    <div className="hidden md:block text-sm opacity-90 font-mina font-italic">
                         Skriv og søk i notater
                     </div>
             </div>
         </div>
         {left}
-            <div className="w-full text-center flex flex-row justify-between items-center text-redish">
+            <div className="w-full text-center flex flex-row justify-between items-center text-evenmoreredish mt-2">
                 {showingAllNotes ? (
-                    <div onClick={() => setShowingAllNotes(false)}  className="px-2 py-1 text-sm shadow-md bg-white/90 flex flex-row justify-center items-center cursor-pointer hover:bg-black/20 rounded-md">
+                    <div onClick={() => setShowingAllNotes(false)}  className="px-2 py-1 text-xs shadow-md bg-white/90 flex flex-row justify-center items-center cursor-pointer hover:bg-white rounded-md">
                         <MinusCircle size={16}/>  &nbsp;Skjul alle notater
                     </div>
                 ) : 
                 (
-                    <div onClick={() => setShowingAllNotes(true)} className="px-2 shadow-md text-xs py-1 bg-white/90 flex flex-row justify-center items-center cursor-pointer hover:bg-black/20 rounded-md">
+                    <div onClick={() => setShowingAllNotes(true)} className="px-2 shadow-md text-xs py-1 bg-white/90 flex flex-row justify-center items-center cursor-pointer hover:bg-white rounded-md">
                     <PlusCircle size={14}/> &nbsp;  Vis alle notater 
                     </div>
                 )
@@ -299,7 +299,7 @@ export default function MyNotes() {
                                     setActive(next);
                                     scheduleSave(next);
                                 }}
-                                className="w-full h-28 min-h-28 border rounded-md p-3 text-sm"
+                                className="w-full h-28 min-h-28 border rounded-md p-1 text-sm"
                                 placeholder="Skriv notatet her…"
                             />
                         </div>

@@ -235,7 +235,7 @@ body {
 /* /elev styles */
 
 .elev_component_div {
-  @apply w-full p-2 tracking-wide h-[600px] overflow-scroll backdrop-blur-2xl rounded-xl ;
+  @apply w-full p-2 tracking-wide h-[1500px] max-h-[calc(100vh-8rem)] overflow-scroll backdrop-blur-2xl rounded-xl border-gray-400;
 }
 
 .elev_component_header {

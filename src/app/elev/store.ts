@@ -11,6 +11,8 @@ type LookupEvent = {
 
 type PanelsOpen = Record<PanelName, boolean>;
 
+type MobilePanelName = "chat" | "notes" | "search";
+
 type ElevActions = {
   togglePanel: (name: PanelName) => void;
   openPanel: (name: PanelName) => void;
@@ -20,7 +22,9 @@ type ElevActions = {
   triggerLookup: (term: string, mode?: LookupMode) => void;
   clearLookup: () => void;
   toggleNavbar: () => void;
+  hideNavbar: () => void;
   toggleDark: () => void;
+  setMobilePanel: (name: MobilePanelName) => void;
 };
 
 type ElevState = {
@@ -30,6 +34,7 @@ type ElevState = {
   actions: ElevActions;
   showingNavbar: boolean;
   dark: boolean;
+  mobilePanel: MobilePanelName;
 };
 
 export const useElevStore = create<ElevState>()((set) => ({
@@ -37,7 +42,8 @@ export const useElevStore = create<ElevState>()((set) => ({
   activePanel: "chat",
   lookupEvent: null,
   showingNavbar: false,
-  dark: false,
+  dark: true,
+  mobilePanel: "chat",
 
   actions: {
     togglePanel: (name) =>
@@ -45,10 +51,20 @@ export const useElevStore = create<ElevState>()((set) => ({
         panelsOpen: { ...s.panelsOpen, [name]: !s.panelsOpen[name] },
       })),
 
+    setMobilePanel: (name) =>
+      set(() => ({
+        mobilePanel: name,
+      })),      
+
     toggleNavbar: () =>
       set((s) => ({
         showingNavbar: !s.showingNavbar,
       })),      
+
+    hideNavbar: () =>
+      set(() => ({
+        showingNavbar: false,
+      })),         
 
     toggleDark: () =>
       set((s) => ({
