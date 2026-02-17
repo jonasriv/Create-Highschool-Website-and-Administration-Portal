@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useState, useEffect } from "react";
 import OrangeLogo from "../../../public/images/FetBakgrunnMoreRedish.png"
 import HamburgerMenu from "@/components/ui/ElevHamburger";
-import { User, LogOutIcon, LogInIcon } from 'lucide-react';
+import { User, LogOutIcon, LogInIcon, MessageCircle } from 'lucide-react';
 // import { Calendar } from 'lucide-react';
 import { signOut, signIn } from "next-auth/react";
 import { useElevStore } from './store';
@@ -26,7 +26,9 @@ const ElevHeader = ({ user, toggleRef }: HeaderProps) => {
   const showingNavbar = useElevStore((s) => s.showingNavbar);
   const toggleNavbar = useElevStore((s)=> s.actions.toggleNavbar);
   const dark = useElevStore((s) => s.dark);
-
+  const toggleWriteFeedback = useElevStore((s) => s.actions.toggleFeedback);
+  const showAdminFeedback = useElevStore((s) => s.actions.toggleAdminFeedback);
+  
   useEffect(() => {
     if (!user) return;
     (async () => {
@@ -63,13 +65,30 @@ const ElevHeader = ({ user, toggleRef }: HeaderProps) => {
           </div>             
           <div className="flex flex-row gap-4 lg:gap-12 m-4 justify-between items-center">
             <DarkSlider />
+        
             {/* user box */}
-            
+            <div 
+              className={`h-8 py-2 px-4 gap-2 text-xs rounded-full flex cursor-pointer justify-center text-amber-400 items-center ${dark ? "bg-white/20 hover:bg-white/10" : "bg-black/20"}`}
+              onClick={toggleWriteFeedback}
+            >
+              Send feedback til datamann
+              <MessageCircle color="gold" size={14}/>
+            </div>
+            {user?.email === "jonas.rislow.iversen@create.no" ? (
+              <div 
+                className={`h-8 w-8 gap-2 text-xs rounded-full flex cursor-pointer justify-center text-amber-400 items-center ${dark ? "bg-white/20 hover:bg-white/10" : "bg-black/20"}`}
+                onClick={showAdminFeedback}
+              >
+                <MessageCircle color="gold" size={14}/>
+              </div>
+            ) : ""}
             <div className='flex flex-row justify-start items-end gap-2 p-2 rounded-md'>
+              
             <div className={`p-2 rounded-full `}>  
               <User color="white" size={16} />
             </div>
               <div className='w-auto flex flex-row justify-center items-center gap-2'>
+                
                 {user ? (
                   <>
                     <span className="text-sm text-white">{user?.name ?? user?.email ?? ""}</span>

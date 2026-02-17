@@ -18,12 +18,15 @@ type ElevActions = {
   openPanel: (name: PanelName) => void;
   closePanel: (name: PanelName) => void;
   setActivePanel: (name: PanelName) => void;
-
   triggerLookup: (term: string, mode?: LookupMode) => void;
   clearLookup: () => void;
+  toggleFeedback: () => void;
   toggleNavbar: () => void;
   hideNavbar: () => void;
+  hideFeedback: () => void;
+  hideAdminFeedback: () => void;
   toggleDark: () => void;
+  toggleAdminFeedback: () => void;
   setMobilePanel: (name: MobilePanelName) => void;
 };
 
@@ -35,6 +38,8 @@ type ElevState = {
   showingNavbar: boolean;
   dark: boolean;
   mobilePanel: MobilePanelName;
+  showingFeedback: boolean;
+  showingAdminFeedback: boolean;
 };
 
 export const useElevStore = create<ElevState>()((set) => ({
@@ -43,7 +48,9 @@ export const useElevStore = create<ElevState>()((set) => ({
   lookupEvent: null,
   showingNavbar: false,
   dark: true,
+  showingFeedback: false,
   mobilePanel: "chat",
+  showingAdminFeedback: false,
 
   actions: {
     togglePanel: (name) =>
@@ -61,14 +68,34 @@ export const useElevStore = create<ElevState>()((set) => ({
         showingNavbar: !s.showingNavbar,
       })),      
 
+    toggleAdminFeedback: () =>
+      set((s) => ({
+        showingAdminFeedback: !s.showingAdminFeedback,
+      })),      
+
     hideNavbar: () =>
       set(() => ({
         showingNavbar: false,
       })),         
 
+    hideFeedback: () =>
+      set(() => ({
+        showingFeedback: false,
+      })),         
+
+    hideAdminFeedback: () =>
+      set(() => ({
+        showingAdminFeedback: false,
+      })),   
+
     toggleDark: () =>
       set((s) => ({
         dark: !s.dark,
+      })),         
+      
+    toggleFeedback: () =>
+      set((s) => ({
+        showingFeedback: !s.showingFeedback,
       })),           
 
     openPanel: (name) =>
