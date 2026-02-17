@@ -68,7 +68,7 @@ const ElevHeader = ({ user, toggleRef }: HeaderProps) => {
         
             {/* user box */}
             <div 
-              className={`h-8 py-2 px-4 gap-2 text-xs rounded-full flex cursor-pointer justify-center text-amber-400 items-center ${dark ? "bg-white/20 hover:bg-white/10" : "bg-black/20"}`}
+              className={`hidden md:flex h-8 py-2 px-4 gap-2 text-xs rounded-full cursor-pointer justify-center text-amber-400 items-center ${dark ? "bg-white/20 hover:bg-white/10" : "bg-black/20"}`}
               onClick={toggleWriteFeedback}
             >
               Send feedback til datamann
