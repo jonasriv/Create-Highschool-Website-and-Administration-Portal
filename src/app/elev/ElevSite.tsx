@@ -125,7 +125,7 @@ export default function ElevSite({ user, msConnected }: Props) {
         >
 
 
-            <ElevHeader user={user} toggleRef={toggleRef} msConnected={msConnected} />
+            <ElevHeader user={user} toggleRef={toggleRef} msConnected={msConnected}/>
 
             {/* ADMIN FEEDBACK-MODAL */}
             {user?.email === "jonas.rislow.iversen@create.no" && showingAdminFeedback && 
@@ -143,11 +143,11 @@ export default function ElevSite({ user, msConnected }: Props) {
                     </h2>
                     <div className="py-2">
                         <ul className="text-xs my-2 font-mina">
-                            <li>- Fungerer chatboten bra/dårlig?</li>
-                            <li>- Hva skulle vært annerledes? </li> 
-                            <li>- Hva med søkeboksen?</li>
-                            <li>- Bruker du notater-appen?</li>
-                            <li>- Annet?</li>
+                            <li>- Hjelper boten deg? Er den irriterende? </li>
+                            <li>- Lærer du noe? </li>
+                            <li>- Hva burde evt. vært annerledes? </li> 
+                            <li>- Feedback på søkeboksen?</li>
+                            <li>- Hva med notater-appen?</li>
                         </ul>
                         <textarea 
                             className="rounded-md text-black border border-redish h-56 text-sm max-h-64 w-full  p-2" 
@@ -176,7 +176,7 @@ export default function ElevSite({ user, msConnected }: Props) {
             {/* mobile navbar */}
             <MobileNavbar/>
             {/* Desktop navbar */}
-            <div ref={navRef}>{showingNavbar && <ElevNavbar /> }</div>
+            <div ref={navRef}>{showingNavbar && <ElevNavbar navRef={navRef}/> }</div>
             
             {/* desktop main */}
             <main className="hidden md:block flex-1 min-h-0 overflow-hidden relative flex-col gap-4 w-full max-w-full justify-start items-start ">

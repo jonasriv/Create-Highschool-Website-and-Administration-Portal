@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Spinner from "@/components/ui/Spinner";
-import { Send, Ban, Search } from "lucide-react";
+import { Send, Ban, ChevronRight } from "lucide-react";
 import { useElevStore } from "../store";
 
 type ChatMessage = {
@@ -35,9 +35,15 @@ export default function ChatBot() {
         return text.replace(/LOOKUP_TERM:\s*(.+)$/mi, "");
     }
 
+    const didMount = useRef(false);
+
     useEffect(() => {
-            endRef.current?.scrollIntoView({ behavior: "smooth" });
-        }, [messages, isSending]);
+    if (!didMount.current) {
+        didMount.current = true;
+        return; // ikke autoscroll på første render
+    }
+    endRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]); // dropp isSending her også (se under)
 
     async function send() {
         const text = input.trim();
@@ -133,7 +139,7 @@ export default function ChatBot() {
             <div className="p-2 border-b border-redish mb-2">
                 <div className="elev_component_header">Create GPT</div>
                 <div className="hidden md:block text-sm opacity-90 font-mina font-italic">
-                    Hjelp, hint og tilbakemeldinger.
+                    Hjelp, hint og tilbakemeldinger. 
                 </div>
             </div>
 
@@ -160,24 +166,27 @@ export default function ChatBot() {
                 })}
             <div ref={endRef} />
             {lookupTerms.length > 0 && (
-                <div className="w-full h-8 flex flex-row gap-2 justify-start items-center">
-                    Finn ut mer: {lookupTerms.map(term => 
-                        <span 
-                        key={term} 
-                        className="py-1 animate-bounce-low px-2 bg-gradient-to-r from-redish to-moreredish text-white rounded-md flex flex-row gap-1 items-center justify-center cursor-pointer hover:bg-moreredish font-semibold"
-                            onClick={() => triggerLookup(term)}
-                        >
-                            {term}
-                            <div className=""><Search size="12"/></div>
-                            {/* <ChevronRight size="12"/> */}
-                        </span>
-                    )}
+                <div className="w-full h-8 flex flex-col gap-1 justify-start items-start">
+                    <p className="uppercase text-xs">Undersøk: </p>
+                    <div className="flex flex-row gap-1">
+                        {lookupTerms.map(term => 
+                            <span 
+                            key={term} 
+                            className="text-[10px] py-1 animate-bounce-low px-2 bg-gradient-to-r from-redish to-moreredish text-white rounded-md flex flex-row gap-0 items-center justify-center cursor-pointer hover:bg-moreredish font-semibold"
+                                onClick={() => triggerLookup(term)}
+                            >
+                                {/* <div className=""><Search size="10"/></div> */}
+                                {term.slice(0, 18)}..
+                                <ChevronRight size="12"/>
+                            </span>
+                        )}
+                    </div>
                 </div>
             )
             }
             </div>
 
-            <div className="py-2 border-t border-redish flex gap-2 text-black">
+            <div className="py-2 mt-2 border-t border-redish flex gap-2 text-black">
                 <textarea
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
