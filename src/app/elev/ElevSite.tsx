@@ -58,11 +58,14 @@ export default function ElevSite({ user, msConnected }: Props) {
             }
             if (e.key === "Escape" && showingFeedback) {
                 hideFeedback(); 
-            }            
+            }         
+            if (e.key === "Escape" && showingAdminFeedback) {
+                hideAdminFeedback(); 
+            }                  
         }
         document.addEventListener("keydown", onKeyDown);
         return () => document.removeEventListener("keydown", onKeyDown);
-    }, [hideNavbar, showingNavbar, showingFeedback, hideFeedback]);
+    }, [hideNavbar, showingNavbar, showingFeedback, hideFeedback, showingAdminFeedback, hideAdminFeedback]);
 
     useEffect(() => {
         if (!showingNavbar && !showingFeedback && !showingAdminFeedback) return;

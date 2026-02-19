@@ -119,7 +119,6 @@ export const useElevStore = create<ElevState>()((set) => ({
         panelsOpen: { ...s.panelsOpen, search: true },
         activePanel: "search",
         lookupEvent: { id, term },
-        // lookupEvent: { id, term, mode, source: s.activePanel }, // hvis du la til source i typen
       }));
     },
 
