@@ -23,6 +23,7 @@ type TeacherActions = {
   setMobilePanel: (name: MobilePanelName) => void;
   setWindowOpen: (name: WindowName) => void;
   toggleMenu: () => void;
+  toggleTests: () => void;
 };
 
 type TeacherState = {
@@ -36,6 +37,7 @@ type TeacherState = {
   showingFeedback: boolean;
   showingAdminFeedback: boolean;
   showingMenu: boolean;
+  showingTests: boolean;
 };
 
 export const useTeacherStore = create<TeacherState>()((set) => ({
@@ -49,6 +51,7 @@ export const useTeacherStore = create<TeacherState>()((set) => ({
   showingAdminFeedback: false,
   windowOpen: "tools",
   showingMenu: true,
+  showingTests: true,
 
   actions: {
     togglePanel: (name) =>
@@ -70,6 +73,11 @@ export const useTeacherStore = create<TeacherState>()((set) => ({
       set((s) => ({
         showingMenu: !s.showingMenu,
       })),   
+
+    toggleTests: () =>
+      set((s) => ({
+        showingTests: !s.showingTests,
+      })),         
 
     toggleAdminFeedback: () =>
       set((s) => ({

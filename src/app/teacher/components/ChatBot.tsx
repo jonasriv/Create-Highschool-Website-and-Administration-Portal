@@ -126,7 +126,7 @@ export default function ChatBot() {
 
   return (
     <div
-      className={`${panelsOpen.chat ? "block" : "hidden"} p-2 w-[50%] max-w-[600px] h-[800px] ${
+      className={`${panelsOpen.chat ? "block" : "hidden"} p-2 w-[50%] max-w-[600px] h-[800px] max-h-[calc(100vh-100px)] ${
         dark
           ? "bg-slate-800 text-slate-200 border-[1px] border-slate-600"
           : "bg-slate-200 text-slate-800 border-[1px] border-slate-400"

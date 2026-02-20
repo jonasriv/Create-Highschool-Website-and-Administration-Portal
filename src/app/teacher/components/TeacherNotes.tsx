@@ -234,7 +234,7 @@ export default function TeacherNotes() {
     }, [filteredNotes, isLoading, activeId, showingAllNotes]);
 
     return (
-    <div className={`${panelsOpen.notes ? "block" : "hidden"} p-2 w-[50%] max-w-[600px] h-[800px] ${dark ? "bg-slate-800 text-slate-200 border-[1px] border-slate-600" : "bg-slate-200 text-slate-800 border-[1px] border-slate-400"} rounded-md`}>
+    <div className={`${panelsOpen.notes ? "block" : "hidden"} p-2 w-[50%] max-w-[600px] h-[800px] max-h-[calc(100vh-100px)] ${dark ? "bg-slate-800 text-slate-200 border-[1px] border-slate-600" : "bg-slate-200 text-slate-800 border-[1px] border-slate-400"} rounded-md`}>
         <div className="rounded-md bg-transparent overflow-hidden">
             <div className="p-2 border-b border-redish mb-2">
                 <div className="elev_component_header">Mine notater</div>
