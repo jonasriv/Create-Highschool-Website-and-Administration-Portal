@@ -186,12 +186,12 @@ export default function ElevSite({ user, msConnected }: Props) {
                 {/* Main Content */}
                 <div className={`w-full flex flex-col justify-start items-start overflow-scroll `}>
                     <div
-                        className="grid gap-2 mt-2 justify-center items-center w-full p-2 overflow-hidden"
+                        className="grid gap-2 mt-1 justify-center items-center w-full p-2 overflow-hidden"
                         style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
                     >
-                        <div className={`${panelsOpen.chat ? "" : "hidden"} h-full rounded-xl min-h-0 max-w-[1000px] max-h-[calc(100vh-240px)] overflow-y-scroll ${dark ? "bg-black/60 text-white border-white" : "bg-white/70 text-black border-black" }`}><ChatBot /></div>
-                        <div className={`${panelsOpen.search ? "" : "hidden"} h-full rounded-xl min-h-0 max-w-[1000px] max-h-[calc(100vh-240px)] overflow-y-scroll ${dark ? "bg-black/60 text-white border-white" : "bg-white/70 text-black border-black" }`}><SearchComponent /></div>
-                        <div className={`${panelsOpen.notes ? "" : "hidden"} h-full rounded-xl min-h-0 max-w-[1000px] max-h-[calc(100vh-240px)] overflow-y-scroll ${dark ? "bg-black/60 text-white border-white" : "bg-white/70 text-black border-black" }`}><MyNotes /></div>
+                        <div className={`${panelsOpen.chat ? "" : "hidden"} h-full rounded-md min-h-0 max-w-[1000px]  overflow-y-scroll ${dark ? "bg-black/60 text-white border-white" : "bg-white/70 text-black border-black" }`}><ChatBot /></div>
+                        <div className={`${panelsOpen.search ? "" : "hidden"} h-full rounded-md min-h-0 max-w-[1000px] overflow-y-scroll ${dark ? "bg-black/60 text-white border-white" : "bg-white/70 text-black border-black" }`}><SearchComponent /></div>
+                        <div className={`${panelsOpen.notes ? "" : "hidden"} h-full rounded-md min-h-0 max-w-[1000px] overflow-y-scroll ${dark ? "bg-black/60 text-white border-white" : "bg-white/70 text-black border-black" }`}><MyNotes /></div>
                     </div>
                 </div>
             </main>
@@ -202,7 +202,7 @@ export default function ElevSite({ user, msConnected }: Props) {
                     <div
                         className="grid gap-2 justify-center items-center w-full overflow-hidden grid-cols-1"
                         
-                    >
+                    > 
                         <div className={`${mobilePanel === "chat" ? "" : "hidden"} h-full w-full overflow-y-hidden ${dark ? "bg-black/60 text-white border-white" : "bg-white/70 text-black border-black" }`}><ChatBot /></div>
                         <div className={`${mobilePanel === "search" ? "" : "hidden"} h-full  w-full overflow-y-hidden ${dark ? "bg-black/60 text-white border-white" : "bg-white/70 text-black border-black" }`}><SearchComponent /></div>
                         <div className={`${mobilePanel === "notes" ? "" : "hidden"} h-full  w-full overflow-y-hidden ${dark ? "bg-black/60 text-white border-white" : "bg-white/70 text-black border-black" }`}><MyNotes /></div>
