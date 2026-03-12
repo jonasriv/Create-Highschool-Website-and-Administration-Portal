@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes search-flash {
+  0%   { box-shadow: 0 0 0 0px rgba(255,255,255,0); }
+  20%  { box-shadow: 0 0 0 3px rgba(255,255,255,0.85); }
+  40%  { box-shadow: 0 0 0 0px rgba(255,255,255,0); }
+  65%  { box-shadow: 0 0 0 3px rgba(255,255,255,0.85); }
+  100% { box-shadow: 0 0 0 0px rgba(255,255,255,0); }
+}
+
 :root {
   --browny: #7C352C;
   --lightbrowny: #B16E50;

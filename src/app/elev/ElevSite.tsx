@@ -94,7 +94,7 @@ export default function ElevSite({ user, msConnected }: Props) {
     useEffect(() => {
         if (!lookupEvent) return;
         setSearchHighlight(true);
-        const t = setTimeout(() => setSearchHighlight(false), 1500);
+        const t = setTimeout(() => setSearchHighlight(false), 1300);
         return () => clearTimeout(t);
     }, [lookupEvent?.id]);
 
@@ -229,7 +229,10 @@ export default function ElevSite({ user, msConnected }: Props) {
                         }}
                     >
                         <div className={`${panelsOpen.chat ? "" : "hidden"} h-full rounded-md min-h-0 overflow-y-auto ${dark ? "bg-black/60 text-white" : "bg-white/70 text-black"}`}><ChatBot /></div>
-                        <div className={`${panelsOpen.search ? "" : "hidden"} h-full rounded-md min-h-0 overflow-y-auto transition-all duration-300 ${searchHighlight ? "ring-2 ring-white/80" : ""} ${dark ? "bg-black/60 text-white" : "bg-white/70 text-black"}`}><SearchComponent /></div>
+                        <div
+                            className={`${panelsOpen.search ? "" : "hidden"} h-full rounded-md min-h-0 overflow-y-auto ${dark ? "bg-black/60 text-white" : "bg-white/70 text-black"}`}
+                            style={searchHighlight ? { animation: "search-flash 1.2s ease-out forwards" } : undefined}
+                        ><SearchComponent /></div>
                         <div className={`${panelsOpen.notes ? "" : "hidden"} h-full rounded-md min-h-0 overflow-y-auto ${dark ? "bg-black/60 text-white" : "bg-white/70 text-black"}`}><MyNotes /></div>
                     </div>
                 </div>

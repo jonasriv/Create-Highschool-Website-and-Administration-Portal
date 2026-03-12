@@ -44,7 +44,7 @@ export default {
 			'spin-fast': 'spin 1s linear infinite',
 			'highlight-fileinput': 'highlight-fileinput 3s infinite',
 			"bounce-low": "bounce-low 3s infinite",
-		},		
+		},
 		keyframes: {
 			"bounce-low": {
 			"0%, 100%": { transform: "translateY(-1px)" },
