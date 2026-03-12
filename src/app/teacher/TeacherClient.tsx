@@ -3,7 +3,7 @@ import TeacherHeader from "./TeacherHeader";
 import Sidebar from "./components/Sidebar";
 import { useTeacherStore } from "./store";
 import TeacherTools from "./TeacherTools";
-import TeacherTests from "./TeacherTests";
+// import TeacherTests from "./TeacherTests";
 import TeacherOther from "./TeacherOther";
 
 type Props = {
@@ -43,8 +43,8 @@ export default function TeacherClient({ user, msConnected }: Props) {
                 >
                     {windowOpen === "tools" 
                         ? <TeacherTools user={user} msConnected={msConnected}/> 
-                        : windowOpen === "tests" 
-                            ? <TeacherTests user={user} msConnected={msConnected}/> 
+                        // : windowOpen === "tests" 
+                        //     ? <TeacherTests user={user} msConnected={msConnected}/> 
                             : <TeacherOther user={user} msConnected={msConnected}/>
                     }
 
