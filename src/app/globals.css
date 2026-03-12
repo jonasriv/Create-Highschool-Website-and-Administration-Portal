@@ -235,9 +235,10 @@ body {
 /* /elev styles */
 
 .elev_component_div {
-  @apply w-full p-2 tracking-wide h-auto min-h-[calc(100vh-12rem)] max-h-[calc(100vh-12rem)] overflow-visible backdrop-blur-2xl rounded-xl border-gray-400;
+  @apply w-full h-full p-2 tracking-wide overflow-hidden backdrop-blur-2xl rounded-md border-gray-400 border border-slate-700;
 }
 
 .elev_component_header {
   @apply font-bold mb-2 tracking-widest uppercase font-notable;
 }
+

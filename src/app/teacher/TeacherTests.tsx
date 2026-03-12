@@ -2,8 +2,9 @@
 
 import { useTeacherStore } from "./store";
 import { useState } from "react";
-import TestEditor from "./tests/editor/TestEditor";
-import TestList from "./tests/list/TestLIst";
+import TestList from "./tests/list/TestList";
+import TestEditorContainer from "./tests/editor/TestEditorContainer";
+import TestMonitorContainer from "./tests/monitor/TestMonitorContainer";
 
 type Props = {
 user: {
@@ -19,23 +20,33 @@ msConnected: boolean;
 export default function TeacherTests({ user, msConnected }: Props) {
     const dark = useTeacherStore((s) => s.dark);
     const showingTests = useTeacherStore((s) => s.showingTests);
-    const [mode, setMode] = useState<"edit" | "monitor">("edit");
+    const editingOrMonitoring = useTeacherStore((s) => s.editingOrMonitoring);
 
     if (!user || !user.email || user.email.trim() !== "jonas.rislow.iversen@create.no") return (<div>Her kommer prøver</div>)
     return(
-        <div className={`flex flex-row p-2 gap-0 divide-x-2 divide-black h-[calc(100vh-4rem)] rounded-md`}>
+        <div className={`flex flex-row gap-0 divide-x divide-slate-400 h-[calc(100vh-4rem)] border-l border-slate-400`}>
         
         
         
             {/* Mine prøver */}
-            <div className={`${showingTests ? "w-4/12" : "w-1/12"} transition-all duration-200 bg-white/80 rounded-l-sm py-2`}>
+            <div className={`${showingTests ? "w-4/12" : "w-1/12"} transition-all duration-200 ${dark ? "bg-slate-800 text-slate-200" : "bg-slate-200 text-slate-800"} h-[calc(100vh-80px)] rounded-l-sm py-2`}>
                 <TestList user={user} msConnected={msConnected}/>
             </div> 
 
-            {/* Ny prøve ELLER Rediger prøve ELLER Overvåke prøve*/}
-            <div className={`${showingTests ? "w-8/12" : "w-11/12"} transition-all duration-200 bg-white/80 h-full rounded-r-sm p-2 overflow-b-scroll`}>
-                {mode === "edit" && <TestEditor user={user} msConnected={msConnected}/>}
-            </div>
-        </div>
+            {/* Editor eller MONITOR */}
+      <div
+        className={`${showingTests ? "w-8/12" : "w-11/12"} transition-all duration-200 ${
+          dark ? "bg-slate-800 text-slate-200" : "bg-slate-200 text-slate-800"
+        } h-[calc(100vh-80px)] rounded-r-sm p-2 overflow-y-scroll`}
+      >
+        {editingOrMonitoring === "editing" && <TestEditorContainer user={user} />}
+        {editingOrMonitoring === "monitoring" && <TestMonitorContainer user={user} />}
+        
+        {!editingOrMonitoring && (
+          <div className="opacity-70 text-sm p-2">Velg en prøve eller lag en ny.</div>
+        )}
+      </div>
+    </div>
+        
     )
 }

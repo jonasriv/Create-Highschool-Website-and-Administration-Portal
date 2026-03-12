@@ -118,6 +118,7 @@ export const useElevStore = create<ElevState>()((set) => ({
       set((s) => ({
         panelsOpen: { ...s.panelsOpen, search: true },
         activePanel: "search",
+        mobilePanel: "search",
         lookupEvent: { id, term },
       }));
     },

@@ -10,7 +10,7 @@ import MyFeedback from "./components/admin";
 import ElevNavbar from "./components/ElevNavbar";
 import MobileNavbar from "./components/MobileNavbar";
 import Spinner from "@/components/ui/Spinner";
-import { X } from "lucide-react";
+import { X, MessageSquare, Search as SearchIcon, FileText } from "lucide-react";
 
 type Props = {
 user: {
@@ -37,12 +37,15 @@ export default function ElevSite({ user, msConnected }: Props) {
     const panelsOpen = useElevStore((s) => s.panelsOpen);
     const showingNavbar = useElevStore((s) => s.showingNavbar);
     const dark = useElevStore((s) => s.dark);
-    const hideNavbar = useElevStore((s) => s.actions.hideNavbar)
+    const hideNavbar = useElevStore((s) => s.actions.hideNavbar);
+    const togglePanel = useElevStore((s) => s.actions.togglePanel);
+    const lookupEvent = useElevStore((s) => s.lookupEvent);
     const navRef = useRef<HTMLDivElement | null>(null);
     const toggleRef = useRef<HTMLDivElement | null>(null);
     const mobilePanel = useElevStore((s) => s.mobilePanel);
     const showingFeedback = useElevStore((s) => s.showingFeedback);
     const [sendingFeedback, setSendingFeedback] = useState(false);
+    const [searchHighlight, setSearchHighlight] = useState(false);
     const hideFeedback = useElevStore((s) => s.actions.hideFeedback);
     const hideAdminFeedback = useElevStore((s) => s.actions.hideAdminFeedback);
     const [feedback, setFeedback] = useState<Feedback>({anonymous: false, content: "", name: "anonymous"});
@@ -88,6 +91,13 @@ export default function ElevSite({ user, msConnected }: Props) {
         return () => document.removeEventListener("pointerdown", onPointerDown, opts);
     }, [hideNavbar, showingNavbar, hideFeedback, showingFeedback, showingAdminFeedback, hideAdminFeedback]);
 
+    useEffect(() => {
+        if (!lookupEvent) return;
+        setSearchHighlight(true);
+        const t = setTimeout(() => setSearchHighlight(false), 1500);
+        return () => clearTimeout(t);
+    }, [lookupEvent?.id]);
+
     async function handleSubmitFeedback() {
         setSendingFeedback(true);
         if (feedback.content.length === 0) {
@@ -117,7 +127,7 @@ export default function ElevSite({ user, msConnected }: Props) {
     }
     return (
         <div
-            className="relative flex flex-col h-screen w-screen overflow-hidden pb-12"
+            className="relative flex flex-col h-screen w-screen overflow-hidden"
             style={{
                 backgroundColor: "black",
                 backgroundImage: `url(${internalBackground})`,
@@ -178,37 +188,61 @@ export default function ElevSite({ user, msConnected }: Props) {
             }
             {/* mobile navbar */}
             <MobileNavbar/>
-            {/* Desktop navbar */}
+            {/* Desktop navbar (beholdt for click-outside-logikk) */}
             <div ref={navRef}>{showingNavbar && <ElevNavbar navRef={navRef}/> }</div>
-            
+
             {/* desktop main */}
-            <main className="hidden md:block flex-1 min-h-0 overflow-hidden relative flex-col gap-4 w-full max-w-full justify-start items-start ">
-                {/* Main Content */}
-                <div className={`w-full flex flex-col justify-start items-start overflow-scroll `}>
+            <main className="hidden md:flex flex-col flex-1 min-h-0 overflow-hidden w-full max-w-full">
+                {/* Panel toggle-bar */}
+                <div className="flex flex-row justify-start gap-4 px-3 py-1.5 shrink-0">
+                    {(["chat", "search", "notes"] as const).map((name) => {
+                        const meta = {
+                            chat:   { label: "ChatBot",  icon: <MessageSquare size={12}/> },
+                            search: { label: "Søk",      icon: <SearchIcon size={12}/> },
+                            notes:  { label: "Notater",  icon: <FileText size={12}/> },
+                        }[name];
+                        return (
+                            <button
+                                key={name}
+                                type="button"
+                                onClick={() => togglePanel(name)}
+                                className={`flex flex-row gap-1.5 items-center px-3 py-1 rounded-full text-xs font-mono transition-all border ${
+                                    panelsOpen[name]
+                                        ? "bg-moreredish border-redish text-white font-semibold shadow"
+                                        : "bg-white/10 border-white/30 text-white/60 hover:bg-white/20"
+                                }`}
+                            >
+                                {meta.icon} {meta.label}
+                            </button>
+                        );
+                    })}
+                </div>
+                {/* Grid */}
+                <div className="flex-1 min-h-0 overflow-hidden p-2">
                     <div
-                        className="grid gap-2 mt-1 justify-center items-center w-full p-2 overflow-hidden"
-                        style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
+                        className="grid gap-2 h-full w-full"
+                        style={{
+                            gridTemplateColumns: openCount === 3
+                                ? "2fr 2fr 1.2fr"
+                                : `repeat(${cols}, minmax(0, 1fr))`,
+                            maxWidth: openCount === 1 ? "640px" : openCount === 2 ? "1100px" : "100%",
+                        }}
                     >
-                        <div className={`${panelsOpen.chat ? "" : "hidden"} h-full rounded-md min-h-0 max-w-[1000px]  overflow-y-scroll ${dark ? "bg-black/60 text-white border-white" : "bg-white/70 text-black border-black" }`}><ChatBot /></div>
-                        <div className={`${panelsOpen.search ? "" : "hidden"} h-full rounded-md min-h-0 max-w-[1000px] overflow-y-scroll ${dark ? "bg-black/60 text-white border-white" : "bg-white/70 text-black border-black" }`}><SearchComponent /></div>
-                        <div className={`${panelsOpen.notes ? "" : "hidden"} h-full rounded-md min-h-0 max-w-[1000px] overflow-y-scroll ${dark ? "bg-black/60 text-white border-white" : "bg-white/70 text-black border-black" }`}><MyNotes /></div>
+                        <div className={`${panelsOpen.chat ? "" : "hidden"} h-full rounded-md min-h-0 overflow-y-auto ${dark ? "bg-black/60 text-white" : "bg-white/70 text-black"}`}><ChatBot /></div>
+                        <div className={`${panelsOpen.search ? "" : "hidden"} h-full rounded-md min-h-0 overflow-y-auto transition-all duration-300 ${searchHighlight ? "ring-2 ring-white/80" : ""} ${dark ? "bg-black/60 text-white" : "bg-white/70 text-black"}`}><SearchComponent /></div>
+                        <div className={`${panelsOpen.notes ? "" : "hidden"} h-full rounded-md min-h-0 overflow-y-auto ${dark ? "bg-black/60 text-white" : "bg-white/70 text-black"}`}><MyNotes /></div>
                     </div>
                 </div>
             </main>
             {/* mobile main */}
-            <main className="md:hidden flex-1 min-h-0 overflow-hidden relative flex-col gap-4 w-full max-w-full justify-start items-start ">
-                {/* Main Content */}
-                <div className={`w-full flex flex-col justify-start items-start overflow-scroll `}>
-                    <div
-                        className="grid gap-2 justify-center items-center w-full overflow-hidden grid-cols-1"
-                        
-                    > 
-                        <div className={`${mobilePanel === "chat" ? "" : "hidden"} h-full w-full overflow-y-hidden ${dark ? "bg-black/60 text-white border-white" : "bg-white/70 text-black border-black" }`}><ChatBot /></div>
-                        <div className={`${mobilePanel === "search" ? "" : "hidden"} h-full  w-full overflow-y-hidden ${dark ? "bg-black/60 text-white border-white" : "bg-white/70 text-black border-black" }`}><SearchComponent /></div>
-                        <div className={`${mobilePanel === "notes" ? "" : "hidden"} h-full  w-full overflow-y-hidden ${dark ? "bg-black/60 text-white border-white" : "bg-white/70 text-black border-black" }`}><MyNotes /></div>
-                        
+            <main className="flex md:hidden flex-col flex-1 min-h-0 overflow-hidden w-full max-w-full">
+                <div className="flex-1 min-h-0 overflow-hidden p-0">
+                    <div className="h-full w-full">
+                        <div className={`${mobilePanel === "chat" ? "h-full" : "hidden"} w-full overflow-y-auto ${dark ? "bg-black/60 text-white" : "bg-white/70 text-black"}`}><ChatBot /></div>
+                        <div className={`${mobilePanel === "search" ? "h-full" : "hidden"} w-full overflow-y-auto ${dark ? "bg-black/60 text-white" : "bg-white/70 text-black"}`}><SearchComponent /></div>
+                        <div className={`${mobilePanel === "notes" ? "h-full" : "hidden"} w-full overflow-y-auto ${dark ? "bg-black/60 text-white" : "bg-white/70 text-black"}`}><MyNotes /></div>
                     </div>
-                </div>                
+                </div>
             </main>         
                         
    

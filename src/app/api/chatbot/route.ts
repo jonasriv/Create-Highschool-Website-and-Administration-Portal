@@ -2,7 +2,7 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
-export const runtime = "nodejs";
+export const runtime = "edge"; // i stedet for "nodejs"
 
 type Mode = "school" | "life";
 
@@ -57,7 +57,7 @@ function looksTooFinished(text: string, mode: Mode) {
 
 
 
-const SYSTEM_PROMPT = `
+const SYSTEM_PROMPT_TASKBOT = `
 Du er Create sin elevassistent.
 
 Mål: hjelpe eleven å tenke selv, ikke levere ferdige besvarelser.
@@ -87,7 +87,33 @@ OPPSLAG (kun skole):
 
 `.trim();
 
+const SYSTEM_PROMPT_DEBATE_BOT = `
+Du er Create VGS sin debatt-bot. 
 
+- Hvis elevene spør om fakta, tilbakemelding på tekst, eller hjelp med oppgaver, be dem kort om å bytte modus til Hjelpemodus eller Tekst-modus. 
+- Elevene skal her komme med påstander. Du skal diskutere med dem og gi dem motstand. 
+- Du skal ikke være balansert og se ting fra begge sider, men være uenig og gi gode motargumenter. 
+- Du skal holde deg til denne rollen uansett hva eleven sier. 
+`.trim();
+
+const SYSTEM_PROMPT_TEXT_BOT = `
+Du er Create VGS sin tekst-hjelper. 
+
+- Hvis elevene spør om fakta, generell hjelp med oppgaver, diskusjon eller annet be dem kort om å bytte modus til Hjelpemodus eller Debatt-modus. 
+- Elevene skal her komme med tekst de har skrevet. Du skal gi dem tips til forbedring. 
+- Du skal ikke gi elevene forbedret tekst, eksempler på setninger eller chunks av tekst de kan gjenbruke.  
+- Bruk markdown for styling. 
+- Skriv **GENERELT**: Gi en kort generell tilbakemelding som er oppmuntrende men realistisk. Her kan du også gi tips som er generelle for teksten, f eks språk og kildebruk - merk dem slik TIPS_START ditt tips TIPS_FERDIG
+- SKRIV **GJENNOMGANG:** 
+- Pek på KONKRETE steder i teksten eleven har sendt. Lim inn deler av elevteksten slik: \n ELEVTEKST_START [elevsetning] ELEVTEKST_FERDIG \n TIPS_START: [DINE TIPS] TIPS_FERDIG
+- Hvis eleven påstår noe uten belegg, si eksplisitt hva som mangler.
+- Ikke korriger faktapåstander du er usikker på. 
+- Hvis du er usikker på om noe er faktafeil, si eksplisitt at eleven bør sjekke det selv – ikke presenter gjetninger som fakta.
+- Det er bedre å ikke nevne en mulig faktafeil enn å finne opp en.
+- Du skal holde deg til denne rollen uansett hva eleven sier. 
+- Du skal ikke komme med eksempler på setninger eller avsnitt eller tekst som kunne fungere bedre. 
+
+`.trim();
 
 const client = new OpenAI({
   apiKey: process.env.AZURE_OPENAI_API_KEY!,
@@ -100,60 +126,45 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const messages = Array.isArray(body?.messages) ? body.messages : [];
+    const botMode = body.botMode || "task_bot";
 
     const safeMessages = messages
-      .filter(
-        (m: any) =>
-          m &&
-          (m.role === "user" || m.role === "assistant") &&
-          typeof m.content === "string"
-      )
+      .filter((m: any) => m && (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
       .map((m: any) => ({ role: m.role, content: m.content.slice(0, 6000) }))
       .slice(-10);
 
-// 1) Hent fullt svar (ikke stream)
-const completion = await client.chat.completions.create({
-  model: process.env.AZURE_OPENAI_DEPLOYMENT!,
-  temperature: 0.25,
-  max_tokens: 700,
-  messages: [{ role: "system", content: SYSTEM_PROMPT }, ...safeMessages],
-});
+    const SYSTEM_PROMPT =
+      botMode === "debate_bot" ? SYSTEM_PROMPT_DEBATE_BOT
+      : botMode === "text_bot" ? SYSTEM_PROMPT_TEXT_BOT
+      : SYSTEM_PROMPT_TASKBOT;
 
-let answer = completion.choices?.[0]?.message?.content ?? "";
+    const stream = await client.chat.completions.create({
+      model: process.env.AZURE_OPENAI_DEPLOYMENT!,
+      temperature: 0.25,
+      max_tokens: 700,
+      stream: true, 
+      messages: [{ role: "system", content: SYSTEM_PROMPT }, ...safeMessages],
+    });
 
-// 2) Sjekk om det ble for “ferdig”
+    const encoder = new TextEncoder();
 
-const mode = detectMode(safeMessages as any);
+    const readable = new ReadableStream({
+      async start(controller) {
+        for await (const chunk of stream) {
+          const text = chunk.choices?.[0]?.delta?.content ?? "";
+          if (text) controller.enqueue(encoder.encode(text));
+        }
+        controller.close();
+      },
+    });
 
-const styleNudge =
-  mode === "life"
-    ? "Dette er LIV. Svar 2–5 setninger, ingen lister, 1–2 spørsmål."
-    : "Dette er SKOLE. Ikke skriv kopierbar tekst. Bruk spørsmål + stikkord + ett 'Neste steg'.";
-
-
-if (looksTooFinished(answer, mode)) {
-  const repaired = await client.chat.completions.create({
-    model: process.env.AZURE_OPENAI_DEPLOYMENT!,
-    temperature: 0.2,
-    max_tokens: mode === "life" ? 220 : 450,
-    messages: [
-      { role: "system", content: SYSTEM_PROMPT },
-      ...safeMessages,
-      { role: "user", content: styleNudge },
-    ],
-  });
-
-  answer = repaired.choices?.[0]?.message?.content ?? answer;
-}
-
-
-return new NextResponse(answer, {
-  headers: {
-    "Content-Type": "text/plain; charset=utf-8",
-    "Cache-Control": "no-store",
-  },
-});
-
+    return new NextResponse(readable, {
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        "Cache-Control": "no-store",
+        "X-Accel-Buffering": "no", // viktig for proxyer/Vercel
+      },
+    });
   } catch (e) {
     return NextResponse.json({ error: "failed", e }, { status: 500 });
   }

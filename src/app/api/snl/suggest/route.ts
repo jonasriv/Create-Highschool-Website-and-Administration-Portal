@@ -37,7 +37,8 @@ export async function GET(req: Request) {
       title: x?.title,
       first_image_url: x?.first_image_url,
       first_image_licence: x?.first_image_licence,     
-      article_url: x?.article_url,      
+      article_url: x?.article_url,   
+      first_two_sentences: x?.first_two_sentences,   
     }))
     .filter((s: any) => s.title);
     

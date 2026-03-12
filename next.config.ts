@@ -33,6 +33,29 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "images.gfx.no" },      
       // NDLA
       { protocol: "https", hostname: "images.ndla.no" },      
+      // 
+      { protocol: "https", hostname: "ichef.bbci.co.uk" },      
+      // BBC
+      { protocol: "https", hostname: "ichef.bbci.co.uk" },
+
+      // The Guardian
+      { protocol: "https", hostname: "media.guim.co.uk" },
+      { protocol: "https", hostname: "i.guim.co.uk" },
+
+      // Reuters
+      { protocol: "https", hostname: "cloudfront-us-east-2.images.arcpublishing.com" },
+      { protocol: "https", hostname: "www.reuters.com" },
+
+      // NASA
+      { protocol: "https", hostname: "www.nasa.gov" },
+      { protocol: "https", hostname: "images-assets.nasa.gov" },
+
+      // UN News
+      { protocol: "https", hostname: "news.un.org" },
+      { protocol: "https", hostname: "global.unitednations.entermediadb.net" },
+
+      // Al Jazeera
+      { protocol: "https", hostname: "www.aljazeera.com" },
     ],
   },
 };

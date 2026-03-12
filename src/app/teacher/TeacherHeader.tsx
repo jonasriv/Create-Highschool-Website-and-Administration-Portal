@@ -63,7 +63,6 @@ const TeacherHeader = ({ user }: HeaderProps) => {
         
             {/* user box */}
 
-
             <div className='flex flex-row justify-start items-center gap-2 p-2 rounded-md'>
               
             <div className={`p-2 rounded-full `}>  

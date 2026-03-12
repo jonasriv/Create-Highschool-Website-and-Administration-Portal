@@ -48,7 +48,7 @@ async function searchNDLA(q: string) {
       x?.contexts?.find((c: any) => c?.url)?.url ??
       x?.context?.url ??
       null;
-
+      
     const permalink =
       typeof ctxUrl === "string"
         ? ctxUrl.startsWith("http")
@@ -58,7 +58,7 @@ async function searchNDLA(q: string) {
           : ctxUrl
         : // fallback hvis contexts mangler: bruk API-url (funker, men ikke "publisher")
           x?.url ?? "";
-
+    console.log(permalink);
     return {
       source: "ndla" as const,
       title: pickLang(x?.title),

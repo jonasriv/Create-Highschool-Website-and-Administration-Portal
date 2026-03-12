@@ -14,14 +14,14 @@ export default function Sidebar() {
 
         >            
         <div 
-            className="w-full h-8  text-black flex flex-row justify-end items-center cursor-pointer" 
+            className="w-full h-8 text-black flex flex-row justify-end items-center cursor-pointer hover:bg-black/10 rounded-sm" 
             title="Vis/skjul menyen"
             onClick={() => toggleMenu()}
         >
             {showingMenu ? 
                 <div className="gap-0 justify-around flex flex-row"><ChevronLeft size="20" color=" #ff8000"/><Menu size="20" color=" #ff8000"/></div>
             : 
-                <div className="flex flex-row"><Menu size="20" color=" #ff8000"/><ChevronRight size="20" color=" #ff8000"/></div>
+                <div className="flex flex-row"><Menu size="20" color=" #ff8000"/><ChevronRight size="20" color=" #ff8000" /></div>
             }
         </div>
 

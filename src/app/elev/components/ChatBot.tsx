@@ -2,10 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import Spinner from "@/components/ui/Spinner";
-import { Send, Ban, ChevronRight, HeartHandshake, X, ChevronDown, ChevronUp } from "lucide-react";
+import { Send, Ban, ChevronRight, HeartHandshake, X, ChevronDown, ChevronUp, Plus } from "lucide-react";
 import { useElevStore } from "../store";
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { TbWriting } from "react-icons/tb";
 import { HiSpeakerphone } from "react-icons/hi";
 import ReactMarkdown from "react-markdown";
@@ -91,10 +89,11 @@ export default function ChatBot() {
     const triggerLookup = useElevStore((s) => s.actions.triggerLookup);
     const lastLookupTermRef = useRef<string | null>(null);
     const [lookupTerms, setLookupTerms] = useState<string[]>([]);
-    const [botMode, setBotMode] = useState("");
+    const [botMode, setBotMode] = useState("task_bot");
     const closePanel = useElevStore((s) => s.actions.closePanel);
     const [savedConversations, setSavedConversations] = useState<SavedConversation[]>([]);
     const [showOldConversations, setShowOldConversations] = useState(false);
+    const dark = useElevStore((s) => s.dark);
 
     // Henter tidl. samtaler fra localstorage
     useEffect(() => {
@@ -131,6 +130,7 @@ export default function ChatBot() {
     // Reset medlagring til localstorage
     function reset() {
     setMessages([]);
+    setLookupTerms([]);
     currentConversationId.current = crypto.randomUUID();
     }
 
@@ -161,13 +161,9 @@ export default function ChatBot() {
 
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-    const prevMessageCountRef = useRef(0);
     useEffect(() => {
-        if (messages.length > prevMessageCountRef.current) {
-            prevMessageCountRef.current = messages.length;
-            if (scrollContainerRef.current) {
-                scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
-            }
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
         }
     }, [messages]);
 
@@ -272,40 +268,51 @@ export default function ChatBot() {
             <div className="p-2 border-b border-redish mb-2 shrink-0">
                 <div className="elev_component_header flex flex-row justify-between items-center">
                     Create GPT 
-                    <div className="p-2 rounded-full bg-transparent hover:bg-white/20 cursor-pointer" onClick={() => closePanel("chat")}>
+                    <div className="hidden md:block p-2 rounded-full bg-transparent hover:bg-white/20 cursor-pointer" onClick={() => closePanel("chat")}>
                         <X size="14"/>
                     </div>
                 </div>
                 
                 <div className="text-xs md:text-sm font-mina font-italic">
                     
-                    <RadioGroup defaultValue="task_bot" onValueChange={(value) => setBotMode(value)} className="w-full flex my-2 flex-row gap-2 items-center justify-between">
-                        <div className="flex gap-2 items-center tracking-tighter font-mono">
-                            <RadioGroupItem value="task_bot" id="task_bot"/>
-                            <Label htmlFor="task_bot">Hjelpemodus</Label>
-                        </div>
-                        <div className="flex gap-2 items-center tracking-tighter font-mono">
-                            <RadioGroupItem value="debate_bot" id="debate_bot"/>
-                            <Label htmlFor="debate_bot">Debatt-modus</Label>
-                        </div>
-                        <div className="flex gap-2 items-center tracking-tighter font-mono">
-                            <RadioGroupItem value="text_bot" id="text_bot"/>
-                            <Label htmlFor="text_bot">Tekst-modus</Label>
-                        </div>
-                    </RadioGroup>
-                    <button 
-                        className="flex flex-row gap-2 items-center h-6 px-2 py-1 bg-amber-700 rounded-md hover:bg-amber-900 cursor-pointer" type="button"
-                        onClick={() => setShowOldConversations(!showOldConversations)}
-                    >
-                        Mine samtaler
-                        {showOldConversations ? <ChevronUp size="12"/> : <ChevronDown size="12"/>}
-                    </button>
+                    <div className="flex flex-row gap-3 justify-start my-2">
+                        {([
+                            { id: "task_bot",   label: "Hjelper", icon: <HeartHandshake size={12}/> },
+                            { id: "debate_bot", label: "Debatt",  icon: <HiSpeakerphone size={12}/> },
+                            { id: "text_bot",   label: "Tekst",   icon: <TbWriting size={12}/> },
+                        ] as const).map(mode => (
+                            <button
+                                key={mode.id}
+                                type="button"
+                                onClick={() => {setLookupTerms([]); setBotMode(mode.id)}}
+                                className={`flex flex-row gap-1 items-center px-2.5 py-1 rounded-full text-xs font-mono transition-all ${
+                                    botMode === mode.id
+                                        ? modeColors[mode.id] + " text-black font-semibold shadow"
+                                        : "bg-black/20 text-white/80 hover:bg-white/30"
+                                }`}
+                            >
+                                {mode.icon} {mode.label}
+                            </button>
+                        ))}
+                    </div>
+
                     
                 </div>
             </div>
+            {/* Knapper for vis tidl chatter og Ny chat */}
+            <div className="w-full flex flex-row items-center justify-between mb-2">
+                <button 
+                    className="flex px-1 text-xs uppercase font-semibold flex-row gap-2 items-center h-6 py-1 hover:bg-amber-600 rounded-md  cursor-pointer" type="button"
+                    onClick={() => setShowOldConversations(!showOldConversations)}
+                >
+                    Mine samtaler
+                    {showOldConversations ? <ChevronUp size="12"/> : <ChevronDown size="12"/>}
+                </button>
+                <button className="uppercase font-semibold text-xs hover:bg-amber-600 cursor-pointer p-1 rounded-sm flex flex-row justify-end gap-2 items-center"type= "button" onClick={() => reset()}><Plus size="12"/>Ny chat</button>
+            </div>
             {/* Vise tidl chatter */}
-            <div className={`${showOldConversations ? "inset-0 absolute " : "hidden" } flex flex-row justify-center items-start inset-0 absolute mt-[138px] w-full min-h-0 h-full! backdrop-blur-lg bg-black/80`}>
-                <div className="w-full h-full overflow-auto bg-black/60">
+            <div className={`${showOldConversations ? "inset-0 absolute " : "hidden" } flex flex-row justify-center items-start inset-0 absolute mt-[135px] w-full min-h-0 h-full! backdrop-blur-lg bg-black/100`}>
+                <div className="w-full h-full overflow-auto rounded-md mx-2 mt-2">
                 <table className="w-full text-xs text-black border-collapse">
                     <thead>
                     <tr className="bg-amber-600/50 text-white text-left sticky top-0">
@@ -334,23 +341,32 @@ export default function ChatBot() {
             </div>
             {/* Meldingsliste – tar all ledig plass, scroller selv */}
             <div ref={scrollContainerRef} className="flex-1 min-h-0 overflow-y-auto p-0 space-y-3 text-xs font-normal">
-                <div className="shadow-md whitespace-pre-wrap rounded-md text-black px-2 py-2 text-md tracking-wider font-sans bg-white">
-                    {declaration[botMode as keyof typeof declaration] ?? declaration["task_bot"]}
+                <div className="w-[90%] flex text-left justify-start mr-auto">
+                    <div className={`whitespace-pre-wrap rounded-md px-2 py-2 text-[15px] tracking-normal font-sans ${dark ? "shadow-[0_0_3px_0px_rgb(255,255,255,0.8)]" : "shadow-[0_0_3px_0px_rgb(0,0,0,0.8)]"} mt-2 ml-1 bg-slate-900/80 text-slate-200`}>
+                        <div className="w-full flex flex-row justify-end items-start">
+                            <HeartHandshake size="16" color="yellow"/>
+                        </div>
+                        <div className="leading-tight">
+                            <ReactMarkdown>
+                                {declaration[botMode as keyof typeof declaration] ?? declaration["task_bot"]}
+                            </ReactMarkdown>
+                        </div>
+                    </div>
                 </div>
                 {messages.map((m, idx) => (
                     <div key={idx} className={`w-[90%] flex ${m.role === "user" ? "justify-end ml-auto text-right" : "text-left justify-start mr-auto"}`}>
-                        <div className={` whitespace-pre-wrap rounded-md text-black ${m.role === "user" ? "px-2": "px-0"} py-2 text-[15px] tracking-normal font-sans ${
-                            m.role === "user" ? "bg-amber-700 text-white" : cleanMessage.length < 1 ? "bg-transparent!" : "bg-transparent text-slate-200"
+                        <div className={` whitespace-pre-wrap rounded-md text-black ${m.role === "user" ? "px-2 mr-1": "px-2 ml-1 "} ${dark ? "shadow-[0_0_3px_0px_rgb(255,255,255,0.8)]" : "shadow-[0_0_3px_0px_rgb(0,0,0,0.8)]"} py-2 text-[15px] tracking-normal font-sans ${
+                            m.role === "user" ? "bg-amber-700 text-white" : cleanMessage.length < 1 ? "bg-transparent!" : "bg-slate-900/80 text-slate-200"
                         }`}>
                             <div className="w-full flex flex-row justify-end items-start ">
-                                {m.role === "assistant" && m.botModeSent === "text_bot" && <TbWriting size="16" color="brown"/>}
-                                {m.role === "assistant" && m.botModeSent === "task_bot" && <HeartHandshake size="16" color="blue"/>}
-                                {m.role === "assistant" && m.botModeSent === "debate_bot" && <HiSpeakerphone size="16" color="darkorange"/>}
+                                {m.role === "assistant" && m.botModeSent === "text_bot" && <TbWriting size="16" color="lightblue"/>}
+                                {m.role === "assistant" && m.botModeSent === "task_bot" && <HeartHandshake size="16" color="yellow"/>}
+                                {m.role === "assistant" && m.botModeSent === "debate_bot" && <HiSpeakerphone size="16" color="orange"/>}
                             </div>
                                 {cleanMessage(m.content).trim().length > 0
                                 ? parseMessage(cleanMessage(m.content)).map((seg, i) => {
                                     if (seg.type === "elevtekst")
-                                        return <div key={i} className="elevtekst rounded-md bg-slate-700 text-white mt-1 px-1 [&_p]:bg-slate-700  [&_p]:bg-slate-400 py-2 italic"><ReactMarkdown>{seg.content.replace('"', '')}</ReactMarkdown></div>;
+                                        return <div key={i} className="elevtekst rounded-md bg-slate-700 text-white mt-1 px-1 [&_p]:bg-slate-700 py-2 italic"><ReactMarkdown>{seg.content.replace('"', '')}</ReactMarkdown></div>;
                                     if (seg.type === "tips")
                                         return <div key={i} className="tips flex flex-row leading-normal items-start mb-2 mt-2"><span className="mr-2">🟠</span><ReactMarkdown>{seg.content}</ReactMarkdown></div>;
                                     return <div key={i} className="leading-tight"><ReactMarkdown key={i}>{seg.content}</ReactMarkdown></div>;
@@ -377,32 +393,30 @@ export default function ChatBot() {
             </div>
 
             {/* Input – fast høyde */}
-            <button type= "button" onClick={() => reset()}>RESET</button>
-            <div className="py-2 border-t border-redish flex gap-2 text-black shrink-0">
-                <textarea
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    placeholder="Hva jobber du med?"
-                    className="flex-1 shadow-md resize-none rounded-md border p-3 text-xs outline-none focus:ring-2 focus:ring-primary/30"
-                    rows={2}
-                    onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }}}
-                    disabled={isSending}
-                />
-                <div className="flex flex-col gap-2 items-center justify-center">
-                    
-                    <button onClick={send} disabled={isSending || !input.trim()} className="shadow-md rounded-md flex items-center justify-center p-2 text-sm bg-white text-emerald-500 font-bold">
-                        <Send size="16"/>
-                    </button>
-                    <button onClick={stop} disabled={!isSending} className="shadow-md rounded-md flex items-center justify-center p-2 text-sm border bg-white text-redish font-bold">
-                        <Ban size="16"/>
-                    </button>
+            <div className="pt-2 border-t border-redish flex flex-col gap-1 text-black shrink-0">
+                <div className="flex gap-2">
+                    <textarea
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        placeholder="Hva jobber du med?"
+                        className="flex-1 shadow-md resize-none rounded-md border p-3 text-sm outline-none focus:ring-2 focus:ring-primary/30"
+                        rows={3}
+                        onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }}}
+                        disabled={isSending}
+                    />
+                    <div className="flex flex-col gap-2 items-center justify-center">
+                        <button onClick={send} disabled={isSending || !input.trim()} className="shadow-md rounded-md flex items-center justify-center p-2 text-sm bg-white text-emerald-500 font-bold">
+                            <Send size="16"/>
+                        </button>
+                        <button onClick={stop} disabled={!isSending} className="shadow-md rounded-md flex items-center justify-center p-2 text-sm border bg-white text-redish font-bold">
+                            <Ban size="16"/>
+                        </button>
+                    </div>
                 </div>
+                <p className="text-[10px] text-white/40 px-1 pb-1">
+                    Ikke gi chatboten personsensitiv informasjon som navn, tlf, epost etc.
+                </p>
             </div>
-        </div>
-
-        {/* NB-melding */}
-        <div className="text-xs shadow-md opacity-80 mt-3 px-2 text-moreredish bg-white rounded-md py-1 shrink-0">
-            <b>NB</b>: Ikke gi chatboten personsensitiv informasjon som navn, tlf, epost etc.
         </div>
     </div>
 );

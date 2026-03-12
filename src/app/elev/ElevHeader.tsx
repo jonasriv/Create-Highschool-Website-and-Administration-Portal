@@ -144,7 +144,7 @@ const ElevHeader = ({ user, toggleRef }: HeaderProps) => {
               </div>
             </div>
 
-            <div ref={toggleRef} className='hidden md:block'>
+            <div ref={toggleRef} className='hidden'>
               {user && <HamburgerMenu isOpen={showingNavbar} toggleMenu={toggleNavbar} />}
             </div>
           </div>

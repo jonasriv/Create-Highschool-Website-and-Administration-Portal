@@ -37,6 +37,16 @@ const FEEDS: Feed[] = [
 
 // SSB
 { name: "SSB", url: "https://www.ssb.no/rss/" },
+
+// Internasjonalt
+{ name: "BBC News", url: "https://feeds.bbci.co.uk/news/rss.xml" },
+{ name: "BBC Science", url: "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml" },
+{ name: "The Guardian World", url: "https://www.theguardian.com/world/rss" },
+{ name: "The Guardian Science", url: "https://www.theguardian.com/science/rss" },
+{ name: "Reuters", url: "https://feeds.reuters.com/reuters/topNews" },
+{ name: "NASA", url: "https://www.nasa.gov/rss/dyn/breaking_news.rss" },
+{ name: "UN News", url: "https://news.un.org/feed/subscribe/en/news/all/rss.xml" },
+{ name: "Al Jazeera", url: "https://www.aljazeera.com/xml/rss/all.xml" },
 ];
 
 type NewsSuggestion = {
